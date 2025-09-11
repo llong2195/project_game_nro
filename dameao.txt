@@ -1,0 +1,49 @@
+- thẻ đổi tên
+- thêm tiền tệ quy đổi
+- Có shop thỏi vàng. Shop hồng ngọc. Shop thỏi vàng vip. Shop linh thạch
+- shop
+   + hào quang ( shop linh thạch)
+   + chân mệnh( slt)
+   + linh thú(slt)
+   + pet sói, rồng, rắn..(slt)
+- vật phẩm đeo lưng
+- cánh tiên..
+- thú cưỡi...
+- danh hiệu
+- vip 12345
+- đua top hàng tuần
+   +Top săn boss
+   +Top pk
+   
+- săn boss lấy mảnh chế đồ. Đủ set kich hoạt nội tại
+- boss rơi linh thú
+- boss rơi pet
+- boss rơi mảnh trang bị
+- linh thú- pet có sức khỏe. Train quái lấy thức ăn. Cho ăn cần t.a + thỏi vàng.
+
+- săn pet . Linh thú cần dây trói mua ở shop. Không có dây trói pet với linh thú sẽ chạy mất
+-Map vip ( yêu cầu mở vip mới vô được)
+ +Vip1 tầng 1. vip 2 tầng 2.... vip càng cao tăng tỷ lệ số lượng vật phẩm nhiều
+- điểm danh hằng ngày nhận thưởng tùy mốc vip
+- chức năng tu tiên
+  + train map vip quái thường nhặt nl luyện đan. sẽ xuất hiện boss rơi nl vip
+  + đủ điều kiện ra npc tu tiên đổi đan dược 
+- đan 
++ đan đột phá cảnh giới ( train quái nhặt nlld)
++ đan đột phá giới hạn sức mạnh cần nl thường + nguyên liệu pem boss + nl mua shop  đan gồm hạ phẩm. Trung phẩm. Thượng phẩm
+ Mỗi cảnh giới khi đột phá được dùng giới hạn 50 viên 
+Hạ phẩm tăng 100 csg 1vien. Trung 500 csg 1vien . Thượng 1k cgs 1 viên
+- cấp bậc tu tiên
++Luyện khí, trúc cơ, kim đan,....
++ sử dụng đan để đột phá cảnh giới
++Mỗi cảnh giới lớn chia 100 tầng nhỏ. 
+1 tầng tăng 100 chỉ số gốc 
+- map bí cảnh 2 loại. Tham gia tranh bảo vật đoạt cơ duyên ( cách chơi giống nrsd)
++ bí cảnh nhỏ mở ra mỗi ngày khung giờ 10h -11h pem boss nhặt trang bị vip + nr mỗi hôm 1 viên đủ 7 hôm 7 viên đổi item vp vip
++ bí cảnh lớn mở ra thứ 7 Chủ nhật từ 10h- 11h gồm 2 map
+ + Điều kiện vô bí cảnh cần vip 1+ lệnh bài (mua ở shop)
+- Map bí cảnh lớn không thể hồi sinh bằng ngọc( có thể hs riêng mua shop hoặc pem boss nhặt)
++Khi bị giết ở bí cảnh sẽ bị trừ 1 cảnh giới trừ chỉ số gốc
++ vô map pk ai kill nhiều sẽ được danh hiệu thiên kiêu, yêu nghiệt, thiên tài tăng csg tùy xếp hạng
++ pem boss rơi trang bị vip max sever
+  
