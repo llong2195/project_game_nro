@@ -40,10 +40,10 @@ public class InventoryServiceNew {
                 textGift += quantity + " vàng\b";
             } else if (idItem == -2) {
                 p.inventory.gem = Math.min(p.inventory.gem + quantity, 200000000);
-                textGift += quantity + " ngọc\b";
+                textGift += quantity + " ng�?c\b";
             } else if (idItem == -3) {
                 p.inventory.ruby = Math.min(p.inventory.ruby + quantity, 200000000);
-                textGift += quantity + " ngọc khóa\b";
+                textGift += quantity + " ng�?c khóa\b";
             } else {
                 Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
                 if (itemGiftTemplate != null) {
@@ -72,9 +72,9 @@ public class InventoryServiceNew {
 
     }
 
-    private void __________________Tìm_kiếm_item_____________________________() {
-        // **********************************************************************
-    }
+//    private void __________________Tìm_kiếm_item_____________________________() {
+//        // **********************************************************************
+//    }
 
     public Item findItem(List<Item> list, int tempId) {
         try {
@@ -123,9 +123,7 @@ public class InventoryServiceNew {
         return this.isExistItem(player.inventory.itemsBox, tempId);
     }
 
-    private void __________________Sao_chép_danh_sách_item__________________() {
-        // **********************************************************************
-    }
+  
 
     public List<Item> copyList(List<Item> items) {
         List<Item> list = new ArrayList<>();
@@ -147,13 +145,11 @@ public class InventoryServiceNew {
         return copyList(player.inventory.itemsBox);
     }
 
-    private void __________________Vứt_bỏ_item______________________________() {
-        // **********************************************************************
-    }
+
 
     public boolean IsThrowItem(Item item) {
         switch (item.template.id) {
-            case 457: // thỏi vàng và Pha Lê Z
+            case 457: // th�?i vàng và Pha Lê Z
             case 194: // Capsule VIP
                 return false;
             default:
@@ -175,7 +171,7 @@ public class InventoryServiceNew {
                 sortItems(player.inventory.itemsBag);
                 sendItemBags(player);
             } else {
-                Service.gI().sendThongBao(player, "Vật phẩm không thể vứt bỏ.");
+                Service.gI().sendThongBao(player, "Vật phẩm không thể vứt b�?.");
             }
         }
         if (itemThrow == null) {
@@ -183,9 +179,6 @@ public class InventoryServiceNew {
         }
     }
 
-    private void __________________Xoá_bỏ_item______________________________() {
-        // **********************************************************************
-    }
 
     public void removeItem(List<Item> items, int index) {
         Item item = ItemService.gI().createItemNull();
@@ -226,9 +219,6 @@ public class InventoryServiceNew {
         this.removeItem(player.inventory.itemsBox, index);
     }
 
-    private void __________________Giảm_số_lượng_item_______________________() {
-        // **********************************************************************
-    }
 
     public void subQuantityItemsBag(Player player, Item item, int quantity) {
         subQuantityItem(player.inventory.itemsBag, item, quantity);
@@ -256,9 +246,7 @@ public class InventoryServiceNew {
         }
     }
 
-    private void __________________Sắp_xếp_danh_sách_item___________________() {
-        // **********************************************************************
-    }
+ 
 
     public void sortItems(List<Item> list) {
         int first = -1;
@@ -286,9 +274,7 @@ public class InventoryServiceNew {
         }
     }
 
-    private void __________________Thao_tác_tháo_mặc_item___________________() {
-        // **********************************************************************
-    }
+
 
     private Item putItemBag(Player player, Item item) {
         for (int i = 0; i < player.inventory.itemsBag.size(); i++) {
@@ -467,7 +453,7 @@ public class InventoryServiceNew {
                 }
             }
         } else {
-            Service.getInstance().sendThongBaoOK(player, "Đệ tử phải đạt 1tr5 sức mạnh mới có thể mặc");
+            Service.getInstance().sendThongBaoOK(player, "�?ệ tử phải đạt 1tr5 sức mạnh mới có thể mặc");
         }
     }
 
@@ -565,9 +551,9 @@ public class InventoryServiceNew {
         }
     }
 
-    private void __________________Gửi_danh_sách_item_cho_người_chơi________() {
-        // **********************************************************************
-    }
+//    private void __________________Gửi_danh_sách_item_cho_ngư�?i_chơi________() {
+//        // **********************************************************************
+//    }
 
     public void sendItemBags(Player player) {
         sortItems(player.inventory.itemsBag);
@@ -670,9 +656,9 @@ public class InventoryServiceNew {
         }
     }
 
-    private void __________________Thêm_vật_phẩm_vào_danh_sách______________() {
-        // **********************************************************************
-    }
+//    private void __________________Thêm_vật_phẩm_vào_danh_sách______________() {
+//        // **********************************************************************
+//    }
 
     private boolean addItemSpecial(Player player, Item item) {
         // bùa
@@ -834,7 +820,7 @@ public class InventoryServiceNew {
                 return false;
             }
         }
-        // ngọc rồng đen
+        // ng�?c rồng đen
         if (ItemMapService.gI().isBlackBall(item.template.id)) {
             return BlackBallWar.gI().pickBlackBall(player, item);
         }
@@ -982,9 +968,9 @@ public class InventoryServiceNew {
         return false;
     }
 
-    private void __________________Kiểm_tra_điều_kiện_vật_phẩm______________() {
-        // **********************************************************************
-    }
+//    private void __________________Kiểm_tra_đi�?u_kiện_vật_phẩm______________() {
+//        // **********************************************************************
+//    }
 
     /**
      * Kiểm tra vật phẩm có phải là vật phẩm tăng chỉ số option hay không
@@ -1002,9 +988,7 @@ public class InventoryServiceNew {
         return new int[]{-1, -1};
     }
 
-    private void __________________Kiểm_tra_danh_sách_còn_chỗ_trống_________() {
-        // **********************************************************************
-    }
+   
 
     public byte getCountEmptyBag(Player player) {
         return getCountEmptyListItem(player.inventory.itemsBag);
@@ -1042,10 +1026,5 @@ public class InventoryServiceNew {
             }
         }
         return true;
-    }
-
-    public void sendMoney(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
