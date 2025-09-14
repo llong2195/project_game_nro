@@ -35,8 +35,7 @@ public class Maintenance extends Thread {
 
     @Override
     public void run() {
-        while (this.min > 0) 
-        {
+        while (this.min > 0) {
             isBaoTri = true;
             this.min--;
             Service.gI().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + min
@@ -46,7 +45,8 @@ public class Maintenance extends Thread {
                 Thread.sleep(1000);
             } catch (Exception e) {
             }
-        } ServerManager.gI().close(100);
+        }
+        ServerManager.gI().close(100);
     }
 
 }

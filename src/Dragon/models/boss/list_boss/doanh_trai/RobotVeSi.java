@@ -1,4 +1,5 @@
 package Dragon.models.boss.list_boss.doanh_trai;
+
 import Dragon.consts.ConstPlayer;
 import Dragon.models.boss.*;
 import static Dragon.models.boss.BossStatus.ACTIVE;
@@ -18,35 +19,38 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RobotVeSi extends Boss {
+
     private static final int[][] FULL_DEMON = new int[][]{{Skill.DEMON, 1}, {Skill.DEMON, 2}, {Skill.DEMON, 3}, {Skill.DEMON, 4}, {Skill.DEMON, 5}, {Skill.DEMON, 6}, {Skill.DEMON, 7}};
-  private long lastTimeHapThu;
+    private long lastTimeHapThu;
     private int timeHapThu;
     private int initSuper = 0;
     protected Player playerAtt;
     private int timeLive = 10;
     private boolean calledNinja;
-    public RobotVeSi(Zone zone, long dame, long hp ) throws Exception {
+
+    public RobotVeSi(Zone zone, long dame, long hp) throws Exception {
         super(BossID.NINJA_AO_TIM, new BossData(
                 "Robot vệ Si", //name
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{138, 139, 140, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-                ((hp/5)), //dame
-                new long[]{((dame * 50 ))}, //hp
+                ((hp / 5)), //dame
+                new long[]{((dame * 50))}, //hp
                 new int[]{57}, //map join
                 new int[][]{
-                {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
-                {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11},{Skill.KAMEJOKO, 1, 12},
-              {Skill.ANTOMIC, 1, 13},  {Skill.ANTOMIC, 2, 14},  {Skill.ANTOMIC, 3, 15},{Skill.ANTOMIC, 4, 16},  {Skill.ANTOMIC, 5, 17},{Skill.ANTOMIC, 6, 19},  {Skill.ANTOMIC, 7, 20},
-                {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},
+                    {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
+                    {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
+                    {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
+                    {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},
                     {Skill.KAMEJOKO, 7, 1000},},
                 new String[]{}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{}, //text chat 3
                 60
         ));
-        
+
         this.zone = zone;
     }
+
     @Override
     public void reward(Player plKill) {
         if (Util.isTrue(100, 100)) {
@@ -55,14 +59,14 @@ public class RobotVeSi extends Boss {
             Service.getInstance().dropItemMap(this.zone, it);
         }
     }
-    
+
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
         if (Util.canDoWithTime(st, 1800000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-    
+
     @Override
     public void leaveMap() {
         super.leaveMap();
@@ -70,15 +74,14 @@ public class RobotVeSi extends Boss {
             BossManager.gI().removeBoss(this);
         }
     }
-     
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
     private long st;
-    
-   
+
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
@@ -90,7 +93,7 @@ public class RobotVeSi extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage/2;
+                damage = damage / 2;
             }
             this.nPoint.subHP(damage);
             if (this.nPoint.hp <= 15000000 && !this.calledNinja) {
@@ -105,14 +108,13 @@ public class RobotVeSi extends Boss {
                 this.calledNinja = true;
             }
             if (isDie()) {
-this.setDie(plAtt);
-die(plAtt);
-}
+                this.setDie(plAtt);
+                die(plAtt);
+            }
             return damage;
         } else {
             return 0;
         }
     }
-    
 
 }

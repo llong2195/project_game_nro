@@ -10,7 +10,6 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class Pic extends Boss {
 
     public Pic() throws Exception {
@@ -24,8 +23,9 @@ public class Pic extends Boss {
                     this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
+
     @Override
     public void doneChatE() {
         if (this.parentBoss == null || this.parentBoss.bossAppearTogether == null
@@ -38,7 +38,9 @@ public class Pic extends Boss {
                 break;
             }
         }
-    } @Override
+    }
+
+    @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();

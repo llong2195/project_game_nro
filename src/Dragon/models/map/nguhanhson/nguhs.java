@@ -1,5 +1,5 @@
-
 package Dragon.models.map.nguhanhson;
+
 import Dragon.models.clan.Clan;
 import Dragon.models.map.Zone;
 import Dragon.models.mob.Mob;
@@ -11,13 +11,12 @@ import Dragon.utils.TimeUtil;
 import Dragon.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
 
 public class nguhs {
+
     public static final byte HOUR_OPEN_MAP_NHS = 0;
     public static final byte MIN_OPEN_MAP_NHS = 0;
     public static final byte SECOND_OPEN_MAP_NHS = 0;
-
 
     public static final byte HOUR_CLOSE_MAP_NHS = 23;
     public static final byte MIN_CLOSE_MAP_NHS = 59;
@@ -39,7 +38,7 @@ public class nguhs {
         i.setTimeJoinnguhs();
         return i;
     }
-    
+
     public void setTimeJoinnguhs() {
         if (i.day == -1 || i.day != TimeUtil.getCurrDay()) {
             i.day = TimeUtil.getCurrDay();
@@ -50,7 +49,6 @@ public class nguhs {
             }
         }
     }
-
 
     private void kickOutOfnguhs(Player player) {
         if (MapService.gI().isnguhs(player.zone.map.mapId)) {
@@ -84,17 +82,17 @@ public class nguhs {
             Service.getInstance().changeFlag(player, 8);
         }
     }
+
     public void update(Player player) {
         try {
             long now = System.currentTimeMillis();
-            if (!(now > TIME_OPEN_NHS && now < TIME_CLOSE_NHS) && MapService.gI().isnguhs(player.zone.map.mapId) ) {
-                
-                    ketthucnguhs(player);
-                
+            if (!(now > TIME_OPEN_NHS && now < TIME_CLOSE_NHS) && MapService.gI().isnguhs(player.zone.map.mapId)) {
+
+                ketthucnguhs(player);
+
             }
         } catch (Exception ex) {
         }
     }
 
-    
 }

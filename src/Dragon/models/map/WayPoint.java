@@ -1,6 +1,5 @@
 package Dragon.models.map;
 
-
 public class WayPoint {
 
     public short minX;

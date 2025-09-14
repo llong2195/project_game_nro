@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class ServerLogSavePlayer implements Runnable {
 
     private static ServerLogSavePlayer i;
@@ -42,17 +41,16 @@ public class ServerLogSavePlayer implements Runnable {
                     bw.write(text.substring(text.indexOf(":") + 2, text.length()) + "\n");
                     bw.flush();
                 } catch (IOException e) {
-                      
+
                 }
 
             }
             try {
                 Thread.sleep(200);
-            } catch (InterruptedException ex)
-            {
-                  
+            } catch (InterruptedException ex) {
+
             }
-            
+
         }
     }
 

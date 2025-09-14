@@ -160,6 +160,7 @@ public class SkillUtil {
         int[] perHPs = {30, 40, 50, 60, 70, 80, 90};
         return hpMaxPlayer * perHPs[level - 1] / 100;
     }
+
     public static Skill getSkillbyId(Player player, int id) {
         for (Skill skill : player.playerSkill.skills) {
             if (skill.template.id == id) {

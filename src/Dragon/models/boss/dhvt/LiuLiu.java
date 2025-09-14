@@ -4,8 +4,9 @@ import Dragon.models.boss.BossData;
 import Dragon.models.boss.BossID;
 import Dragon.models.boss.BossesData;
 import Dragon.models.player.Player;
+
 /**
- * @author BTH sieu cap vippr0 
+ * @author BTH sieu cap vippr0
  */
 public class LiuLiu extends BossDHVT {
 

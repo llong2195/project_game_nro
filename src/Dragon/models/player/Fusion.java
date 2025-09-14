@@ -3,7 +3,6 @@ package Dragon.models.player;
 import Dragon.consts.ConstPlayer;
 import Dragon.utils.Util;
 
-
 public class Fusion {
 
     public static final int TIME_FUSION = 600000;
@@ -21,8 +20,8 @@ public class Fusion {
             this.player.pet.unFusion();
         }
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.player = null;
     }
 

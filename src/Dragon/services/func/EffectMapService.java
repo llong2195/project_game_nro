@@ -5,7 +5,6 @@ import Dragon.models.player.Player;
 import com.girlkun.network.io.Message;
 import Dragon.services.Service;
 
-
 public class EffectMapService {
 
     private static EffectMapService i;

@@ -18,6 +18,7 @@ import Dragon.services.TaskService;
 import Dragon.services.func.ChangeMapService;
 import Dragon.utils.SkillUtil;
 import Dragon.utils.Util;
+import java.util.List;
 import java.util.Random;
 import com.girlkun.network.io.Message;
 
@@ -114,9 +115,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             }
             this.playerSkill.skills.add(skill);
         }
-
-        // Fallback: nếu DB không có kỹ năng nào, thêm 1 skill mặc định để boss có thể
-        // tấn công
         if (this.playerSkill.skills.isEmpty()) {
             try {
                 Skill defaultSkill = SkillUtil.createSkill(1, 1); // ví dụ: Kamejoko lv1
@@ -371,13 +369,13 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     protected void notifyJoinMap() {
-        if (this.id >= 1)
+        // Notify on appear for normal maps. Still skip special event maps.
+        if (this.zone != null && (MapService.gI().isMapMaBu(this.zone.map.mapId)
+                || MapService.gI().isMapBlackBallWar(this.zone.map.mapId))) {
             return;
-        if (this.zone.map.mapId == 3 || MapService.gI().isMapMaBu(this.zone.map.mapId)
-                || MapService.gI().isMapBlackBallWar(this.zone.map.mapId))
-            return;
-        ServerNotify.gI().notify("BOSS " + this.name + " Vừa Xuất Hiện Tại " + this.zone.map.mapName);
-        // System.out.println("Boss " + this.name + " XH");
+        }
+        ServerNotify.gI().notify(
+                "BOSS " + this.name + " Vừa Xuất Hiện Tại " + (this.zone != null ? this.zone.map.mapName : "Unknown"));
     }
 
     @Override
@@ -511,9 +509,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 plKill.PointBoss += 1;
             }
         } else {
-            if (plKill != null && !plKill.isBot) {
-                reward(plKill);
-            }
             this.changeStatus(BossStatus.DIE);
         }
     }
@@ -521,6 +516,31 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     @Override
     public void reward(Player plKill) {
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+
+        // Handle SQL-based boss drops
+        handleSqlBossDrops(plKill);
+    }
+
+    /**
+     * Handle boss drops from SQL database
+     */
+    private void handleSqlBossDrops(Player plKill) {
+        try {
+            Dragon.utils.Logger.log("Boss died: ID=" + this.id + ", Name=" + this.name);
+
+            List<ItemMap> sqlDrops = Dragon.jdbc.daos.BossRewardService.getInstance()
+                    .processRewards(this, plKill, this.location.x, this.location.y);
+
+            Dragon.utils.Logger.log("Boss " + this.id + " generated " + sqlDrops.size() + " drops");
+
+            for (ItemMap itemMap : sqlDrops) {
+                Service.gI().dropItemMap(this.zone, itemMap);
+                Dragon.utils.Logger.log("Dropped item: " + itemMap.itemTemplate.id + " x" + itemMap.quantity);
+            }
+
+        } catch (Exception e) {
+            Dragon.utils.Logger.logException(Boss.class, e);
+        }
     }
 
     public void rewardFutureBoss(Player plKill) {

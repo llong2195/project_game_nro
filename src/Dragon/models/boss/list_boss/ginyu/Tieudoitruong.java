@@ -13,21 +13,22 @@ import Dragon.services.TaskService;
 import Dragon.utils.Util;
 import java.util.Random;
 
-
 public class Tieudoitruong extends Boss {
 
     public Tieudoitruong() throws Exception {
-        super(BossID.TIEU_DOI_TRUONG,BossesData.TIEU_DOI_TRUONG);
+        super(BossID.TIEU_DOI_TRUONG, BossesData.TIEU_DOI_TRUONG);
     }
-   @Override
+
+    @Override
     public void reward(Player plKill) {
         if (Util.isTrue(15, 100)) {
             ItemMap it = new ItemMap(this.zone, 17, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, it);
+            Service.gI().dropItemMap(this.zone, it);
         }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
+
     @Override
     protected void notifyJoinMap() {
         if (this.currentLevel == 1000000000) {
@@ -35,6 +36,7 @@ public class Tieudoitruong extends Boss {
         }
         super.notifyJoinMap();
     }
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
@@ -54,7 +56,7 @@ public class Tieudoitruong extends Boss {
             this.attack();
         }
     }
-   
+
 }
 
 /**

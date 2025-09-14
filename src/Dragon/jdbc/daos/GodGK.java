@@ -141,10 +141,10 @@ public class GodGK {
                             if (plInGame != null) {
                                 Client.gI().kickSession(plInGame.getSession());
                             }
-                            
+
                             // Sử dụng PlayerDataLoader thay thế toàn bộ duplicate code
                             player = PlayerDataLoader.loadPlayer(rs, PlayerDataLoader.LoadType.FULL_LOGIN);
-                            
+
                             // Thêm các logic đặc biệt cho login
                             long now = System.currentTimeMillis();
                             long thoiGianOffline = now - session.lastTimeOff;
@@ -173,8 +173,6 @@ public class GodGK {
         }
         return player;
     }
-
-   
 
     public static void SetPlayer(Player pl) {
 //        if(pl == null)
@@ -229,6 +227,7 @@ public class GodGK {
         }
         return player;
     }
+
     public static Player loadByIdSieuHang(int id) {
         Player player = null;
         GirlkunResultSet rs = null;

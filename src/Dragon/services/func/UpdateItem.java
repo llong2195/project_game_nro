@@ -75,18 +75,16 @@ public class UpdateItem {
         if (ntl == 4) {
             return id == 561;
         }
-        return id >= 555 && id <= 567 && flag&& item.template.gender == cgender;
+        return id >= 555 && id <= 567 && flag && item.template.gender == cgender;
     }
- 
+
     public static boolean isDNS(Item item) {
         int id = item.template.id;
         return id == 674;
     }
 
-    public static boolean isIDThan(Item item) 
-    {
-        if(item == null || item.template == null)
-        {
+    public static boolean isIDThan(Item item) {
+        if (item == null || item.template == null) {
             return false;
         }
         int id = item.template.id;
@@ -111,108 +109,105 @@ public class UpdateItem {
                 }
             }
         } catch (Exception e) {
-                     
+
         }
     }
 
-    public static void CreateSKH(Player player, int cgender, int type,Item itemview) 
-    {
-        try
-        { cgender = type == 4 ? player.gender : cgender;
-        int[][] SKHTable = {
-            {127, 128, 129},
-            {130, 131, 132},
-            {133, 134, 135}
-        };
-        int[][] SKHTable2 = {
-            {139, 140, 141},
-            {142, 143, 144},
-            {136, 137, 138}
-        };
-        int random1 = Util.nextInt(3);
-        int chiso1 = SKHTable[cgender][random1];
-        int chiso2 = SKHTable2[cgender][random1];
-        int random = Util.nextInt(1000);
-        Item item = null;
-        int option = 0;
-        int chiso = 0;
-        int level = 0;
-        if (type < 4) {
-            int[][] idcreate = new int[0][0];
-            switch (cgender) {
-                case 0:
-                    idcreate = DoTraiDat;
-                    break;
-                case 1:
-                    idcreate = DoNamec;
-                    break;
-                case 2:
-                    idcreate = DoXayda;
-                    break;
+    public static void CreateSKH(Player player, int cgender, int type, Item itemview) {
+        try {
+            cgender = type == 4 ? player.gender : cgender;
+            int[][] SKHTable = {
+                {127, 128, 129},
+                {130, 131, 132},
+                {133, 134, 135}
+            };
+            int[][] SKHTable2 = {
+                {139, 140, 141},
+                {142, 143, 144},
+                {136, 137, 138}
+            };
+            int random1 = Util.nextInt(3);
+            int chiso1 = SKHTable[cgender][random1];
+            int chiso2 = SKHTable2[cgender][random1];
+            int random = Util.nextInt(1000);
+            Item item = null;
+            int option = 0;
+            int chiso = 0;
+            int level = 0;
+            if (type < 4) {
+                int[][] idcreate = new int[0][0];
+                switch (cgender) {
+                    case 0:
+                        idcreate = DoTraiDat;
+                        break;
+                    case 1:
+                        idcreate = DoNamec;
+                        break;
+                    case 2:
+                        idcreate = DoXayda;
+                        break;
+                }
+                if (random <= 935) {
+                    level = Util.nextInt(idcreate[type].length);
+                    int[] rows = idcreate[type];
+                    item = ItemService.gI().createNewItem((short) (rows[level]));
+                } else if (random <= 975) {
+                    level = 12;
+                    item = ItemService.gI().createNewItem((short) (DoThanLinh[cgender][type]));
+                } else if (random <= 995) {
+                    level = 13;
+                    int rows = DoHuyDiet[cgender][type];
+                    item = ItemService.gI().createNewItem((short) rows);
+                } else {
+                    level = 14;
+                    int rows = DoThienSu[cgender][type];
+                    item = ItemService.gI().createNewItem((short) rows);
+                }
+                switch (type) {
+                    case 0:
+                        option = 47;
+                        break;
+                    case 1:
+                        option = 6;
+                        break;
+                    case 2:
+                        option = 0;
+                        break;
+                    case 3:
+                        option = 7;
+                        break;
+                }
             }
-            if (random <= 935) 
-            {
-                level = Util.nextInt(idcreate[type].length);
-                int[] rows = idcreate[type];
-                item = ItemService.gI().createNewItem((short) (rows[level]));
-            } else if (random <= 975) {
-                level = 12;
-                item = ItemService.gI().createNewItem((short) (DoThanLinh[cgender][type]));
-            } else if (random <= 995) {
-                level = 13;
-                int rows = DoHuyDiet[cgender][type];
-                item = ItemService.gI().createNewItem((short) rows);
-            } else {
-                level = 14;
-                int rows = DoThienSu[cgender][type];
-                item = ItemService.gI().createNewItem((short) rows);
-            }
-            switch (type) {
-                case 0:
-                    option = 47;
-                    break;
-                case 1:
-                    option = 6;
-                    break;
-                case 2:
-                    option = 0;
-                    break;
-                case 3:
-                    option = 7;
-                    break;
-            }
-        }
-        if (type == 4) {
+            if (type == 4) {
                 level = 14;
                 int rows = NhanThienSu[cgender];
                 item = ItemService.gI().createNewItem((short) rows);
-            option = 14;
-        }
-        chiso = ChiSo[type][level];
-        int congthem = Util.nextInt(0, 5);
-        int chisocongthem = chiso * congthem;
-        chiso += chisocongthem / 100;
-        if (option == 6 && chiso >= 100000) {
-            item.itemOptions.add(new Item.ItemOption(22, chiso / 1000));
-        } else if (option == 7 && chiso >= 100000) {
-            item.itemOptions.add(new Item.ItemOption(23, chiso / 1000));
-        } else {
-            item.itemOptions.add(new Item.ItemOption(option, chiso));
-        }
-        item.itemOptions.add(new Item.ItemOption(chiso1, 0));
-        item.itemOptions.add(new Item.ItemOption(chiso2, 0));
-        item.itemOptions.add(new Item.ItemOption(30, 0));
-        InventoryServiceNew.gI().addItemBag(player, item);
-        InventoryServiceNew.gI().sendItemBags(player);
-        CombineServiceNew.gI().sendEffectOpenItem(player, itemview.template.iconID, item.template.iconID);}
-        catch(Exception e)       
-        {
+                option = 14;
+            }
+            chiso = ChiSo[type][level];
+            int congthem = Util.nextInt(0, 5);
+            int chisocongthem = chiso * congthem;
+            chiso += chisocongthem / 100;
+            if (option == 6 && chiso >= 100000) {
+                item.itemOptions.add(new Item.ItemOption(22, chiso / 1000));
+            } else if (option == 7 && chiso >= 100000) {
+                item.itemOptions.add(new Item.ItemOption(23, chiso / 1000));
+            } else {
+                item.itemOptions.add(new Item.ItemOption(option, chiso));
+            }
+            item.itemOptions.add(new Item.ItemOption(chiso1, 0));
+            item.itemOptions.add(new Item.ItemOption(chiso2, 0));
+            item.itemOptions.add(new Item.ItemOption(30, 0));
+            InventoryServiceNew.gI().addItemBag(player, item);
+            InventoryServiceNew.gI().sendItemBags(player);
+            CombineServiceNew.gI().sendEffectOpenItem(player, itemview.template.iconID, item.template.iconID);
+        } catch (Exception e) {
             Service.gI().sendThongBao(player, "Có lỗi xảy ra !");
-            
+
         }
     }
 
-    public static void createSKHVip(Player player, int cgender, int type,Item itemview) {
+    public static void createSKHVip(Player player, int cgender, int type, Item itemview) {
         cgender = type == 4 ? player.gender : cgender;
         int[][] SKHTable = {
             {127, 128, 129},
@@ -315,9 +310,7 @@ public class UpdateItem {
         CombineServiceNew.gI().sendEffectOpenItem(player, itemview.template.iconID, item.template.iconID);
     }
 
-    
-    
-    public static void createSKHThienSu(Player player, int cgender, int type,Item itemview) {
+    public static void createSKHThienSu(Player player, int cgender, int type, Item itemview) {
         cgender = type == 4 ? player.gender : cgender;
         int[][] SKHTable = {
             {127, 128, 129},
@@ -338,8 +331,8 @@ public class UpdateItem {
         int level = 0;
 
         if (type < 4) {
-                level = 14;
-                item = ItemService.gI().createNewItem((short) (DoThienSu[cgender][type]));
+            level = 14;
+            item = ItemService.gI().createNewItem((short) (DoThienSu[cgender][type]));
             switch (type) {
                 case 0:
                     option = 47;
@@ -357,8 +350,8 @@ public class UpdateItem {
         }
 
         if (type == 4) {
-                level = 14;
-                item = ItemService.gI().createNewItem((short) (NhanThienSu[cgender]));
+            level = 14;
+            item = ItemService.gI().createNewItem((short) (NhanThienSu[cgender]));
             option = 14;
         }
 
@@ -380,17 +373,16 @@ public class UpdateItem {
         InventoryServiceNew.gI().sendItemBags(player);
         CombineServiceNew.gI().sendEffectOpenItem(player, itemview.template.iconID, item.template.iconID);
     }
-    
+
     public static Item findItemThan(List<Item> list, int cgender, int type) {
         try {
             for (Item item : list) {
-                if (item.isNotNullItem() && isIDThan(item, cgender, type)  ) {
+                if (item.isNotNullItem() && isIDThan(item, cgender, type)) {
                     return item;
                 }
             }
-        } catch (Exception e) 
-        {
-                     
+        } catch (Exception e) {
+
         }
         return null;
     }

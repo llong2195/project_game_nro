@@ -4,7 +4,6 @@ import Dragon.data.DataGame;
 import com.girlkun.network.session.ISession;
 import com.girlkun.network.example.KeyHandler;
 
-
 public class MyKeyHandler extends KeyHandler {
 
     @Override
@@ -14,25 +13,3 @@ public class MyKeyHandler extends KeyHandler {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

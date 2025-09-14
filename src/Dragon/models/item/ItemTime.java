@@ -12,7 +12,6 @@ import Dragon.models.map.Zone;
 import Dragon.server.ServerNotify;
 import java.util.List;
 
-
 public class ItemTime {
 
     //id item text
@@ -158,14 +157,14 @@ public class ItemTime {
                     Item ca1 = ItemService.gI().createNewItem((short) listCa1[Util.nextInt(listCa1.length)]);
                     ca1.itemOptions.add(new ItemOption(72, 5));
                     InventoryServiceNew.gI().addItemBag(player, ca1);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca1.template.name + "Siêu Siêu Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca1.template.name + "Siêu Siêu Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 10) {
                     // Hiếm
                     Item ca2 = ItemService.gI().createNewItem((short) listCa2[Util.nextInt(listCa2.length)]);
                     ca2.itemOptions.add(new ItemOption(72, 4));
                     InventoryServiceNew.gI().addItemBag(player, ca2);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca2.template.name + "Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca2.template.name + "Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 60) {
                     // Trung
@@ -224,14 +223,14 @@ public class ItemTime {
                     Item ca1 = ItemService.gI().createNewItem((short) listCa1[Util.nextInt(listCa1.length)]);
                     ca1.itemOptions.add(new ItemOption(72, 5));
                     InventoryServiceNew.gI().addItemBag(player, ca1);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca1.template.name + "Siêu Siêu Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca1.template.name + "Siêu Siêu Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 10) {
                     // Hiếm
                     Item ca2 = ItemService.gI().createNewItem((short) listCa2[Util.nextInt(listCa2.length)]);
                     ca2.itemOptions.add(new ItemOption(72, 4));
                     InventoryServiceNew.gI().addItemBag(player, ca2);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca2.template.name + "Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca2.template.name + "Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 60) {
                     // Trung
@@ -289,14 +288,14 @@ public class ItemTime {
                     Item ca1 = ItemService.gI().createNewItem((short) listCa1[Util.nextInt(listCa1.length)]);
                     ca1.itemOptions.add(new ItemOption(72, 5));
                     InventoryServiceNew.gI().addItemBag(player, ca1);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca1.template.name + "Siêu Siêu Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca1.template.name + "Siêu Siêu Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 10) {
                     // Hiếm
                     Item ca2 = ItemService.gI().createNewItem((short) listCa2[Util.nextInt(listCa2.length)]);
                     ca2.itemOptions.add(new ItemOption(72, 4));
                     InventoryServiceNew.gI().addItemBag(player, ca2);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca2.template.name + "Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca2.template.name + "Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 60) {
                     // Trung
@@ -354,14 +353,14 @@ public class ItemTime {
                     Item ca1 = ItemService.gI().createNewItem((short) listCa1[Util.nextInt(listCa1.length)]);
                     ca1.itemOptions.add(new ItemOption(72, 5));
                     InventoryServiceNew.gI().addItemBag(player, ca1);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca1.template.name + "Siêu Siêu Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca1.template.name + "Siêu Siêu Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 10) {
                     // Hiếm
                     Item ca2 = ItemService.gI().createNewItem((short) listCa2[Util.nextInt(listCa2.length)]);
                     ca2.itemOptions.add(new ItemOption(72, 4));
                     InventoryServiceNew.gI().addItemBag(player, ca2);
-                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được "  + ca2.template.name + "Hiếm!");
+                    ServerNotify.gI().notify("Người Chơi " + this.player.name + " Vừa Câu Được " + ca2.template.name + "Hiếm!");
                     player.point_vnd += 1;
                 } else if (rd <= 60) {
                     // Trung
@@ -385,11 +384,6 @@ public class ItemTime {
                 InventoryServiceNew.gI().sendItemBags(player);
             }
         }
-        
-        
-        
-        
-        
 
         if (isAnhTrang) {
             if (Util.canDoWithTime(lastAnhTrang, TIME_ITEM)) {

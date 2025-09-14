@@ -31,8 +31,6 @@ import Dragon.services.func.TopService;
 import Dragon.utils.FileIO;
 import Dragon.utils.Logger;
 import Dragon.utils.Util;
-import lombok.Getter;
-import lombok.Setter;
 import Dragon.services.ItemTimeService;
 
 import java.util.ArrayList;
@@ -65,11 +63,7 @@ public class Zone {
     public List<TrapMap> trapMaps;
     public boolean finishnguhs;
     public boolean finishdiacung;
-    @Setter
-    @Getter
     private Player referee;
-    @Setter
-    @Getter
     private Player referee1;
     public boolean haveSonTinhThuyTinh;
 
@@ -334,7 +328,7 @@ public class Zone {
                         if (!(this.map.mapId >= 99 && this.map.mapId <= 99
                                 && itemMap.itemTemplate.id == 74
                                 || this.map.mapId >= 42 && this.map.mapId <= 44
-                                        && itemMap.itemTemplate.id == 78)) {
+                                && itemMap.itemTemplate.id == 78)) {
                             removeItemMap(itemMap);
                         }
                     } catch (Exception e) {
@@ -369,8 +363,7 @@ public class Zone {
         // Ưu tiên tìm trong notBosses trước (players không phải boss)
         if (!this.notBosses.isEmpty()) {
             return this.notBosses.get(Util.nextInt(0, this.notBosses.size() - 1));
-        }
-        // Nếu không có notBosses, tìm trong players nhưng loại trừ boss
+        } // Nếu không có notBosses, tìm trong players nhưng loại trừ boss
         else if (!this.players.isEmpty()) {
             List<Player> nonBossPlayers = new ArrayList<>();
             for (Player player : this.players) {
@@ -663,4 +656,10 @@ public class Zone {
     public int getNumOfBosses() {
         return this.bosses.size();
     }
+
+    // Getters/Setters replacing Lombok for referees
+    public Player getReferee() { return referee; }
+    public void setReferee(Player referee) { this.referee = referee; }
+    public Player getReferee1() { return referee1; }
+    public void setReferee1(Player referee1) { this.referee1 = referee1; }
 }

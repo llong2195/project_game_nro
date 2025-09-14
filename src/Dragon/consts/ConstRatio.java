@@ -1,6 +1,5 @@
 package Dragon.consts;
 
-
 public class ConstRatio {
 
     //type ratio

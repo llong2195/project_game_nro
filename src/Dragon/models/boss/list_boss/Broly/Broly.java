@@ -14,76 +14,77 @@ import Dragon.utils.Util;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
 public class Broly extends Boss {
 
     private int hi;
     private long lastTimeDamaged;
     private long lastTimeHP;
     private int timeHP;
-    
-     public Broly(Zone zone,int hp,int dame) throws Exception {
-         super(Util.randomBossId(), new BossData(
-            "Broly", //name
-            ConstPlayer.XAYDA, //gender
-             new short[]{291, 292, 293, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            dame, //dame
-            new long[]{hp}, //hp
-            new int[]{5}, //map join
-            new int[][]{
-                 {Skill.DRAGON, 7, 1000},
-                    {Skill.TAI_TAO_NANG_LUONG, 7, 20000},
-                    {Skill.ANTOMIC, 7, 500}}, //skill
-            new String[]{
-                    "|-1|Tuy không biết các ngươi là ai, nhưng ta rất ấn tượng đấy!",
-                    "|-2|Tới đây đi!"
-            }, //text chat 1
-            new String[]{"|-1|Các ngươi tới số rồi mới gặp phải ta",
-                    "|-1|Gaaaaaa",
-                    "|-2|Không..thể..nào!!",
-                    "|-2|Không ngờ..Hắn mạnh cỡ này sao..!!"
-            }, //text chat 2
-            new String[]{"|-1|Gaaaaaaaa!!!"}, //text chat 3
-            600 //second rest
-        ));
-         this.zone = zone;
-     }
-    public Broly(Zone zone, long hp, long dame,int...id) throws Exception {
+
+    public Broly(Zone zone, int hp, int dame) throws Exception {
         super(Util.randomBossId(), new BossData(
-            "Broly", //name
-            ConstPlayer.XAYDA, //gender
-             new short[]{291, 292, 293, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            dame, //dame
-            new long[]{hp}, //hp
-            new int[]{5}, //map join
-            new int[][]{
-                 {Skill.DRAGON, 7, 1000},
+                "Broly", //name
+                ConstPlayer.XAYDA, //gender
+                new short[]{291, 292, 293, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+                dame, //dame
+                new long[]{hp}, //hp
+                new int[]{5}, //map join
+                new int[][]{
+                    {Skill.DRAGON, 7, 1000},
                     {Skill.TAI_TAO_NANG_LUONG, 7, 20000},
                     {Skill.ANTOMIC, 7, 500}}, //skill
-            new String[]{
+                new String[]{
                     "|-1|Tuy không biết các ngươi là ai, nhưng ta rất ấn tượng đấy!",
                     "|-2|Tới đây đi!"
-            }, //text chat 1
-            new String[]{"|-1|Các ngươi tới số rồi mới gặp phải ta",
+                }, //text chat 1
+                new String[]{"|-1|Các ngươi tới số rồi mới gặp phải ta",
                     "|-1|Gaaaaaa",
                     "|-2|Không..thể..nào!!",
                     "|-2|Không ngờ..Hắn mạnh cỡ này sao..!!"
-            }, //text chat 2
-            new String[]{"|-1|Gaaaaaaaa!!!"}, //text chat 3
-            600 //second rest
+                }, //text chat 2
+                new String[]{"|-1|Gaaaaaaaa!!!"}, //text chat 3
+                600 //second rest
         ));
         this.zone = zone;
-  
+    }
+
+    public Broly(Zone zone, long hp, long dame, int... id) throws Exception {
+        super(Util.randomBossId(), new BossData(
+                "Broly", //name
+                ConstPlayer.XAYDA, //gender
+                new short[]{291, 292, 293, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+                dame, //dame
+                new long[]{hp}, //hp
+                new int[]{5}, //map join
+                new int[][]{
+                    {Skill.DRAGON, 7, 1000},
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 20000},
+                    {Skill.ANTOMIC, 7, 500}}, //skill
+                new String[]{
+                    "|-1|Tuy không biết các ngươi là ai, nhưng ta rất ấn tượng đấy!",
+                    "|-2|Tới đây đi!"
+                }, //text chat 1
+                new String[]{"|-1|Các ngươi tới số rồi mới gặp phải ta",
+                    "|-1|Gaaaaaa",
+                    "|-2|Không..thể..nào!!",
+                    "|-2|Không ngờ..Hắn mạnh cỡ này sao..!!"
+                }, //text chat 2
+                new String[]{"|-1|Gaaaaaaaa!!!"}, //text chat 3
+                600 //second rest
+        ));
+        this.zone = zone;
+
     }
 
     @Override
     public void active() {
         super.active();
-        if (this.nPoint.hp > 1600000) this.nPoint.hp = 1600000;
+        if (this.nPoint.hp > 1600000) {
+            this.nPoint.hp = 1600000;
+        }
         try {
             this.hoiPhuc();
-        }catch (Exception ex) { 
+        } catch (Exception ex) {
             Logger.getLogger(SuperBroly.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -107,8 +108,9 @@ public class Broly extends Boss {
         lastTimeHP = System.currentTimeMillis();
         timeHP = Util.nextInt(5000, 10000);
     }
+
     public void heal(long amount) {
-        nPoint.hp =  Math.min(nPoint.hp + amount, nPoint.hpMax);
+        nPoint.hp = Math.min(nPoint.hp + amount, nPoint.hpMax);
     }
 
     @Override
@@ -119,7 +121,7 @@ public class Broly extends Boss {
         }
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastTimeDamaged >= 10000) {
-            long healAmount = (long) (nPoint.hpMax * 8/10); // hồi phục 20% HP gốc khi tấn công trong 1 phút
+            long healAmount = (long) (nPoint.hpMax * 8 / 10); // hồi phục 20% HP gốc khi tấn công trong 1 phút
             this.heal(healAmount);
             byte skillId = (byte) Skill.TAI_TAO_NANG_LUONG;
             if (skillId != 0) {
@@ -132,36 +134,38 @@ public class Broly extends Boss {
         this.nPoint.subHP(damage);
         if (isDie()) {
             Zone zonetemp = this.zone;
-            double hptemp =  this.nPoint.hpMax;
+            double hptemp = this.nPoint.hpMax;
             double dametemp = this.nPoint.dame;
             this.setDie(plAtt);
             die(plAtt);
-            try{
-                new Broly(zonetemp, (long)hptemp *2, (long)dametemp*2);
-            } catch(Exception e){
+            try {
+                new Broly(zonetemp, (long) hptemp * 2, (long) dametemp * 2);
+            } catch (Exception e) {
             }
-        } 
-        if(this.nPoint.hp >= 1600000) {
+        }
+        if (this.nPoint.hp >= 1600000) {
             Zone zonetemp = this.zone;
             double hptemp = this.nPoint.hpMax;
             double dametemp = this.nPoint.dame;
             this.setDie(plAtt);
             die(plAtt);
             try {
-                new SuperBroly(zonetemp, (long)hptemp*10, (long)dametemp*5);
-            }catch(Exception e){
+                new SuperBroly(zonetemp, (long) hptemp * 10, (long) dametemp * 5);
+            } catch (Exception e) {
             }
         }
         return damage;
     }
+
     @Override
     public void leaveMap() {
         super.leaveMap();
         BossManager.gI().removeBoss(this);
         this.dispose();
     }
+
     @Override
     public void joinMap() {
         super.joinMap();
-    }      
+    }
 }

@@ -13,15 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-
 public class HistoryTransactionDAO {
 
     public static void insert(Player pl1, Player pl2,
-                              int goldP1, int goldP2, List<Item> itemP1, List<Item> itemP2,
-                              List<Item> bag1Before, List<Item> bag2Before,
-                              List<Item> bag1After,
-                              List<Item> bag2After,
-                              long gold1Before, long gold2Before, long gold1After, long gold2After) {
+            int goldP1, int goldP2, List<Item> itemP1, List<Item> itemP2,
+            List<Item> bag1Before, List<Item> bag2Before,
+            List<Item> bag1After,
+            List<Item> bag2After,
+            long gold1Before, long gold2Before, long gold1After, long gold2After) {
 
         String player1 = pl1.name + " (" + pl1.id + ")";
         String player2 = pl2.name + " (" + pl2.id + ")";
@@ -43,7 +42,6 @@ public class HistoryTransactionDAO {
                 doGD2.stream().filter(item1 -> item1.template.id == item.template.id).findFirst().get().quantityGD += item.quantityGD;
             }
         }
-
 
         for (Item item : doGD1) {
             if (item.isNotNullItem()) {

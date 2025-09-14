@@ -26,7 +26,7 @@ public class smallVersion {
             File[] files;
             int max = -1;
             int id;
-            
+
             // Chỉ đọc từ folder x4 vì đây là folder gốc
             File x4Folder = new File("data/girlkun/icon/x4");
             if (x4Folder.exists() && x4Folder.isDirectory()) {
@@ -40,7 +40,7 @@ public class smallVersion {
                             }
                         }
                     }
-                    
+
                     // Tạo mảng cho tất cả zoom levels (1-4)
                     for (int i = 0; i < 4; i++) {
                         smallVersion[i] = new byte[max + 1];

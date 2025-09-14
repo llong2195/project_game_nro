@@ -4,52 +4,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabShop {
-    
+
     public Shop shop;
 
     public int id;
-    
+
     public String name;
-    
+
     public List<ItemShop> itemShops;
 
     public TabShop() {
         this.itemShops = new ArrayList<>();
     }
-    
-    public TabShop(TabShop tabShop, int gender){
+
+    public TabShop(TabShop tabShop, int gender) {
         this.itemShops = new ArrayList();
         this.shop = tabShop.shop;
         this.id = tabShop.id;
         this.name = tabShop.name;
-        
-        for(ItemShop itemShop : tabShop.itemShops){
-            if(itemShop.temp.gender == gender || itemShop.temp.gender > 2){
+
+        for (ItemShop itemShop : tabShop.itemShops) {
+            if (itemShop.temp.gender == gender || itemShop.temp.gender > 2) {
                 this.itemShops.add(new ItemShop(itemShop));
             }
         }
     }
-    
-    public TabShop(TabShop tabShop){
+
+    public TabShop(TabShop tabShop) {
         this.itemShops = new ArrayList<>();
         this.shop = tabShop.shop;
         this.id = tabShop.id;
         this.name = tabShop.name;
-        for(ItemShop itemShop : tabShop.itemShops){
+        for (ItemShop itemShop : tabShop.itemShops) {
             this.itemShops.add(new ItemShop(itemShop));
         }
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.shop = null;
         this.name = null;
-        if(this.itemShops != null){
-            for(ItemShop is : this.itemShops){
+        if (this.itemShops != null) {
+            for (ItemShop is : this.itemShops) {
                 is.dispose();
             }
             this.itemShops.clear();
         }
         this.itemShops = null;
     }
-    
+
 }

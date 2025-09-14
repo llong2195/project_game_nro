@@ -14,7 +14,7 @@ import Dragon.utils.SkillUtil;
 import Dragon.utils.Util;
 
 /**
- * @author BTH sieu cap vippr0 
+ * @author BTH sieu cap vippr0
  */
 public abstract class BossDHVT extends Boss {
 
@@ -59,7 +59,7 @@ public abstract class BossDHVT extends Boss {
                         if (Util.isTrue(15, ConstRatio.PER100) && SkillUtil.isUseSkillChuong(this)) {
                             goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)), Util.nextInt(10) % 2 == 0 ? playerAtt.location.y : playerAtt.location.y - Util.nextInt(0, 50), false);
                         }
-                        SkillService.gI().useSkill(this, playerAtt, null,null);
+                        SkillService.gI().useSkill(this, playerAtt, null, null);
                         checkPlayerDie(playerAtt);
                     } else {
                         goToPlayer(playerAtt, false);
@@ -69,7 +69,7 @@ public abstract class BossDHVT extends Boss {
                 }
             }
         } catch (Exception ex) {
-            
+
         }
     }
 
@@ -88,7 +88,6 @@ public abstract class BossDHVT extends Boss {
     protected void immortalMp() {
         this.nPoint.mp = this.nPoint.mpg;
     }
-    
 
     @Override
     public void update() {
@@ -116,7 +115,7 @@ public abstract class BossDHVT extends Boss {
             }
 //            }
         } catch (Exception e) {
-            
+
         }
     }
 

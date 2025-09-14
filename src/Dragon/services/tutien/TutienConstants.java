@@ -16,6 +16,7 @@ public class TutienConstants {
     public static final long OPEN_THIEN_PHU_REQUIRED_POWER = 100_000_000_000L; // 100 tỷ sức mạnh
 
     public static class ItemIds {
+
         // Đấu Khí Đan (cấp 0-9)
         public static final int DO_KHI_DAN = 1806;
 
@@ -52,42 +53,44 @@ public class TutienConstants {
 
     // Exp range cho từng loại đan (mỗi đan tương ứng với 1 đại cảnh giới)
     public static class ExpRanges {
+
         // Đấu Khí Đan (cấp 0-9)
-        public static final int[] DO_KHI_EXP = { 50, 150 };
+        public static final int[] DO_KHI_EXP = {50, 150};
 
         // Đấu Giả Đan (cấp 10-19)
-        public static final int[] DO_GIA_EXP = { 100, 250 };
+        public static final int[] DO_GIA_EXP = {100, 250};
 
         // Đấu Sư Đan (cấp 20-29)
-        public static final int[] DO_SU_EXP = { 150, 350 };
+        public static final int[] DO_SU_EXP = {150, 350};
 
         // Đại Đấu Sư Đan (cấp 30-39)
-        public static final int[] DAI_DO_SU_EXP = { 200, 450 };
+        public static final int[] DAI_DO_SU_EXP = {200, 450};
 
         // Đấu Linh Đan (cấp 40-49)
-        public static final int[] DO_LINH_EXP = { 250, 550 };
+        public static final int[] DO_LINH_EXP = {250, 550};
 
         // Đấu Vương Đan (cấp 50-59)
-        public static final int[] DO_VUONG_EXP = { 300, 650 };
+        public static final int[] DO_VUONG_EXP = {300, 650};
 
         // Đấu Hoàng Đan (cấp 60-69)
-        public static final int[] DO_HOANG_EXP = { 350, 750 };
+        public static final int[] DO_HOANG_EXP = {350, 750};
 
         // Đấu Tông Đan (cấp 70-79)
-        public static final int[] DO_TONG_EXP = { 400, 850 };
+        public static final int[] DO_TONG_EXP = {400, 850};
 
         // Đấu Tôn Đan (cấp 80-89)
-        public static final int[] DO_TON_EXP = { 450, 950 };
+        public static final int[] DO_TON_EXP = {450, 950};
 
         // Đấu Thánh Đan (cấp 90-95)
-        public static final int[] DO_THANH_EXP = { 500, 1000 };
+        public static final int[] DO_THANH_EXP = {500, 1000};
 
         // Đấu Đế Đan (cấp 96)
-        public static final int[] DO_DE_EXP = { 1000, 2000 };
+        public static final int[] DO_DE_EXP = {1000, 2000};
     }
 
     // Bonus từ cấp Tiên Kiếm
     public static class TienKiemBonus {
+
         public static final int DO_LINH_REQUIRED_LEVEL = 200;
         public static final int DO_LINH_BONUS_DIVISOR = 15;
 
@@ -107,6 +110,7 @@ public class TutienConstants {
 
     // Bonus theo cấp tiểu cảnh giới (từng tầng)
     public static class RealmBonus {
+
         public static final int DAMAGE_PER_LEVEL = 1_000; // 1k sức đánh mỗi cấp
         public static final int HP_PER_LEVEL = 20_000; // 20k HP mỗi cấp
         public static final int KI_PER_LEVEL = 20_000; // 20k Ki mỗi cấp
@@ -114,6 +118,7 @@ public class TutienConstants {
 
     // Cấu hình hệ thống Tu Tiên
     public static class Config {
+
         // Tắt hoàn toàn hệ thống thiên phú
         public static final boolean DISABLE_THIEN_PHU = true;
 

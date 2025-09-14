@@ -83,8 +83,8 @@ public class NPoint {
     public double hpAdd, mpAdd, dameAdd, defAdd, critAdd, hpHoiAdd, mpHoiAdd;
 
     /**
-     * 
-     * 
+     *
+     *
      * //+#% sức đánh chí mạng
      */
     public short satThuongBom;
@@ -877,7 +877,7 @@ public class NPoint {
         // huýt sáo
         if (!this.player.isPet
                 || (this.player.isPet
-                        && ((Pet) this.player).status != Pet.FUSION)) {
+                && ((Pet) this.player).status != Pet.FUSION)) {
             if (this.player.effectSkill.tiLeHPHuytSao != 0) {
                 this.hpMax += ((long) this.hpMax * this.player.effectSkill.tiLeHPHuytSao / 100L);
 
@@ -919,7 +919,7 @@ public class NPoint {
         if (this.player.isPl()) {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
                     && (this.player.CapBacThan == 7 || this.player.CapBacThan == 8 || this.player.CapBacThan == 9
-                            || this.player.CapBacThan == 10)) {
+                    || this.player.CapBacThan == 10)) {
                 switch (this.player.CapBacThan) {
                     case 7:
                     case 8:
@@ -1197,7 +1197,7 @@ public class NPoint {
         if (this.player.isPl()) {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
                     && (this.player.CapBacThan == 7 || this.player.CapBacThan == 8 || this.player.CapBacThan == 9
-                            || this.player.CapBacThan == 10)) {
+                    || this.player.CapBacThan == 10)) {
                 switch (this.player.CapBacThan) {
                     case 7:
                     case 8:
@@ -1514,8 +1514,8 @@ public class NPoint {
         if (this.player.isPl()) {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
                     && (this.player.CapBacThan == 5 || this.player.CapBacThan == 7 || this.player.CapBacThan == 8
-                            || this.player.CapBacThan == 9
-                            || this.player.CapBacThan == 10)) {
+                    || this.player.CapBacThan == 9
+                    || this.player.CapBacThan == 10)) {
                 switch (this.player.CapBacThan) {
                     case 5:
                     case 7:
@@ -1558,8 +1558,8 @@ public class NPoint {
         if (this.player.isPl()) {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
                     && (this.player.CapBacThan == 4 || this.player.CapBacThan == 7 || this.player.CapBacThan == 8
-                            || this.player.CapBacThan == 9
-                            || this.player.CapBacThan == 10)) {
+                    || this.player.CapBacThan == 9
+                    || this.player.CapBacThan == 10)) {
                 switch (this.player.CapBacThan) {
                     case 4:
                         this.def += ((this.player.ThanLevel + 1) * 30);
@@ -1852,8 +1852,8 @@ public class NPoint {
             if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {
                 if (Util.canDoWithTime(player.lastTimeUseOption, 60000)
                         && (player.playerSkill.skillSelect.skillId == Skill.KAMEJOKO
-                                || player.playerSkill.skillSelect.skillId == Skill.ANTOMIC
-                                || player.playerSkill.skillSelect.skillId == Skill.MASENKO)) {
+                        || player.playerSkill.skillSelect.skillId == Skill.ANTOMIC
+                        || player.playerSkill.skillSelect.skillId == Skill.MASENKO)) {
                     dameAttack *= player.inventory.getParam(player.inventory.itemsBody.get(5), 159);
                     player.lastTimeUseOption = System.currentTimeMillis();
                 }
@@ -1861,7 +1861,7 @@ public class NPoint {
         }
         if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
                 && (this.player.CapBacThan == 6 || this.player.CapBacThan == 9
-                        || this.player.CapBacThan == 10)) {
+                || this.player.CapBacThan == 10)) {
             switch (this.player.CapBacThan) {
                 case 6:
                 case 9:
@@ -2146,7 +2146,7 @@ public class NPoint {
     }
 
     public int getexp() {
-        int[] expTable = { 5000, 10000, 20000, 40000, 80000, 120000, 240000, 500000 };
+        int[] expTable = {5000, 10000, 20000, 40000, 80000, 120000, 240000, 500000};
         if (player.typetrain >= 0 && player.typetrain < expTable.length) {
             return expTable[player.typetrain];
         } else {

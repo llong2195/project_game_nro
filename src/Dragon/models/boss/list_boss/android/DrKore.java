@@ -13,7 +13,6 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class DrKore extends Boss {
 
     public DrKore() throws Exception {
@@ -49,7 +48,7 @@ public class DrKore extends Boss {
             }
         }
     }
-    
+
     @Override
     public void active() {
         super.active();

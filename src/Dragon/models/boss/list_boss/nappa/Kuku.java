@@ -12,7 +12,6 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class Kuku extends Boss {
 
     public Kuku() throws Exception {
@@ -21,12 +20,12 @@ public class Kuku extends Boss {
 
     @Override
     public void active() {
-        super.active(); 
+        super.active();
     }
 
     @Override
     public void joinMap() {
-        super.joinMap(); 
+        super.joinMap();
     }
 
 }

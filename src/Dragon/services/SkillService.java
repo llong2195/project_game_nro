@@ -54,8 +54,8 @@ public class SkillService {
         }
         if ((player.effectSkill.isHaveEffectSkill()
                 && (player.playerSkill.skillSelect.template.id != Skill.TU_SAT
-                        && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI
-                        && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO))
+                && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI
+                && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO))
                 || (plTarget != null && !canAttackPlayer(player, plTarget))
                 || (mobTarget != null && mobTarget.isDie())
                 || !canUseSkillWithMana(player) || !canUseSkillWithCooldown(player)) {
@@ -449,8 +449,8 @@ public class SkillService {
                                                 if (!playerMap.isDie()) {
                                                     PlayerService.gI().subHPPlayer(playerMap, dameHit);
                                                     PlayerService.gI().sendInfoHpMpMoney(playerMap); // Gửi thông tin HP
-                                                                                                     // cho người chơi
-                                                                                                     // bị nhốt
+                                                    // cho người chơi
+                                                    // bị nhốt
                                                     Service.getInstance().Send_Info_NV(playerMap);
                                                 }
                                             }, index, TimeUnit.SECONDS);
@@ -507,9 +507,9 @@ public class SkillService {
                                                     if (!playerMap.isDie()) {
                                                         PlayerService.gI().subHPPlayer(playerMap, dameHit);
                                                         PlayerService.gI().sendInfoHpMpMoney(playerMap); // Gửi thông
-                                                                                                         // tin HP cho
-                                                                                                         // người chơi
-                                                                                                         // bị nhốt
+                                                        // tin HP cho
+                                                        // người chơi
+                                                        // bị nhốt
                                                         Service.getInstance().Send_Info_NV(playerMap);
                                                     }
                                                 }, index, TimeUnit.SECONDS);
@@ -1104,7 +1104,7 @@ public class SkillService {
                         for (Mob mob : player.zone.mobs) {
                             if (!mob.isDie()
                                     && Util.getDistance(plTarget, mob) <= SkillUtil
-                                            .getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                                    .getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
                         }
@@ -1114,7 +1114,7 @@ public class SkillService {
                         for (Mob mob : player.zone.mobs) {
                             if (!mob.equals(mobTarget) && !mob.isDie()
                                     && Util.getDistance(mob, mobTarget) <= SkillUtil
-                                            .getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                                    .getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
                         }
@@ -1251,7 +1251,7 @@ public class SkillService {
                             if (Util.getDistance(player, pl) <= SkillUtil
                                     .getRangeStun(player.playerSkill.skillSelect.point)
                                     && canAttackPlayer(player, pl) && (!pl.playerSkill.prepareQCKK
-                                            && !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)) {
+                                    && !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)) {
                                 if (player.isPet && ((Pet) player).master.equals(pl)) {
                                     continue;
                                 }

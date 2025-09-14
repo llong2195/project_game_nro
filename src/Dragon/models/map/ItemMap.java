@@ -27,7 +27,7 @@ public class ItemMap {
 
     public boolean isBlackBall;
     public boolean isNamecBall;
-        public boolean isDoanhTraiBall;
+    public boolean isDoanhTraiBall;
     private Object item;
 
     public ItemMap(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
@@ -82,7 +82,7 @@ public class ItemMap {
         this.lastTimeMoveToPlayer = itemMap.lastTimeMoveToPlayer;
         this.createTime = System.currentTimeMillis();
         this.zone.addItem(this);
-        
+
     }
 
     public void update() {
@@ -101,7 +101,7 @@ public class ItemMap {
             return;
         }
 
-        if (Util.canDoWithTime(createTime, 20000)&& !this.isNamecBall) {
+        if (Util.canDoWithTime(createTime, 20000) && !this.isNamecBall) {
             if (this.zone.map.mapId != 99 && this.zone.map.mapId != 99
                     && this.zone.map.mapId != 99 && this.itemTemplate.id != 99) {
                 ItemMapService.gI().removeItemMapAndSendClient(this);
@@ -127,8 +127,7 @@ public class ItemMap {
     }
 
     public Object getItem() {
-    return this.item;
-}
-
+        return this.item;
+    }
 
 }

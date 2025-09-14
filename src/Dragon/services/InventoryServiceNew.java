@@ -996,10 +996,10 @@ public class InventoryServiceNew {
         for (Item.ItemOption io : item.itemOptions) {
             switch (io.optionTemplate.id) {
                 case 1:
-                    return new int[] { io.optionTemplate.id, io.param };
+                    return new int[]{io.optionTemplate.id, io.param};
             }
         }
-        return new int[] { -1, -1 };
+        return new int[]{-1, -1};
     }
 
     private void __________________Kiểm_tra_danh_sách_còn_chỗ_trống_________() {
@@ -1046,6 +1046,6 @@ public class InventoryServiceNew {
 
     public void sendMoney(Player player) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

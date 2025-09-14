@@ -147,45 +147,48 @@ public class Manager {
     public static List<TOP> TopLeoThap;
     public static List<TOP> topSieuHang;
     public static long timeRealTop = 0;
-    public static final short[] itemIds_TL = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561, 555, 557, 559, 556, 558, 560, 563, 565, 567, 555, 557, 559, 556, 558, 560, 563, 565, 567};
-    public static final short[] itemIds_HuyDiet = {650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662};
-    public static final short[] itemAVATAR_BLACK = {1124, 1125};
-    public static final short[] itemIds_NR_SB = {16, 17, 934, 934};
-    public static final short[] itemIds_CB = {1991, 1992};
-    public static final short[] itemDC12 = {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277};
-    public static final short[] itemmabu = {1545, 568};
+    public static final short[] itemIds_TL = { 555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561, 555,
+            557, 559, 556, 558, 560, 563, 565, 567, 555, 557, 559, 556, 558, 560, 563, 565, 567 };
+    public static final short[] itemIds_HuyDiet = { 650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662 };
+    public static final short[] itemAVATAR_BLACK = { 1124, 1125 };
+    public static final short[] itemIds_NR_SB = { 16, 17, 934, 934 };
+    public static final short[] itemIds_CB = { 1991, 1992 };
+    public static final short[] itemDC12 = { 233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277 };
+    public static final short[] itemmabu = { 1545, 568 };
 
     // SKH THƯỜNG
-    public static final short[] aotdt = {0};
-    public static final short[] quantdt = {6};
-    public static final short[] gangtdt = {21};
-    public static final short[] giaytdt = {27};
-    public static final short[] aoxdt = {2};
-    public static final short[] quanxdt = {8};
-    public static final short[] gangxdt = {23};
-    public static final short[] giayxdt = {29};
-    public static final short[] aonmt = {1};
-    public static final short[] quannmt = {7};
-    public static final short[] gangnmt = {22};
-    public static final short[] giaynmt = {28};
-    public static final short[] radaSKH = {12};
-// SKH VIP
-    public static final short[] aotd = {138, 139, 230, 231, 232, 233, 555};
-    public static final short[] quantd = {142, 143, 242, 243, 244, 245, 556};
-    public static final short[] gangtd = {146, 147, 254, 255, 256, 257, 562};
-    public static final short[] giaytd = {150, 151, 266, 267, 268, 269, 563};
-    public static final short[] aoxd = {170, 171, 238, 239, 240, 241, 559};
-    public static final short[] quanxd = {174, 175, 250, 251, 252, 253, 560};
-    public static final short[] gangxd = {178, 179, 262, 263, 264, 265, 566};
-    public static final short[] giayxd = {182, 183, 274, 275, 276, 277, 567};
-    public static final short[] aonm = {154, 155, 234, 235, 236, 237, 557};
-    public static final short[] quannm = {158, 159, 246, 247, 248, 249, 558};
-    public static final short[] gangnm = {162, 163, 258, 259, 260, 261, 564};
-    public static final short[] giaynm = {166, 167, 270, 271, 272, 273, 565};
-    public static final short[] radaSKHVip = {186, 187, 278, 279, 280, 281, 561};
-    public static final short[][][] doSKH = {{aotdt, quantdt, gangtdt, giaytdt, radaSKH}, {aonmt, quannmt, gangnmt, giaynmt, radaSKH}, {aoxdt, quanxdt, gangxdt, giayxdt, radaSKH}};
+    public static final short[] aotdt = { 0 };
+    public static final short[] quantdt = { 6 };
+    public static final short[] gangtdt = { 21 };
+    public static final short[] giaytdt = { 27 };
+    public static final short[] aoxdt = { 2 };
+    public static final short[] quanxdt = { 8 };
+    public static final short[] gangxdt = { 23 };
+    public static final short[] giayxdt = { 29 };
+    public static final short[] aonmt = { 1 };
+    public static final short[] quannmt = { 7 };
+    public static final short[] gangnmt = { 22 };
+    public static final short[] giaynmt = { 28 };
+    public static final short[] radaSKH = { 12 };
+    // SKH VIP
+    public static final short[] aotd = { 138, 139, 230, 231, 232, 233, 555 };
+    public static final short[] quantd = { 142, 143, 242, 243, 244, 245, 556 };
+    public static final short[] gangtd = { 146, 147, 254, 255, 256, 257, 562 };
+    public static final short[] giaytd = { 150, 151, 266, 267, 268, 269, 563 };
+    public static final short[] aoxd = { 170, 171, 238, 239, 240, 241, 559 };
+    public static final short[] quanxd = { 174, 175, 250, 251, 252, 253, 560 };
+    public static final short[] gangxd = { 178, 179, 262, 263, 264, 265, 566 };
+    public static final short[] giayxd = { 182, 183, 274, 275, 276, 277, 567 };
+    public static final short[] aonm = { 154, 155, 234, 235, 236, 237, 557 };
+    public static final short[] quannm = { 158, 159, 246, 247, 248, 249, 558 };
+    public static final short[] gangnm = { 162, 163, 258, 259, 260, 261, 564 };
+    public static final short[] giaynm = { 166, 167, 270, 271, 272, 273, 565 };
+    public static final short[] radaSKHVip = { 186, 187, 278, 279, 280, 281, 561 };
+    public static final short[][][] doSKH = { { aotdt, quantdt, gangtdt, giaytdt, radaSKH },
+            { aonmt, quannmt, gangnmt, giaynmt, radaSKH }, { aoxdt, quanxdt, gangxdt, giayxdt, radaSKH } };
 
-    public static final short[][][] doSKHVip = {{aotd, quantd, gangtd, giaytd}, {aonm, quannm, gangnm, giaynm}, {aoxd, quanxd, gangxd, giayxd}};
+    public static final short[][][] doSKHVip = { { aotd, quantd, gangtd, giaytd }, { aonm, quannm, gangnm, giaynm },
+            { aoxd, quanxd, gangxd, giayxd } };
 
     public static Manager gI() {
         if (i == null) {
@@ -194,9 +197,6 @@ public class Manager {
         return i;
     }
 
-//    public static Object getInstance() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
     private Manager() {
         try {
             loadProperties();
@@ -207,6 +207,19 @@ public class Manager {
 
         }
         this.loadDatabase();
+
+        // Initialize Mob Reward Cache
+        Dragon.utils.Logger.log("Manager: Initializing Mob Reward Cache...");
+        Dragon.jdbc.daos.MobRewardCache.getInstance().initializeCache();
+
+        // Initialize Boss Reward Cache
+        Dragon.utils.Logger.log("Manager: Initializing Boss Reward Cache...");
+        Dragon.jdbc.daos.BossRewardCache.getInstance().initializeCache();
+
+        // Initialize Gift Code Cache
+        Dragon.utils.Logger.log("Manager: Initializing Gift Code Cache...");
+        Dragon.jdbc.daos.GiftCodeCache.getInstance().initializeCache();
+
         NpcFactory.createNpcConMeo();
         Dragon.nam.TamBaoService.loadItem();
         Dragon.nam.GachaService.loadItem();
@@ -265,7 +278,7 @@ public class Manager {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try (Connection con = GirlkunDB.getConnection();) {
-            //load part
+            // load part
             ps = con.prepareStatement("select * from part");
             rs = ps.executeQuery();
             List<Part> parts = new ArrayList<>();
@@ -273,8 +286,6 @@ public class Manager {
                 Part part = new Part(rs.getShort("id"), rs.getByte("type"));
 
                 dataArray = (JSONArray) jv.parse(rs.getString("data").replaceAll("\\\"", ""));
-
-               
 
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONArray pd = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
@@ -290,7 +301,8 @@ public class Manager {
             dos.writeShort(parts.size());
             for (int i = 0; i < parts.size(); i++) {
                 final Part part = parts.get(i);
-//                Controller.debug(i + " =>> LOAD PARTT >>> " + part.id + ", part.type: " + part.type);
+                // Controller.debug(i + " =>> LOAD PARTT >>> " + part.id + ", part.type: " +
+                // part.type);
                 dos.writeByte(part.type);
                 for (PartDetail partDetail : part.pi) {
                     dos.writeShort(partDetail.iconId);
@@ -322,8 +334,6 @@ public class Manager {
 
                 dataArray = (JSONArray) jv.parse(rs.getString("data").replaceAll("\\\"", ""));
 
-              
-
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONArray pd = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
                     part.pi[j] = (new PartDetail(Short.parseShort(String.valueOf(pd.get(0))),
@@ -348,7 +358,7 @@ public class Manager {
             dos.close();
             Logger.log(Logger.GREEN, "[DONE] Part[" + parts.size() + "]\n");
 
-            //load small version
+            // load small version
             ps = con.prepareStatement("select count(id) from small_version");
             rs = ps.executeQuery();
             List<byte[]> smallVersion = new ArrayList<>();
@@ -369,7 +379,8 @@ public class Manager {
                 index++;
             }
             for (int i = 0; i < 4; i++) {
-                dos = new DataOutputStream(new FileOutputStream("data/girlkun/data_img_version/x" + (i + 1) + "/img_version"));
+                dos = new DataOutputStream(
+                        new FileOutputStream("data/girlkun/data_img_version/x" + (i + 1) + "/img_version"));
                 dos.writeShort(smallVersion.get(i).length);
                 for (int j = 0; j < smallVersion.get(i).length; j++) {
                     dos.writeByte(smallVersion.get(i)[j]);
@@ -378,7 +389,7 @@ public class Manager {
                 dos.close();
             }
 
-            //load clan
+            // load clan
             ps = con.prepareStatement("select * from clan_sv" + SERVER);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -441,20 +452,21 @@ public class Manager {
 
             ps = con.prepareStatement("select * from dhvt_template");
             rs = ps.executeQuery();
-//            while (rs.next()) {
-//                DaiHoiVoThuat dhvt = new DaiHoiVoThuat();
-//                dhvt.NameCup = rs.getString(2);
-//                dhvt.Time = rs.getString(3).split("\n");
-//                dhvt.gem = rs.getInt(4);
-//                dhvt.gold = rs.getInt(5);
-//                dhvt.min_start = rs.getInt(6);
-//                dhvt.min_start_temp = rs.getInt(6);
-//                dhvt.min_limit = rs.getInt(7);
-//                LIST_DHVT.add(dhvt);
-//            }
-//            Logger.log(Logger.GREEN, "Load Đại Hội Võ Thuật thành công (" + LIST_DHVT.size() + ")\n");
+            // while (rs.next()) {
+            // DaiHoiVoThuat dhvt = new DaiHoiVoThuat();
+            // dhvt.NameCup = rs.getString(2);
+            // dhvt.Time = rs.getString(3).split("\n");
+            // dhvt.gem = rs.getInt(4);
+            // dhvt.gold = rs.getInt(5);
+            // dhvt.min_start = rs.getInt(6);
+            // dhvt.min_start_temp = rs.getInt(6);
+            // dhvt.min_limit = rs.getInt(7);
+            // LIST_DHVT.add(dhvt);
+            // }
+            // Logger.log(Logger.GREEN, "Load Đại Hội Võ Thuật thành công (" +
+            // LIST_DHVT.size() + ")\n");
 
-            //load skill
+            // load skill
             ps = con.prepareStatement("select * from skill_template order by nclass_id, slot");
             rs = ps.executeQuery();
             byte nClassId = -1;
@@ -485,8 +497,7 @@ public class Manager {
                                 .replaceAll("\"\\[", "[")
                                 .replaceAll("\"\\]", "]")
                                 .replaceAll("\\]\"", "]")
-                                .replaceAll("\\}\",\"\\{", "},{")
-                );
+                                .replaceAll("\\}\",\"\\{", "},{"));
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONObject dts = (JSONObject) jv.parse(String.valueOf(dataArray.get(j)));
                     Skill skill = new Skill();
@@ -507,7 +518,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] SKILL(" + NCLASS.size() + ")\n");
 
-            //load head avatar
+            // load head avatar
             ps = con.prepareStatement("select * from head_avatar");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -516,7 +527,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] HEAD AVATAR(" + HEAD_AVATARS.size() + ")\n");
 
-            //load flag bag
+            // load flag bag
             ps = con.prepareStatement("select * from flag_bag");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -535,7 +546,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] FLAGBAG(" + FLAGS_BAGS.size() + ")\n");
 
-            //load intrinsic
+            // load intrinsic
             ps = con.prepareStatement("select * from intrinsic");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -567,9 +578,9 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] INTRINSIC(" + INTRINSICS.size() + ")\n");
 
-            //load task
-            ps = con.prepareStatement("SELECT id, task_main_template.name, detail, "
-                    + "task_sub_template.name AS 'sub_name', max_count, notify, npc_id, map "
+            // load task
+            ps = con.prepareStatement("SELECT task_main_template.id, task_main_template.NAME, detail, "
+                    + "task_sub_template.NAME AS 'sub_name', max_count, notify, npc_id, map "
                     + "FROM task_main_template JOIN task_sub_template ON task_main_template.id = "
                     + "task_sub_template.task_main_id");
             rs = ps.executeQuery();
@@ -581,7 +592,7 @@ public class Manager {
                     taskId = id;
                     task = new TaskMain();
                     task.id = taskId;
-                    task.name = rs.getString("name");
+                    task.name = rs.getString("NAME");
                     task.detail = rs.getString("detail");
                     TASKS.add(task);
                 }
@@ -595,7 +606,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] TASK(" + TASKS.size() + ")\n");
 
-            //load side task
+            // load side task
             ps = con.prepareStatement("select * from side_task_template");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -621,7 +632,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] SIDETASK(" + SIDE_TASKS_TEMPLATE.size() + ")\n");
 
-            //load item template
+            // load item template
             ps = con.prepareStatement("select * from item_template");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -645,12 +656,13 @@ public class Manager {
             Logger.log(Logger.GREEN, "[DONE] ITEM(" + ITEM_TEMPLATES.size() + ")\n");
 
             for (int i = 0; i < ITEM_TEMPLATES.size(); i++) {
-                if (ITEM_TEMPLATES.get(i).type == 5 && ITEM_TEMPLATES.get(i).id >= 1018 && ITEM_TEMPLATES.get(i).id <= 2049) {
+                if (ITEM_TEMPLATES.get(i).type == 5 && ITEM_TEMPLATES.get(i).id >= 1018
+                        && ITEM_TEMPLATES.get(i).id <= 2049) {
                     CAITRANG.add(ItemService.gI().createNewItem(((short) ITEM_TEMPLATES.get(i).id)));
                 }
             }
 
-            //load array head 2 frames
+            // load array head 2 frames
             ps = con.prepareStatement("select * from array_head_2_frames");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -663,7 +675,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] ARRHEAD(" + ARR_HEAD_2_FRAMES.size() + ")\n");
 
-            //load item option template
+            // load item option template
             ps = con.prepareStatement("select id, name from item_option_template");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -674,11 +686,11 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] MAPITEMOPTION(" + ITEM_OPTION_TEMPLATES.size() + ")\n");
 
-            //load shop
+            // load shop
             SHOPS = ShopDAO.getShops(con);
             Logger.log(Logger.GREEN, "[DONE] SHOP(" + SHOPS.size() + ")\n");
 
-            //load reward lucky round
+            // load reward lucky round
             File folder = new File("data/girlkun/data_lucky_round_reward");
             for (File fileEntry : folder.listFiles()) {
                 if (!fileEntry.isDirectory()) {
@@ -712,7 +724,7 @@ public class Manager {
                 }
             }
             Logger.log(Logger.GREEN, "[DONE] LUCKYROUND(" + LUCKY_ROUND_REWARDS.size() + ")\n");
-            //load reward mob
+            // load reward mob
             folder = new File("data/girlkun/mob_reward");
             String DatamobreWard = "";
             for (File fileEntry : folder.listFiles()) {
@@ -740,26 +752,26 @@ public class Manager {
                             DatamobreWard += "\nMapDrop:" + mapDrop[g];
                         }
                         ItemMobReward item = new ItemMobReward(itemId, mapDrop,
-                                new int[]{Integer.parseInt(quantity[0]), Integer.parseInt(quantity[1])},
-                                new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1])}, gender);
+                                new int[] { Integer.parseInt(quantity[0]), Integer.parseInt(quantity[1]) },
+                                new int[] { Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1]) }, gender);
                         DatamobreWard += "\nItemName:" + item.getTemp().name;
                         DatamobreWard += "\nRatio:" + Integer.parseInt(ratio[0]) + "to" + Integer.parseInt(ratio[1]);
                         if (item.getTemp().type == 30) { // sao pha lê
-                            item.setRatio(new int[]{20, Integer.parseInt(ratio[1])});
+                            item.setRatio(new int[] { 20, Integer.parseInt(ratio[1]) });
                         }
-                        if (item.getTemp().type == 14) { //14 đá nâng cấp
-                            item.setRatio(new int[]{20, Integer.parseInt(ratio[1])});
+                        if (item.getTemp().type == 14) { // 14 đá nâng cấp
+                            item.setRatio(new int[] { 20, Integer.parseInt(ratio[1]) });
                         }
                         if (item.getTemp().type < 5) {
-                            item.setRatio(new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1])});
+                            item.setRatio(new int[] { Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1]) });
                         }
-                        if (item.getTemp().type == 9) { //vàng
+                        if (item.getTemp().type == 9) { // vàng
                             mobReward.getGoldReward().add(item);
                         } else {
                             boolean flag = false;
                             for (int z = 0; z < Manager.itemIds_TL.length; z++) {
                                 if (Manager.itemIds_TL[z] == item.getTemp().id) {
-                                    item.setRatio(new int[]{1, 5000000});
+                                    item.setRatio(new int[] { 1, 5000000 });
                                 }
                             }
                             if (!flag) {
@@ -772,8 +784,8 @@ public class Manager {
                             String[] param = dis.readUTF().split("-");
                             String[] ratioOption = dis.readUTF().split("-");
                             ItemOptionMobReward option = new ItemOptionMobReward(optionId,
-                                    new int[]{Integer.parseInt(param[0]), Integer.parseInt(param[1])},
-                                    new int[]{Integer.parseInt(ratioOption[0]), Integer.parseInt(ratioOption[1])});
+                                    new int[] { Integer.parseInt(param[0]), Integer.parseInt(param[1]) },
+                                    new int[] { Integer.parseInt(ratioOption[0]), Integer.parseInt(ratioOption[1]) });
                             item.getOption().add(option);
                         }
                     }
@@ -783,11 +795,12 @@ public class Manager {
             Service.gI().DataMobReward += DatamobreWard;
             Logger.log(Logger.GREEN, "[DONE] REWARDMOD(" + MOB_REWARDS.size() + ")\n");
 
-            //load notify
+            // load notify
             folder = new File("data/girlkun/notify");
             for (File fileEntry : folder.listFiles()) {
                 if (!fileEntry.isDirectory()) {
-                    StringBuffer notify = new StringBuffer(fileEntry.getName().substring(0, fileEntry.getName().lastIndexOf("."))).append("<>");
+                    StringBuffer notify = new StringBuffer(
+                            fileEntry.getName().substring(0, fileEntry.getName().lastIndexOf("."))).append("<>");
                     BufferedReader br = new BufferedReader(new FileReader(fileEntry));
                     String line = null;
                     while ((line = br.readLine()) != null) {
@@ -798,7 +811,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] NOTIFY(" + NOTIFY.size() + ")\n");
 
-            //load caption
+            // load caption
             ps = con.prepareStatement("select * from caption");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -806,7 +819,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] CAPTION(" + CAPTIONS.size() + ")\n");
 
-            //load image by name
+            // load image by name
             ps = con.prepareStatement("select name, n_frame from img_by_name");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -814,7 +827,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] IMAGEBYNAME(" + IMAGES_BY_NAME.size() + ")\n");
 
-            //load mob template
+            // load mob template
             ps = con.prepareStatement("select * from mob_template");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -854,11 +867,12 @@ public class Manager {
                 }
                 Item item = ItemService.gI().createNewItem(itemId);
                 byte tab = ShopKyGuiService.gI().getTabKiGui(item);
-                ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i, itemId, idPl, tab, ruby, gem, quantity, isUp, op, isBuy, createTime));
+                ShopKyGuiManager.gI().listItem
+                        .add(new ItemKyGui(i, itemId, idPl, tab, ruby, gem, quantity, isUp, op, isBuy, createTime));
             }
             Logger.log(Logger.GREEN, "[DONE] KYGUI[" + ShopKyGuiManager.gI().listItem.size() + "]!\n");
 
-            //load npc template
+            // load npc template
             ps = con.prepareStatement("select * from npc_template");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -872,7 +886,7 @@ public class Manager {
                 NPC_TEMPLATES.add(npcTemp);
             }
             Logger.log(Logger.GREEN, "[DONE] NPCTEMPLATE(" + NPC_TEMPLATES.size() + ")\n");
-//           // Thanh Tuu
+            // // Thanh Tuu
             ps = con.prepareStatement("select * from archive_template");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -884,7 +898,7 @@ public class Manager {
                 Archivement_TEMPLATES.add(a);
             }
             Logger.log(Logger.GREEN, "[DONE] ARCHIVE(" + Archivement_TEMPLATES.size() + ")\n");
-            //load map template
+            // load map template
             ps = con.prepareStatement("select count(id) from map_template");
             rs = ps.executeQuery();
             if (rs.first()) {
@@ -899,7 +913,7 @@ public class Manager {
                     String mapName = rs.getString("name");
                     mapTemplate.id = mapId;
                     mapTemplate.name = mapName;
-                    //load data
+                    // load data
 
                     dataArray = (JSONArray) jv.parse(rs.getString("data"));
                     mapTemplate.type = Byte.parseByte(String.valueOf(dataArray.get(0)));
@@ -916,12 +930,11 @@ public class Manager {
                     mapTemplate.bgId = rs.getByte("bg_id");
                     mapTemplate.zones = rs.getByte("zones");
                     mapTemplate.maxPlayerPerZone = rs.getByte("max_player");
-                    //load waypoints
+                    // load waypoints
                     dataArray = (JSONArray) jv.parse(rs.getString("waypoints")
                             .replaceAll("\\[\"\\[", "[[")
                             .replaceAll("\\]\"\\]", "]]")
-                            .replaceAll("\",\"", ",")
-                    );
+                            .replaceAll("\",\"", ","));
                     for (int j = 0; j < dataArray.size(); j++) {
                         WayPoint wp = new WayPoint();
                         JSONArray dtwp = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
@@ -939,11 +952,11 @@ public class Manager {
                         dtwp.clear();
                     }
                     dataArray.clear();
-                    //load mobs
+                    // load mobs
                     dataArray = (JSONArray) jv.parse(rs.getString("mobs").replaceAll("\\\"", ""));
                     mapTemplate.mobTemp = new byte[dataArray.size()];
                     mapTemplate.mobLevel = new byte[dataArray.size()];
-                    mapTemplate.mobHp = new  double [dataArray.size()];
+                    mapTemplate.mobHp = new double[dataArray.size()];
                     mapTemplate.mobX = new short[dataArray.size()];
                     mapTemplate.mobY = new short[dataArray.size()];
                     for (int j = 0; j < dataArray.size(); j++) {
@@ -957,7 +970,7 @@ public class Manager {
                         dtm.clear();
                     }
                     dataArray.clear();
-                    //load npcs
+                    // load npcs
                     dataArray = (JSONArray) jv.parse(rs.getString("npcs").replaceAll("\\\"", ""));
                     mapTemplate.npcId = new byte[dataArray.size()];
                     mapTemplate.npcX = new short[dataArray.size()];
@@ -1002,7 +1015,9 @@ public class Manager {
                 for (int i = 0; i < arr.size(); i++) {
                     JSONObject ob = (JSONObject) arr.get(i);
                     if (ob != null) {
-                        rd.Options.add(new OptionCard(Integer.parseInt(ob.get("id").toString()), Short.parseShort(ob.get("param").toString()), Byte.parseByte(ob.get("activeCard").toString())));
+                        rd.Options.add(new OptionCard(Integer.parseInt(ob.get("id").toString()),
+                                Short.parseShort(ob.get("param").toString()),
+                                Byte.parseByte(ob.get("activeCard").toString())));
                     }
                 }
                 rd.Require = rs.getShort("require");
@@ -1047,7 +1062,9 @@ public class Manager {
     public static List<TOP> realTopSieuHang(Player pl) {
         List<TOP> tops = new ArrayList<>();
         try {
-            GirlkunResultSet rs = GirlkunDB.executeQuery("SELECT id, rank_sieu_hang AS rank FROM player WHERE rank_sieu_hang <= " + pl.rankSieuHang + " ORDER BY rank_sieu_hang DESC LIMIT 10");
+            GirlkunResultSet rs = GirlkunDB
+                    .executeQuery("SELECT id, rank_sieu_hang AS rank FROM player WHERE rank_sieu_hang <= "
+                            + pl.rankSieuHang + " ORDER BY rank_sieu_hang DESC LIMIT 10");
             while (rs.next()) {
                 int rank = rs.getInt("rank_sieu_hang");
                 if (Math.abs(rank - pl.rankSieuHang) <= 10) {
@@ -1081,7 +1098,8 @@ public class Manager {
     public static List<TOP> realTopSieuHang(Connection con) {
         List<TOP> tops = new ArrayList<>();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT id, rank_sieu_hang AS rank FROM player ORDER BY rank_sieu_hang ASC LIMIT 100");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT id, rank_sieu_hang AS rank FROM player ORDER BY rank_sieu_hang ASC LIMIT 100");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 long rank = rs.getLong("rank");
@@ -1127,7 +1145,8 @@ public class Manager {
                     Item item;
                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                     if (tempId != -1) {
-                        item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
+                        item = ItemService.gI().createNewItem(tempId,
+                                Integer.parseInt(String.valueOf(dataItem.get(1))));
                         body = (short) item.template.part;
                     }
                 }
@@ -1136,7 +1155,8 @@ public class Manager {
                     Item item;
                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                     if (tempId != -1) {
-                        item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
+                        item = ItemService.gI().createNewItem(tempId,
+                                Integer.parseInt(String.valueOf(dataItem.get(1))));
                         leg = (short) item.template.part;
                     }
                 }
@@ -1145,7 +1165,8 @@ public class Manager {
                     Item item;
                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                     if (tempId != -1) {
-                        item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
+                        item = ItemService.gI().createNewItem(tempId,
+                                Integer.parseInt(String.valueOf(dataItem.get(1))));
                         if (item.template.head != -1) {
                             head = (short) item.template.head;
                         }
@@ -1158,7 +1179,8 @@ public class Manager {
                     }
                 }
                 dataArray.clear();
-                TOP top = TOP.builder().name(rs.getString("name")).gender(rs.getByte("gender")).head(head).body(body).leg(leg).build();
+                TOP top = TOP.builder().name(rs.getString("name")).gender(rs.getByte("gender")).head(head).body(body)
+                        .leg(leg).build();
                 top.setPower(rs.getLong("sm"));
                 tops.add(top);
             }
@@ -1172,7 +1194,7 @@ public class Manager {
         Properties properties = new Properties();
         properties.load(new FileInputStream("data/girlkun/girlkun.properties"));
         Object value = null;
-        //###Config sv
+        // ###Config sv
         if ((value = properties.get("server.girlkun.port")) != null) {
             ServerManager.PORT = Integer.parseInt(String.valueOf(value));
         }
@@ -1246,7 +1268,8 @@ public class Manager {
         try {
             File file = new File("data/girlkun/map/tile_map_data/" + mapId);
             if (file.exists()) {
-                DataInputStream dis = new DataInputStream(new FileInputStream("data/girlkun/map/tile_map_data/" + mapId));
+                DataInputStream dis = new DataInputStream(
+                        new FileInputStream("data/girlkun/map/tile_map_data/" + mapId));
                 int w = dis.readByte();
                 int h = dis.readByte();
                 tileMap = new int[h][w];
@@ -1264,7 +1287,7 @@ public class Manager {
         return tileMap;
     }
 
-    //service*******************************************************************
+    // service*******************************************************************
     public static Clan getClanById(int id) throws Exception {
         for (Clan clan : CLANS) {
             if (clan.id == id) {

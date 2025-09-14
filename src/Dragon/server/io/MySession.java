@@ -166,12 +166,14 @@ public class MySession extends Session {
             Service.gI().sendThongBaoOK(this, "Server Đang Bảo Trì, Vui Lòng Quay Lại Sau!");
             return;
         }
-        if (Maintenance.isRuning || version > 15) {//version
-            Service.gI().sendThongBaoOK(this, "UPDATE RỒI, LÊN TRANG CHỦ NROTUONGLAI.COM TẢI!\n------------------------\n[LƯU Ý: XÓA BẢN CŨ TẢI LẠI BẢN MỚI TRÊN WEB]");
+        if (Maintenance.isRuning || version > 15) {// version
+            Service.gI().sendThongBaoOK(this,
+                    "UPDATE RỒI, LÊN TRANG CHỦ NROTUONGLAI.COM TẢI!\n------------------------\n[LƯU Ý: XÓA BẢN CŨ TẢI LẠI BẢN MỚI TRÊN WEB]");
             return;
         }
-        if (Maintenance.isRuning || version < 15) {//version
-            Service.gI().sendThongBaoOK(this, "UPDATE RỒI, LÊN TRANG CHỦ NROTUONGLAI.COM TẢI!\n------------------------\n[LƯU Ý: XÓA BẢN CŨ TẢI LẠI BẢN MỚI TRÊN WEB]");
+        if (Maintenance.isRuning || version < 15) {// version
+            Service.gI().sendThongBaoOK(this,
+                    "UPDATE RỒI, LÊN TRANG CHỦ NROTUONGLAI.COM TẢI!\n------------------------\n[LƯU Ý: XÓA BẢN CŨ TẢI LẠI BẢN MỚI TRÊN WEB]");
             return;
         }
         if (!this.isAdmin && Client.gI().getPlayers().size() >= Manager.MAX_PLAYER) {
@@ -184,17 +186,13 @@ public class MySession extends Session {
         } else {
             Player player = null;
             try {
-                long st = System.currentTimeMillis();
                 this.uu = username;
                 this.pp = password;
 
                 player = GodGK.login(this, al);
                 if (player != null) {
-                    // -77 max small
                     smallVersion.send(this);
-                    // -93 bgitem version
                     Service.gI().sendMessage(this, -93, "1630679752231_-93_r");
-
                     this.timeWait = 1;
                     this.joinedGame = true;
                     player.nPoint.calPoint();
@@ -210,13 +208,10 @@ public class MySession extends Session {
                     player.setSession(this);
                     Client.gI().put(player);
                     this.player = player;
-                    //-28 -4 version data game
                     DataGame.sendVersionGame(this);
-                    //-31 data item background
                     DataGame.sendDataItemBG(this);
                     Controller.getInstance().sendInfo(this);
-                    //Phước Thông Báo Mới Vô Game
-                    //Service.gI().sendThongBao(player, "|30|Chào Bạn Đến Với NROEvils");
+                    Service.gI().sendThongBao(player, "|30|Chào Bạn Đến Với NROEvils");
                 }
             } catch (Exception e) {
 

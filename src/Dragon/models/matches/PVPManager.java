@@ -4,7 +4,6 @@ import Dragon.models.player.Player;
 import Dragon.server.ServerManager;
 import java.util.ArrayList;
 
-
 public class PVPManager implements Runnable {
 
     private static PVPManager i;
@@ -54,7 +53,7 @@ public class PVPManager implements Runnable {
                 }
                 Thread.sleep(1000 - (System.currentTimeMillis() - st));
             } catch (Exception e) {
-                  
+
             }
         }
     }

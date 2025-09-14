@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class ChatGlobalService implements Runnable {
 
     private static int COUNT_CHAT = 50;
@@ -34,10 +33,10 @@ public class ChatGlobalService implements Runnable {
     }
 
     public void chat1(Player player, String text) {
-         player.iDMark.setLastTimeChatGlobal(System.currentTimeMillis());
-         waitingChat.add(new ChatGlobal(player, text.length() > 100 ? text.substring(0, 100) : text));
+        player.iDMark.setLastTimeChatGlobal(System.currentTimeMillis());
+        waitingChat.add(new ChatGlobal(player, text.length() > 100 ? text.substring(0, 100) : text));
     }
-    
+
     public void chat(Player player, String text) {
         if (waitingChat.size() >= COUNT_WAIT) {
             Service.gI().sendThongBao(player, "Kênh Thế Giới Hiện Đang Quá Tải, Không Thể Chat Lúc Này");
@@ -96,7 +95,7 @@ public class ChatGlobalService implements Runnable {
                 Thread.sleep(1000);
             } catch (Exception e) {
                 Logger.logException(ChatGlobalService.class, e);
-                 
+
             }
         }
     }
@@ -109,7 +108,7 @@ public class ChatGlobalService implements Runnable {
             msg.writer().writeUTF("|5|" + chat.text);
             msg.writer().writeInt((int) chat.playerId);
             msg.writer().writeShort(chat.head);
-             msg.writer().writeShort(-1);
+            msg.writer().writeShort(-1);
             msg.writer().writeShort(chat.body);
             msg.writer().writeShort(chat.bag); //bag
             msg.writer().writeShort(chat.leg);
@@ -117,7 +116,7 @@ public class ChatGlobalService implements Runnable {
             Service.gI().sendMessAllPlayer(msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -144,7 +143,7 @@ public class ChatGlobalService implements Runnable {
 //                .replaceAll("như cặc", "***")
 //        .replaceAll("sập", "***")
 //                .replaceAll("sv", "***");
-        
+
         chat.text = text;
     }
 

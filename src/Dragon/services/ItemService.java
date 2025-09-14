@@ -72,7 +72,6 @@ public class ItemService {
 //            Service.gI().sendThongBao(player, "Đứt Dây Câu Rồi");
 //        }
 //    }
-
     public Item itemtlinhItem(short tempId) {
         return randomcs_dtl(tempId, 1);
 
@@ -181,7 +180,7 @@ public class ItemService {
                 param = Util.nextInt(1, 5);
                 shouldExecute = true;
                 break;
-                // phước ngẫu nghiên sức đánh
+            // phước ngẫu nghiên sức đánh
             case 195:
                 id = 50;
                 param = Util.nextInt(1, 35);

@@ -32,7 +32,7 @@ public class HaChiJack extends Boss {
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{639, 640, 641, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
                 ((30000 * level)), //dame
-                new long[]{(((int)200000000L * (int)level))}, //hp
+                new long[]{(((int) 200000000L * (int) level))}, //hp
                 new int[]{148}, //map join
                 new int[][]{
                     {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
@@ -108,7 +108,6 @@ public class HaChiJack extends Boss {
     public void active() {
         super.active();
     }
-
 
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {

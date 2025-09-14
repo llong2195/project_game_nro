@@ -69,8 +69,7 @@ public class TimeUtil {
             long time2 = fm.parse(d2).getTime();
             long now = fm.parse(fm.format(new Date())).getTime();
             return now > time1 && now < time2;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new Exception("Thời gian không hợp lệ");
         }
     }
@@ -129,7 +128,7 @@ public class TimeUtil {
             return fm.parse(time).getTime();
         } catch (ParseException ex) {
             throw new Exception("Thời gian không hợp lệ");
-    
+
         }
     }
 

@@ -1,7 +1,7 @@
 package Dragon.models.player;
 
-
 public class EffectFlagBag {
+
     public boolean useVoOc;
     public boolean useCayKem;
     public boolean useCaHeo;
@@ -24,7 +24,7 @@ public class EffectFlagBag {
         this.usePhongHeo = false;
         this.useHaoQuang = false;
     }
-    
-    public void dispose(){
+
+    public void dispose() {
     }
 }

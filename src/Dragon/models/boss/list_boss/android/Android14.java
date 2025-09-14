@@ -12,7 +12,6 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class Android14 extends Boss {
 
     public boolean callApk13;
@@ -20,7 +19,8 @@ public class Android14 extends Boss {
     public Android14() throws Exception {
         super(BossID.ANDROID_14, BossesData.ANDROID_14);
     }
-   @Override
+
+    @Override
     public void reward(Player plKill) {
         int[] itemRan = new int[]{1142, 382, 383, 384, 1142};
         int itemId = itemRan[2];
@@ -31,6 +31,7 @@ public class Android14 extends Boss {
         }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
+
     @Override
     protected void resetBase() {
         super.resetBase();

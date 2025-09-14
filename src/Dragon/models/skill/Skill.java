@@ -2,10 +2,8 @@ package Dragon.models.skill;
 
 import Dragon.models.Template.SkillTemplate;
 
-
-
 public class Skill {
-    
+
     public static final int RANGE_ATTACK_CHIEU_DAM = 100;
     public static final int RANGE_ATTACK_CHIEU_CHUONG = 300;
 
@@ -34,15 +32,15 @@ public class Skill {
     public static final byte THOI_MIEN = 22;
 
     public static final byte KHIEN_NANG_LUONG = 19;
-    
+
     public static final byte SUPER_KAME = 24;//skil new
     public static final byte LIEN_HOAN_CHUONG = 25;
     public static final byte MA_PHONG_BA = 26;
-    
+
     public static final byte SUPER_TRANFORMATION = 27;
     public static final byte EVOLUTION = 28;
     public static final byte PHAN_THAN = 29;
-    
+
     public SkillTemplate template;
 
     public short skillId;
@@ -54,7 +52,7 @@ public class Skill {
     public int coolDown;
 
     public long lastTimeUseThisSkill;
-    
+
     public long lastTimeUseThisSkillbot;
 
     public int dx;
@@ -66,7 +64,7 @@ public class Skill {
     public int manaUse;
 
     public short damage;
-    
+
     public short currLevel;
     public String moreInfo;
 
@@ -91,8 +89,8 @@ public class Skill {
         this.price = skill.price;
         this.template = skill.template;
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.template = null;
     }
 }

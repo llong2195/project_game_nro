@@ -4,6 +4,7 @@ package Dragon.services.tutien;
  * Kết quả của các thao tác Tu Tiên
  */
 public class TutienResult {
+
     private final boolean success;
     private final String message;
 

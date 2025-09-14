@@ -8,7 +8,6 @@ import Dragon.services.Service;
 import Dragon.services.func.ChangeMapService;
 import Dragon.utils.Util;
 
-
 public class TraThu extends PVP {
 
     public TraThu(Player p1, Player p2) {
@@ -27,12 +26,12 @@ public class TraThu extends PVP {
 
     @Override
     public void finish() {
-        
+
     }
 
     @Override
     public void update() {
-        
+
     }
 
     @Override

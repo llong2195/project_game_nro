@@ -3,7 +3,6 @@ package Dragon.models.npc;
 import Dragon.models.player.Player;
 import com.girlkun.network.io.Message;
 
-
 public class BaseMenu {
 
     public int npcId;
@@ -24,9 +23,8 @@ public class BaseMenu {
             }
             player.sendMessage(msg);
             msg.cleanup();
-        } catch (Exception e) 
-        {
-                     
+        } catch (Exception e) {
+
         }
     }
 }

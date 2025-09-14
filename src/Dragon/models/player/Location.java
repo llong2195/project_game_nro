@@ -1,6 +1,5 @@
 package Dragon.models.player;
 
-
 public class Location {
 
     public int x;

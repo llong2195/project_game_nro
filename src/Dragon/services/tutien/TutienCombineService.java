@@ -104,8 +104,8 @@ public class TutienCombineService {
     }
 
     /**
-     * Xử lý nâng cấp đan Tu Tiên - Tự động nhận biết cấp hiện tại và nâng cấp lên
-     * cấp tiếp theo
+     * Xử lý nâng cấp đan Tu Tiên - Tự động nhận biết cấp hiện tại và nâng cấp
+     * lên cấp tiếp theo
      */
     public void upgradeTutienDan(Player player) {
         // Kiểm tra đã mở thiên phú chưa
@@ -246,7 +246,7 @@ public class TutienCombineService {
                 npcSay += "|3|Tỉ lệ thành công: 100%\n\n";
                 npcSay += "|6|Kết quả: 1 "
                         + (Manager.ITEM_TEMPLATES.get(1806) != null ? Manager.ITEM_TEMPLATES.get(1806).name
-                                : "Đan Tu Tiên");
+                        : "Đan Tu Tiên");
 
                 // Sử dụng NPC hiện tại nếu có, nếu không thì dùng NPC mặc định
                 Dragon.models.npc.Npc currentNpc = npc != null ? npc
@@ -320,7 +320,7 @@ public class TutienCombineService {
                 npcSay += "|4|Cần: " + requiredQuantity + " đan + " + requiredQuantity + " công thức\n\n";
                 npcSay += "|6|Kết quả: 1 "
                         + (Manager.ITEM_TEMPLATES.get(newDanId) != null ? Manager.ITEM_TEMPLATES.get(newDanId).name
-                                : "Đan Tu Tiên cấp " + targetLevel);
+                        : "Đan Tu Tiên cấp " + targetLevel);
 
                 Dragon.models.npc.Npc currentNpc = npc != null ? npc
                         : Dragon.services.func.CombineServiceNew.gI()

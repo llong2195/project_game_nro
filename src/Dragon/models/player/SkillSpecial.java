@@ -20,7 +20,7 @@ public class SkillSpecial {
 
     public static final int TIME_GONG = 2000;
     public static final int TIME_END = 3000;
-    public static final int TIME_END_24_25 = 3000; 
+    public static final int TIME_END_24_25 = 3000;
 
     private Player player;
 
@@ -69,7 +69,7 @@ public class SkillSpecial {
         this._xPlayer = _xPlayer;
         this._yPlayer = _yPlayer;
         this._xObjTaget = (short) (skillSpecial.dx + skillSpecial.point * 50); // skill dộ dài
-        this._yObjTaget = (short) skillSpecial.dy;   
+        this._yObjTaget = (short) skillSpecial.dy;
         this.stepSkillSpecial = 0;
         this.lastTimeSkillSpecial = System.currentTimeMillis();
         this.start(250); // nay delay lay bem dame á 
@@ -94,9 +94,8 @@ public class SkillSpecial {
             this.timerTask.cancel();
             this.timer = null;
             this.timerTask = null;
-        } catch (Exception e)
-        {
-                
+        } catch (Exception e) {
+
             this.timer = null;
             this.timerTask = null;
         }

@@ -8,7 +8,6 @@ import Dragon.services.EffectSkillService;
 import Dragon.services.Service;
 import Dragon.utils.Util;
 
-
 public class Rong3Sao extends Boss {
 
     public Rong3Sao() throws Exception {
@@ -20,19 +19,20 @@ public class Rong3Sao extends Boss {
         ItemMap it = new ItemMap(this.zone, 374, 1, this.location.x, this.location.y, -1);
         Service.getInstance().dropItemMap(this.zone, it);
     }
-@Override
+
+    @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage/7);
+            damage = this.nPoint.subDameInjureWithDeff(damage / 7);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                  damage = damage/4;
+                damage = damage / 4;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -45,5 +45,3 @@ public class Rong3Sao extends Boss {
         }
     }
 }
-
-

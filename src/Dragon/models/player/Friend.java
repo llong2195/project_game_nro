@@ -1,6 +1,5 @@
 package Dragon.models.player;
 
-
 public class Friend {
 
     public int id;
@@ -11,5 +10,5 @@ public class Friend {
     public byte bag;
     public double power;
     public boolean online;
-    
+
 }

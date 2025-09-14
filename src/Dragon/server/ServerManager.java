@@ -3,6 +3,7 @@ package Dragon.server;
 import com.girlkun.database.GirlkunDB;
 
 import java.net.ServerSocket;
+import java.awt.GraphicsEnvironment;
 
 import Dragon.Bot.BotManager;
 import Dragon.jdbc.daos.HistoryTransactionDAO;
@@ -100,7 +101,18 @@ public class ServerManager {
         timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
         ServerManager serverManager = ServerManager.gI();
         serverManager.run();
-        menu.main(args);
+        try {
+            boolean enableUi = Boolean.parseBoolean(System.getProperty("enable.ui", "false"));
+            if (enableUi && !GraphicsEnvironment.isHeadless()) {
+                menu.main(args);
+            } else {
+                Logger.log(Logger.YELLOW, "UI disabled or headless environment detected. Skipping Swing menu.\n");
+            }
+        } catch (Throwable t) {
+            // Avoid aborting the server if AWT/Swing is unavailable
+            Logger.log(Logger.RED, "Failed to start Swing menu (ignored): " + t.getClass().getSimpleName() + " - "
+                    + t.getMessage() + "\n");
+        }
         // Tạo và chạy player ảo
         // Playerao.createVirtualPlayers(200); // Thay đổi số lượng player ảo tùy thích
     }
@@ -236,9 +248,22 @@ public class ServerManager {
     }
 
     private void activeCommandLine() {
+        if (System.console() == null) {
+            Logger.log(Logger.YELLOW, "Command-line input disabled (no console available).\n");
+            return;
+        }
         new Thread(() -> {
             Scanner sc = new Scanner(System.in);
             while (true) {
+                if (!sc.hasNextLine()) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+                    continue;
+                }
                 String line = sc.nextLine();
                 if (line.equals("savekigui")) {
                 }
@@ -315,6 +340,75 @@ public class ServerManager {
                         e.printStackTrace();
                         System.out.println("Lỗi quà");
 
+                    }
+                } else if (line.equals("refreshmobcache")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Refreshing Mob Reward Cache...");
+                        Dragon.jdbc.daos.MobRewardService.getInstance().refreshCache();
+                        Dragon.utils.Logger.log("ServerManager: Mob Reward Cache refreshed successfully!");
+                        Dragon.utils.Logger.log(
+                                "ServerManager: " + Dragon.jdbc.daos.MobRewardService.getInstance().getCacheStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to refresh Mob Reward Cache!");
+                    }
+                } else if (line.equals("mobcachestats")) {
+                    try {
+                        Dragon.utils.Logger.log(
+                                "ServerManager: " + Dragon.jdbc.daos.MobRewardService.getInstance().getCacheStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to get cache stats!");
+                    }
+                } else if (line.equals("refreshbosscache")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Refreshing Boss Reward Cache...");
+                        Dragon.jdbc.daos.BossRewardService.getInstance().refreshCache();
+                        Dragon.utils.Logger.log("ServerManager: Boss Reward Cache refreshed successfully!");
+                        Dragon.utils.Logger.log(
+                                "ServerManager: " + Dragon.jdbc.daos.BossRewardService.getInstance().getCacheStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to refresh Boss Reward Cache!");
+                    }
+                } else if (line.equals("bosscachestats")) {
+                    try {
+                        Dragon.utils.Logger.log(
+                                "ServerManager: " + Dragon.jdbc.daos.BossRewardService.getInstance().getCacheStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to get boss cache stats!");
+                    }
+                } else if (line.equals("refreshgiftcache")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Refreshing Gift Code Cache...");
+                        Dragon.jdbc.daos.GiftCodeCache.getInstance().refreshCache();
+                        Dragon.utils.Logger.log("ServerManager: Gift Code Cache refreshed successfully!");
+                        Dragon.utils.Logger.log(
+                                "ServerManager: " + Dragon.jdbc.daos.GiftCodeCache.getInstance().getCacheStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to refresh Gift Code Cache!");
+                    }
+                } else if (line.equals("giftcachestats")) {
+                    try {
+                        Dragon.utils.Logger.log(
+                                "ServerManager: " + Dragon.jdbc.daos.GiftCodeCache.getInstance().getCacheStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to get gift code cache stats!");
+                    }
+                } else if (line.equals("reloadgiftcodes")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Reloading Gift Codes from database...");
+                        Dragon.jdbc.daos.GiftCodeCache.getInstance().clearCache();
+                        Dragon.jdbc.daos.GiftCodeCache.getInstance().initializeCache();
+                        Dragon.utils.Logger.log("ServerManager: Gift Codes reloaded successfully!");
+                        Dragon.utils.Logger.log(
+                                "ServerManager: " + Dragon.jdbc.daos.GiftCodeCache.getInstance().getCacheStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to reload Gift Codes!");
                     }
                 }
             }

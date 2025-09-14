@@ -11,11 +11,10 @@ import Dragon.utils.Util;
 
 import java.util.Random;
 
-
 public class conbo2 extends Boss {
 
     public conbo2() throws Exception {
-       super(BossID.bocung1, BossesData.CON_BO_2);
+        super(BossID.bocung1, BossesData.CON_BO_2);
     }
 
 //    @Override
@@ -37,15 +36,14 @@ public class conbo2 extends Boss {
 //            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
 //        }
 //    }
-
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
         if (Util.canDoWithTime(st, 900000000)) {
-        //    this.changeStatus(BossStatus.LEAVE_MAP);
+            //    this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-   
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
@@ -53,7 +51,8 @@ public class conbo2 extends Boss {
     }
 
     private long st;
- @Override
+
+    @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
@@ -65,7 +64,7 @@ public class conbo2 extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage/2;
+                damage = damage / 2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -77,9 +76,10 @@ public class conbo2 extends Boss {
             return 0;
         }
     }
+
     @Override
     public void moveTo(int x, int y) {
-        if(this.currentLevel == 1){
+        if (this.currentLevel == 1) {
             return;
         }
         super.moveTo(x, y);
@@ -91,35 +91,13 @@ public class conbo2 extends Boss {
 //            return;
 //        }
 //        super.reward(plKill);
-  //  }
+    //  }
 
- //   @Override
+    //   @Override
     protected void notifyJoinMap() {
-        if(this.currentLevel == 1){
+        if (this.currentLevel == 1) {
             return;
         }
         super.notifyJoinMap();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

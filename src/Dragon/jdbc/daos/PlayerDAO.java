@@ -263,9 +263,9 @@ public class PlayerDAO {
             String charms = dataArray.toJSONString();
             dataArray.clear();
 
-            int[] skillsArr = gender == 0 ? new int[] { 0, 1, 6, 9, 10, 20, 22, 19, 24, 27, 28, 29 }
-                    : gender == 1 ? new int[] { 2, 3, 7, 11, 12, 17, 18, 19, 26, 27, 28, 29 }
-                            : new int[] { 4, 5, 8, 13, 14, 21, 23, 19, 25, 27, 28, 29 };
+            int[] skillsArr = gender == 0 ? new int[]{0, 1, 6, 9, 10, 20, 22, 19, 24, 27, 28, 29}
+                    : gender == 1 ? new int[]{2, 3, 7, 11, 12, 17, 18, 19, 26, 27, 28, 29}
+                    : new int[]{4, 5, 8, 13, 14, 21, 23, 19, 25, 27, 28, 29};
             // [{"temp_id":"4","point":0,"last_time_use":0},]
 
             JSONArray skill = new JSONArray();
@@ -668,7 +668,7 @@ public class PlayerDAO {
                 dataArray.add(player.itemTime.iconMeal);
                 dataArray.add((player.itemTime.isUseTDLT
                         ? ((player.itemTime.timeTDLT - (System.currentTimeMillis() - player.itemTime.lastTimeUseTDLT))
-                                / 60 / 1000)
+                        / 60 / 1000)
                         : 0));
                 String itemTime = dataArray.toJSONString();
                 dataArray.clear();
@@ -1127,8 +1127,7 @@ public class PlayerDAO {
     // return true;
     // }
     public static void saveisBienHinh(Player player) {
-        try (Connection con = GirlkunDB.getConnection();
-                PreparedStatement ps = con.prepareStatement("update player set isbienhinh = ? where id = ?");) {
+        try (Connection con = GirlkunDB.getConnection(); PreparedStatement ps = con.prepareStatement("update player set isbienhinh = ? where id = ?");) {
             ps.setInt(1, player.isbienhinh);
             ps.setInt(2, (int) player.id);
             ps.executeUpdate();

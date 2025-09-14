@@ -1,23 +1,22 @@
 package Dragon.consts;
 
-
 public class ConstMob {
 
     public static final byte MOC_NHAN = 0;
     public static final byte KHUNG_LONG = 1;
     public static final byte LON_LOI = 2;
     public static final byte QUY_DAT = 3;
-    public static final byte KHUNG_LONG_ME = 4;     
+    public static final byte KHUNG_LONG_ME = 4;
     public static final byte LON_LOI_ME = 5;
     public static final byte QUY_DAT_ME = 6;
-    
+
     public static final byte THAN_LAN_BAY = 7;
     public static final byte PHI_LONG = 8;
     public static final byte QUY_BAY = 9;
     public static final byte THAN_LAN_ME = 10;
     public static final byte PHI_LONG_ME = 11;
     public static final byte QUY_BAY_ME = 12;
-    
+
     public static final byte OC_MUON_HON = 13;
     public static final byte OC_SEN = 14;
     public static final byte HEO_XAYDA_ME = 15;
@@ -86,9 +85,7 @@ public class ConstMob {
     public static final byte KHI_LONG_XANH = 78;
     public static final byte TABURINE_DO = 79;
     public static final byte TRU_INVIS = 82;
-    
-    
-    
+
     public static final byte KHI_BU = 99;
     public static final byte BO_XUONG = 100;
     public static final byte CAO_BIEN_DI = 101;
@@ -105,12 +102,5 @@ public class ConstMob {
     public static final byte MA_CA_RONG = 112;
     public static final byte SU_TU_BANG = 113;
     public static final byte SU_TU_LUA = 114;
-    
-    
-    
-    
-    
-    
-    
 
 }

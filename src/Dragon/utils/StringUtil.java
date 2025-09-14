@@ -2,7 +2,6 @@ package Dragon.utils;
 
 import java.util.Random;
 
-
 public class StringUtil {
 
     public static String randomText(int length) {

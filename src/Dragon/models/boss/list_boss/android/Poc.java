@@ -11,7 +11,6 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class Poc extends Boss {
 
     public Poc() throws Exception {
@@ -25,10 +24,10 @@ public class Poc extends Boss {
                     this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
-         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
- @Override
+    @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();

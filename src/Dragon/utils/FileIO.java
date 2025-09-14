@@ -17,13 +17,12 @@ public class FileIO {
             fis.read(ab, 0, ab.length);
             fis.close();
             return ab;
-        } catch (IOException e)
-        {
-             
+        } catch (IOException e) {
+
         }
         return null;
     }
-    
+
     public static ByteArrayOutputStream loadFile(String url) {
         try {
             FileInputStream openFileInput = new FileInputStream(url);
@@ -41,7 +40,7 @@ public class FileIO {
             openFileInput.close();
             return byteArrayOutputStream;
         } catch (IOException e) {
-            
+
             return null;
         }
     }
@@ -58,10 +57,10 @@ public class FileIO {
             fos.flush();
             fos.close();
         } catch (IOException e) {
-             
+
         }
     }
-    
+
     public static String replacePng(String str) {
         if (str.contains(".png")) {
             return str.replace(".png", "");
@@ -70,7 +69,7 @@ public class FileIO {
         }
         return str;
     }
-    
+
     public static void addPath(ArrayList<File> list, File file) {
         if (file.isFile()) {
             list.add(file);

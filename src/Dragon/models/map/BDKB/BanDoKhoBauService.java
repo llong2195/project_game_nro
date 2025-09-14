@@ -34,7 +34,7 @@ public class BanDoKhoBauService {
         }
         return i;
     }
-    
+
     public void openBanDoKhoBau(Player player, byte level) {
         if (level >= 1 && level <= 110) {
             if (player.clan != null && player.clan.BanDoKhoBau == null) {
@@ -64,7 +64,7 @@ public class BanDoKhoBauService {
                             );
                         } catch (Exception e) {
                             Logger.logException(BanDoKhoBauService.class, e, "Error initializing boss");
-                                     
+
                         }
                     } else {
                         Service.getInstance().sendThongBao(player, "Bản đồ kho báu đã đầy, vui lòng quay lại sau");

@@ -113,7 +113,9 @@ public class Inventory {
         if (this.ruby < 0) {
             this.ruby = 0;
         }
-    }public void subGold(int num) {
+    }
+
+    public void subGold(int num) {
         this.gold -= num;
         if (this.gold < 0) {
             this.gold = 0;

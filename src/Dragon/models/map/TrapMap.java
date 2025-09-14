@@ -5,7 +5,6 @@ import Dragon.services.PlayerService;
 import Dragon.services.func.EffectMapService;
 import Dragon.utils.Util;
 
-
 public class TrapMap {
 
     public int x;
@@ -18,14 +17,14 @@ public class TrapMap {
     public void doPlayer(Player player) {
         switch (this.effectId) {
             case 49:
-    if (!player.isDie() && Util.canDoWithTime(player.iDMark.getLastTimeAnXienTrapBDKB(), 1000) && !player.isBoss) {
-        int increasedDame = dame * 2; // Tăng lượng dame lên 100%
-        player.injured(null, increasedDame + (Util.nextInt(-10, 10) * increasedDame / 100), false, false);
-        PlayerService.gI().sendInfoHp(player);
-        EffectMapService.gI().sendEffectMapToAllInMap(player.zone, effectId, 2, 1, player.location.x - 32, 1040, 1);
-        player.iDMark.setLastTimeAnXienTrapBDKB(System.currentTimeMillis());
-    }
-    break;
+                if (!player.isDie() && Util.canDoWithTime(player.iDMark.getLastTimeAnXienTrapBDKB(), 1000) && !player.isBoss) {
+                    int increasedDame = dame * 2; // Tăng lượng dame lên 100%
+                    player.injured(null, increasedDame + (Util.nextInt(-10, 10) * increasedDame / 100), false, false);
+                    PlayerService.gI().sendInfoHp(player);
+                    EffectMapService.gI().sendEffectMapToAllInMap(player.zone, effectId, 2, 1, player.location.x - 32, 1040, 1);
+                    player.iDMark.setLastTimeAnXienTrapBDKB(System.currentTimeMillis());
+                }
+                break;
         }
     }
 

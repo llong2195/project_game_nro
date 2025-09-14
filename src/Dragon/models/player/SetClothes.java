@@ -70,10 +70,10 @@ public class SetClothes {
     }
 
     public boolean IsSetThienSu() {
-        int[][] DoThienSu = new int[][] {
-                { 1048, 1051, 1054, 1057, 1060 }, // td
-                { 1049, 1052, 1055, 1058, 1060 }, // namec
-                { 1050, 1053, 1056, 1059, 1060 },// xayda
+        int[][] DoThienSu = new int[][]{
+            {1048, 1051, 1054, 1057, 1060}, // td
+            {1049, 1052, 1055, 1058, 1060}, // namec
+            {1050, 1053, 1056, 1059, 1060},// xayda
         };
         int z = 0;
         for (int i = 0; i < 5; i++) {
@@ -93,10 +93,10 @@ public class SetClothes {
     }
 
     public boolean IsSetHuyDiet() {
-        int[][] DoHuyDiet = new int[][] {
-                { 650, 651, 657, 658, 656 }, // td
-                { 652, 653, 659, 660, 656 }, // namec
-                { 654, 655, 661, 662, 656 },// xayda
+        int[][] DoHuyDiet = new int[][]{
+            {650, 651, 657, 658, 656}, // td
+            {652, 653, 659, 660, 656}, // namec
+            {654, 655, 661, 662, 656},// xayda
         };
         int z = 0;
         for (int i = 0; i < 5; i++) {

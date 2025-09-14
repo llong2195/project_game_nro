@@ -172,7 +172,7 @@ public class ItemTimeService {
 //        sendTextTime(player, CAU_CA, "Câu Cá: ", secondsLeft);
 //
 //    }
-    
+
     public void removeTextCauCa(Player player) {
         removeTextTime(player, CAU_CA);
     }
@@ -224,7 +224,7 @@ public class ItemTimeService {
     public void removeTextKhiGas(Player player) {
         removeTextTime(player, KHI_GASS);
     }
-    
+
     public void removeTextphuocnhiemvu(Player player) {
         removeTextTime(player, PHUOC_COUNT_NHIEM_VU);
     }

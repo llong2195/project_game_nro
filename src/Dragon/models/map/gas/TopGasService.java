@@ -78,7 +78,7 @@ public class TopGasService {
             msg.cleanup();
         } catch (Exception e) {
             System.err.print("\nError at 172\n");
-             e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }

@@ -369,6 +369,7 @@ public class MapService {
     public boolean isMapKhiGas(int mapId) {
         return mapId == 149 || mapId == 148 || mapId == 147 || mapId == 151 || mapId == 152;
     }
+
     // không cho người khác vào map phước
     public boolean isMapMaBu(int mapId) {
         return (mapId >= 114 && mapId <= 120) || mapId == 0;
@@ -378,11 +379,13 @@ public class MapService {
         return mapId == 112;
     }
 // phước map cold
+
     public boolean isMapCold(Map map) {
         int mapId = map.mapId;
         return mapId == 212;
     }
 // Map Nhà Phước
+
     public boolean isMapNha(int mapId) {
         return mapId == 99;
     }
@@ -410,6 +413,7 @@ public class MapService {
     public boolean isnguhs(int mapId) {
         return mapId >= 122 && mapId <= 124;
     }
+
     //phó bản phước
     public boolean isdiacung(int mapId) {
         return mapId == 36;

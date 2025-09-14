@@ -14,9 +14,9 @@ import Dragon.models.player.Player;
  * @author Administrator
  */
 public class NapVangService {
-    
-    public static void ChonGiaTien(int chon, Player p) throws Exception{
-        switch (chon){
+
+    public static void ChonGiaTien(int chon, Player p) throws Exception {
+        switch (chon) {
             case 20: {//(20k)
                 if (p.session.vnd < 20) {
                     Service.gI().sendThongBao(p, "Bạn phải có tối thiêu 20 Xu");

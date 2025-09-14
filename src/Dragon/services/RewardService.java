@@ -11,7 +11,6 @@ import Dragon.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class RewardService {
 
     //id option set kich hoat (tên set, hiệu ứng set, tỉ lệ, type tỉ lệ)
@@ -20,7 +19,7 @@ public class RewardService {
         {{131, 143, 1, 1000}, {132, 144, 1, 1000}, {130, 142, 1, 1000}}, //oc tieu - pikkoro daimao - picolo
         {{135, 138, 1, 1000}, {133, 136, 1, 1000}, {134, 137, 1, 1000}} //kakarot - cadic - nappa
     };
-    
+
     private static RewardService I;
 
     private RewardService() {
@@ -740,7 +739,7 @@ public class RewardService {
     }
 
     //sao pha lê
-     public void initStarOption(Item item, RatioStar[] ratioStars) {
+    public void initStarOption(Item item, RatioStar[] ratioStars) {
         RatioStar ratioStar = ratioStars[Util.nextInt(0, ratioStars.length - 1)];
         if (Util.isTrue(ratioStar.ratio, ratioStar.typeRatio)) {
             item.itemOptions.add(new Item.ItemOption(107, ratioStar.numStar));
@@ -754,7 +753,7 @@ public class RewardService {
 
     //vật phẩm không thể giao dịch
     private void initNotTradeOption(ItemMap item) {
-        switch(item.itemTemplate.id){
+        switch (item.itemTemplate.id) {
             case 2009:
                 item.options.add(new Item.ItemOption(30, 0));
                 break;

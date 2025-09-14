@@ -1,6 +1,7 @@
 package Dragon.card;
 
 public class OptionCard {
+
     public int id;
     public int param;
     public byte active;

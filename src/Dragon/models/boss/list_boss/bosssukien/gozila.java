@@ -19,8 +19,9 @@ public class gozila extends Boss {
     public gozila() throws Exception {
         super(BossID.GOZILA, BossesData.GOZILA);
     }
+
     @Override
-     public void reward(Player plKill) {
+    public void reward(Player plKill) {
         int[] itemDos = new int[]{1442, 1443};
         int randomnro = new Random().nextInt(itemDos.length);
         if (Util.isTrue(25, 100)) {
@@ -29,7 +30,8 @@ public class gozila extends Boss {
             Service.gI().sendThongBao(plKill, "Bạn Vừa Nhận Được Một Điểm Hùng Vương");
         }
     }
-   @Override
+
+    @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
@@ -44,6 +46,7 @@ public class gozila extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
+
     @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {

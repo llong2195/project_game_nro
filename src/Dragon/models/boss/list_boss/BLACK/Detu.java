@@ -9,12 +9,10 @@ import Dragon.models.boss.*;
 //import Dragon.utils.Util;
 
 //import java.util.Random;
-
-
 public class Detu extends Boss {
 
     public Detu() throws Exception {
-       super(BossID.detu1, BossesData.DETU);
+        super(BossID.detu1, BossesData.DETU);
     }
 
 //    @Override
@@ -36,7 +34,6 @@ public class Detu extends Boss {
 //            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
 //        }
 //    }
-
 //    @Override
 //    public void active() {
 //        super.active(); //To change body of generated methods, choose Tools | Templates.
@@ -44,14 +41,13 @@ public class Detu extends Boss {
 //        //    this.changeStatus(BossStatus.LEAVE_MAP);
 //        }
 //    }
-   
 //    @Override
 //    public void joinMap() {
 //        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-  //      st = System.currentTimeMillis();
-    }
+    //      st = System.currentTimeMillis();
+}
 
-  //  private long st;
+//  private long st;
 // @Override
 //    public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
 //        if (!this.isDie()) {
@@ -100,25 +96,4 @@ public class Detu extends Boss {
 //        super.notifyJoinMap();
 //    }
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

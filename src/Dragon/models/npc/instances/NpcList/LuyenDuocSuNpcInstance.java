@@ -19,9 +19,9 @@ public class LuyenDuocSuNpcInstance extends NpcInstance {
             public void openBaseMenu(Player player) {
                 if (LuyenDuocSuNpcInstance.this.canOpenNpc(player)) {
                     this.createOtherMenu(player, ConstNpc.BASE_MENU,
-                            "|7|Xin chào! Tôi là Luyện Độc Sư\n" +
-                                    "Tôi chuyên về luyện đan Tu Tiên\n" +
-                                    "Bạn muốn làm gì?",
+                            "|7|Xin chào! Tôi là Luyện Độc Sư\n"
+                            + "Tôi chuyên về luyện đan Tu Tiên\n"
+                            + "Bạn muốn làm gì?",
                             "Ghép Mảnh Tàn Đan", "Nâng Cấp Đan", "Đóng");
                 }
             }

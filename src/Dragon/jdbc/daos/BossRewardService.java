@@ -1,25 +1,16 @@
 package Dragon.jdbc.daos;
 
-import Dragon.models.boss.Boss;
 import Dragon.models.map.ItemMap;
+import Dragon.models.boss.Boss;
 import Dragon.models.player.Player;
 import Dragon.utils.Logger;
-import com.girlkun.database.GirlkunDB;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * BossRewardService - Service để xử lý reward khi giết boss
- * Thay thế cho việc hardcode reward trong từng boss class
- */
 public class BossRewardService {
 
     private static BossRewardService instance;
+    private BossRewardCache cache;
 
     public static BossRewardService getInstance() {
         if (instance == null) {
@@ -28,88 +19,68 @@ public class BossRewardService {
         return instance;
     }
 
-    /**
-     * Process rewards khi boss bị giết
-     */
-    public void processRewards(Boss boss, Player plKill) {
-        List<BossReward> rewards = getBossRewards((int) boss.id);
-
-        for (BossReward reward : rewards) {
-            if (shouldDropReward(reward)) {
-                dropReward(boss, plKill, reward);
-            }
-        }
+    private BossRewardService() {
+        this.cache = BossRewardCache.getInstance();
     }
 
     /**
-     * Get rewards của boss từ database
+     * Process rewards khi boss bị giết từ cache
      */
-    private List<BossReward> getBossRewards(int bossId) {
-        List<BossReward> rewards = new ArrayList<>();
-        Connection con = null;
+    public List<ItemMap> processRewards(Boss boss, Player player, int x, int yEnd) {
+        List<ItemMap> drops = new ArrayList<>();
 
-        try {
-            con = GirlkunDB.getConnection();
-            PreparedStatement ps = con.prepareStatement(
-                    "SELECT item_id, quantity, drop_rate FROM boss_rewards WHERE boss_id = ? ORDER BY drop_rate DESC");
-            ps.setInt(1, bossId);
-            ResultSet rs = ps.executeQuery();
+        List<BossRewardCache.BossReward> rewards = cache.getBossRewards((int) boss.id);
 
-            while (rs.next()) {
-                BossReward reward = new BossReward();
-                reward.itemId = rs.getShort("item_id");
-                reward.quantity = rs.getInt("quantity");
-                reward.dropRate = rs.getDouble("drop_rate");
-                rewards.add(reward);
-            }
+        for (BossRewardCache.BossReward reward : rewards) {
+            // Check drop rate
+            boolean willDrop = shouldDropReward(reward.dropRate);
+            Dragon.utils.Logger.log("Boss " + boss.id + " item " + reward.itemId + " rate=" + reward.dropRate
+                    + "% willDrop=" + willDrop);
 
-            rs.close();
-            ps.close();
+            if (willDrop) {
+                ItemMap itemMap = new ItemMap(boss.zone, reward.itemId, reward.quantity, x, yEnd, player.id);
 
-        } catch (Exception e) {
-            Logger.logException(BossRewardService.class, e);
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    Logger.logException(BossRewardService.class, e);
+                // Add options from cache
+                List<BossRewardCache.BossRewardOption> options = cache.getBossRewardOptions(reward.id);
+                if (!options.isEmpty()) {
+                    itemMap.options = new ArrayList<>();
+                    for (BossRewardCache.BossRewardOption option : options) {
+                        Dragon.models.item.Item.ItemOption itemOption = new Dragon.models.item.Item.ItemOption(
+                                option.optionId, option.param);
+                        itemMap.options.add(itemOption);
+                    }
+                    Logger.log("Added " + options.size() + " options to item " + reward.itemId);
                 }
+
+                drops.add(itemMap);
             }
         }
 
-        return rewards;
+        return drops;
     }
 
     /**
-     * Check xem có nên drop reward không
+     * Refresh cache khi cần update data
      */
-    private boolean shouldDropReward(BossReward reward) {
-        return Dragon.utils.Util.isTrue((int) reward.dropRate, 100);
+    public void refreshCache() {
+        cache.refreshCache();
     }
 
     /**
-     * Drop reward xuống map
+     * Get cache statistics
      */
-    private void dropReward(Boss boss, Player plKill, BossReward reward) {
-        // Logic drop item xuống map
-        Dragon.services.Service.gI().dropItemMap(
-                boss.zone,
-                new ItemMap(
-                        boss.zone,
-                        reward.itemId,
-                        reward.quantity,
-                        boss.location.x,
-                        boss.location.y,
-                        plKill.id));
+    public String getCacheStats() {
+        return cache.getCacheStats();
+    }
+
+    private boolean shouldDropReward(double dropRate) {
+        return Dragon.utils.Util.isTrue((int) (dropRate * 10), 1000);
     }
 
     /**
-     * Inner class để chứa reward data
+     * Get boss rewards info for debugging (from cache)
      */
-    private static class BossReward {
-        short itemId;
-        int quantity;
-        double dropRate;
+    public List<BossRewardCache.BossReward> getBossRewards(int bossId) {
+        return cache.getBossRewards(bossId);
     }
 }

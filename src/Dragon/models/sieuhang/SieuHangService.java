@@ -38,7 +38,7 @@ public class SieuHangService {
     }
 
     public void startChallenge(Player player, int id) throws Exception {
-        if(player != null && player.rankSieuHang  == 1){
+        if (player != null && player.rankSieuHang == 1) {
             Service.gI().sendThongBao(player, "Top 1 rồi đánh gì nữa cha");
             return;
         }

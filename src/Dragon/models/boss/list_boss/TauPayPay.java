@@ -13,7 +13,6 @@ import Dragon.services.Service;
 import Dragon.utils.Util;
 import java.util.Random;
 
-
 public class TauPayPay extends Boss {
 
     public TauPayPay() throws Exception {
@@ -23,8 +22,9 @@ public class TauPayPay extends Boss {
     @Override
     public void active() {
         super.active();
-      
+
     }
+
     @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
@@ -37,7 +37,7 @@ public class TauPayPay extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage/2;
+                damage = damage / 2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -49,31 +49,10 @@ public class TauPayPay extends Boss {
             return 0;
         }
     }
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

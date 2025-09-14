@@ -13,7 +13,6 @@ import Dragon.utils.Util;
 
 import java.util.Random;
 
-
 public class conbo1 extends Boss {
 
     public conbo1() throws Exception {
@@ -59,16 +58,16 @@ public class conbo1 extends Boss {
         }
     }
 
-   @Override
+    @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
-       
+
     }
 
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-       
+
     }
 
 //     @Override
@@ -113,25 +112,3 @@ public class conbo1 extends Boss {
 //        super.notifyJoinMap();
 //    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

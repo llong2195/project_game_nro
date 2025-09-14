@@ -1,6 +1,5 @@
 package Dragon.consts;
 
-
 public class ConstPlayer {
 
     public static final int[] HEADMONKEY = {192, 195, 196, 199, 197, 200, 198};
@@ -21,7 +20,7 @@ public class ConstPlayer {
     public static final byte HOP_THE_PORATA2 = 8;
     public static final byte HOP_THE_PORATA3 = 10;
     public static final byte HOP_THE_PORATA4 = 12;
-     public static final byte HOP_THE_GOGETA = 14;
+    public static final byte HOP_THE_GOGETA = 14;
     public static byte NAMEC1;
 
 }

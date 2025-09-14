@@ -14,7 +14,7 @@ import com.girlkun.network.io.Message;
  * @author Administrator
  */
 public class EffSkinService {
-    
+
     public static final byte TURN_ON_EFFECT = 1;
     public static final byte TURN_OFF_EFFECT = 0;
     public static final byte TURN_OFF_ALL_EFFECT = 2;
@@ -22,13 +22,14 @@ public class EffSkinService {
     public static final byte SLEEP_EFFECT = 41;
     public static final byte STONE_EFFECT = 42;
     private static EffSkinService i;
-    
+
     public static EffSkinService gI() {
         if (i == null) {
             i = new EffSkinService();
         }
         return i;
     }
+
     public void setHoaDa(Player player, long lastTimeHoaDa, int timeHoaDa) {
         player.effectSkin.isHoaDa = true;
         player.effectSkin.lastTimeHoaDa = lastTimeHoaDa;
@@ -40,6 +41,7 @@ public class EffSkinService {
         Service.getInstance().Send_Caitrang(player);
         sendEffectPlayer(player, player, TURN_OFF_EFFECT, STONE_EFFECT);
     }
+
     public void sendEffectPlayer(Player plUseSkill, Player plTarget, byte toggle, byte effect) {
         Message msg;
         try {

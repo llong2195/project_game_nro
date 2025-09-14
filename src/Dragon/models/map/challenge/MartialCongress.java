@@ -22,27 +22,22 @@ import Dragon.services.PlayerService;
 import Dragon.services.Service;
 import Dragon.services.func.ChangeMapService;
 import Dragon.utils.Util;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author Duy Béo
  */
-@Getter
 public class MartialCongress {
 
-    @Setter
     private Player player;
 
     private Boss boss; // Không dùng @Setter vì đã có setter thủ công
     private int time;  // Không dùng @Setter vì đã có setter thủ công
     private int timeWait; // Không dùng @Setter vì đã có setter thủ công
 
-    @Setter
     private Player npc;
 
     private int round;
-    
+
     public void update() {
         if (time > 0) {
             time--;
@@ -175,6 +170,18 @@ public class MartialCongress {
     public void setTimeWait(int timeWait) {
         this.timeWait = timeWait;
     }
+
+    // Getters that were previously provided by Lombok @Getter
+    public Player getPlayer() { return player; }
+    public Boss getBoss() { return boss; }
+    public int getTime() { return time; }
+    public int getTimeWait() { return timeWait; }
+    public Player getNpc() { return npc; }
+    public int getRound() { return round; }
+
+    // Setters for fields that previously used @Setter
+    public void setPlayer(Player player) { this.player = player; }
+    public void setNpc(Player npc) { this.npc = npc; }
 
     private void die() {
         Service.getInstance().sendThongBao(player, "Bạn bị xử thua vì chết queo");

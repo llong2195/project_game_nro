@@ -77,4 +77,3 @@ public class Sanca extends Boss {
     }
 
 }
-

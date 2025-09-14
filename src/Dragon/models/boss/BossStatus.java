@@ -16,4 +16,3 @@ public enum BossStatus {
     LEAVE_MAP
 
 }
-

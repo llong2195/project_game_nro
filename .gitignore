@@ -37,6 +37,8 @@ Thumbs.db
 build/
 out/
 dist/
+bin/
+.gradle/
 
 # Temporary files
 *.tmp
@@ -47,3 +49,7 @@ server.log
 
 # Compiled sources
 src.zip
+
+# Ant project files (legacy)
+nbproject/
+build.xml

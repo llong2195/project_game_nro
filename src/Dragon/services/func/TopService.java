@@ -6,7 +6,7 @@ import Dragon.utils.Logger;
 import java.sql.Connection;
 
 public class TopService implements Runnable {
-    
+
     @Override
     public void run() {
         while (true) {
@@ -31,5 +31,5 @@ public class TopService implements Runnable {
             }
         }
     }
-    
+
 }

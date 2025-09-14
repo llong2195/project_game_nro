@@ -78,9 +78,11 @@ public class Trade {
         } catch (Exception ignored) {
         }
     }
-    public void addItemBot(Item it){
+
+    public void addItemBot(Item it) {
         itemsTrade2.add(it);
     }
+
     public void addItemTrade(Player pl, byte index, int quantity) {
         if (pl.getSession().actived) {
             if (index == -1) {
@@ -187,7 +189,6 @@ public class Trade {
 //                }
 
 //            case 5: //cải trang
-
             case 6: //đậu thần
             case 7: //sách skill
             case 8: //vật phẩm nhiệm vụ
@@ -282,9 +283,9 @@ public class Trade {
         } catch (Exception e) {
             Logger.logException(Trade.class, e);
         }
-        if(player2.isBot){
-            if(pl.equals(player1)){ 
-                ((Bot) player2).shop.CheckTraDe(itemsTrade1); 
+        if (player2.isBot) {
+            if (pl.equals(player1)) {
+                ((Bot) player2).shop.CheckTraDe(itemsTrade1);
             }
         }
     }
@@ -306,14 +307,14 @@ public class Trade {
         if (tradeStatus != SUCCESS) {
             sendNotifyTrade(tradeStatus);
         } else {
-            if(!player2.isBot){
-            for (Item item : itemsTrade1) {
-                if (!InventoryServiceNew.gI().addItemList(itemsBag2, item)) {
-                    tradeStatus = FAIL_NOT_ENOUGH_BAG_P1;
-                    break;
+            if (!player2.isBot) {
+                for (Item item : itemsTrade1) {
+                    if (!InventoryServiceNew.gI().addItemList(itemsBag2, item)) {
+                        tradeStatus = FAIL_NOT_ENOUGH_BAG_P1;
+                        break;
+                    }
                 }
             }
-          }
             if (tradeStatus != SUCCESS) {
                 sendNotifyTrade(tradeStatus);
             } else {
@@ -332,7 +333,7 @@ public class Trade {
                     player2.inventory.itemsBag = itemsBag2;
 
                     InventoryServiceNew.gI().sendItemBags(player1);
-                    if(!player2.isBot){
+                    if (!player2.isBot) {
                         InventoryServiceNew.gI().sendItemBags(player2);
                     }
                     PlayerService.gI().sendInfoHpMpMoney(player1);

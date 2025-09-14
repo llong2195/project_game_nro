@@ -2,10 +2,6 @@ package Dragon.models.reward;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
-
-
-@Data
 public class MobReward {
 
     private int mobId;
@@ -18,26 +14,13 @@ public class MobReward {
         this.itemReward = new ArrayList<>();
         this.goldReward = new ArrayList<>();
     }
+
+    public int getMobId() { return mobId; }
+    public void setMobId(int mobId) { this.mobId = mobId; }
+
+    public List<ItemMobReward> getItemReward() { return itemReward; }
+    public void setItemReward(List<ItemMobReward> itemReward) { this.itemReward = itemReward; }
+
+    public List<ItemMobReward> getGoldReward() { return goldReward; }
+    public void setGoldReward(List<ItemMobReward> goldReward) { this.goldReward = goldReward; }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -12,7 +12,6 @@ import Dragon.services.Service;
 import Dragon.utils.Util;
 import java.util.Random;
 
-
 public class phuocboss2 extends Boss {
 
     public phuocboss2() throws Exception {
@@ -23,10 +22,10 @@ public class phuocboss2 extends Boss {
     public void reward(Player plKill) {
         if (Util.isTrue(5, 100)) {
             if (Util.isTrue(1, 20)) {
-              Service.gI().dropItemMap(this.zone, new ItemMap(zone, 1744, 2, this.location.x, this.location.y, plKill.id));
-            } 
+                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 1744, 2, this.location.x, this.location.y, plKill.id));
+            }
         } else {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone,Util.nextInt(17,20), 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Util.nextInt(17, 20), 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
 

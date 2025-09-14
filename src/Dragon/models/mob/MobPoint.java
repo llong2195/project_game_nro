@@ -2,20 +2,19 @@ package Dragon.models.mob;
 
 import Dragon.utils.Util;
 
-
 public class MobPoint {
 
     public final Mob mob;
     public double hp;
     public double maxHp;
     public double dame;
-    
-    public MobPoint(Mob mob){
+
+    public MobPoint(Mob mob) {
         this.mob = mob;
     }
 
     public double getHpFull() {
-        return  maxHp;
+        return maxHp;
     }
 
     public void setHpFull(double hp) {
@@ -26,9 +25,8 @@ public class MobPoint {
         maxHp = hp;
     }
 
-    
     public double gethp() {
-        return  hp;
+        return hp;
     }
 
     public void sethp(double hp) {
@@ -38,6 +36,7 @@ public class MobPoint {
             this.hp = hp;
         }
     }
+
     public void sethp(long hp) {
         if (this.hp < 0) {
             this.hp = 0;

@@ -16,7 +16,6 @@ public class OpenPowerService {
 
     private OpenPowerService() {
 
-    
     }
 
     public static OpenPowerService gI() {

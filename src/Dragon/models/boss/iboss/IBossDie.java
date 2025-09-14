@@ -1,30 +1,9 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 package Dragon.models.boss.iboss;
 
 import Dragon.models.player.Player;
 
-
 public interface IBossDie {
-    
+
     void doSomeThing(Player playerKill);
 
     void notifyDie(Player playerKill);
@@ -34,25 +13,3 @@ public interface IBossDie {
     void leaveMap();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

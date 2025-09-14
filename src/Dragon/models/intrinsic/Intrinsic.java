@@ -1,7 +1,7 @@
 package Dragon.models.intrinsic;
 
-
 public class Intrinsic {
+
     public int id;
     public String name;
     public short paramFrom1;
@@ -35,17 +35,17 @@ public class Intrinsic {
                 .replaceAll("p2", String.valueOf(paramFrom2))
                 .replaceAll("p3", String.valueOf(paramTo2));
     }
-    public void SetMaxValue()
-    {
-        if(param1 > paramTo1)
-        {
+
+    public void SetMaxValue() {
+        if (param1 > paramTo1) {
             param1 = paramTo1;
         }
     }
+
     public String getName() {
         return this.name.replaceAll("p0% đến p1", "p0").replaceAll("p2% đến p3", "p1")
                 .replaceAll("p0", String.valueOf(this.param1))
-                .replaceAll("p1", String.valueOf(this.param2)) + (this.id != 0 ? " [" + this.paramFrom1 + " đến " + this.paramTo1 + "]" :"");
+                .replaceAll("p1", String.valueOf(this.param2)) + (this.id != 0 ? " [" + this.paramFrom1 + " đến " + this.paramTo1 + "]" : "");
     }
 
 }

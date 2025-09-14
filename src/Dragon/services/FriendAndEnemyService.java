@@ -12,26 +12,25 @@ import Dragon.utils.Logger;
 import Dragon.utils.Util;
 import java.io.IOException;
 
-
 public class FriendAndEnemyService {
-    
+
     private static final byte OPEN_LIST = 0;
-    
+
     private static final byte MAKE_FRIEND = 1;
     private static final byte REMOVE_FRIEND = 2;
-    
+
     private static final byte REVENGE = 1;
     private static final byte REMOVE_ENEMY = 2;
-    
+
     private static FriendAndEnemyService i;
-    
+
     public static FriendAndEnemyService gI() {
         if (i == null) {
             i = new FriendAndEnemyService();
         }
         return i;
     }
-    
+
     public void controllerFriend(Player player, Message msg) {
         try {
             byte action = msg.reader().readByte();
@@ -47,10 +46,10 @@ public class FriendAndEnemyService {
                     break;
             }
         } catch (IOException ex) {
-            
+
         }
     }
-    
+
     public void controllerEnemy(Player player, Message msg) {
         try {
             byte action = msg.reader().readByte();
@@ -82,10 +81,10 @@ public class FriendAndEnemyService {
                     break;
             }
         } catch (IOException ex) {
-             
+
         }
     }
-    
+
     private void reloadFriend(Player player) {
         for (Friend f : player.friends) {
             Player pl = null;
@@ -96,9 +95,8 @@ public class FriendAndEnemyService {
                     f.body = pl.getBody();
                     f.leg = pl.getLeg();
                     f.bag = (byte) pl.getFlagBag();
-                } catch (Exception e)
-                {
-                     
+                } catch (Exception e) {
+
                 }
                 f.online = true;
             } else {
@@ -106,7 +104,7 @@ public class FriendAndEnemyService {
             }
         }
     }
-    
+
     private void reloadEnemy(Player player) {
         for (Enemy e : player.enemies) {
             Player pl = null;
@@ -117,10 +115,8 @@ public class FriendAndEnemyService {
                     e.body = pl.getBody();
                     e.leg = pl.getLeg();
                     e.bag = (byte) pl.getFlagBag();
-                } 
-                catch (Exception ex) 
-                {
-                     
+                } catch (Exception ex) {
+
                 }
                 e.online = true;
             } else {
@@ -128,7 +124,7 @@ public class FriendAndEnemyService {
             }
         }
     }
-    
+
     private void openListFriend(Player player) {
         reloadFriend(player);
         Message msg;
@@ -145,7 +141,7 @@ public class FriendAndEnemyService {
                 msg.writer().writeByte(f.bag);
                 msg.writer().writeUTF(f.name);
                 msg.writer().writeBoolean(Client.gI().getPlayer((int) f.id) != null);
-                msg.writer().writeUTF(Util.numberToMoney((long)f.power));
+                msg.writer().writeUTF(Util.numberToMoney((long) f.power));
             }
             player.sendMessage(msg);
             msg.cleanup();
@@ -153,7 +149,7 @@ public class FriendAndEnemyService {
             Logger.logException(FriendAndEnemyService.class, e);
         }
     }
-    
+
     private void openListEnemy(Player player) {
         reloadEnemy(player);
         Message msg;
@@ -164,12 +160,12 @@ public class FriendAndEnemyService {
             for (Enemy e : player.enemies) {
                 msg.writer().writeInt(e.id);
                 msg.writer().writeShort(e.head);
-                 msg.writer().writeShort(-1);
+                msg.writer().writeShort(-1);
                 msg.writer().writeShort(e.body);
                 msg.writer().writeShort(e.leg);
                 msg.writer().writeShort(e.bag);
                 msg.writer().writeUTF(e.name);
-                msg.writer().writeUTF(Util.numberToMoney((long)e.power));
+                msg.writer().writeUTF(Util.numberToMoney((long) e.power));
                 msg.writer().writeBoolean(Client.gI().getPlayer((int) e.id) != null);
             }
             player.sendMessage(msg);
@@ -178,7 +174,7 @@ public class FriendAndEnemyService {
             Logger.logException(FriendAndEnemyService.class, e);
         }
     }
-    
+
     private void makeFriend(Player player, int playerId) {
         boolean madeFriend = false;
         for (Friend friend : player.friends) {
@@ -201,7 +197,7 @@ public class FriendAndEnemyService {
             }
         }
     }
-    
+
     private void removeFriend(Player player, int playerId) {
         for (int i = 0; i < player.friends.size(); i++) {
             if (player.friends.get(i).id == playerId) {
@@ -214,16 +210,15 @@ public class FriendAndEnemyService {
                     msg.writer().writeInt((int) player.friends.get(i).id);
                     player.sendMessage(msg);
                     msg.cleanup();
-                } catch (Exception e) 
-                {
-                     
+                } catch (Exception e) {
+
                 }
                 player.friends.remove(i);
                 break;
             }
         }
     }
-    
+
     private void removeEnemy(Player player, int playerId) {
         for (int i = 0; i < player.enemies.size(); i++) {
             if (player.enemies.get(i).id == playerId) {
@@ -233,7 +228,7 @@ public class FriendAndEnemyService {
         }
         openListEnemy(player);
     }
-    
+
     public void chatPrivate(Player player, Message msg) {
         if (Util.canDoWithTime(player.iDMark.getLastTimeChatPrivate(), 5000)) {
             player.iDMark.setLastTimeChatPrivate(System.currentTimeMillis());
@@ -245,11 +240,11 @@ public class FriendAndEnemyService {
                     Service.gI().chatPrivate(player, pl, text);
                 }
             } catch (Exception e) {
-                  
-           }
+
+            }
         }
     }
-    
+
     public void acceptMakeFriend(Player player, int playerId) {
         Player pl = Client.gI().getPlayer(playerId);
         if (pl != null) {
@@ -269,7 +264,7 @@ public class FriendAndEnemyService {
             Service.gI().sendThongBao(player, "Không tìm thấy hoặc đang Offline, vui lòng thử lại sau");
         }
     }
-    
+
     public void goToPlayerWithYardrat(Player player, Message msg) {
         try {
             Player pl = Client.gI().getPlayer(msg.reader().readInt());
@@ -289,10 +284,10 @@ public class FriendAndEnemyService {
                 }
             }
         } catch (IOException ex) {
-                 
+
         }
     }
-    
+
     public void addEnemy(Player player, Player enemy) {
         boolean hadEnemy = false;
         for (Enemy ene : player.enemies) {

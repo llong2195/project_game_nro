@@ -7,7 +7,6 @@ import Dragon.services.RewardService;
 import Dragon.services.Service;
 import java.util.List;
 
-
 public class LuckyRound {
 
     private static final byte MAX_ITEM_IN_BOX = 100;
@@ -48,7 +47,7 @@ public class LuckyRound {
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -65,7 +64,7 @@ public class LuckyRound {
                     break;
             }
         } catch (Exception e) {
-             
+
             openCrackBallUI(player, player.iDMark.getTypeLuckyRound());
         }
     }
@@ -118,7 +117,7 @@ public class LuckyRound {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
         }
     }
 

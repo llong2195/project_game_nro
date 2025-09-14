@@ -12,7 +12,6 @@ import Dragon.services.Service;
 import Dragon.utils.Logger;
 import Dragon.utils.Util;
 
-
 public abstract class Npc implements IAtionNpc {
 
     public int mapId;
@@ -52,11 +51,15 @@ public abstract class Npc implements IAtionNpc {
             baseMenu.menuSelect[i] = data[i + 1].replaceAll("<>", "\n");
         }
     }
+
     public void createMenuConMeo(Player player, int indexMenu, int avatar, String npcSay, String... menuSelect) {
         createMenu(player, indexMenu, ConstNpc.CON_MEO, avatar, npcSay, menuSelect);
     }
+
     private void createMenu(Player player, int indexMenu, byte npcTempId, int avatar, String npcSay, String... menuSelect) {
-        if(player == null) return;
+        if (player == null) {
+            return;
+        }
         Message msg;
         try {
             player.iDMark.setIndexMenu(indexMenu);
@@ -91,7 +94,7 @@ public abstract class Npc implements IAtionNpc {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -110,7 +113,7 @@ public abstract class Npc implements IAtionNpc {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -133,7 +136,7 @@ public abstract class Npc implements IAtionNpc {
                 }
             } catch (Exception e) {
                 Logger.logException(Npc.class, e);
-                
+
             }
         }
     }
@@ -166,6 +169,7 @@ public abstract class Npc implements IAtionNpc {
         }
     }
 // phước đậu thần
+
     public boolean canOpenNpc(Player player) {
         if (this.tempId == ConstNpc.DAU_THAN) {
             if (player.zone.map.mapId == 2) {

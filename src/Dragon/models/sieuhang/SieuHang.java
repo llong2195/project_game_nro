@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class SieuHang {
+
     //    @Setter
 //    @Getter
     private Player player;
@@ -57,10 +58,10 @@ public class SieuHang {
                         }
                         player1.rankSieuHang = temp;
                         updateTop(player1, (int) player1.rankSieuHang);
-                       // PlayerDAO.updatePlayer(player1);
+                        // PlayerDAO.updatePlayer(player1);
                     }
                     Service.gI().chat(player, "Haha thắng cuộc rồi! Đã thăng lên hạng " + player.rankSieuHang);
-                  //  PlayerDAO.updatePlayer(player);
+                    //  PlayerDAO.updatePlayer(player);
                     updateTop(player, (int) player.rankSieuHang);
                     boss.leaveMap();
                 }
@@ -89,9 +90,9 @@ public class SieuHang {
             timeWait--;
         }
     }
+
     public static boolean updateTop(Player player, int num) {
-        try (Connection con = GirlkunDB.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE player SET `rank_sieu_hang` = ? WHERE id = ?")) {
+        try (Connection con = GirlkunDB.getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE player SET `rank_sieu_hang` = ? WHERE id = ?")) {
             ps.setInt(1, num);
             ps.setLong(2, player.id);
             ps.executeUpdate();
@@ -103,6 +104,7 @@ public class SieuHang {
             return false;
         }
     }
+
     public void ready() {
         EffectSkillService.gI().startStun(boss, System.currentTimeMillis(), 5000);
         EffectSkillService.gI().startStun(player, System.currentTimeMillis(), 5000);
@@ -113,7 +115,7 @@ public class SieuHang {
             }
             SieuHangService.gI().sendTypePK(player, boss);
             PlayerService.gI().changeAndSendTypePK(this.player, ConstPlayer.PK_PVP);
-            PVP pvp = new PVP(TYPE_PVP.THACH_DAU,player,boss) {
+            PVP pvp = new PVP(TYPE_PVP.THACH_DAU, player, boss) {
                 @Override
                 public void finish() {
 
@@ -153,7 +155,6 @@ public class SieuHang {
             e.printStackTrace();
         }
     }
-
 
     public Player getPlayer() {
         return player;

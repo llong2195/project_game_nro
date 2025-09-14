@@ -9,14 +9,13 @@ import Dragon.services.Service;
 import Dragon.utils.Util;
 import java.util.Random;
 
-
 public class FideRobot extends Boss {
 
     public FideRobot() throws Exception {
         super(BossID.FIDE_ROBOT, BossesData.FIDE_ROBOT);
     }
 
-      @Override
+    @Override
     public void reward(Player plKill) {
         int[] itemDos = new int[]{555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567};
         int[] NRs = new int[]{15, 16};
@@ -55,8 +54,6 @@ public class FideRobot extends Boss {
 //        }
 //        return super.injured(plAtt, damage, piercing, isMobAttack);
 //    }
-
- 
 }
 
 /**

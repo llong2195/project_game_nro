@@ -7,7 +7,6 @@ import Dragon.models.player.Player;
 import Dragon.services.Service;
 import Dragon.utils.Util;
 
-
 public class ThachDau extends PVP {
 
     private int goldThachDau;
@@ -43,8 +42,7 @@ public class ThachDau extends PVP {
     }
 
     @Override
-    public void reward(Player plWin) 
-    {
+    public void reward(Player plWin) {
         plWin.inventory.gold += this.goldReward;
         Service.gI().sendMoney(plWin);
     }

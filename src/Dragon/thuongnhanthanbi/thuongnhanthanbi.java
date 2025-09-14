@@ -4,15 +4,13 @@ import Dragon.utils.TimeUtil;
 
 public class thuongnhanthanbi {
 
-
     public static final byte HOUR_OPEN = 18;
     public static final byte MIN_OPEN = 0;
     public static final byte SECOND_OPEN = 0;
-    
+
     public static final byte HOUR_CLOSE = 22;
     public static final byte MIN_CLOSE = 0;
     public static final byte SECOND_CLOSE = 0;
-
 
     private static thuongnhanthanbi i;
 
@@ -40,6 +38,5 @@ public class thuongnhanthanbi {
             }
         }
     }
-    
-    
+
 }

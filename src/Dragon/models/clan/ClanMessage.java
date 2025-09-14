@@ -1,6 +1,5 @@
 package Dragon.models.clan;
 
-
 public class ClanMessage {
 
     public static final byte BLACK = 0;
@@ -38,8 +37,8 @@ public class ClanMessage {
         this.isNewMessage = 1;
         this.time = (int) (System.currentTimeMillis() / 1000);
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.clan = null;
         this.text = null;
     }

@@ -14,12 +14,12 @@ import Dragon.utils.SkillUtil;
 import Dragon.utils.Util;
 
 /**
- * @author BTH sieu cap vippr0 
+ * @author BTH sieu cap vippr0
  */
 public class ThienXinHangClone extends BossDHVT {
+
     private int timeLive;
     private long lastUpdate = System.currentTimeMillis();
-
 
     public ThienXinHangClone(byte id, Player player) throws Exception {
         super(id, BossesData.THIEN_XIN_HANG_CLONE);
@@ -47,7 +47,7 @@ public class ThienXinHangClone extends BossDHVT {
                         goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)), Util.nextInt(10) % 2 == 0 ? playerAtt.location.y : playerAtt.location.y - Util.nextInt(0, 50), false);
                     }
 //                        System.err.println("attack player: " + playerAtt.name + "use skill: " + SkillService.gI().useSkill(this, playerAtt, null));
-                    SkillService.gI().useSkill(this, playerAtt, null,null);
+                    SkillService.gI().useSkill(this, playerAtt, null, null);
                     checkPlayerDie(playerAtt);
                 } else {
                     goToPlayer(playerAtt, false);
@@ -56,7 +56,7 @@ public class ThienXinHangClone extends BossDHVT {
                 this.leaveMap();
             }
         } catch (Exception ex) {
-            
+
         }
     }
 
@@ -98,7 +98,7 @@ public class ThienXinHangClone extends BossDHVT {
                 }
             }
         } catch (Exception e) {
-            
+
         }
     }
 }

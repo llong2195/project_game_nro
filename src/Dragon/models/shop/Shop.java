@@ -3,7 +3,6 @@ package Dragon.models.shop;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Shop {
 
     public int id;
@@ -41,11 +40,11 @@ public class Shop {
             this.tabShops.add(new TabShop(tabShop));
         }
     }
-    
-    public ItemShop getItemShop(int temp){
-        for(TabShop tab : this.tabShops){
-            for(ItemShop is : tab.itemShops){
-                if(is.temp.id == temp){
+
+    public ItemShop getItemShop(int temp) {
+        for (TabShop tab : this.tabShops) {
+            for (ItemShop is : tab.itemShops) {
+                if (is.temp.id == temp) {
                     return is;
                 }
             }

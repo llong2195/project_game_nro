@@ -8,7 +8,6 @@ import com.girlkun.network.io.Message;
 import Dragon.services.Service;
 import Dragon.utils.Logger;
 
-
 public class BillEgg {
 
 //    private static final long DEFAULT_TIME_DONE = 7776000000L;
@@ -41,10 +40,9 @@ public class BillEgg {
             msg.writer().writeInt(this.getSecondDone());
             this.player.sendMessage(msg);
             msg.cleanup();
-        } catch (Exception e) 
-        {
+        } catch (Exception e) {
             Logger.logException(BillEgg.class, e);
-                     
+
         }
     }
 
@@ -65,11 +63,10 @@ public class BillEgg {
                 }
                 ChangeMapService.gI().changeMapInYard(this.player, this.player.gender * 7, -1, Util.nextInt(300, 500));
                 player.billEgg = null;
-            } catch (Exception e) 
-            {
-                         
+            } catch (Exception e) {
+
             }
-            
+
         } else {
             Service.gI().sendThongBao(player, "Yêu cầu phải có đệ tử");
         }
@@ -81,9 +78,8 @@ public class BillEgg {
             msg.writer().writeByte(101);
             player.sendMessage(msg);
             msg.cleanup();
-        } catch (Exception e)
-        {
-                     
+        } catch (Exception e) {
+
         }
         this.player.billEgg = null;
     }
@@ -92,8 +88,8 @@ public class BillEgg {
         this.timeDone -= ((d * 24 * 60 * 60 * 1000) + (h * 60 * 60 * 1000) + (m * 60 * 1000) + (s * 1000));
         this.sendBillEgg();
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.player = null;
     }
 }

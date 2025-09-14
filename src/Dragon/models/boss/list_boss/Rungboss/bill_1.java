@@ -15,18 +15,17 @@ import Dragon.utils.Util;
 
 import java.util.Random;
 
-
 public class bill_1 extends Boss {
 
     public bill_1() throws Exception {
         super(BossID.BILL1, BossesData.BILL1);
     }
 
-     @Override
-    public void reward(Player plKill)
-    {
+    @Override
+    public void reward(Player plKill) {
         rewardBossForest(plKill);
     }
+
     @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
@@ -39,7 +38,7 @@ public class bill_1 extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage/2;
+                damage = damage / 2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -51,7 +50,8 @@ public class bill_1 extends Boss {
             return 0;
         }
     }
-   @Override
+
+    @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
@@ -66,7 +66,7 @@ public class bill_1 extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-   
+
     private long lastTimeFindPlayerToChangeFlag;
 
     @Override
@@ -83,23 +83,23 @@ public class bill_1 extends Boss {
                 Player pl = getPlayerAttack();
                 if (pl != null && !pl.isDie()) {
 
-                        this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
-                        if (Util.getDistance(this, pl) <= 100) {
-                            if (Util.isTrue(5, 20)) {
-                                if (SkillUtil.isUseSkillChuong(this)) {
-                                    this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
-                                            Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
-                                } else {
-                                    this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
-                                            Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
-                                }
+                    this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                    if (Util.getDistance(this, pl) <= 100) {
+                        if (Util.isTrue(5, 20)) {
+                            if (SkillUtil.isUseSkillChuong(this)) {
+                                this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
+                                        Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
+                            } else {
+                                this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
+                                        Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
                             }
-                            SkillService.gI().useSkill(this, pl, null, null);
-                            checkPlayerDie(pl);
-                        } else {
-                            this.moveToPlayer(pl);
                         }
-                    
+                        SkillService.gI().useSkill(this, pl, null, null);
+                        checkPlayerDie(pl);
+                    } else {
+                        this.moveToPlayer(pl);
+                    }
+
                 }
             } catch (Exception ex) {
                 Logger.logException(Boss.class, ex);
@@ -131,25 +131,3 @@ public class bill_1 extends Boss {
 //        super.notifyJoinMap();
 //    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

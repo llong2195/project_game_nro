@@ -7,7 +7,6 @@ import com.girlkun.network.io.Message;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class SubMenuService {
 
     public static final int BAN = 500;

@@ -1,6 +1,5 @@
 package Dragon.models.task;
 
-
 public class SideTaskTemplate {
 
     public int id;

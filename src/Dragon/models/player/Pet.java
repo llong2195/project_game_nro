@@ -430,7 +430,7 @@ public class Pet extends Player {
                                     PlayerService.gI().playerMove(this, 208, 360);
                                     directAtHome = -1;
                                 }
-                            } 
+                            }
                             Service.getInstance().chatJustForMe(master, this, "H2O + C12H22O11 -> Uống ngọt lắm sư phụ ạ!");
                             lastTimeMoveAtHome = System.currentTimeMillis();
                         }
@@ -669,7 +669,7 @@ public class Pet extends Player {
             return 1452;
         } else if (this.typePet == 9) {
             return 1455;
-        }else if (effectSkill.isMaPhongBa) {
+        } else if (effectSkill.isMaPhongBa) {
             return 1410;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
             int part = inventory.itemsBody.get(5).template.head;
@@ -708,7 +708,7 @@ public class Pet extends Player {
             return 1453;
         } else if (this.typePet == 9 && !this.isTransform) {
             return 1456;
-        }else if (effectSkill.isMaPhongBa) {
+        } else if (effectSkill.isMaPhongBa) {
             return 1411;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
             int body = inventory.itemsBody.get(5).template.body;
@@ -750,7 +750,7 @@ public class Pet extends Player {
             return 1454;
         } else if (this.typePet == 9 && !this.isTransform) {
             return 1457;
-        }else if (effectSkill.isMaPhongBa) {
+        } else if (effectSkill.isMaPhongBa) {
             return 1412;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
             int leg = inventory.itemsBody.get(5).template.leg;

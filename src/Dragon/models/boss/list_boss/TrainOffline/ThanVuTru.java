@@ -9,7 +9,7 @@ import Dragon.models.map.Zone;
 public class ThanVuTru extends TrainBoss {
 
     public ThanVuTru(byte bossID, BossData bossData, Zone zone, int x, int y) throws Exception {
-        super(BossID.THAN_VUTRU, BossesData.THAN_VU_TRU,zone,x,y);
+        super(BossID.THAN_VUTRU, BossesData.THAN_VU_TRU, zone, x, y);
     }
-    
+
 }

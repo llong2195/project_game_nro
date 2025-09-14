@@ -23,7 +23,7 @@ public class BlackGokuBase extends Boss {
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         if (Util.isTrue(BossManager.ratioReward, 100)) {
             if (Util.isTrue(1, 20)) {
-                 Service.gI().dropItemMap(this.zone, new ItemMap (zone, 865, 1, this.location.x, this.location.y, plKill.id));
+                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 865, 1, this.location.x, this.location.y, plKill.id));
             } else {
                 Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }

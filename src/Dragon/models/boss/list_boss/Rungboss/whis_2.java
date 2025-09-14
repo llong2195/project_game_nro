@@ -10,16 +10,14 @@ import Dragon.utils.Util;
 
 import java.util.Random;
 
-
 public class whis_2 extends Boss {
 
     public whis_2() throws Exception {
         super(BossID.WHIS2, BossesData.WHIS2);
     }
 
-     @Override
-    public void reward(Player plKill)
-    {
+    @Override
+    public void reward(Player plKill) {
         rewardBossForest(plKill);
     }
 
@@ -38,7 +36,7 @@ public class whis_2 extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-   
+
     @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
@@ -51,7 +49,7 @@ public class whis_2 extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage/2;
+                damage = damage / 2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -64,25 +62,3 @@ public class whis_2 extends Boss {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

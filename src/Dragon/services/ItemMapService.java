@@ -6,7 +6,6 @@ import com.girlkun.network.io.Message;
 import Dragon.utils.Logger;
 import Dragon.utils.Util;
 
-
 public class ItemMapService {
 
     private static ItemMapService i;
@@ -18,10 +17,8 @@ public class ItemMapService {
         return i;
     }
 
-    public void pickItem(Player player, int itemMapId, boolean isThuHut) 
-    {
-        if(player == null ||player.zone == null ||player.iDMark == null)
-        {
+    public void pickItem(Player player, int itemMapId, boolean isThuHut) {
+        if (player == null || player.zone == null || player.iDMark == null) {
             return;
         }
         if (isThuHut || Util.canDoWithTime(player.iDMark.getLastTimePickItem(), 1000)) {
@@ -44,7 +41,7 @@ public class ItemMapService {
             Service.gI().sendMessAllPlayerInMap(itemMap.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
             Logger.logException(ItemMapService.class, e);
         }
     }

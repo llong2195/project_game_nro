@@ -123,148 +123,154 @@ public class TamBaoService {
     }
 
     public static void readData(Message msg, Player player) {
-    try {
-        int avail = msg.reader().available();
-        if (avail <= 0) {
-            System.out.println("[TamBao] readData: empty payload, skip");
-            return;
-        }
-
-        int type = msg.reader().readByte();
-
-        // Mở UI
-        if (type == 0 || type == 3) {
-            sendDataQuay(player, (byte) type);
-            return;
-        }
-
-        // Quay
-        if (type == 1 || type == 4) {
-            if (msg.reader().available() < 4) {
-                System.out.println("[TamBao] readData: not enough bytes for luotQuay, skip");
-                return;
-            }
-            int luotQuay = msg.reader().readInt();
-            List<Item> receive = new ArrayList<>();
-
-            shuffleArray(itemthg);
-            shuffleArray(itemvip);
-
-            listItem.clear();
-            listItemVip.clear();
-            for (int i = 0; i < 24; i++) {
-                Item item = ItemService.gI().createNewItem((short) itemthg[i]);
-                listItem.add(item);
-                Item itemVip = ItemService.gI().createNewItem((short) itemvip[i]);
-                listItemVip.add(itemVip);
-            }
-
-            for (int i = 0; i < luotQuay; i++) {
-                Item originalItem = (type == 1)
-                        ? listItem.get(Util.nextInt(listItem.size() - 1))
-                        : listItemVip.get(Util.nextInt(listItemVip.size() - 1));
-                Item clonedItem = ItemService.gI().createNewItem(originalItem.template.id);
-                clonedItem.itemOptions = new ArrayList<>(originalItem.itemOptions);
-                receive.add(clonedItem);
-            }
-
-            int dem = 0;
-            int slKey = 0;
-            for (Item it : player.inventory.itemsBag) {
-                if (it == null || it.template == null) {
-                    dem++;
-                    continue;
-                }
-                if ((type == 1 && it.template.id == 1752) || (type == 4 && it.template.id == 1753)) {
-                    slKey += it.quantity;
-                }
-            }
-
-            if (slKey < luotQuay) {
-                Service.gI().sendThongBao(player, "Bạn Không Đủ Chìa Khóa");
+        try {
+            int avail = msg.reader().available();
+            if (avail <= 0) {
+                System.out.println("[TamBao] readData: empty payload, skip");
                 return;
             }
 
-            if (dem < luotQuay) {
-                Service.gI().sendThongBao(player, "Hành Trang Không Đủ Chỗ Trống");
+            int type = msg.reader().readByte();
+
+            // Mở UI
+            if (type == 0 || type == 3) {
+                sendDataQuay(player, (byte) type);
                 return;
             }
 
-            for (Item i : receive) {
-                if (i.template == null) return;
+            // Quay
+            if (type == 1 || type == 4) {
+                if (msg.reader().available() < 4) {
+                    System.out.println("[TamBao] readData: not enough bytes for luotQuay, skip");
+                    return;
+                }
+                int luotQuay = msg.reader().readInt();
+                List<Item> receive = new ArrayList<>();
 
-                if (i.template.id == 1650 || i.template.id == 1651 || i.template.id == 1608 || i.template.id == 1609) {
-                    sendThongBaoBenDuoi("Chúc Mừng " + player.name + " Đã Quay Được " + i.template.name);
+                shuffleArray(itemthg);
+                shuffleArray(itemvip);
+
+                listItem.clear();
+                listItemVip.clear();
+                for (int i = 0; i < 24; i++) {
+                    Item item = ItemService.gI().createNewItem((short) itemthg[i]);
+                    listItem.add(item);
+                    Item itemVip = ItemService.gI().createNewItem((short) itemvip[i]);
+                    listItemVip.add(itemVip);
                 }
-                if (i.template.id == 1608 || i.template.id == 1650) {
-                    i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 35) : Util.nextInt(5, 25)));
-                    i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 35) : Util.nextInt(5, 25)));
-                    i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 35) : Util.nextInt(5, 25)));
-                    if (Util.isTrue(99, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(5, 100) ? Util.nextInt(5, 10) : Util.nextInt(2, 5)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(5, 100) ? Util.nextInt(3, 6) : Util.nextInt(2, 4)));
-                    }
-                    if (Util.isTrue(1, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(5, 100) ? Util.nextInt(1, 50) : Util.nextInt(1, 30)));
-                    }
+
+                for (int i = 0; i < luotQuay; i++) {
+                    Item originalItem = (type == 1)
+                            ? listItem.get(Util.nextInt(listItem.size() - 1))
+                            : listItemVip.get(Util.nextInt(listItemVip.size() - 1));
+                    Item clonedItem = ItemService.gI().createNewItem(originalItem.template.id);
+                    clonedItem.itemOptions = new ArrayList<>(originalItem.itemOptions);
+                    receive.add(clonedItem);
                 }
-                if (i.template.id == 1609 || i.template.id == 1651) {
-                    i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 55) : Util.nextInt(5, 45)));
-                    i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 55) : Util.nextInt(5, 45)));
-                    i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 55) : Util.nextInt(5, 45)));
-                    if (Util.isTrue(90, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
+
+                int dem = 0;
+                int slKey = 0;
+                for (Item it : player.inventory.itemsBag) {
+                    if (it == null || it.template == null) {
+                        dem++;
+                        continue;
                     }
-                    if (Util.isTrue(3, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(10, 100) ? Util.nextInt(5, 15) : Util.nextInt(2, 10)));
-                    }
-                    if (Util.isTrue(3, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(10, 100) ? Util.nextInt(3, 9) : Util.nextInt(2, 6)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(10, 100) ? Util.nextInt(1, 100) : Util.nextInt(1, 50)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(95, Util.isTrue(10, 100) ? Util.nextInt(10, 20) : Util.nextInt(5, 10)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(96, Util.isTrue(10, 100) ? Util.nextInt(10, 20) : Util.nextInt(5, 10)));
+                    if ((type == 1 && it.template.id == 1752) || (type == 4 && it.template.id == 1753)) {
+                        slKey += it.quantity;
                     }
                 }
 
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) >= luotQuay) {
-                    InventoryServiceNew.gI().addItemBag(player, i);
+                if (slKey < luotQuay) {
+                    Service.gI().sendThongBao(player, "Bạn Không Đủ Chìa Khóa");
+                    return;
                 }
+
+                if (dem < luotQuay) {
+                    Service.gI().sendThongBao(player, "Hành Trang Không Đủ Chỗ Trống");
+                    return;
+                }
+
+                for (Item i : receive) {
+                    if (i.template == null) {
+                        return;
+                    }
+
+                    if (i.template.id == 1650 || i.template.id == 1651 || i.template.id == 1608 || i.template.id == 1609) {
+                        sendThongBaoBenDuoi("Chúc Mừng " + player.name + " Đã Quay Được " + i.template.name);
+                    }
+                    if (i.template.id == 1608 || i.template.id == 1650) {
+                        i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 35) : Util.nextInt(5, 25)));
+                        i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 35) : Util.nextInt(5, 25)));
+                        i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 35) : Util.nextInt(5, 25)));
+                        if (Util.isTrue(99, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(5, 100) ? Util.nextInt(5, 10) : Util.nextInt(2, 5)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(5, 100) ? Util.nextInt(3, 6) : Util.nextInt(2, 4)));
+                        }
+                        if (Util.isTrue(1, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(5, 100) ? Util.nextInt(1, 50) : Util.nextInt(1, 30)));
+                        }
+                    }
+                    if (i.template.id == 1609 || i.template.id == 1651) {
+                        i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 55) : Util.nextInt(5, 45)));
+                        i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 55) : Util.nextInt(5, 45)));
+                        i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 55) : Util.nextInt(5, 45)));
+                        if (Util.isTrue(90, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
+                        }
+                        if (Util.isTrue(3, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(10, 100) ? Util.nextInt(5, 15) : Util.nextInt(2, 10)));
+                        }
+                        if (Util.isTrue(3, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(10, 100) ? Util.nextInt(3, 9) : Util.nextInt(2, 6)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(10, 100) ? Util.nextInt(1, 100) : Util.nextInt(1, 50)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(95, Util.isTrue(10, 100) ? Util.nextInt(10, 20) : Util.nextInt(5, 10)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(96, Util.isTrue(10, 100) ? Util.nextInt(10, 20) : Util.nextInt(5, 10)));
+                        }
+                    }
+
+                    if (InventoryServiceNew.gI().getCountEmptyBag(player) >= luotQuay) {
+                        InventoryServiceNew.gI().addItemBag(player, i);
+                    }
+                }
+
+                int need = luotQuay;
+                for (Item it : player.inventory.itemsBag) {
+                    if (need == 0) {
+                        break;
+                    }
+                    if (it == null || it.template == null) {
+                        continue;
+                    }
+                    if ((type == 1 && it.template.id == 1752) || (type == 4 && it.template.id == 1753)) {
+                        int min = Math.min(need, it.quantity);
+                        need -= min;
+                        it.quantity -= min;
+                    }
+                }
+
+                InventoryServiceNew.gI().sendItemBags(player);
+                sendListReceive(receive, player);
+                return;
             }
 
-            int need = luotQuay;
-            for (Item it : player.inventory.itemsBag) {
-                if (need == 0) break;
-                if (it == null || it.template == null) continue;
-                if ((type == 1 && it.template.id == 1752) || (type == 4 && it.template.id == 1753)) {
-                    int min = Math.min(need, it.quantity);
-                    need -= min;
-                    it.quantity -= min;
-                }
-            }
-
-            InventoryServiceNew.gI().sendItemBags(player);
-            sendListReceive(receive, player);
-            return;
+            System.out.println("[TamBao] readData: unknown type = " + type);
+        } catch (java.io.EOFException eof) {
+            System.out.println("[TamBao] readData: EOF (duplicate/short packet) -> skip");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        System.out.println("[TamBao] readData: unknown type = " + type);
-    } catch (java.io.EOFException eof) {
-        System.out.println("[TamBao] readData: EOF (duplicate/short packet) -> skip");
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
     public static void sendThongBaoBenDuoi(String text) {
         Message msg;

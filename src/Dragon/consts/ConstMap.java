@@ -1,10 +1,9 @@
 package Dragon.consts;
 
-
 public class ConstMap {
 
     public static final int TILE_TOP = 2;
-    
+
     //type map
     public static final byte MAP_NORMAL = 0;
     public static final byte MAP_OFFLINE = 1;
@@ -15,13 +14,9 @@ public class ConstMap {
     public static final byte MAP_KHI_GAS = 6;
     public static final byte MAP_DAO_KHO_BAU = 7;
 
-
-
     //type change map
     public static final int CHANGE_CAPSULE = 500;
     public static final int CHANGE_BLACK_BALL = 501;
     public static final int CHANGE_MAP_MA_BU = 502;
-
-
 
 }

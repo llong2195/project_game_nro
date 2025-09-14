@@ -7,17 +7,17 @@ import java.util.List;
 public class BotManager implements Runnable {
 
     public static BotManager i;
-    
-    public List<Bot> bot =  new ArrayList<>();
-    
-    
-    public static BotManager gI(){
-        if(i == null){
+
+    public List<Bot> bot = new ArrayList<>();
+
+    public static BotManager gI() {
+        if (i == null) {
             i = new BotManager();
         }
-            return i;
+        return i;
     }
-       @Override
+
+    @Override
     public void run() {
         while (ServerManager.isRunning) {
             try {

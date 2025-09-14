@@ -1,6 +1,5 @@
 package Dragon.models.map.daihoi;
 
-
 import Dragon.models.player.Pet;
 import Dragon.models.map.Map;
 import Dragon.models.player.Player;
@@ -21,6 +20,7 @@ import java.util.TimerTask;
  * @author BTH
  */
 public class DaiHoiService {
+
     private static DaiHoiService instance;
 
     public static DaiHoiService gI() {
@@ -33,39 +33,37 @@ public class DaiHoiService {
     public void initDaiHoiVoThuat() {
         Timer timerDHVT = new Timer();
         TimerTask DHVT = new TimerTask() {
-            public void run()
-            {
+            public void run() {
                 DaiHoiManager.gI().lstIDPlayers.clear();
                 DaiHoiManager.gI().lstIDPlayers2.clear();
                 DaiHoiManager.gI().openDHVT = false;
-                DaiHoiManager.gI().roundNow = (byte)0;
+                DaiHoiManager.gI().roundNow = (byte) 0;
                 int crrHOUR = DaiHoiManager.gI().hourDHVT;
                 DaiHoiManager.gI().typeDHVT = hourToTypeDHVT(crrHOUR);
 //                Util.log("HOUR: " + crrHOUR);
 //                Util.log("typeDHVT: " + DaiHoiManager.gI().typeDHVT);
                 Timer timerReset = new Timer();
                 TimerTask OpenReset = new TimerTask() {
-                    public void run()
-                    {
+                    public void run() {
                         DaiHoiManager.gI().hourDHVT = (DaiHoiManager.gI().hourDHVT + 1) >= 24 ? 0 : (DaiHoiManager.gI().hourDHVT + 1);
                         timerReset.cancel();
-                    };
+                    }
+                ;
                 };
                 timerReset.schedule(OpenReset, 5000);
 
-                if(DaiHoiManager.gI().typeDHVT > (byte)0) {
+                if (DaiHoiManager.gI().typeDHVT > (byte) 0) {
                     //SET LAI TIME
                     Calendar calendar = Calendar.getInstance();
                     int minuteStart = calendar.get(Calendar.MINUTE);
 //                    Util.log("RUN ROI NE: ");
                     DaiHoiManager.gI().openDHVT = true;
-                    DaiHoiManager.gI().tOpenDHVT = System.currentTimeMillis() + 1800000 - (minuteStart*60000);
+                    DaiHoiManager.gI().tOpenDHVT = System.currentTimeMillis() + 1800000 - (minuteStart * 60000);
                     //TASK THONG BAO DEN GIO THI DAU
                     Timer timerOpenDHVT = new Timer();
                     TimerTask OpenDHVT = new TimerTask() {
-                        public void run()
-                        {
-                            if((System.currentTimeMillis() - DaiHoiManager.gI().tOpenDHVT) >= 0) {
+                        public void run() {
+                            if ((System.currentTimeMillis() - DaiHoiManager.gI().tOpenDHVT) >= 0) {
                                 //CALL TASK CHIA TRAN DAU
                                 matchDHVT();
                                 timerOpenDHVT.cancel();
@@ -77,18 +75,20 @@ public class DaiHoiService {
                             //                            }
                             //                        }
                             Player _p = null;
-                            for(int i = 0; i < DaiHoiManager.gI().lstIDPlayers.size(); i++) {
+                            for (int i = 0; i < DaiHoiManager.gI().lstIDPlayers.size(); i++) {
                                 _p = Client.gI().getPlayer(DaiHoiManager.gI().lstIDPlayers.get(i));
-                                if(_p != null && _p.getSession() != null && _p.zone.map.mapId == 33) {
-                                    Service.getInstance().sendThongBao(_p,"Trận đấu của bạn sẽ diễn ra trong vòng " + (int)((DaiHoiManager.gI().tOpenDHVT - System.currentTimeMillis())/60000) + " phút nữa");
+                                if (_p != null && _p.getSession() != null && _p.zone.map.mapId == 33) {
+                                    Service.getInstance().sendThongBao(_p, "Trận đấu của bạn sẽ diễn ra trong vòng " + (int) ((DaiHoiManager.gI().tOpenDHVT - System.currentTimeMillis()) / 60000) + " phút nữa");
                                 }
                             }
-                        };
+                        }
+                    ;
                     };
                     timerOpenDHVT.schedule(OpenDHVT, 0, 30000);
                 }
 //                timerDHVT.cancel();
-            };
+            }
+        ;
         };
 //        timerDHVT.schedule(DHVT, 10000);
 
@@ -100,7 +100,7 @@ public class DaiHoiService {
 //        Util.log("crrMINUTE: " + crrMINUTE);
         Date dateSchedule = calendar.getTime();
 //        Util.log("dateSchedule: " + dateSchedule);
-        if(crrMINUTE < 30) {
+        if (crrMINUTE < 30) {
             calendar.set(Calendar.HOUR_OF_DAY, crrHOUR);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
@@ -131,21 +131,21 @@ public class DaiHoiService {
     }
 
     public byte hourToTypeDHVT(int hour) {
-        if(hour >= 24) {
+        if (hour >= 24) {
             hour = hour - 24;
         }
-        System.out.println("Đại hội võ thuật hour: "+ hour);
-        if(hour >= 8) {
-            return (byte)1;
-        }  else {
-            return (byte)0;
+        System.out.println("Đại hội võ thuật hour: " + hour);
+        if (hour >= 8) {
+            return (byte) 1;
+        } else {
+            return (byte) 0;
         }
     }
 
     public boolean canRegisDHVT(long tiemNang) {
-        if((DaiHoiManager.gI().typeDHVT == (byte)1 && tiemNang < 1500000L) || (DaiHoiManager.gI().typeDHVT == (byte)2 && tiemNang < 15000000L)
-                || (DaiHoiManager.gI().typeDHVT == (byte)3 && tiemNang < 150000000L) || (DaiHoiManager.gI().typeDHVT == (byte)4 && tiemNang < 1500000000L)
-                || DaiHoiManager.gI().typeDHVT == (byte)5) {
+        if ((DaiHoiManager.gI().typeDHVT == (byte) 1 && tiemNang < 1500000L) || (DaiHoiManager.gI().typeDHVT == (byte) 2 && tiemNang < 15000000L)
+                || (DaiHoiManager.gI().typeDHVT == (byte) 3 && tiemNang < 150000000L) || (DaiHoiManager.gI().typeDHVT == (byte) 4 && tiemNang < 1500000000L)
+                || DaiHoiManager.gI().typeDHVT == (byte) 5) {
             return true;
         }
         return false;
@@ -155,8 +155,8 @@ public class DaiHoiService {
         Message m = null;
         try {
             m = new Message(-30);
-            m.writer().writeByte((byte)35);
-            m.writer().writeInt((int)p.id); //ID PLAYER
+            m.writer().writeByte((byte) 35);
+            m.writer().writeInt((int) p.id); //ID PLAYER
             m.writer().writeByte(type); //TYPE PK
             m.writer().flush();
             p.session.sendMessage(m);
@@ -165,17 +165,18 @@ public class DaiHoiService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(m != null) {
+            if (m != null) {
                 m.cleanup();
             }
         }
     }
+
     public void updateTypePK(Player p, byte type) {
         Message m = null;
         try {
             m = new Message(-30);
-            m.writer().writeByte((byte)35);
-            m.writer().writeInt((int)p.id); //ID PLAYER
+            m.writer().writeByte((byte) 35);
+            m.writer().writeInt((int) p.id); //ID PLAYER
             m.writer().writeByte(type); //TYPE PK
             m.writer().flush();
             p.session.sendMessage(m);
@@ -183,7 +184,7 @@ public class DaiHoiService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(m != null) {
+            if (m != null) {
                 m.cleanup();
             }
         }
@@ -263,7 +264,7 @@ public class DaiHoiService {
                         }
                         timerVS.cancel();
                     }
-                    ;
+                ;
                 };
                 timerVS.schedule(vsDHVT, 5000);
                 //TASK QUYET DINH NGUOI CHIEN THANG
@@ -323,7 +324,7 @@ public class DaiHoiService {
                             timerVS.cancel();
                         }
                     }
-                    ;
+                ;
                 };
                 timerWIN.schedule(winDHVT, 65000);
                 p1.timerDHVT = timerWIN;
@@ -356,13 +357,13 @@ public class DaiHoiService {
                             for (int i = 0; i < DaiHoiManager.gI().lstIDPlayers.size(); i++) {
                                 _p = Client.gI().getPlayer(DaiHoiManager.gI().lstIDPlayers.get(i));
                                 if (_p != null && _p.session != null) {
-                                    Service.getInstance().sendThongBao(_p,"Trận đấu của bạn sẽ diễn ra trong vòng " + (int) ((DaiHoiManager.gI().tNextRound - System.currentTimeMillis()) / 1000) + " giây nữa");
+                                    Service.getInstance().sendThongBao(_p, "Trận đấu của bạn sẽ diễn ra trong vòng " + (int) ((DaiHoiManager.gI().tNextRound - System.currentTimeMillis()) / 1000) + " giây nữa");
                                 }
                             }
                         } else {
                             //THONG BAO VO DICH VA END TASK
                             if (DaiHoiManager.gI().lstIDPlayers.size() == 1) {
-                                ServerNotify.gI().notify(Client.gI().getPlayer(DaiHoiManager.gI().lstIDPlayers.get(0)).name + " đã vô địch giải " +  DaiHoiManager.gI().nameRoundDHVT() + " mọi người đều thán phục!");
+                                ServerNotify.gI().notify(Client.gI().getPlayer(DaiHoiManager.gI().lstIDPlayers.get(0)).name + " đã vô địch giải " + DaiHoiManager.gI().nameRoundDHVT() + " mọi người đều thán phục!");
                                 Service.getInstance().sendThongBao(Client.gI().getPlayer(DaiHoiManager.gI().lstIDPlayers.get(0)), "Bạn đã vô địch giải đấu, xin chúc mừng bạn, bạn được thưởng 5 viên đá nâng cấp");
                             }
                             DaiHoiManager.gI().lstIDPlayers.clear();
@@ -373,7 +374,7 @@ public class DaiHoiService {
                         }
                     }
                 }
-                ;
+            ;
             };
             timerRestart.schedule(restartDHVT, 70000, 10000);
         } else {
@@ -390,7 +391,7 @@ public class DaiHoiService {
     }
 
     public void winRoundDHVT(Player pW, Player pL) {
-        if(pW != null && pW.session != null) {
+        if (pW != null && pW.session != null) {
             Service.getInstance().sendThongBao(pW, "Đối thủ đã kiệt sức hoặc rơi đài, bạn đã thắng");
             Service.getInstance().sendThongBao(pW, "Bạn vừa nhận thưởng " + DaiHoiManager.gI().costRoundDHVT());
             //CHECK NHIEM VU VONG 2 DHVT
@@ -400,26 +401,25 @@ public class DaiHoiService {
         }
         Timer timerWIN = new Timer();
         TimerTask winDHVT = new TimerTask() {
-            public void run()
-            {
-                if(pW != null && pW.session != null) {
+            public void run() {
+                if (pW != null && pW.session != null) {
                     DaiHoiManager.gI().lstIDPlayers.add(pW.id);
-                    pW.typePk = (byte)0;
+                    pW.typePk = (byte) 0;
                     pW.lockPK = false;
-                    updateTypePK(pW, (byte)0);
+                    updateTypePK(pW, (byte) 0);
                     pW._friendGiaoDich = null;
-                    if(pW.timerDHVT != null) {
+                    if (pW.timerDHVT != null) {
                         pW.timerDHVT.cancel();
                         pW.timerDHVT = null;
                     }
                     ChangeMapService.gI().changeMapInYard(pW, 33, -1, -1);
                 }
-                if(pL != null && pL.session != null) {
-                    pL.typePk = (byte)0;
+                if (pL != null && pL.session != null) {
+                    pL.typePk = (byte) 0;
                     pL.lockPK = false;
-                    updateTypePK(pL, (byte)0);
+                    updateTypePK(pL, (byte) 0);
                     pL._friendGiaoDich = null;
-                    if(pL.timerDHVT != null) {
+                    if (pL.timerDHVT != null) {
                         pL.timerDHVT.cancel();
                         pL.timerDHVT = null;
                     }
@@ -427,7 +427,8 @@ public class DaiHoiService {
                     ChangeMapService.gI().changeMapInYard(pL, 33, -1, -1);
                     Service.getInstance().sendThongBao(pL, "Bạn đã thua, hẹn gặp lại ở giải sau");
                 }
-            };
+            }
+        ;
         };
         timerWIN.schedule(winDHVT, 5000);
     }

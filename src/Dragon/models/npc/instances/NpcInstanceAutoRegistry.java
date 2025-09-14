@@ -11,8 +11,8 @@ import java.util.Set;
 import java.util.HashSet;
 
 /**
- * Auto-registration system cho NPC instances
- * Sử dụng reflection để tự động tìm và đăng ký các NPC instance classes
+ * Auto-registration system cho NPC instances Sử dụng reflection để tự động tìm
+ * và đăng ký các NPC instance classes
  */
 public class NpcInstanceAutoRegistry {
 

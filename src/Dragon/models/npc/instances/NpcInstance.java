@@ -4,9 +4,9 @@ import Dragon.models.npc.Npc;
 import Dragon.models.player.Player;
 
 /**
- * Abstract base class for NPC instances.
- * This provides a better maintainable approach compared to static methods.
- * Each NPC type should extend this class and implement its specific behavior.
+ * Abstract base class for NPC instances. This provides a better maintainable
+ * approach compared to static methods. Each NPC type should extend this class
+ * and implement its specific behavior.
  */
 public abstract class NpcInstance {
 
@@ -21,11 +21,11 @@ public abstract class NpcInstance {
 
     /**
      * Constructor for NPC instance
-     * 
-     * @param mapId  Map ID where NPC is located
+     *
+     * @param mapId Map ID where NPC is located
      * @param status NPC status
-     * @param cx     X coordinate
-     * @param cy     Y coordinate
+     * @param cx X coordinate
+     * @param cy Y coordinate
      * @param tempId NPC template ID
      * @param avatar NPC avatar ID
      */
@@ -39,16 +39,16 @@ public abstract class NpcInstance {
     }
 
     /**
-     * Creates and returns the NPC instance
-     * This method should be implemented by subclasses to create specific NPC types
-     * 
+     * Creates and returns the NPC instance This method should be implemented by
+     * subclasses to create specific NPC types
+     *
      * @return The created NPC instance
      */
     public abstract Npc createNpc();
 
     /**
      * Gets the NPC instance
-     * 
+     *
      * @return The NPC instance
      */
     public Npc getNpc() {
@@ -60,7 +60,7 @@ public abstract class NpcInstance {
 
     /**
      * Gets the map ID
-     * 
+     *
      * @return Map ID
      */
     public int getMapId() {
@@ -69,7 +69,7 @@ public abstract class NpcInstance {
 
     /**
      * Gets the status
-     * 
+     *
      * @return Status
      */
     public int getStatus() {
@@ -78,7 +78,7 @@ public abstract class NpcInstance {
 
     /**
      * Gets the X coordinate
-     * 
+     *
      * @return X coordinate
      */
     public int getCx() {
@@ -87,7 +87,7 @@ public abstract class NpcInstance {
 
     /**
      * Gets the Y coordinate
-     * 
+     *
      * @return Y coordinate
      */
     public int getCy() {
@@ -96,7 +96,7 @@ public abstract class NpcInstance {
 
     /**
      * Gets the template ID
-     * 
+     *
      * @return Template ID
      */
     public int getTempId() {
@@ -105,7 +105,7 @@ public abstract class NpcInstance {
 
     /**
      * Gets the avatar ID
-     * 
+     *
      * @return Avatar ID
      */
     public int getAvatar() {
@@ -113,9 +113,9 @@ public abstract class NpcInstance {
     }
 
     /**
-     * Checks if this NPC instance can be opened by the player
-     * Override this method to add custom conditions
-     * 
+     * Checks if this NPC instance can be opened by the player Override this
+     * method to add custom conditions
+     *
      * @param player The player trying to open the NPC
      * @return true if the NPC can be opened, false otherwise
      */
@@ -124,9 +124,9 @@ public abstract class NpcInstance {
     }
 
     /**
-     * Called when the NPC is opened by a player
-     * Override this method to add custom behavior
-     * 
+     * Called when the NPC is opened by a player Override this method to add
+     * custom behavior
+     *
      * @param player The player opening the NPC
      */
     public void onNpcOpened(Player player) {
@@ -134,9 +134,9 @@ public abstract class NpcInstance {
     }
 
     /**
-     * Called when a menu option is selected
-     * Override this method to handle menu selections
-     * 
+     * Called when a menu option is selected Override this method to handle menu
+     * selections
+     *
      * @param player The player selecting the option
      * @param select The selected option index
      */

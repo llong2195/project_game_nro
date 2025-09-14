@@ -45,7 +45,7 @@ public class TransactionService {
 //            Service.getInstance().sendThongBao(pl, "Chức năng tạm thời đóng");
 //            return;
 //        }
-        
+
         try {
             byte action = msg.reader().readByte();
             int playerId = -1;
@@ -88,7 +88,7 @@ public class TransactionService {
                         byte index = msg.reader().readByte();
                         int quantity = msg.reader().readInt();
                         if (quantity < 0) {
-                            Service.gI().sendThongBao(pl,"Lavie bảo là bug con cặc !");
+                            Service.gI().sendThongBao(pl, "Lavie bảo là bug con cặc !");
                             trade.cancelTrade();
                             break;
                         }
@@ -118,7 +118,7 @@ public class TransactionService {
                     break;
             }
         } catch (Exception e) {
-            
+
             Logger.logException(this.getClass(), e);
         }
     }
@@ -127,8 +127,8 @@ public class TransactionService {
      * Mời giao dịch
      */
     private void sendInviteTrade(Player plInvite, Player plReceive) {
-        if(plReceive.isBot){
-              ((Bot) plReceive).shop.activeTraDe(plInvite);
+        if (plReceive.isBot) {
+            ((Bot) plReceive).shop.activeTraDe(plInvite);
         }
         Message msg;
         try {
@@ -137,11 +137,10 @@ public class TransactionService {
             msg.writer().writeInt((int) plInvite.id);
             plReceive.sendMessage(msg);
             msg.cleanup();
-        } catch (Exception e)
-        {
-                     
+        } catch (Exception e) {
+
         }
-        
+
     }
 
     /**

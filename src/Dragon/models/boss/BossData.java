@@ -1,7 +1,5 @@
 package Dragon.models.boss;
 
-import lombok.Builder;
-
 public class BossData {
 
     public static final int DEFAULT_APPEAR = 0;
@@ -151,7 +149,6 @@ public class BossData {
         this.typeAppear = typeAppear;
     }
 
-    @Builder
     public BossData(String name, byte gender, long dame, long[] hp,
             short[] outfit, int[] mapJoin, int[][] skillTemp,
             int secondsRest, String[] textS, String[] textM,
@@ -167,13 +164,52 @@ public class BossData {
         this.mapJoin = mapJoin;
         this.skillTemp = skillTemp;
         this.secondsRest = secondsRest;
-        this.textS = new String[] {};
-        this.textM = new String[] {};
-        this.textE = new String[] {};
+        this.textS = new String[]{};
+        this.textM = new String[]{};
+        this.textE = new String[]{};
+    }
+
+    // Manual Builder to replace Lombok @Builder
+    public static Builder builder() { return new Builder(); }
+    public static class Builder {
+        private String name;
+        private byte gender;
+        private long dame;
+        private long[] hp;
+        private short[] outfit;
+        private int[] mapJoin;
+        private int[][] skillTemp;
+        private int secondsRest;
+        private String[] textS;
+        private String[] textM;
+        private String[] textE;
+
+        public Builder name(String v) { this.name = v; return this; }
+        public Builder gender(byte v) { this.gender = v; return this; }
+        public Builder dame(long v) { this.dame = v; return this; }
+        public Builder hp(long[] v) { this.hp = v; return this; }
+        public Builder outfit(short[] v) { this.outfit = v; return this; }
+        public Builder mapJoin(int[] v) { this.mapJoin = v; return this; }
+        public Builder skillTemp(int[][] v) { this.skillTemp = v; return this; }
+        public Builder secondsRest(int v) { this.secondsRest = v; return this; }
+        public Builder textS(String[] v) { this.textS = v; return this; }
+        public Builder textM(String[] v) { this.textM = v; return this; }
+        public Builder textE(String[] v) { this.textE = v; return this; }
+
+        public BossData build() {
+            // Use the existing constructor to keep conversion logic
+            BossData data = new BossData(name, gender, dame,
+                    hp != null ? hp : new long[] { },
+                    outfit, mapJoin, skillTemp,
+                    secondsRest,
+                    textS != null ? textS : new String[] {},
+                    textM != null ? textM : new String[] {},
+                    textE != null ? textE : new String[] {});
+            return data;
+        }
     }
 
     // ========== HELPER METHODS FOR COMPATIBILITY ==========
-
     /**
      * Getter tương thích với long (cho code cũ)
      */
@@ -238,7 +274,6 @@ public class BossData {
     }
 
     // ========== STANDARD GETTERS/SETTERS ==========
-
     public String getName() {
         return name;
     }

@@ -18,11 +18,10 @@ public class Nobita extends Boss {
         super(BossID.NOBITA, BossesData.NOBITA);
     }
 
-
- @Override
+    @Override
     public void reward(Player plKill) {
         int[] itemDos = new int[]{1142, 1142, 559, 556, 558, 560, 562, 564, 566, 563, 1142, 1142};
-        int[] NRs = new int[]{16,18};
+        int[] NRs = new int[]{16, 18};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(7, 100)) {
@@ -36,7 +35,7 @@ public class Nobita extends Boss {
         }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
-    
+
     @Override
     public void wakeupAnotherBossWhenDisappear() {
         if (this.parentBoss == null) {
@@ -47,11 +46,12 @@ public class Nobita extends Boss {
                 boss.changeToTypePK();
             }
         }
-  }  
-          @Override
+    }
+
+    @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
-        if(Util.canDoWithTime(st,900000)){
+        if (Util.canDoWithTime(st, 900000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
@@ -59,30 +59,8 @@ public class Nobita extends Boss {
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st= System.currentTimeMillis();
+        st = System.currentTimeMillis();
     }
     private long st;
-     
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

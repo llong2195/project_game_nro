@@ -14,6 +14,7 @@ import java.util.List;
  * @author MITCHIKEN ZALO 0358689793
  */
 public class ItemKyGui {
+
     public int id;
     public short itemId;
     public int player_sell;
@@ -25,17 +26,18 @@ public class ItemKyGui {
     public List<ItemOption> options = new ArrayList<>();
     public int isBuy;
     public long createTime;
-    public ItemKyGui(){
+
+    public ItemKyGui() {
     }
-    
-    public ItemKyGui(int i,short id,int plId,byte t,int gold,int gem,int q,byte isUp,List<ItemOption> op,byte b,long createTime){
+
+    public ItemKyGui(int i, short id, int plId, byte t, int gold, int gem, int q, byte isUp, List<ItemOption> op, byte b, long createTime) {
         this.id = i;
         itemId = id;
-        player_sell=plId;
+        player_sell = plId;
         tab = t;
         goldSell = gold;
         gemSell = gem;
-        quantity =q;
+        quantity = q;
         isUpTop = isUp;
         options = op;
         isBuy = b;

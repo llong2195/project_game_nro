@@ -5,15 +5,10 @@
  */
 package Dragon.models.skill;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  *
  * @author Administrator
  */
-@Setter
-@Getter
 public class SkillNotFocus extends Skill {
 
     private int timePre;
@@ -30,4 +25,17 @@ public class SkillNotFocus extends Skill {
         this.timeDame = 3000;
         this.range = 250;
     }
+
+    // Getters/Setters
+    public int getTimePre() { return timePre; }
+    public void setTimePre(int timePre) { this.timePre = timePre; }
+
+    public int getTimeDame() { return timeDame; }
+    public void setTimeDame(int timeDame) { this.timeDame = timeDame; }
+
+    public short getRange() { return range; }
+    public void setRange(short range) { this.range = range; }
+
+    public long getTime() { return time; }
+    public void setTime(long time) { this.time = time; }
 }

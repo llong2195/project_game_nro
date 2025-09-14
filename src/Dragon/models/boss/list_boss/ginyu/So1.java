@@ -24,15 +24,15 @@ import Dragon.utils.Util;
 public class So1 extends Boss {
 
     public So1() throws Exception {
-        super(BossID.SO_1,BossesData.SO_1);
+        super(BossID.SO_1, BossesData.SO_1);
     }
 
-   @Override
+    @Override
     public void reward(Player plKill) {
         if (Util.isTrue(15, 100)) {
             ItemMap it = new ItemMap(this.zone, 17, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
-        Service.gI().dropItemMap(this.zone, it);
+            Service.gI().dropItemMap(this.zone, it);
         }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
@@ -44,6 +44,7 @@ public class So1 extends Boss {
         }
         super.notifyJoinMap();
     }
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
@@ -63,5 +64,5 @@ public class So1 extends Boss {
             this.attack();
         }
     }
-   
+
 }

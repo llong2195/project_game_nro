@@ -67,7 +67,7 @@ public class NpcService {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-              
+
         }
     }
 

@@ -51,7 +51,7 @@ public class IntrinsicService {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -71,7 +71,7 @@ public class IntrinsicService {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -92,11 +92,11 @@ public class IntrinsicService {
         }
         if (id == 19800) {
             Item hq = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1980);
-            Item ao = ItemService.gI().otphd((short)650);
-            Item quan = ItemService.gI().otphd((short)651);
-            Item gang = ItemService.gI().otphd((short)657);
-            Item giay = ItemService.gI().otphd((short)658);
-            Item nhan = ItemService.gI().otphd((short)656);
+            Item ao = ItemService.gI().otphd((short) 650);
+            Item quan = ItemService.gI().otphd((short) 651);
+            Item gang = ItemService.gI().otphd((short) 657);
+            Item giay = ItemService.gI().otphd((short) 658);
+            Item nhan = ItemService.gI().otphd((short) 656);
             ao.itemOptions.add(new Item.ItemOption(30, 0));
             quan.itemOptions.add(new Item.ItemOption(30, 0));
             gang.itemOptions.add(new Item.ItemOption(30, 0));
@@ -119,11 +119,11 @@ public class IntrinsicService {
         }
         if (id == 19801) {
             Item hq = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1980);
-            Item ao = ItemService.gI().otphd((short)652);
-            Item quan = ItemService.gI().otphd((short)653);
-            Item gang = ItemService.gI().otphd((short)659);
-            Item giay = ItemService.gI().otphd((short)660);
-            Item nhan = ItemService.gI().otphd((short)656);
+            Item ao = ItemService.gI().otphd((short) 652);
+            Item quan = ItemService.gI().otphd((short) 653);
+            Item gang = ItemService.gI().otphd((short) 659);
+            Item giay = ItemService.gI().otphd((short) 660);
+            Item nhan = ItemService.gI().otphd((short) 656);
             ao.itemOptions.add(new Item.ItemOption(30, 0));
             quan.itemOptions.add(new Item.ItemOption(30, 0));
             gang.itemOptions.add(new Item.ItemOption(30, 0));
@@ -146,11 +146,11 @@ public class IntrinsicService {
         }
         if (id == 19802) {
             Item hq = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1980);
-             Item ao = ItemService.gI().otphd((short)654);
-        Item quan = ItemService.gI().otphd((short)655);
-        Item gang = ItemService.gI().otphd((short)661);
-        Item giay = ItemService.gI().otphd((short)662);
-        Item nhan = ItemService.gI().otphd((short)656);
+            Item ao = ItemService.gI().otphd((short) 654);
+            Item quan = ItemService.gI().otphd((short) 655);
+            Item gang = ItemService.gI().otphd((short) 661);
+            Item giay = ItemService.gI().otphd((short) 662);
+            Item nhan = ItemService.gI().otphd((short) 656);
             ao.itemOptions.add(new Item.ItemOption(30, 0));
             quan.itemOptions.add(new Item.ItemOption(30, 0));
             gang.itemOptions.add(new Item.ItemOption(30, 0));
@@ -196,12 +196,13 @@ public class IntrinsicService {
         }
     }
 // phước mở nội tại 1
+
     public void showConfirmOpen(Player player) {
         try {
             NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1, "Bạn Muốn Đổi Nội Tại Khác\nVới Giá Là "
                     + "5Tr Vàng ?", "Mở\nNội Tại", "Từ Chối");
         } catch (ArrayIndexOutOfBoundsException e) {
-             
+
         }
     }
 
@@ -209,7 +210,6 @@ public class IntrinsicService {
 //        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC_VIP, -1,
 //                "Bạn Có Muốn Mở Nội Tại\nvới giá là 100 ngọc và\ntái lập giá vàng quay lại ban đầu không?", "Từ chối");
 //    }
-
     private void changeIntrinsic(Player player) {
         List<Intrinsic> listIntrinsic = getIntrinsics(player.gender);
         player.playerIntrinsic.intrinsic = new Intrinsic(listIntrinsic.get(Util.nextInt(1, listIntrinsic.size() - 1)));
@@ -251,5 +251,4 @@ public class IntrinsicService {
 //            Service.gI().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");
 //        }
 //    }
-
 }

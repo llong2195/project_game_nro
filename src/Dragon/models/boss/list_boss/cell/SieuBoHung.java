@@ -101,6 +101,7 @@ public class SieuBoHung extends Boss {
             return 0;
         }
     }
+
     private void hapThu() {
         if (!Util.canDoWithTime(this.lastTimeHapThu, this.timeHapThu)) {
             return;

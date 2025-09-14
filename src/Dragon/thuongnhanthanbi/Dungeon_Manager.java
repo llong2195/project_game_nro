@@ -17,13 +17,14 @@ import java.util.UUID;
 public class Dungeon_Manager {
 
     public static final int MAP_ID = 36;
-    
+
     public static class TimeRange {
+
         public final int openHour, openMin, openSec;
         public final int closeHour, closeMin, closeSec;
-        
+
         public TimeRange(int openHour, int openMin, int openSec,
-                        int closeHour, int closeMin, int closeSec) {
+                int closeHour, int closeMin, int closeSec) {
             this.openHour = openHour;
             this.openMin = openMin;
             this.openSec = openSec;
@@ -32,18 +33,18 @@ public class Dungeon_Manager {
             this.closeSec = closeSec;
         }
     }
-    
+
     public static final TimeRange[] TIME_RANGES = {
-        new TimeRange(17, 0, 0, 18, 0, 0),  // 17:00 - 18:00
-        new TimeRange(20, 0, 0, 21, 0, 0),  // 20:00 - 21:00
-        new TimeRange(22, 0, 0, 23, 0, 0)   // 22:00 - 23:00
+        new TimeRange(17, 0, 0, 18, 0, 0), // 17:00 - 18:00
+        new TimeRange(20, 0, 0, 21, 0, 0), // 20:00 - 21:00
+        new TimeRange(22, 0, 0, 23, 0, 0) // 22:00 - 23:00
     };
 
     public static final int AVAILABLE = 7;
-    
+
     public static final int MAX_PARTICIPATION_PER_DAY = 3; // Số lần tham gia tối đa mỗi ngày
     public static final int PENALTY_FOR_FAILURE = 1; // Số lần bị trừ khi thất bại
-    
+
     private static Dungeon_Manager i;
 
     public static long[] TIME_OPEN_ARRAY;
@@ -51,12 +52,13 @@ public class Dungeon_Manager {
 
     private int day = -1;
     private long lastResetTime = 0;
-    
+
     private Map<String, DungeonInstance> activeInstances;
     private Map<Long, String> playerToInstance;
     private Map<Long, Zone> playerOriginalZones;
-    private Map<Long, Integer> playerParticipationCount; 
-    private Map<Long, Integer> playerRemainingAttempts; 
+    private Map<Long, Integer> playerParticipationCount;
+    private Map<Long, Integer> playerRemainingAttempts;
+
     private Dungeon_Manager() {
         this.activeInstances = new ConcurrentHashMap<>();
         this.playerToInstance = new ConcurrentHashMap<>();
@@ -64,18 +66,17 @@ public class Dungeon_Manager {
         this.playerParticipationCount = new ConcurrentHashMap<>();
         this.playerRemainingAttempts = new ConcurrentHashMap<>();
     }
-    
 
     public DungeonInstance createDungeonInstance(Player player) {
         if (player.zone == null || player.zone.map.mapId != MAP_ID) {
             return null;
         }
-        
+
         if (!canPlayerJoinDungeon(player)) {
             Service.gI().sendThongBao(player, "Bạn đã hết lượt tham gia Địa Cung hôm nay! Vui lòng quay lại vào ngày mai.");
             return null;
         }
-        
+
         String existingInstanceId = playerToInstance.get(player.id);
         if (existingInstanceId != null) {
             DungeonInstance existingInstance = activeInstances.get(existingInstanceId);
@@ -85,9 +86,9 @@ public class Dungeon_Manager {
                 cleanupInstance(existingInstanceId);
             }
         }
-        
+
         String instanceId = UUID.randomUUID().toString();
-        
+
         Zone playerZone = playerOriginalZones.get(player.id);
         if (playerZone == null) {
             playerZone = findAvailableZone(player.zone.map);
@@ -107,12 +108,12 @@ public class Dungeon_Manager {
                 }
             }
         }
-        
+
         DungeonInstance instance = new DungeonInstance(instanceId, playerZone, player);
-        
+
         activeInstances.put(instanceId, instance);
         playerToInstance.put(player.id, instanceId);
-        
+
         try {
             incrementPlayerParticipation(player);
             movePlayerToZone(player, playerZone);
@@ -124,7 +125,6 @@ public class Dungeon_Manager {
         }
     }
 
-    
     /**
      * Moves player to their zone
      */
@@ -133,7 +133,7 @@ public class Dungeon_Manager {
             if (player.zone != null && player.zone.zoneId != zone.zoneId) {
                 player.zone.removePlayer(player);
             }
-            
+
             zone.addPlayer(player);
             player.zone = zone;
             zone.mapInfo(player);
@@ -142,9 +142,11 @@ public class Dungeon_Manager {
             e.printStackTrace();
         }
     }
+
     public int getActiveInstanceCount() {
         return activeInstances.size();
     }
+
     public DungeonInstance getPlayerInstance(Player player) {
         String instanceId = playerToInstance.get(player.id);
         if (instanceId != null) {
@@ -152,9 +154,10 @@ public class Dungeon_Manager {
         }
         return null;
     }
+
     public void updateInstances() {
         List<String> instancesToRemove = new ArrayList<>();
-        
+
         for (Map.Entry<String, DungeonInstance> entry : activeInstances.entrySet()) {
             DungeonInstance instance = entry.getValue();
             if (instance.isActive()) {
@@ -163,7 +166,7 @@ public class Dungeon_Manager {
                 instancesToRemove.add(entry.getKey());
             }
         }
-        
+
         for (String instanceId : instancesToRemove) {
             cleanupInstance(instanceId);
         }
@@ -179,12 +182,14 @@ public class Dungeon_Manager {
             }
         }
     }
+
     public void cleanupPlayerInstance(Player player) {
         String instanceId = playerToInstance.get(player.id);
         if (instanceId != null) {
             cleanupInstance(instanceId);
         }
     }
+
     public void removePlayerCompletely(Player player) {
         String instanceId = playerToInstance.get(player.id);
         if (instanceId != null) {
@@ -192,11 +197,13 @@ public class Dungeon_Manager {
         }
         playerOriginalZones.remove(player.id);
     }
-    
+
     public void onPlayerLeaveDungeon(Player player) {
         try {
-            if (player == null) return;
-            
+            if (player == null) {
+                return;
+            }
+
             String instanceId = playerToInstance.get(player.id);
             if (instanceId != null) {
                 DungeonInstance instance = activeInstances.get(instanceId);
@@ -207,19 +214,16 @@ public class Dungeon_Manager {
                     }
                 }
             }
-            
+
             removePlayerCompletely(player);
         } catch (Exception e) {
             System.out.println("Lỗi khi player rời khỏi dungeon: " + e.getMessage());
         }
     }
-    
 
     public Zone getPlayerZone(Player player) {
         return playerOriginalZones.get(player.id);
     }
-    
-
 
     public static Dungeon_Manager gI() {
         if (i == null) {
@@ -228,21 +232,22 @@ public class Dungeon_Manager {
         i.setTime();
         return i;
     }
+
     public void setTime() {
         if (i.day == -1 || i.day != TimeUtil.getCurrDay()) {
             resetDailyDungeon();
-            
+
             i.day = TimeUtil.getCurrDay();
             try {
                 TIME_OPEN_ARRAY = new long[TIME_RANGES.length];
                 TIME_CLOSE_ARRAY = new long[TIME_RANGES.length];
-                
+
                 for (int i = 0; i < TIME_RANGES.length; i++) {
                     TimeRange range = TIME_RANGES[i];
-                    TIME_OPEN_ARRAY[i] = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + 
-                        range.openHour + ":" + range.openMin + ":" + range.openSec, "dd/MM/yyyy HH:mm:ss");
-                    TIME_CLOSE_ARRAY[i] = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + 
-                        range.closeHour + ":" + range.closeMin + ":" + range.closeSec, "dd/MM/yyyy HH:mm:ss");
+                    TIME_OPEN_ARRAY[i] = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " "
+                            + range.openHour + ":" + range.openMin + ":" + range.openSec, "dd/MM/yyyy HH:mm:ss");
+                    TIME_CLOSE_ARRAY[i] = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " "
+                            + range.closeHour + ":" + range.closeMin + ":" + range.closeSec, "dd/MM/yyyy HH:mm:ss");
                 }
             } catch (Exception e) {
                 System.out.println("Lỗi khi set thời gian: " + e.getMessage());
@@ -258,7 +263,7 @@ public class Dungeon_Manager {
             if (player.isAdmin()) {
                 return;
             }
-            
+
             long now = System.currentTimeMillis();
             boolean isInTimeSlot = false;
             for (int i = 0; i < TIME_RANGES.length; i++) {
@@ -273,22 +278,20 @@ public class Dungeon_Manager {
                 kickOutOfMap(player);
             }
         } catch (Exception e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
     }
-    
-  
+
     public void globalUpdate() {
         updateInstances();
         checkAndResetDaily();
     }
 
-
     private void kickOutOfMap(Player player) {
         Service.getInstance().sendThongBao(player, "Không Trong Thời Gian Diễn Ra Phó Bản!");
         ChangeMapService.gI().changeMapBySpaceShip(player, 2, -1, 164);
     }
-    
+
     public void changeMap(Player player, byte index) {
         try {
             // Admin có thể vào dungeon bất cứ lúc nào
@@ -297,7 +300,7 @@ public class Dungeon_Manager {
                         player.mapdiacung.get(index).map.mapId, -1, 50, 50);
                 return;
             }
-            
+
             long now = System.currentTimeMillis();
             boolean isInTimeSlot = false;
             for (int i = 0; i < TIME_RANGES.length; i++) {
@@ -306,7 +309,7 @@ public class Dungeon_Manager {
                     break;
                 }
             }
-            
+
             if (isInTimeSlot) {
                 ChangeMapService.gI().changeMap(player,
                         player.mapdiacung.get(index).map.mapId, -1, 50, 50);
@@ -326,16 +329,16 @@ public class Dungeon_Manager {
         } else {
             ChangeMapService.gI().changeMapNonSpaceship(player, MAP_ID, -1, 50);
         }
-        
+
         new Thread(() -> {
             try {
-                Thread.sleep(1000); 
+                Thread.sleep(1000);
                 if (player.zone != null && player.zone.map.mapId == MAP_ID) {
                     Zone expectedZone = playerOriginalZones.get(player.id);
                     if (expectedZone != null && player.zone.zoneId != expectedZone.zoneId) {
                         movePlayerToZone(player, expectedZone);
                     }
-                    
+
                     DungeonInstance instance = createDungeonInstance(player);
                     if (instance != null) {
                         Service.gI().sendThongBao(player, "Chào mừng đến với Địa Cung! Chuẩn bị chiến đấu!");
@@ -349,6 +352,7 @@ public class Dungeon_Manager {
             }
         }).start();
     }
+
     private Zone findAvailableZone(Dragon.models.map.Map map) {
         try {
             List<Zone> allZones = map.zones;
@@ -359,14 +363,14 @@ public class Dungeon_Manager {
             int minPlayers = Integer.MAX_VALUE;
             int totalZones = allZones.size();
             int fullZones = 0;
-            
+
             for (Zone zone : allZones) {
                 int playerCount = zone.getNumOfPlayers();
-                
+
                 if (playerCount >= zone.maxPlayer) {
                     fullZones++;
                 }
-                
+
                 if (isZoneSuitableForDungeon(zone)) {
                     if (playerCount < minPlayers) {
                         minPlayers = playerCount;
@@ -374,69 +378,69 @@ public class Dungeon_Manager {
                     }
                 }
             }
-            
+
             if (fullZones >= totalZones) {
-                return null; 
+                return null;
             }
-            
+
             if (bestZone != null) {
                 return bestZone;
             }
-            
+
             if (!allZones.isEmpty()) {
                 bestZone = allZones.get(0);
                 return bestZone;
             }
-            
+
             return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    
+
     private boolean isZoneSuitableForDungeon(Zone zone) {
         try {
             if (zone.getNumOfPlayers() >= zone.maxPlayer) {
                 return false;
             }
-            
+
             if (zone.bosses != null && !zone.bosses.isEmpty()) {
                 return false;
             }
-            
+
             if (zone.finishdiacung || zone.finishBlackBallWar || zone.finishMapMaBu) {
                 return false;
             }
-            
+
             return true;
         } catch (Exception e) {
             return true; // Default to true if error
         }
     }
-    
+
     public boolean isDungeonOverloaded() {
         try {
             Dragon.models.map.Map dungeonMap = MapService.gI().getMapById(MAP_ID);
             if (dungeonMap == null || dungeonMap.zones == null) {
                 return true; // Consider overloaded if map doesn't exist
             }
-            
+
             int totalZones = dungeonMap.zones.size();
             int fullZones = 0;
-            
+
             for (Zone zone : dungeonMap.zones) {
                 if (zone.getNumOfPlayers() >= zone.maxPlayer) {
                     fullZones++;
                 }
             }
-            
+
             return fullZones >= totalZones;
         } catch (Exception e) {
             return true;
         }
     }
-    
+
     public void fixPlayerZoneAssignment(Player player) {
         try {
             Zone savedZone = playerOriginalZones.get(player.id);
@@ -450,70 +454,72 @@ public class Dungeon_Manager {
             e.printStackTrace();
         }
     }
-  
+
     public boolean isPlayerInDungeon(Player player) {
         try {
             if (player == null || player.zone == null) {
                 return false;
             }
-            
+
             if (player.zone.map.mapId != MAP_ID) {
                 return false;
             }
-            
+
             String instanceId = playerToInstance.get(player.id);
             if (instanceId == null) {
                 return false;
             }
-            
+
             DungeonInstance instance = activeInstances.get(instanceId);
             return instance != null && instance.isActive();
         } catch (Exception e) {
             return false;
         }
     }
+
     public void preventZoneChange(Player player) {
         if (isPlayerInDungeon(player)) {
             Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực khi đang trong Địa Cung!");
         }
     }
-    
- 
 
     public String getCurrentTimeSlotInfo() {
         long now = System.currentTimeMillis();
         for (int i = 0; i < TIME_RANGES.length; i++) {
             if (now >= TIME_OPEN_ARRAY[i] && now <= TIME_CLOSE_ARRAY[i]) {
                 TimeRange range = TIME_RANGES[i];
-                return String.format("Khung giờ %d: %02d:%02d - %02d:%02d", 
-                    i + 1, range.openHour, range.openMin, range.closeHour, range.closeMin);
+                return String.format("Khung giờ %d: %02d:%02d - %02d:%02d",
+                        i + 1, range.openHour, range.openMin, range.closeHour, range.closeMin);
             }
         }
         return "Địa Cung đang đóng cửa";
     }
-    
+
     // Lấy thông tin số lần tham gia của player
     public String getPlayerParticipationInfo(Player player) {
         try {
-            if (player == null) return "Không có thông tin";
-            
+            if (player == null) {
+                return "Không có thông tin";
+            }
+
             int participationCount = getPlayerParticipationCount(player.id);
             int remainingAttempts = getPlayerRemainingAttempts(player.id);
-            
-            return String.format("Đã tham gia: %d lần | Còn lại: %d lần", 
-                participationCount, remainingAttempts);
+
+            return String.format("Đã tham gia: %d lần | Còn lại: %d lần",
+                    participationCount, remainingAttempts);
         } catch (Exception e) {
             return "Lỗi khi lấy thông tin";
         }
     }
+
     public void resetDailyDungeon() {
         try {
             lastResetTime = System.currentTimeMillis();
-            
+
             int totalInstances = activeInstances.size();
             int totalPlayers = playerToInstance.size();
             int totalZones = playerOriginalZones.size();
-            
+
             List<Player> playersToKick = new ArrayList<>();
             for (Map.Entry<Long, String> entry : playerToInstance.entrySet()) {
                 Player player = findPlayerById(entry.getKey());
@@ -521,7 +527,7 @@ public class Dungeon_Manager {
                     playersToKick.add(player);
                 }
             }
-            
+
             for (Player player : playersToKick) {
                 try {
                     Service.gI().sendThongBao(player, "Địa Cung đã reset cho ngày mới! Vui lòng tham gia lại.");
@@ -530,7 +536,7 @@ public class Dungeon_Manager {
                     System.out.println("Lỗi khi kick player " + player.name + ": " + e.getMessage());
                 }
             }
-            
+
             activeInstances.clear();
             playerToInstance.clear();
             playerOriginalZones.clear();
@@ -544,12 +550,12 @@ public class Dungeon_Manager {
                 }
             }
 
-            
         } catch (Exception e) {
             System.out.println("Lỗi khi reset dungeon: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
     private Player findPlayerById(long playerId) {
         try {
             Dragon.models.map.Map dungeonMap = MapService.gI().getMapById(MAP_ID);
@@ -567,12 +573,13 @@ public class Dungeon_Manager {
         }
         return null;
     }
+
     public void checkAndResetDaily() {
         try {
             long currentTime = System.currentTimeMillis();
             long timeSinceLastReset = currentTime - lastResetTime;
             long oneDayInMillis = 24 * 60 * 60 * 1000; // 24 giờ
-            
+
             if (lastResetTime == 0 || timeSinceLastReset >= oneDayInMillis) {
                 resetDailyDungeon();
                 lastResetTime = currentTime;
@@ -581,52 +588,54 @@ public class Dungeon_Manager {
             e.printStackTrace();
         }
     }
-    
+
     public boolean canPlayerJoinDungeon(Player player) {
         try {
-            if (player == null) return false;
-            
+            if (player == null) {
+                return false;
+            }
+
             int remainingAttempts = getPlayerRemainingAttempts(player.id);
             return remainingAttempts > 0;
         } catch (Exception e) {
             return false;
         }
     }
-    
+
     // Lấy số lần còn lại của player
     public int getPlayerRemainingAttempts(long playerId) {
         return playerRemainingAttempts.getOrDefault(playerId, MAX_PARTICIPATION_PER_DAY);
     }
-    
+
     // Lấy số lần đã tham gia của player
     public int getPlayerParticipationCount(long playerId) {
         return playerParticipationCount.getOrDefault(playerId, 0);
     }
-    
+
     // Tăng số lần tham gia khi player vào dungeon
     public void incrementPlayerParticipation(Player player) {
         try {
             long playerId = player.id;
             int currentCount = playerParticipationCount.getOrDefault(playerId, 0);
             int remainingAttempts = playerRemainingAttempts.getOrDefault(playerId, MAX_PARTICIPATION_PER_DAY);
-            
+
             playerParticipationCount.put(playerId, currentCount + 1);
             playerRemainingAttempts.put(playerId, remainingAttempts - 1);
-            
+
             Service.gI().sendThongBao(player, "Bạn còn " + (remainingAttempts - 1) + " lần tham gia Địa Cung hôm nay!");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     public void penalizePlayerForFailure(Player player) {
         try {
             long playerId = player.id;
             int remainingAttempts = playerRemainingAttempts.getOrDefault(playerId, MAX_PARTICIPATION_PER_DAY);
             int newRemainingAttempts = Math.max(0, remainingAttempts - PENALTY_FOR_FAILURE);
-            
+
             playerRemainingAttempts.put(playerId, newRemainingAttempts);
-            
+
             if (newRemainingAttempts <= 0) {
                 Service.gI().sendThongBao(player, "Bạn đã hết lượt tham gia Địa Cung hôm nay! Vui lòng quay lại vào ngày mai.");
             } else {
@@ -636,7 +645,7 @@ public class Dungeon_Manager {
             e.printStackTrace();
         }
     }
-    
+
     public void resetPlayerParticipation() {
         try {
             playerParticipationCount.clear();

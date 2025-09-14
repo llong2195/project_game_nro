@@ -18,17 +18,17 @@ public class Black extends Boss {
     }
 
     @Override
-   public void reward(Player plKill) {
+    public void reward(Player plKill) {
         byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         if (Util.isTrue(5, 100)) {
             if (Util.isTrue(1, 20)) {
-              Service.gI().dropItemMap(this.zone, new ItemMap(zone, 922, 1, this.location.x, this.location.y, plKill.id));
+                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 922, 1, this.location.x, this.location.y, plKill.id));
             } else {
                 Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }
         } else {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone,Util.nextInt(17,20), 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Util.nextInt(17, 20), 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
 

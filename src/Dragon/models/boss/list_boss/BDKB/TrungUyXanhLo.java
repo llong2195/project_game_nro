@@ -71,8 +71,7 @@ public class TrungUyXanhLo extends Boss {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                if (pl.location.x > 50 && pl.location.x < 800 && pl.location.y > 300)
-                {
+                if (pl.location.x > 50 && pl.location.x < 800 && pl.location.y > 300) {
                     this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                     if (Util.getDistance(this, pl) <= 200) {
                         if (Util.isTrue(5, 10)) {
@@ -92,7 +91,7 @@ public class TrungUyXanhLo extends Boss {
                 }
             } catch (Exception ex) {
                 Logger.logException(Boss.class, ex);
-                         
+
             }
         }
     }

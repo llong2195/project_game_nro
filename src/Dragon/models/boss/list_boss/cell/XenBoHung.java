@@ -14,7 +14,6 @@ import Dragon.utils.Util;
 
 import java.util.Random;
 
-
 public class XenBoHung extends Boss {
 
     private long lastTimeHapThu;
@@ -26,10 +25,11 @@ public class XenBoHung extends Boss {
 
     @Override
     public void reward(Player plKill) {
-       
+
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-           rewardFutureBoss(plKill);
+        rewardFutureBoss(plKill);
     }
+
     @Override
     public void active() {
         if (this.typePk == ConstPlayer.NON_PK) {
@@ -38,9 +38,9 @@ public class XenBoHung extends Boss {
         this.hapThu();
         this.attack();
     }
-   
+
     private void hapThu() {
-      if (!Util.canDoWithTime(this.lastTimeHapThu, this.timeHapThu) || !Util.isTrue(1, 100)) {
+        if (!Util.canDoWithTime(this.lastTimeHapThu, this.timeHapThu) || !Util.isTrue(1, 100)) {
             return;
         }
 
@@ -48,16 +48,14 @@ public class XenBoHung extends Boss {
         if (pl == null || pl.isDie()) {
             return;
         }
-                double HP =this.nPoint.hp + (this.nPoint.hpg*0.2);
-        if(HP > 2000000000)
-        {
+        double HP = this.nPoint.hp + (this.nPoint.hpg * 0.2);
+        if (HP > 2000000000) {
             HP = 2000000000;
         }
-        if(this.nPoint.hpg < HP)
-        {
-            this.nPoint.hpg = (int)HP;
+        if (this.nPoint.hpg < HP) {
+            this.nPoint.hpg = (int) HP;
         }
-        this.nPoint.hp = (int)HP;
+        this.nPoint.hp = (int) HP;
         this.nPoint.critg++;
         PlayerService.gI().hoiPhuc(this, pl.nPoint.hp, 0);
         pl.injured(null, (long) pl.nPoint.hpMax, true, false);
@@ -67,7 +65,6 @@ public class XenBoHung extends Boss {
         this.lastTimeHapThu = System.currentTimeMillis();
         this.timeHapThu = Util.nextInt(15000, 20000);
     }
-
 
 }
 

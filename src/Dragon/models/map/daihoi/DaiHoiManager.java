@@ -1,6 +1,5 @@
 package Dragon.models.map.daihoi;
 
-
 import Dragon.models.map.Map;
 import Dragon.models.player.Player;
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.ArrayList;
  * @author BTH
  */
 public class DaiHoiManager {
+
     private static DaiHoiManager instance;
 
     public boolean openDHVT = false;
@@ -33,15 +33,16 @@ public class DaiHoiManager {
     }
 
     public String nameRoundDHVT() {
-        if(typeDHVT == (byte)1) {
+        if (typeDHVT == (byte) 1) {
             return "Nhi Đồng";
-        } 
+        }
         return "Ngoại Hạng";
     }
+
     public String costRoundDHVT() {
-        if(typeDHVT == (byte)1) {
+        if (typeDHVT == (byte) 1) {
             return "2 ngọc";
-        } 
+        }
         return "10000 vàng";
     }
 
@@ -54,6 +55,3 @@ public class DaiHoiManager {
         return false;
     }
 }
-
-
-

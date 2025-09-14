@@ -9,12 +9,8 @@ import Dragon.services.func.ChangeMapService;
 import Dragon.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
-
-
-@Data
 public class DoanhTrai {
-    
+
     //bang hội đủ số người mới đc mở
     public static final List<DoanhTrai> DOANH_TRAI;
     public static final int N_PLAYER_CLAN = 0;
@@ -22,7 +18,7 @@ public class DoanhTrai {
     public static final int N_PLAYER_MAP = 0;
     public static final int AVAILABLE = 150;
     public static final int TIME_DOANH_TRAI = 18000;
-    
+
     static {
         DOANH_TRAI = new ArrayList<>();
         for (int i = 0; i < AVAILABLE; i++) {
@@ -34,7 +30,7 @@ public class DoanhTrai {
     private List<Zone> zones;
     private Clan clan;
     public boolean isOpened;
-    
+
     private long lastTimeOpen;
 
     public DoanhTrai(int id) {
@@ -74,28 +70,43 @@ public class DoanhTrai {
         }
     }
 
-    private void init(){
+    private void init() {
         long totalDame = 0;
         long totalHp = 0;
-        for(Player pl : this.clan.membersInGame){
+        for (Player pl : this.clan.membersInGame) {
             totalDame += pl.nPoint.dame;
             totalHp += pl.nPoint.hpMax;
         }
-        
-        
+
         //Hồi sinh quái
-        for(Zone zone : this.zones){
-            for(Mob mob : zone.mobs){
+        for (Zone zone : this.zones) {
+            for (Mob mob : zone.mobs) {
                 mob.point.dame = Util.trum(totalHp / 20);
                 mob.point.maxHp = Util.trum(totalDame * 20);
                 mob.hoiSinh();
             }
         }
     }
+
     private void sendTextDoanhTrai() {
         for (Player pl : this.clan.membersInGame) {
             ItemTimeService.gI().sendTextDoanhTrai(pl);
         }
     }
-}
 
+    // Getters/Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public List<Zone> getZones() { return zones; }
+    public void setZones(List<Zone> zones) { this.zones = zones; }
+
+    public Clan getClan() { return clan; }
+    public void setClan(Clan clan) { this.clan = clan; }
+
+    public boolean isOpened() { return isOpened; }
+    public void setOpened(boolean opened) { isOpened = opened; }
+
+    public long getLastTimeOpen() { return lastTimeOpen; }
+    public void setLastTimeOpen(long lastTimeOpen) { this.lastTimeOpen = lastTimeOpen; }
+}

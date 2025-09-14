@@ -2,7 +2,6 @@ package Dragon.models.task;
 
 import Dragon.consts.ConstTask;
 
-
 public class SideTask {
 
     public SideTaskTemplate template;

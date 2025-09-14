@@ -94,7 +94,7 @@ public class TutienItemManager {
     }
 
     public boolean isTutienItem(int itemId) {
-        return itemId >= TutienConstants.ItemIds.DO_KHI_DAN &&
-                itemId <= TutienConstants.ItemIds.DO_DE_DAN;
+        return itemId >= TutienConstants.ItemIds.DO_KHI_DAN
+                && itemId <= TutienConstants.ItemIds.DO_DE_DAN;
     }
 }

@@ -187,6 +187,7 @@ public class PlayerDataLoader {
      * Helper class để return multiple values
      */
     private static class LoadPointResult {
+
         final double hp;
         final double mp;
 
@@ -369,7 +370,6 @@ public class PlayerDataLoader {
     }
 
     // =========================== HELPER METHODS ===========================
-
     /**
      * Load điểm VIP data
      */
@@ -486,9 +486,9 @@ public class PlayerDataLoader {
             player.location.y = Integer.parseInt(String.valueOf(dataArray.get(2)));
             player.location.lastTimeplayerMove = System.currentTimeMillis();
 
-            if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId) ||
-                    MapService.gI().isdiacung(mapId) || MapService.gI().isMapBanDoKhoBau(mapId) ||
-                    MapService.gI().isMapKhiGas(mapId) || MapService.gI().isMapMaBu(mapId)) {
+            if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId)
+                    || MapService.gI().isdiacung(mapId) || MapService.gI().isMapBanDoKhoBau(mapId)
+                    || MapService.gI().isMapKhiGas(mapId) || MapService.gI().isMapMaBu(mapId)) {
                 mapId = 2;
                 player.location.x = 528;
                 player.location.y = 360;
@@ -597,7 +597,7 @@ public class PlayerDataLoader {
             } else {
                 item.itemOptions.add(new Item.ItemOption(
                         Integer.parseInt(String.valueOf(opt.get(0))) == 14 ? 5
-                                : Integer.parseInt(String.valueOf(opt.get(0))),
+                        : Integer.parseInt(String.valueOf(opt.get(0))),
                         Integer.parseInt(String.valueOf(opt.get(1)))));
             }
             if (Integer.parseInt(String.valueOf(opt.get(0))) == 50 && tempId == 884) {

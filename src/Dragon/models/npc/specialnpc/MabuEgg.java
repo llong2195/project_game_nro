@@ -8,7 +8,6 @@ import com.girlkun.network.io.Message;
 import Dragon.services.Service;
 import Dragon.utils.Logger;
 
-
 public class MabuEgg {
 
 //    private static final long DEFAULT_TIME_DONE = 7776000000L;
@@ -69,7 +68,7 @@ public class MabuEgg {
                 ChangeMapService.gI().changeMapInYard(this.player, this.player.gender * 7, -1, Util.nextInt(300, 500));
                 player.mabuEgg = null;
             } catch (Exception e) {
-                 
+
             }
         } else {
             Service.gI().sendThongBao(player, "Yêu cầu phải có đệ tử");
@@ -83,7 +82,7 @@ public class MabuEgg {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
         }
         this.player.mabuEgg = null;
     }
@@ -92,8 +91,8 @@ public class MabuEgg {
         this.timeDone -= ((d * 24 * 60 * 60 * 1000) + (h * 60 * 60 * 1000) + (m * 60 * 1000) + (s * 1000));
         this.sendMabuEgg();
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.player = null;
     }
 }

@@ -123,6 +123,7 @@ public class Clan {
             }
         }
     }
+
     public void addSMTNClan(Player plOri, double param) {
         for (Player pl : this.membersInGame) {
             if (!plOri.equals(pl) && plOri.zone.equals(pl.zone)) {

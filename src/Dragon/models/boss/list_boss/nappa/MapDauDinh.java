@@ -12,7 +12,6 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class MapDauDinh extends Boss {
 
     public MapDauDinh() throws Exception {

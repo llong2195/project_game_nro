@@ -12,7 +12,6 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class Rambo extends Boss {
 
     public Rambo() throws Exception {

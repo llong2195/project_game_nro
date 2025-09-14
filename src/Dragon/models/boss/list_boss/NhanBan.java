@@ -7,7 +7,6 @@ import Dragon.models.player.Player;
 import Dragon.services.Service;
 import Dragon.utils.Util;
 
-
 public class NhanBan extends Boss {
 
     public NhanBan(int bossID, BossData bossData, Zone zone) throws Exception {

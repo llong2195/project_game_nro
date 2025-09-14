@@ -8,6 +8,7 @@ import java.util.List;
  * @author Dev Duy Peo
  */
 public class RadarCard {
+
     public short Id;
     public short IconId;
     public byte Rank;
@@ -25,8 +26,7 @@ public class RadarCard {
     public short RequireLevel;
     public short AuraId;
 
-    public RadarCard()
-    {
+    public RadarCard() {
         Id = -1;
         IconId = -1;
         Rank = 0;

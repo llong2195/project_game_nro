@@ -129,9 +129,9 @@ public class BossDataService {
         TypeAppear typeAppear = TypeAppear.values()[rs.getInt("type_appear")];
 
         // Tạo BossData với constructor phù hợp
-        BossData bossData = new BossData(name, gender, new short[] { -1, -1, -1, -1, -1, -1 },
-                dame, hp, mapJoin, new int[][] {}, // skillTemp sẽ được load sau
-                new String[] {}, new String[] {}, new String[] {},
+        BossData bossData = new BossData(name, gender, new short[]{-1, -1, -1, -1, -1, -1},
+                dame, hp, mapJoin, new int[][]{}, // skillTemp sẽ được load sau
+                new String[]{}, new String[]{}, new String[]{},
                 secondsRest);
         bossData.setId(rs.getInt("id"));
         bossData.setTypeAppear(typeAppear);
@@ -173,8 +173,9 @@ public class BossDataService {
             rsSimple.close();
             psSimple.close();
 
-            if (populated)
+            if (populated) {
                 return;
+            }
 
             // 2) Legacy schema: multiple rows with slot_type + item_id
             PreparedStatement psLegacy = con.prepareStatement(
@@ -230,26 +231,14 @@ public class BossDataService {
                 int skillId = rs.getInt("skill_id");
                 int skillLevel = rs.getInt("skill_level");
                 int cooldown = rs.getInt("cooldown");
-                skills.add(new int[] { skillId, skillLevel, cooldown });
+                skills.add(new int[]{skillId, skillLevel, cooldown});
             }
 
-            // Convert to 2D array
             int[][] skillArray = new int[skills.size()][];
             for (int i = 0; i < skills.size(); i++) {
                 skillArray[i] = skills.get(i);
             }
             bossData.setSkillTemp(skillArray);
-
-            // Debug skills - chỉ debug boss ID 2222
-            if (bossData.getId() == 2222) {
-                System.out.println(
-                        "[BossDataService] Loaded " + skills.size() + " skills for boss " + bossData.getName());
-                for (int i = 0; i < skills.size(); i++) {
-                    int[] skill = skills.get(i);
-                    System.out.println("  Skill " + i + ": ID=" + skill[0] + ", Level=" + skill[1] +
-                            (skill.length > 2 ? ", Cooldown=" + skill[2] : ""));
-                }
-            }
 
             rs.close();
             ps.close();
@@ -259,9 +248,6 @@ public class BossDataService {
         }
     }
 
-    /**
-     * Load texts cho boss
-     */
     private void loadBossTexts(Connection con, BossData bossData) {
         try {
             PreparedStatement ps = con.prepareStatement(
@@ -314,8 +300,9 @@ public class BossDataService {
      * Parse JSON string thành double array
      */
     private double[] parseJsonToDoubleArray(String json) {
-        if (json == null || json.isEmpty())
+        if (json == null || json.isEmpty()) {
             return new double[0];
+        }
 
         try {
             JSONArray jsonArray = (JSONArray) JSONValue.parse(json);
@@ -334,8 +321,9 @@ public class BossDataService {
      * Parse JSON string thành int array
      */
     private int[] parseJsonToIntArray(String json) {
-        if (json == null || json.isEmpty())
+        if (json == null || json.isEmpty()) {
             return new int[0];
+        }
 
         try {
             JSONArray jsonArray = (JSONArray) JSONValue.parse(json);
@@ -361,8 +349,8 @@ public class BossDataService {
 
             // Insert vào bảng bosses
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO bosses (id, name, gender, dame, hp_json, map_join_json, " +
-                            "seconds_rest, type_appear, bosses_appear_together_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    "INSERT INTO bosses (id, name, gender, dame, hp_json, map_join_json, "
+                    + "seconds_rest, type_appear, bosses_appear_together_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             ps.setInt(1, bossData.getId());
             ps.setString(2, bossData.getName());
@@ -374,14 +362,13 @@ public class BossDataService {
             ps.setInt(8, bossData.getTypeAppear().ordinal());
             ps.setString(9,
                     bossData.getBossesAppearTogether() != null ? convertArrayToJson(bossData.getBossesAppearTogether())
-                            : null);
+                    : null);
 
             ps.executeUpdate();
             ps.close();
 
             // Insert outfit, skills, texts...
             // (Có thể implement thêm các method helper)
-
             con.commit();
             return true;
 

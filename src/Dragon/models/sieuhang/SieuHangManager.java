@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SieuHangManager {
+
     private static SieuHangManager i;
     private long lastUpdate;
     protected static final List<SieuHang> list = new ArrayList<>();

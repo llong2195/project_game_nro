@@ -9,5 +9,5 @@ package Dragon.services;
  * @author Admin
  */
 public class ServerNotify {
-    
+
 }

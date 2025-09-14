@@ -221,6 +221,7 @@ public class Client implements Runnable {
         txt += "players: " + players.size() + "\n";
         Service.gI().sendThongBao(player, txt);
     }
+
     public void clear() {
         List<Player> z = players;
         for (Player pl : z) {
@@ -232,50 +233,56 @@ public class Client implements Runnable {
         }
     }
 
-    public void createBot(MySession s){
-        String[] name1 = {"le","hai","lan","anh","long","hehe"};
-        String[] name2 = {"dz","xinh","deth","cute","cuto","cutie"};
-        String[] name3 = {"vip","pro","ga","top1","sc1","vodich"};
+    public void createBot(MySession s) {
+        String[] name1 = {"le", "hai", "lan", "anh", "long", "hehe"};
+        String[] name2 = {"dz", "xinh", "deth", "cute", "cuto", "cutie"};
+        String[] name3 = {"vip", "pro", "ga", "top1", "sc1", "vodich"};
         Player pl = new Player();
         Player temp = Client.gI().getPlayerByUser(1);//GodGK.loadById(2275);
         pl.setSession(s);
         s.userId = id;
-        pl.id = id; id++;
-        pl.name = name1[Util.nextInt(name1.length)]+name2[Util.nextInt(name2.length)]+name3[Util.nextInt(name3.length)];
-        pl.gender = (byte)Util.nextInt(2);
+        pl.id = id;
+        id++;
+        pl.name = name1[Util.nextInt(name1.length)] + name2[Util.nextInt(name2.length)] + name3[Util.nextInt(name3.length)];
+        pl.gender = (byte) Util.nextInt(2);
         pl.isBot = true;
         pl.isBoss = false;
         pl.isPet = false;
-        pl.nPoint.power = Util.nextInt(200000,200000000);
-        pl.nPoint.power *= Util.nextInt(1,40);
+        pl.nPoint.power = Util.nextInt(200000, 200000000);
+        pl.nPoint.power *= Util.nextInt(1, 40);
         pl.nPoint.hpg = 100000;
-        pl.nPoint.hpMax = Util.nextInt(200000,20000000);
+        pl.nPoint.hpMax = Util.nextInt(200000, 20000000);
         pl.nPoint.hp = pl.nPoint.hpMax / 2;
-        pl.nPoint.mpMax = Util.nextInt(2000,2000000000);
-        pl.nPoint.dame = Util.nextInt(2000,2000000);
+        pl.nPoint.mpMax = Util.nextInt(2000, 2000000000);
+        pl.nPoint.dame = Util.nextInt(2000, 2000000);
         pl.nPoint.stamina = 32000;
         pl.itemTime.isUseTDLT = true;
         pl.typePk = ConstPlayer.NON_PK;
-        if (pl.nPoint.hp == 0) { 
-        Service.gI().hsChar(pl, pl.nPoint.hpMax, pl.nPoint.mpMax);}
+        if (pl.nPoint.hp == 0) {
+            Service.gI().hsChar(pl, pl.nPoint.hpMax, pl.nPoint.mpMax);
+        }
         //skill
-        int[] skillsArr = pl.gender == 0 ? new int[]{0, 1,  19}
-                    : pl.gender == 1 ? new int[]{ 12, 17}
-                    : new int[]{4, 8, 13,  19};
-        for(int j = 0;j<skillsArr.length;j++){
+        int[] skillsArr = pl.gender == 0 ? new int[]{0, 1, 19}
+                : pl.gender == 1 ? new int[]{12, 17}
+                : new int[]{4, 8, 13, 19};
+        for (int j = 0; j < skillsArr.length; j++) {
             Skill skill = SkillUtil.createSkill(skillsArr[j], 7);
             pl.playerSkill.skills.add(skill);
         }
         pl.inventory = new Inventory();
-        for(int i = 0;i<12;i++){
+        for (int i = 0; i < 12; i++) {
             pl.inventory.itemsBody.add(ItemService.gI().createItemNull());
         }
         pl.inventory.gold = 2000000000;
-        pl.inventory.itemsBody.set(5, Manager.CAITRANG.get(Util.nextInt(0,Manager.CAITRANG.size()-1)));
+        pl.inventory.itemsBody.set(5, Manager.CAITRANG.get(Util.nextInt(0, Manager.CAITRANG.size() - 1)));
         pl.location.y = 300;
-        pl.zone = MapService.gI().getMapCanJoin(pl, (Util.nextInt(0,215)), (Util.nextInt(0,10)));
-        if(pl.zone == null) return;
-        if(pl.zone.map == null) return;
+        pl.zone = MapService.gI().getMapCanJoin(pl, (Util.nextInt(0, 215)), (Util.nextInt(0, 10)));
+        if (pl.zone == null) {
+            return;
+        }
+        if (pl.zone.map == null) {
+            return;
+        }
         pl.location.x = 200;//temp.location.x + Util.nextInt(-400,400);
         pl.zone.addPlayer(pl);
         pl.zone.load_Me_To_Another(pl);

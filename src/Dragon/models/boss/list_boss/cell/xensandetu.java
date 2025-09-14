@@ -1,5 +1,5 @@
-
 package Dragon.models.boss.list_boss.cell;
+
 import Dragon.consts.ConstPlayer;
 import Dragon.models.boss.*;
 import static Dragon.models.boss.BossStatus.ACTIVE;
@@ -38,15 +38,18 @@ import Dragon.services.TaskService;
 import Dragon.services.PlayerService;
 import Dragon.services.func.ChangeMapService;
 import java.util.Random;
+
 public class xensandetu extends Boss {
+
     private static final int[][] FULL_LIENHOAN = new int[][]{{Skill.LIEN_HOAN, 1}, {Skill.LIEN_HOAN, 2}, {Skill.LIEN_HOAN, 3}, {Skill.LIEN_HOAN, 4}, {Skill.LIEN_HOAN, 5}, {Skill.LIEN_HOAN, 6}, {Skill.LIEN_HOAN, 7}};
-        private static final int[][] FULL_TAI_TAO_NANG_LUONG = new int[][]{{Skill.TAI_TAO_NANG_LUONG, 1}, {Skill.TAI_TAO_NANG_LUONG, 2}, {Skill.TAI_TAO_NANG_LUONG, 3}, {Skill.TAI_TAO_NANG_LUONG, 4}, {Skill.TAI_TAO_NANG_LUONG, 5}, {Skill.TAI_TAO_NANG_LUONG, 6}, {Skill.TAI_TAO_NANG_LUONG, 7}};
-  private long lastTimeHapThu;
+    private static final int[][] FULL_TAI_TAO_NANG_LUONG = new int[][]{{Skill.TAI_TAO_NANG_LUONG, 1}, {Skill.TAI_TAO_NANG_LUONG, 2}, {Skill.TAI_TAO_NANG_LUONG, 3}, {Skill.TAI_TAO_NANG_LUONG, 4}, {Skill.TAI_TAO_NANG_LUONG, 5}, {Skill.TAI_TAO_NANG_LUONG, 6}, {Skill.TAI_TAO_NANG_LUONG, 7}};
+    private long lastTimeHapThu;
     private int timeHapThu;
     private int initSuper = 0;
     protected Player playerAtt;
     private int timeLive = 10;
     private boolean calledNinja;
+
     public xensandetu() throws Exception {
 
         super(BossID.XEN_SAN_DE_TU, BossesData.XEN_SAN_DE_TU);
@@ -60,14 +63,14 @@ public class xensandetu extends Boss {
             Service.getInstance().dropItemMap(this.zone, it);
         }
     }
-    
+
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
         if (Util.canDoWithTime(st, 1800000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-    
+
     @Override
     public void leaveMap() {
         super.leaveMap();
@@ -75,15 +78,14 @@ public class xensandetu extends Boss {
             BossManager.gI().removeBoss(this);
         }
     }
-     
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
     private long st;
-    
-   
+
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
@@ -95,7 +97,7 @@ public class xensandetu extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage/2;
+                damage = damage / 2;
             }
             this.nPoint.subHP(damage);
             if (this.nPoint.hp <= 150000000 && !this.calledNinja) {
@@ -110,14 +112,13 @@ public class xensandetu extends Boss {
                 this.calledNinja = true;
             }
             if (isDie()) {
-this.setDie(plAtt);
-die(plAtt);
-}
+                this.setDie(plAtt);
+                die(plAtt);
+            }
             return damage;
         } else {
             return 0;
         }
     }
-    
 
 }

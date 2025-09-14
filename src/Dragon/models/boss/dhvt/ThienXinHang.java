@@ -8,7 +8,7 @@ import Dragon.services.EffectSkillService;
 import Dragon.utils.Util;
 
 /**
- * @author BTH sieu cap vippr0 
+ * @author BTH sieu cap vippr0
  */
 public class ThienXinHang extends BossDHVT {
 
@@ -18,7 +18,6 @@ public class ThienXinHang extends BossDHVT {
         super(BossID.THIEN_XIN_HANG, BossesData.THIEN_XIN_HANG);
         this.playerAtt = player;
     }
-
 
     @Override
     public void attack() {
@@ -30,7 +29,7 @@ public class ThienXinHang extends BossDHVT {
                 phanThan();
             }
         } catch (Exception ex) {
-            
+
         }
     }
 
@@ -41,7 +40,7 @@ public class ThienXinHang extends BossDHVT {
             new ThienXinHangClone(BossID.THIEN_XIN_HANG_CLONE2, playerAtt);
             new ThienXinHangClone(BossID.THIEN_XIN_HANG_CLONE3, playerAtt);
         } catch (Exception e) {
-            
+
         }
     }
 }

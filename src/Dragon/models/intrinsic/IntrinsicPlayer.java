@@ -2,7 +2,6 @@ package Dragon.models.intrinsic;
 
 import Dragon.services.IntrinsicService;
 
-
 public class IntrinsicPlayer {
 
     public byte countOpen;
@@ -13,7 +12,7 @@ public class IntrinsicPlayer {
         this.intrinsic = IntrinsicService.gI().getIntrinsicById(0);
     }
 
-    public void dispose(){
+    public void dispose() {
         this.intrinsic = null;
     }
 }

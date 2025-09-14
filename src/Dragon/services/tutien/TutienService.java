@@ -35,8 +35,8 @@ public class TutienService {
 
         // Menu với thông tin tu tiên và đột phá cấp bậc
         npc.createOtherMenu(player, ConstNpc.BASE_MENU,
-                "|7|Xin Chào Cư Dân \n" + "Cấp Tu Tiên Của Bạn Đang Là : " + levelDisplay + "\n" +
-                        "\n|3|" + perLevelBonusInfo + "\n",
+                "|7|Xin Chào Cư Dân \n" + "Cấp Tu Tiên Của Bạn Đang Là : " + levelDisplay + "\n"
+                + "\n|3|" + perLevelBonusInfo + "\n",
                 "Xem thông tin\ntu tiên", "Đột phá cấp bậc", "Đóng");
     }
 
@@ -49,14 +49,14 @@ public class TutienService {
         String currentBonusInfo = TutienCalculator.getShortBonusInfo(player.Captutien);
         String perLevelBonusInfo = "Mỗi cấp: Dame +1,000 | HP +20,000 | Ki +20,000";
 
-        String info = "|7|Thông tin Tu Tiên\n" +
-                "Cấp bậc hiện tại: " + currentRankName + " (Cấp " + player.Captutien + ")\n" +
-                "EXP tu tiên: " + player.Exptutien + "\n" +
-                "EXP cần để lên cấp: " + expNeededForNextLevel + "\n" +
-                "Tỷ lệ thành công: " + String.format("%.1f", successRate) + "%\n" +
-                "\n|2|Bonus hiện tại:\n" + currentBonusInfo + "\n" +
-                "\n|3|" + perLevelBonusInfo + "\n" +
-                "\n|2|Đan có thể sử dụng:\n" + getUsableItemsInfo(player);
+        String info = "|7|Thông tin Tu Tiên\n"
+                + "Cấp bậc hiện tại: " + currentRankName + " (Cấp " + player.Captutien + ")\n"
+                + "EXP tu tiên: " + player.Exptutien + "\n"
+                + "EXP cần để lên cấp: " + expNeededForNextLevel + "\n"
+                + "Tỷ lệ thành công: " + String.format("%.1f", successRate) + "%\n"
+                + "\n|2|Bonus hiện tại:\n" + currentBonusInfo + "\n"
+                + "\n|3|" + perLevelBonusInfo + "\n"
+                + "\n|2|Đan có thể sử dụng:\n" + getUsableItemsInfo(player);
         showSubMenu(npc, player, info);
     }
 
@@ -93,17 +93,17 @@ public class TutienService {
 
         // Danh sách tất cả đan và cấp yêu cầu
         int[][] danInfo = {
-                { TutienConstants.ItemIds.DO_KHI_DAN, 0, 9, 1000 },
-                { TutienConstants.ItemIds.DO_GIA_DAN, 10, 19, 2000 },
-                { TutienConstants.ItemIds.DO_SU_DAN, 20, 29, 3000 },
-                { TutienConstants.ItemIds.DAI_DO_SU_DAN, 30, 39, 4000 },
-                { TutienConstants.ItemIds.DO_LINH_DAN, 40, 49, 5000 },
-                { TutienConstants.ItemIds.DO_VUONG_DAN, 50, 59, 6000 },
-                { TutienConstants.ItemIds.DO_HOANG_DAN, 60, 69, 7000 },
-                { TutienConstants.ItemIds.DO_TONG_DAN, 70, 79, 8000 },
-                { TutienConstants.ItemIds.DO_TON_DAN, 80, 89, 9000 },
-                { TutienConstants.ItemIds.DO_THANH_DAN, 90, 95, 10000 },
-                { TutienConstants.ItemIds.DO_DE_DAN, 96, 96, 15000 }
+            {TutienConstants.ItemIds.DO_KHI_DAN, 0, 9, 1000},
+            {TutienConstants.ItemIds.DO_GIA_DAN, 10, 19, 2000},
+            {TutienConstants.ItemIds.DO_SU_DAN, 20, 29, 3000},
+            {TutienConstants.ItemIds.DAI_DO_SU_DAN, 30, 39, 4000},
+            {TutienConstants.ItemIds.DO_LINH_DAN, 40, 49, 5000},
+            {TutienConstants.ItemIds.DO_VUONG_DAN, 50, 59, 6000},
+            {TutienConstants.ItemIds.DO_HOANG_DAN, 60, 69, 7000},
+            {TutienConstants.ItemIds.DO_TONG_DAN, 70, 79, 8000},
+            {TutienConstants.ItemIds.DO_TON_DAN, 80, 89, 9000},
+            {TutienConstants.ItemIds.DO_THANH_DAN, 90, 95, 10000},
+            {TutienConstants.ItemIds.DO_DE_DAN, 96, 96, 15000}
         };
 
         boolean hasUsableItem = false;

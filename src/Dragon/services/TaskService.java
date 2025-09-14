@@ -131,10 +131,10 @@ public class TaskService {
 
     public boolean checkDoneTaskTalkNpc(Player player, Npc npc) {
         int currentTaskId = getIdTask(player);
-        Logger.log(Logger.YELLOW, "[TASK DEBUG] Player: " + player.name +
-                " | Current Task ID: " + currentTaskId +
-                " | NPC ID: " + npc.tempId +
-                " | Map: " + npc.mapId);
+        Logger.log(Logger.YELLOW, "[TASK DEBUG] Player: " + player.name
+                + " | Current Task ID: " + currentTaskId
+                + " | NPC ID: " + npc.tempId
+                + " | Map: " + npc.mapId);
 
         switch (npc.tempId) {
             case ConstNpc.ONG_GOHAN:
@@ -184,9 +184,9 @@ public class TaskService {
                         break;
 
                 }
-                Logger.log(Logger.GREEN, "[BILL DEBUG] Player: " + player.name +
-                        " | Current Task: " + currentTaskId +
-                        " | Trying TASK_15_4: " + ConstTask.TASK_15_4);
+                Logger.log(Logger.GREEN, "[BILL DEBUG] Player: " + player.name
+                        + " | Current Task: " + currentTaskId
+                        + " | Trying TASK_15_4: " + ConstTask.TASK_15_4);
             case ConstNpc.BILL:
                 switch (npc.mapId) {
                     case 3:
@@ -309,74 +309,74 @@ public class TaskService {
                 case ConstTask.TASK_14_0:
                     npcSay(player, ConstNpc.ONG_GOHAN,
                             "Chào Ngươi, Ta Là Rock Rock\n"
-                                    + "...Hiện Tại Ngươi Đã Bị Lạc Vào Thế Giới Của Tương Lai, Người Cần Quay Trở Về\n"
-                                    + "Ta Sẽ Giúp Ngươi Di Chuyển, Trước Tiên Hãy Chọn Thần Khí Mà Người Muốn!");
+                            + "...Hiện Tại Ngươi Đã Bị Lạc Vào Thế Giới Của Tương Lai, Người Cần Quay Trở Về\n"
+                            + "Ta Sẽ Giúp Ngươi Di Chuyển, Trước Tiên Hãy Chọn Thần Khí Mà Người Muốn!");
                     break;
                 case ConstTask.TASK_14_1:
                     npcSay(player, ConstNpc.ONG_GOHAN,
                             "Chào Ngươi, Lại Là Ta Đây\n"
-                                    + "Ngươi Đã Trở Lại Rồi À, Thật Vui Mừng, Ngươi Có Nhớ Gì Không?\n"
-                                    + "Chắc Chắn Là Không Rồi, Ta Sẽ Giúp Ngươi\n"
-                                    + "Hãy Đi Sang Làng Nhỏ Kế Bên Tiêu Diệt Dùm Ta 20 Con Khỉ Bư!\n"
-                                    + "Đi Đi..........");
+                            + "Ngươi Đã Trở Lại Rồi À, Thật Vui Mừng, Ngươi Có Nhớ Gì Không?\n"
+                            + "Chắc Chắn Là Không Rồi, Ta Sẽ Giúp Ngươi\n"
+                            + "Hãy Đi Sang Làng Nhỏ Kế Bên Tiêu Diệt Dùm Ta 20 Con Khỉ Bư!\n"
+                            + "Đi Đi..........");
                     break;
                 case ConstTask.TASK_14_3:
                     npcSay(player, ConstNpc.ONG_GOHAN,
                             "Giỏi Thế, Nhiệm Vụ Mà Ta Giao Ngươi Cũng Làm Được\n"
-                                    + "Thật Đáng Khen, Bây Giờ Đi Giao Lưu Ở Làng Để Có Thể Thành Thạo Thao Tác!");
+                            + "Thật Đáng Khen, Bây Giờ Đi Giao Lưu Ở Làng Để Có Thể Thành Thạo Thao Tác!");
                     break;
                 case ConstTask.TASK_15_0:
                     npcSay(player, ConstNpc.HUONGDANNROTUONGLAI,
                             "Ta Là NPC Hướng Dẫn, Ta Sẽ Hướng Dẫn Ngươi Nhiều Điều Mới!\n"
-                                    + "Đi Gặp Ông Bò Mộng Đi!");
+                            + "Đi Gặp Ông Bò Mộng Đi!");
                     break;
 
                 case ConstTask.TASK_15_1:
                     npcSay(player, ConstNpc.BO_MONG,
                             "Ta Sẽ Giao Nhiệm Vụ Cho Ngươi Hằng Ngày!\n"
-                                    + "Sẽ Có Nhiệm Vụ Từ Dễ Đến Siêu Khó, Sẽ Có Những Phần Quà Cho Ngươi!\n"
-                                    + "Qua Làng Kế Bên Gặp Uron Đi...");
+                            + "Sẽ Có Nhiệm Vụ Từ Dễ Đến Siêu Khó, Sẽ Có Những Phần Quà Cho Ngươi!\n"
+                            + "Qua Làng Kế Bên Gặp Uron Đi...");
                     break;
                 case ConstTask.TASK_15_2:
                     npcSay(player, ConstNpc.URON,
                             "Ta Là URON!\n"
-                                    + "Ta Là Người Phụ Trách Bán Skill Cho Ngươi\n"
-                                    + "Học Skill Của Ta Ngươi Sẽ Đỉn Đỉn\n"
-                                    + "Đi Giao Lưu Tiếp Đi!");
+                            + "Ta Là Người Phụ Trách Bán Skill Cho Ngươi\n"
+                            + "Học Skill Của Ta Ngươi Sẽ Đỉn Đỉn\n"
+                            + "Đi Giao Lưu Tiếp Đi!");
                     break;
                 case ConstTask.TASK_15_3:
                     npcSay(player, ConstNpc.BA_HAT_MIT,
                             "Ta Là Mụ Phù Thủy!\n"
-                                    + "Ta Là Người Phụ Trách Cường Hóa, Nâng Cấp!\n"
-                                    + "Mọi Trang Bị Của Ngươi Đều Được Ta Sắp Xếp!\n"
-                                    + "Đi Giao Lưu Tiếp Đi!");
+                            + "Ta Là Người Phụ Trách Cường Hóa, Nâng Cấp!\n"
+                            + "Mọi Trang Bị Của Ngươi Đều Được Ta Sắp Xếp!\n"
+                            + "Đi Giao Lưu Tiếp Đi!");
                     break;
                 case ConstTask.TASK_15_4:
                     npcSay(player, ConstNpc.BILL,
                             "Ta Là Thần Vũ Trụ!\n"
-                                    + "Ta Là Người Phụ Trách Giúp Ngươi Chuyển Sinh\n"
-                                    + "Khi Ngươi Chuyển Sinh Ở Ta, Sẽ Tăng Mạnh Chỉ Số\n"
-                                    + "Đi Giao Lưu Tiếp Đi!");
+                            + "Ta Là Người Phụ Trách Giúp Ngươi Chuyển Sinh\n"
+                            + "Khi Ngươi Chuyển Sinh Ở Ta, Sẽ Tăng Mạnh Chỉ Số\n"
+                            + "Đi Giao Lưu Tiếp Đi!");
                     break;
                 case ConstTask.TASK_15_5:
                     npcSay(player, ConstNpc.THUONGNHAN,
                             "Ta Là Thương Nhân!\n"
-                                    + "Ta Là Người Phụ Trách Chuyên Bán Đồ Thần Bí\n"
-                                    + "Canh Đúng Giờ Quay Lại Gặp Ta\n"
-                                    + "Về Gặp Rock Rock Đi...");
+                            + "Ta Là Người Phụ Trách Chuyên Bán Đồ Thần Bí\n"
+                            + "Canh Đúng Giờ Quay Lại Gặp Ta\n"
+                            + "Về Gặp Rock Rock Đi...");
                     break;
                 case ConstTask.TASK_15_6:
                     npcSay(player, ConstNpc.ONG_GOHAN,
                             "Vậy Là Ngươi Đã Hiểu Về Các NPC Ở Game Rồi Đúng Không?\n"
-                                    + "Giờ Đây Ta Có Vài Nhiệm Vụ Muốn Giao Cho Ngươi\n"
-                                    + "Hãy Sẵn Sàng Luyện Tập Và Chiến Đấu Nhé, Đây Là Phần Quà Ta Tặng Cho Ngươi!\n"
-                                    + "Đi Đi...");
+                            + "Giờ Đây Ta Có Vài Nhiệm Vụ Muốn Giao Cho Ngươi\n"
+                            + "Hãy Sẵn Sàng Luyện Tập Và Chiến Đấu Nhé, Đây Là Phần Quà Ta Tặng Cho Ngươi!\n"
+                            + "Đi Đi...");
                     break;
                 case ConstTask.TASK_16_1:
                     npcSay(player, ConstNpc.ONG_GOHAN,
                             "Tuyệt Vời! Ngươi Đã Tiêu Diệt Được Sói!\n"
-                                    + "Đây Là Một Bước Tiến Lớn Trong Hành Trình Của Ngươi!\n"
-                                    + "Hãy Tiếp Tục Luyện Tập Và Chiến Đấu!");
+                            + "Đây Là Một Bước Tiến Lớn Trong Hành Trình Của Ngươi!\n"
+                            + "Hãy Tiếp Tục Luyện Tập Và Chiến Đấu!");
                     break;
 
             }
@@ -426,7 +426,7 @@ public class TaskService {
         player.playerTask.taskMain.subTasks.get(player.playerTask.taskMain.index).count += numDone;
         if (player.playerTask.taskMain.subTasks
                 .get(player.playerTask.taskMain.index).count >= player.playerTask.taskMain.subTasks
-                        .get(player.playerTask.taskMain.index).maxCount) {
+                .get(player.playerTask.taskMain.index).maxCount) {
             player.playerTask.taskMain.index++;
             if (player.playerTask.taskMain.index >= player.playerTask.taskMain.subTasks.size()) {
                 this.sendNextTaskMain(player);

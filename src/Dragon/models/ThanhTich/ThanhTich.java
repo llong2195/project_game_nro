@@ -11,17 +11,17 @@ import Dragon.models.Template;
  *
  * @author Administrator
  */
-public class ThanhTich 
-{
+public class ThanhTich {
+
     public Template.ArchivementTemplate Template;
     public boolean isFinish;
     public boolean isRecieve;
-    public ThanhTich()
-    {
-        
+
+    public ThanhTich() {
+
     }
-    public ThanhTich(ThanhTich a)
-    {
+
+    public ThanhTich(ThanhTich a) {
         this.Template = a.Template;
         this.isFinish = a.isFinish;
         this.isRecieve = a.isRecieve;

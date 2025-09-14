@@ -157,7 +157,7 @@ public class CombineServiceNew {
      * Mở tab đập đồ
      *
      * @param player
-     * @param type   kiểu đập đồ
+     * @param type kiểu đập đồ
      */
     public void openTabCombine(Player player, int type) {
         openTabCombine(player, type, null);
@@ -167,8 +167,8 @@ public class CombineServiceNew {
      * Mở tab đập đồ với NPC cụ thể
      *
      * @param player
-     * @param type   kiểu đập đồ
-     * @param npc    NPC hiện tại
+     * @param type kiểu đập đồ
+     * @param npc NPC hiện tại
      */
     public void openTabCombine(Player player, int type, Dragon.models.npc.Npc npc) {
         player.combineNew.setTypeCombine(type);
@@ -1304,23 +1304,23 @@ public class CombineServiceNew {
                             if (player.combineNew.countDaNangCap > itemDNC.quantity) {
                                 this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                         npcSay, "Còn Thiếu\n" + (player.combineNew.countDaNangCap - itemDNC.quantity)
-                                                + " " + itemDNC.template.name);
+                                        + " " + itemDNC.template.name);
                             } else if (player.combineNew.goldCombine > player.inventory.gold) {
                                 this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                         npcSay,
                                         "Còn Thiếu\n"
-                                                + Util.numberToMoney(
-                                                        (player.combineNew.goldCombine - player.inventory.gold))
-                                                + " Vàng");
+                                        + Util.numberToMoney(
+                                                (player.combineNew.goldCombine - player.inventory.gold))
+                                        + " Vàng");
                             } else if (player.combineNew.itemsCombine.size() == 3 && Objects.nonNull(itemDBV)
                                     && itemDBV.quantity < player.combineNew.countDaBaoVe) {
                                 this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                         npcSay, "Còn Thiếu\n" + (player.combineNew.countDaBaoVe - itemDBV.quantity)
-                                                + " Đá Bảo Vệ");
+                                        + " Đá Bảo Vệ");
                             } else {
                                 this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE,
                                         npcSay, "Nâng Cấp\n" + Util.numberToMoney(player.combineNew.goldCombine)
-                                                + " Vàng" + daNPC,
+                                        + " Vàng" + daNPC,
                                         "Từ Chối");
                             }
                         } else {
@@ -1923,10 +1923,10 @@ public class CombineServiceNew {
 
     public void GetTrangBiKichHoathuydiet(Player player, int id) {
         Item item = ItemService.gI().createNewItem((short) id);
-        int[][] optionNormal = { { 127, 128 }, { 130, 132 }, { 133, 135 } };
-        int[][] paramNormal = { { 139, 140 }, { 142, 144 }, { 136, 138 } };
-        int[][] optionVIP = { { 129 }, { 131 }, { 134 } };
-        int[][] paramVIP = { { 141 }, { 143 }, { 137 } };
+        int[][] optionNormal = {{127, 128}, {130, 132}, {133, 135}};
+        int[][] paramNormal = {{139, 140}, {142, 144}, {136, 138}};
+        int[][] optionVIP = {{129}, {131}, {134}};
+        int[][] paramVIP = {{141}, {143}, {137}};
         int random = Util.nextInt(optionNormal.length);
         int randomSkh = Util.nextInt(100);
         if (item.template.type == 0) {
@@ -1962,10 +1962,10 @@ public class CombineServiceNew {
 
     public void GetTrangBiKichHoatthiensu(Player player, int id) {
         Item item = ItemService.gI().createNewItem((short) id);
-        int[][] optionNormal = { { 127, 128 }, { 130, 132 }, { 133, 135 } };
-        int[][] paramNormal = { { 139, 140 }, { 142, 144 }, { 136, 138 } };
-        int[][] optionVIP = { { 129 }, { 131 }, { 134 } };
-        int[][] paramVIP = { { 141 }, { 143 }, { 137 } };
+        int[][] optionNormal = {{127, 128}, {130, 132}, {133, 135}};
+        int[][] paramNormal = {{139, 140}, {142, 144}, {136, 138}};
+        int[][] optionVIP = {{129}, {131}, {134}};
+        int[][] paramVIP = {{141}, {143}, {137}};
         int random = Util.nextInt(optionNormal.length);
         int randomSkh = Util.nextInt(100);
         if (item.template.type == 0) {
@@ -2216,8 +2216,8 @@ public class CombineServiceNew {
 
         player.inventory.gold -= COST;
         sendEffectSuccessCombine(player);
-        short[][] itemIds = { { 1048, 1051, 1054, 1057, 1060 }, { 1049, 1052, 1055, 1058, 1061 },
-                { 1050, 1053, 1056, 1059, 1062 } }; // thứ tự td - 0,nm - 1, xd - 2
+        short[][] itemIds = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061},
+        {1050, 1053, 1056, 1059, 1062}}; // thứ tự td - 0,nm - 1, xd - 2
 
         Item itemTS = ItemService.gI().DoThienSu(
                 itemIds[itemTL.template.gender > 2 ? player.gender : itemTL.template.gender][itemManh.typeIdManh()],
@@ -2414,7 +2414,7 @@ public class CombineServiceNew {
                 player.inventory.ruby -= ruby;
                 InventoryServiceNew.gI().subQuantityItemsBag(player, ttt, 10);
                 if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
-                    short[] chienlinh = { 2019, 2020, 2021, 2022, 2023, 2024, 2025 };
+                    short[] chienlinh = {2019, 2020, 2021, 2022, 2023, 2024, 2025};
                     linhthu.template = ItemService.gI().getTemplate(chienlinh[Util.nextInt(0, 2)]);
                     linhthu.itemOptions.clear();
                     laychiChienLinh(player, linhthu);
@@ -2969,8 +2969,8 @@ public class CombineServiceNew {
                 } else if (tilemacdinh <= 1) {
                     tilemacdinh = 0;
                 }
-                short[][] itemIds = { { 1048, 1051, 1054, 1057, 1060 }, { 1049, 1052, 1055, 1058, 1061 },
-                        { 1050, 1053, 1056, 1059, 1062 } }; // thứ tự td - 0,nm - 1, xd - 2
+                short[][] itemIds = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061},
+                {1050, 1053, 1056, 1059, 1062}}; // thứ tự td - 0,nm - 1, xd - 2
 
                 Item itemTS = ItemService.gI().DoThienSu(
                         itemIds[itemCtVip.template.gender > 2 ? player.gender : itemCtVip.template.gender][itemManh

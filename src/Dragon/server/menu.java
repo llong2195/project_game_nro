@@ -99,7 +99,7 @@ public class menu extends JFrame {
 
     private void openWebsite() {
         try {
-            Desktop.getDesktop().browse(new URI("https://yourwebsite.com")); 
+            Desktop.getDesktop().browse(new URI("https://yourwebsite.com"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

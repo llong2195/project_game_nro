@@ -44,17 +44,17 @@ public class AnTrom extends Boss {
         int stolenGold = Util.nextInt(1000, 5000);
         pl.inventory.gold -= stolenGold;
         this.inventory.gold += stolenGold;
-    // Thông báo ăn trộm trên kênh chat
-    this.chat("Haha, Tôi Đã Ăn Trộm Được " + stolenGold + " Vàng Rồi!!");
-    // Cập nhật thời gian ăn trộm lần cuối và thời gian cho phép ăn trộm tiếp theo
-    this.time = System.currentTimeMillis();
-    this.antrom = 4000;
-    // Gửi thông tin vàng mới của người chơi và cập nhật trên máy chủ
-    Service.gI().sendMoney(pl);
-    InventoryServiceNew.gI().sendItemBags(pl);
-}
+        // Thông báo ăn trộm trên kênh chat
+        this.chat("Haha, Tôi Đã Ăn Trộm Được " + stolenGold + " Vàng Rồi!!");
+        // Cập nhật thời gian ăn trộm lần cuối và thời gian cho phép ăn trộm tiếp theo
+        this.time = System.currentTimeMillis();
+        this.antrom = 4000;
+        // Gửi thông tin vàng mới của người chơi và cập nhật trên máy chủ
+        Service.gI().sendMoney(pl);
+        InventoryServiceNew.gI().sendItemBags(pl);
+    }
 
- @Override
+    @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
@@ -69,10 +69,10 @@ public class AnTrom extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-   
+
     @Override
     public void reward(Player plKill) {
-        if (Util.isTrue(97,100)) {
+        if (Util.isTrue(97, 100)) {
             int goldReward = (int) (this.inventory.gold * Util.nextInt(30, 50) / 100);
             Service.getInstance().dropItemMap(
                     this.zone,

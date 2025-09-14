@@ -32,8 +32,7 @@ public class MenuController {
             npc.openBaseMenu(player);
         } else {
             Service.gI().hideWaitDialog(player);
-            
-    
+
         }
     }
 
@@ -55,12 +54,9 @@ public class MenuController {
                     npc.confirmMenu(player, select);
                 } else {
                     Service.gI().hideWaitDialog(player);
-                    
-                     
-              
-                
-                break;
-        }
+
+                    break;
+                }
 
         }
     }

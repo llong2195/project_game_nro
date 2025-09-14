@@ -67,7 +67,7 @@ public class Gas {
         this.lastTimeOpen = System.currentTimeMillis();
         this.isOpened = true;
         this.clan = clan;
-        this.clan.timeOpenKhiGas =  System.currentTimeMillis();
+        this.clan.timeOpenKhiGas = System.currentTimeMillis();
         this.clan.playerOpenKhiGas = plOpen;
         this.clan.khiGas = this;
         resetGas();
@@ -75,13 +75,12 @@ public class Gas {
         sendTextGas();
     }
     public boolean isInitBoss;
-    public void InitBoss(Player pl) 
-    {
+
+    public void InitBoss(Player pl) {
         try {
             new DrLyChee(pl, level, (int) 1, (int) 1, BossID.DR_LYCHEE);
-            isInitBoss =true;
-        } catch (Exception e)
-        {
+            isInitBoss = true;
+        } catch (Exception e) {
             System.err.print("\nError at 171\n");
             e.printStackTrace();
         }
@@ -89,8 +88,7 @@ public class Gas {
 
     private void resetGas() {
         for (Zone zone : zones) {
-            for (Mob m : zone.mobs) 
-            {
+            for (Mob m : zone.mobs) {
                 Mob.initMopbKhiGas(m, this.level);
                 Mob.hoiSinhMob(m);
             }

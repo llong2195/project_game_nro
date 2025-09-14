@@ -1,6 +1,5 @@
 package Dragon.models.player;
 
-
-public class Enemy extends Friend{
+public class Enemy extends Friend {
 
 }

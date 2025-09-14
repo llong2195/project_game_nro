@@ -17,7 +17,6 @@ import Dragon.services.Service;
 import Dragon.utils.Util;
 import java.util.Random;
 
-
 public class Mabu extends Boss {
 
     public Mabu() throws Exception {

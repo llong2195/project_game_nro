@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ShopDAO {
 
     public static List<Shop> getShops(Connection con) {
@@ -38,7 +37,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
-                 
+
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);
@@ -67,7 +66,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
-                 
+
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);
@@ -100,7 +99,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
-                
+
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);
@@ -123,7 +122,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
-                 
+
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);

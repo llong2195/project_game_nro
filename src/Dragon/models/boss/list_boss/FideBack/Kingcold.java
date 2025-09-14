@@ -16,14 +16,13 @@ import Dragon.services.Service;
 import Dragon.utils.Util;
 import java.util.Random;
 
-
 public class Kingcold extends Boss {
 
     public Kingcold() throws Exception {
         super(BossID.VUA_COLD, BossesData.VUA_COLD);
     }
 
-      @Override
+    @Override
     public void reward(Player plKill) {
         int[] itemDos = new int[]{555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567};
         int[] NRs = new int[]{15, 16};

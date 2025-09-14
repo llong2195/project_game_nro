@@ -74,8 +74,8 @@ public class TutienCalculator {
     }
 
     /**
-     * Lấy range Exp theo Item ID (hệ thống mới - mỗi đan tương ứng với 1 đại cảnh
-     * giới)
+     * Lấy range Exp theo Item ID (hệ thống mới - mỗi đan tương ứng với 1 đại
+     * cảnh giới)
      */
     private static int[] getExpRangeByItemId(int itemId) {
         switch (itemId) {
@@ -129,8 +129,8 @@ public class TutienCalculator {
             return false;
         }
 
-        return currentLevel >= requiredRealm.getMinLevel() &&
-                currentLevel <= requiredRealm.getMaxLevel();
+        return currentLevel >= requiredRealm.getMinLevel()
+                && currentLevel <= requiredRealm.getMaxLevel();
     }
 
     /**

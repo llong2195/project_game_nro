@@ -795,9 +795,9 @@ public class Controller implements IMessageHandler {
             Service.gI().sendThongBaoFromAdmin(player, "|7|"
                     + "Active Status : "
                     + (player.getSession().actived == true ? "Đã Mở Thành Viên\n"
-                            : "Chưa Mở Thành Viên\n"
-                                    + "Nrotuonglai.com -> Đăng Nhập -> Nạp Tiền -> Tài Khoản\n"
-                                    + "Không Thể GD, Kí Gửi"));
+                    : "Chưa Mở Thành Viên\n"
+                    + "Nrotuonglai.com -> Đăng Nhập -> Nạp Tiền -> Tài Khoản\n"
+                    + "Không Thể GD, Kí Gửi"));
         }
 
     }
@@ -865,8 +865,8 @@ public class Controller implements IMessageHandler {
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
                     "Chào mừng " + player.name + " đến với Máy Chủ Ngọc rồng Kuroko\n"
-                            + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
-                            + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
+                    + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
+                    + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         }
         // if (player.istrain && MapService.gI().isMapTrainOff(player,
         // player.zone.map.mapId)) {

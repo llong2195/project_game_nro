@@ -3,7 +3,6 @@ package Dragon.utils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-
 public class Logger {
 
     // Reset
@@ -78,14 +77,15 @@ public class Logger {
     public static final String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m"; // PURPLE
     public static final String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";  // CYAN
     public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
+
     /**
      * Note: System.out.print
      */
     public static void log(String text) {
         System.out.println(text);
     }
-    
-    public static void log(String color, String text){
+
+    public static void log(String color, String text) {
         System.out.print(color + text + RESET);
     }
 
@@ -110,10 +110,9 @@ public class Logger {
 //        System.out.print(BLUE + text + RESET);
     }
 
-    public static void logException(Class clazz, Exception ex, String... log) 
-    {
+    public static void logException(Class clazz, Exception ex, String... log) {
         try {
-            if(log != null && log.length > 0){
+            if (log != null && log.length > 0) {
                 log(PURPLE, log[0] + "\n");
             }
             StackTraceElement stackTraceElements[] = (new Throwable()).getStackTrace();
@@ -132,7 +131,7 @@ public class Logger {
                 Logger.error(str + "\n");
             }
         } catch (Exception e) {
-             
+
         }
     }
 }

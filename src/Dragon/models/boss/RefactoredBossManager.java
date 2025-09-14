@@ -40,7 +40,9 @@ public class RefactoredBossManager {
         }
 
         try {
-            if (DEBUG) System.out.println("[RefactoredBossManager] Loading bosses from database...");
+            if (DEBUG) {
+                System.out.println("[RefactoredBossManager] Loading bosses from database...");
+            }
             List<BossData> allBossData = bossDataService.loadAllBosses();
             for (BossData bossData : allBossData) {
                 try {
@@ -48,8 +50,10 @@ public class RefactoredBossManager {
                     if (boss != null) {
                         bossDataCache.put((int) boss.id, bossData);
                         spawnBossToMaps(boss, bossData);
-                        if (DEBUG) System.out.println(
-                                "[RefactoredBossManager] Created boss: " + boss.name + " (ID: " + boss.id + ")");
+                        if (DEBUG) {
+                            System.out.println(
+                                    "[RefactoredBossManager] Created boss: " + boss.name + " (ID: " + boss.id + ")");
+                        }
                     }
                 } catch (Exception e) {
                     System.out.println("[RefactoredBossManager] Failed to create boss: " + bossData.getName() + " - "
@@ -58,10 +62,11 @@ public class RefactoredBossManager {
                 }
             }
 
-            if (DEBUG)
+            if (DEBUG) {
                 System.out
                         .println("[RefactoredBossManager] Successfully loaded " + bossDataCache.size()
                                 + " bosses from database");
+            }
 
             // Debug cache
             if (DEBUG) {
@@ -77,22 +82,21 @@ public class RefactoredBossManager {
         loadedBoss = true;
 
         // Khởi tạo BossManager thread để update boss
-        if (DEBUG) System.out.println("[RefactoredBossManager] Starting BossManager thread...");
+        if (DEBUG) {
+            System.out.println("[RefactoredBossManager] Starting BossManager thread...");
+        }
         BossManager.gI().loadBoss();
-        if (DEBUG) System.out.println("[RefactoredBossManager] BossManager thread started successfully!");
+        if (DEBUG) {
+            System.out.println("[RefactoredBossManager] BossManager thread started successfully!");
+        }
 
         // Bỏ các debug helper sau khi load để giảm log
-
     }
 
     /**
      * Tạo Boss từ BossData
      */
     private Boss createGenericBoss(BossData bossData) throws Exception {
-        // Sử dụng trực tiếp class Boss đã có sẵn. Không initBase ở đây để tránh tăng
-        // level sai.
-        // Boss constructor đã add vào BossManager và đặt bossStatus=REST,
-        // currentLevel=-1.
         Boss boss = new Boss(bossData.getId(), bossData);
         return boss;
     }
@@ -116,18 +120,19 @@ public class RefactoredBossManager {
                         Dragon.models.map.Zone zone = map.zones.get(Util.nextInt(0, map.zones.size() - 1));
 
                         if (zone != null) {
-                            // Đặt zoneFinal để boss vào map qua vòng đời chuẩn
                             boss.zoneFinal = zone;
-                            // Chuyển sang RESPAWN để vào flow RESPAWN -> JOIN_MAP -> CHAT_S -> ACTIVE
                             boss.changeStatus(BossStatus.RESPAWN);
-                            if (DEBUG) System.out.println("[RefactoredBossManager] Prepared spawn boss " + boss.name +
-                                    " (ID: " + boss.id + ") to map " + mapId + " zone " + zone.zoneId +
-                                    " with lifecycle RESPAWN flow");
+                            if (DEBUG) {
+                                System.out.println("[RefactoredBossManager] Prepared spawn boss " + boss.name
+                                        + " (ID: " + boss.id + ") to map " + mapId + " zone " + zone.zoneId
+                                        + " with lifecycle RESPAWN flow");
+                            }
                         }
                     } else {
-                        if (DEBUG)
+                        if (DEBUG) {
                             System.out.println(
                                     "[RefactoredBossManager] Map " + mapId + " not found for boss " + boss.name);
+                        }
                     }
                 }
             }
@@ -204,17 +209,17 @@ public class RefactoredBossManager {
         List<Boss> bosses = BossManager.gI().getBosses();
         for (Boss boss : bosses) {
             if (boss.id == 2222) {
-                System.out.println("Boss: " + boss.name + " (ID: " + boss.id +
-                        "), Status: " + boss.bossStatus +
-                        ", TypePK: " + boss.typePk +
-                        ", CurrentLevel: " + boss.currentLevel +
-                        ", Zone: " + (boss.zone != null ? boss.zone.zoneId : "null"));
+                System.out.println("Boss: " + boss.name + " (ID: " + boss.id
+                        + "), Status: " + boss.bossStatus
+                        + ", TypePK: " + boss.typePk
+                        + ", CurrentLevel: " + boss.currentLevel
+                        + ", Zone: " + (boss.zone != null ? boss.zone.zoneId : "null"));
 
                 // Debug thêm thông tin zone
                 if (boss.zone != null) {
-                    System.out.println("  Zone " + boss.zone.zoneId + " - Players: " + boss.zone.getPlayers().size() +
-                            ", NotBosses: " + boss.zone.getNotBosses().size() +
-                            ", Humanoids: " + boss.zone.getHumanoids().size());
+                    System.out.println("  Zone " + boss.zone.zoneId + " - Players: " + boss.zone.getPlayers().size()
+                            + ", NotBosses: " + boss.zone.getNotBosses().size()
+                            + ", Humanoids: " + boss.zone.getHumanoids().size());
 
                     // Debug player target
                     Player target = boss.getPlayerAttack();
@@ -329,7 +334,6 @@ public class RefactoredBossManager {
 
         // Có thể implement logic migration ở đây
         // Ví dụ: convert BossesData.PHUOCBOSS1 thành database records
-
         System.out.println("[RefactoredBossManager] Migration completed");
     }
 
@@ -340,9 +344,9 @@ public class RefactoredBossManager {
         System.out.println("[RefactoredBossManager] Creating fake skills for boss " + boss.name);
 
         // Tạo fake skillTemp
-        int[][] fakeSkillTemp = new int[][] {
-                { 1, 1, 1000 }, // Kamejoko level 1, cooldown 1000ms
-                { 2, 1, 2000 } // Masenko level 1, cooldown 2000ms
+        int[][] fakeSkillTemp = new int[][]{
+            {1, 1, 1000}, // Kamejoko level 1, cooldown 1000ms
+            {2, 1, 2000} // Masenko level 1, cooldown 2000ms
         };
 
         // Set skillTemp vào boss data

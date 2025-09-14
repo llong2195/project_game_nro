@@ -11,7 +11,6 @@ import Dragon.utils.Util;
 
 import java.util.Random;
 
-
 public class SuperBroly24 extends Boss {
 
     public SuperBroly24() throws Exception {
@@ -19,18 +18,18 @@ public class SuperBroly24 extends Boss {
     }
 
     @Override
-  public void reward(Player plKill) {
-    byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
-     if (plKill.pet == null)  
-     {    
-      PetService.gI().createNormalPet(plKill);
-   Service.getInstance().sendThongBao(plKill, "Bạn vừa nhận được đệ tử");
-      } else if(Util.isTrue(2, 100)) {
-         Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        
-            }
-                    
-  }
+    public void reward(Player plKill) {
+        byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
+        if (plKill.pet == null) {
+            PetService.gI().createNormalPet(plKill);
+            Service.getInstance().sendThongBao(plKill, "Bạn vừa nhận được đệ tử");
+        } else if (Util.isTrue(2, 100)) {
+            Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
+
+        }
+
+    }
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
@@ -46,9 +45,8 @@ public class SuperBroly24 extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-   
- 
-     @Override
+
+    @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
@@ -90,25 +88,3 @@ public class SuperBroly24 extends Boss {
 //        super.notifyJoinMap();
 //    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

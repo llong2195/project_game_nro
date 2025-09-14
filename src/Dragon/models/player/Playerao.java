@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Playerao {
+
     private String playerName;
     private long power; // Có thể loại bỏ nếu không cần
     private int appearanceId;
@@ -55,7 +56,7 @@ public class Playerao {
     private int selectRandomAppearance() {
         List<Integer> appearanceIds = Arrays.asList(405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417,
                 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430,
-                431, 432, 433 , 451);
+                431, 432, 433, 451);
 
         int index = random.nextInt(appearanceIds.size());
         return appearanceIds.get(index);
@@ -143,8 +144,8 @@ public class Playerao {
 
     // Getter và Setter
     // ...
-
     class Location {
+
         private int x;
         private int y;
 

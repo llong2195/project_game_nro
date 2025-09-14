@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Item {
-    
-    
-      public int id;
+
+    public int id;
     public boolean isExpires = false;
     public boolean isUpToUp;
     public int quantityTemp = 1;
@@ -33,9 +32,8 @@ public class Item {
     public List<ItemOption> itemOptions;
 
     public long createTime;
-    
-    
-       public Item(Item _item) { //INIT ITEM TU TEMPLATE
+
+    public Item(Item _item) { //INIT ITEM TU TEMPLATE
         this.id = _item.id;
         this.template = _item.template;
         this.info = _item.info;
@@ -49,12 +47,12 @@ public class Item {
         this.idTemp = _item.idTemp;
 //        this.itemOptions = _item.itemOptions;
         this.itemOptions = new ArrayList<ItemOption>();
-        for(ItemOption _option: _item.itemOptions) {
+        for (ItemOption _option : _item.itemOptions) {
             this.itemOptions.add(new ItemOption(_option.optionTemplate.id, _option.param));
         }
         this.quantity = 1;
     }
-       
+
     public boolean isNotNullItem() {
         return this.template != null;
     }
@@ -77,8 +75,8 @@ public class Item {
         }
         return strInfo;
     }
-    
-      public String getInfoItem() {
+
+    public String getInfoItem() {
         String strInfo = "|1|" + template.name + "\n|0|";
         for (ItemOption itemOption : itemOptions) {
             strInfo += itemOption.getOptionString() + "\n";
@@ -90,6 +88,7 @@ public class Item {
     public String getContent() {
         return "Yêu cầu sức mạnh " + this.template.strRequire + " trở lên";
     }
+
     public String getName() {
         return template.name;
     }
@@ -126,7 +125,8 @@ public class Item {
             this.param = io.param;
             this.optionTemplate = io.optionTemplate;
         }
-    public List<ItemOption> itemOptions;
+        public List<ItemOption> itemOptions;
+
         public ItemOption(int tempId, int param) {
             this.optionTemplate = ItemService.gI().getItemOptionTemplate(tempId);
             this.param = param;
@@ -144,7 +144,7 @@ public class Item {
         public void dispose() {
             this.optionTemplate = null;
         }
-        
+
         @Override
         public String toString() {
             final String n = "\"";
@@ -154,17 +154,18 @@ public class Item {
                     + "}";
         }
     }
+
     public boolean isSKH() {
-        for (ItemOption itemOption : itemOptions
-        ) {
+        for (ItemOption itemOption : itemOptions) {
             if (itemOption.optionTemplate.id >= 127 && itemOption.optionTemplate.id <= 135) {
                 return true;
             }
         }
         return false;
     }
+
     public boolean isDNS() {
-       if (this.template.id == 674) {
+        if (this.template.id == 674) {
             return true;
         }
         return false;
@@ -176,13 +177,14 @@ public class Item {
         }
         return false;
     }
-    
-      public boolean isThucAn() {
+
+    public boolean isThucAn() {
         if (this.template.id >= 663 && this.template.id <= 667) {
             return true;
         }
         return false;
     }
+
     public boolean isDTL() {
         if (this.template.id >= 555 && this.template.id <= 567) {
             return true;
@@ -196,6 +198,7 @@ public class Item {
         }
         return false;
     }
+
     public boolean is2sao() {
         if (this.template.id == 15) {
             return true;
@@ -209,29 +212,28 @@ public class Item {
         }
         return false;
     }
-    
-        public boolean isCongThucVip() {
+
+    public boolean isCongThucVip() {
         if (this.template.id >= 1084 && this.template.id <= 1086) {
             return true;
         }
         return false;
     }
-    
+
     public boolean isDaNangCap() {
         if (this.template.id >= 1074 && this.template.id <= 1078) {
             return true;
         } else if (this.template.id == -1) {
-    }
+        }
         return false;
     }
-    
+
     public boolean isDaMayMan() {
         if (this.template.id >= 1079 && this.template.id <= 1083) {
             return true;
         }
         return false;
     }
-
 
     public String typeName() {
         switch (this.template.type) {
@@ -249,7 +251,7 @@ public class Item {
                 return "";
         }
     }
-    
+
     public String typeHanhTinh() {
         switch (this.template.id) {
             case 1071:
@@ -270,7 +272,9 @@ public class Item {
     }
 
     public byte typeIdManh() {
-        if (!isManhTS()) return -1;
+        if (!isManhTS()) {
+            return -1;
+        }
         switch (this.template.id) {
             case 1066:
                 return 0;
@@ -303,7 +307,7 @@ public class Item {
                 return "";
         }
     }
-    
+
     public String typeDanangcap() {
         switch (this.template.id) {
             case 1074:
@@ -320,7 +324,7 @@ public class Item {
                 return "";
         }
     }
-    
+
     public String typeDaMayman() {
         switch (this.template.id) {
             case 1079:

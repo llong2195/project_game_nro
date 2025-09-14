@@ -292,6 +292,7 @@ public class PetService {
             }
         }).start();
     }
+
     public void createBrolyPet(Player player, byte... limitPower) {
         new Thread(() -> {
             try {
@@ -321,7 +322,7 @@ public class PetService {
             }
         }).start();
     }
-    
+
     public void creatUbbPet(Player player, byte... limitPower) {
         new Thread(() -> {
             try {
@@ -351,6 +352,7 @@ public class PetService {
             }
         }).start();
     }
+
     public void creatXenConPet(Player player, byte... limitPower) {
         new Thread(() -> {
             try {
@@ -476,7 +478,7 @@ public class PetService {
         player.pet = null;
         createBerusPet(player, gender, limitPower);
     }
-    
+
     public void changeBrolyPet(Player player) {
         byte limitPower = player.pet.nPoint.limitPower;
         if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
@@ -498,7 +500,7 @@ public class PetService {
         player.pet = null;
         createBrolyPet(player, gender, limitPower);
     }
-    
+
     public void changeUbbPet(Player player) {
         byte limitPower = player.pet.nPoint.limitPower;
         if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
@@ -520,7 +522,7 @@ public class PetService {
         player.pet = null;
         creatUbbPet(player, gender, limitPower);
     }
-    
+
     public void changeXenConPet(Player player) {
         byte limitPower = player.pet.nPoint.limitPower;
         if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {

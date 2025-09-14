@@ -29,44 +29,38 @@ public class ShopKyGuiManager {
         return instance;
     }
 
-
-    public String[] tabName = {"Trang\nbị", "Chế\nTạo", "Vũ\nKhí", "Linh\nTinh",""};
+    public String[] tabName = {"Trang\nbị", "Chế\nTạo", "Vũ\nKhí", "Linh\nTinh", ""};
 
     public List<ItemKyGui> listItem = new ArrayList<>();
 
-    public void clear() throws SQLException 
-    {
+    public void clear() throws SQLException {
         try (Connection con = GirlkunDB.getConnection()) {
             String insertQuery = "TRUNCATE shop_ky_gui";
             try (PreparedStatement ps = con.prepareStatement(insertQuery)) {
                 ps.executeUpdate();
-            } catch (SQLException e) 
-            {
-                 System.err.print("\nError at 4\n");
+            } catch (SQLException e) {
+                System.err.print("\nError at 4\n");
                 e.printStackTrace();
             }
         }
     }
 
     private boolean isSave;
-    public void save() throws InterruptedException 
-    {
-         if(isSave)
-        {
+
+    public void save() throws InterruptedException {
+        if (isSave) {
             return;
         }
         isSave = true;
         try {
             clear();
-        } catch (SQLException ex) 
-        {
-             System.err.print("\nError at 5\n");
+        } catch (SQLException ex) {
+            System.err.print("\nError at 5\n");
             java.util.logging.Logger.getLogger(ShopKyGuiManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         try (Connection con = GirlkunDB.getConnection()) {
             String insertQuery = "INSERT INTO shop_ky_gui (id, player_id, tab, item_id, ruby, gem, quantity, itemOption, isUpTop, isBuy, createTime) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-            try (PreparedStatement ps = con.prepareStatement(insertQuery)) 
-            {
+            try (PreparedStatement ps = con.prepareStatement(insertQuery)) {
                 List<ItemKyGui> newit = new ArrayList<>(listItem);
                 for (ItemKyGui item : newit) {
                     ps.setInt(1, item.id);
@@ -83,9 +77,7 @@ public class ShopKyGuiManager {
                     ps.executeUpdate();
                 }
             }
-        } 
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.err.print("\nError at 6\n");
             e.printStackTrace();
         }

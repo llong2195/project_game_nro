@@ -7,7 +7,6 @@ import Dragon.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ServerNotify extends Thread {
 
     private byte[] gk = new byte[]{67, 104, -61, -96, 111, 32, 109, -31, -69, -85,
@@ -47,14 +46,12 @@ public class ServerNotify extends Thread {
                     this.lastTimeGK = System.currentTimeMillis();
                 }
             } catch (Exception e) {
-                  
 
             }
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e)
-            {
-                  
+            } catch (InterruptedException e) {
+
             }
         }
     }
@@ -67,7 +64,7 @@ public class ServerNotify extends Thread {
             Service.gI().sendMessAllPlayer(msg);
             msg.cleanup();
         } catch (Exception e) {
-              
+
         }
     }
 
@@ -81,7 +78,7 @@ public class ServerNotify extends Thread {
             msg = new Message(50);
             msg.writer().writeByte(10);
             for (int i = 0; i < Manager.NOTIFY.size(); i++) {
-                String[] arr = Manager.NOTIFY.get(0).split("<>");
+                String[] arr = Manager.NOTIFY.get(i).split("<>");
                 msg.writer().writeShort(i);
                 msg.writer().writeUTF(arr[0]);
                 msg.writer().writeUTF(arr[1]);
@@ -89,7 +86,7 @@ public class ServerNotify extends Thread {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-              
+
         }
     }
 }

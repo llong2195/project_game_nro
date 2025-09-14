@@ -54,9 +54,11 @@ public class TestDame extends Player {
         MapService.gI().goToMap(player, z);
         z.load_Me_To_Another(player);
     }
+
     public void changeToTypePK() {
         PlayerService.gI().changeAndSendTypePK(this, ConstPlayer.PK_ALL);
     }
+
     public void active() {
         if (this.typePk == ConstPlayer.NON_PK) {
             this.changeToTypePK();
@@ -64,12 +66,11 @@ public class TestDame extends Player {
     }
 
     protected long lastTimeAttack;
-    
 
     @Override
     public void update() {
         active();
-        if(this.isDie()){
+        if (this.isDie()) {
             Service.getInstance().sendMoney(this);
             PlayerService.gI().hoiSinh(this);
             Service.getInstance().hsChar(this, this.nPoint.hpMax, this.nPoint.mpMax);

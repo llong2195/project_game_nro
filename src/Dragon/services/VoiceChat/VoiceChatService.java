@@ -21,6 +21,7 @@ public class VoiceChatService {
     private static final ConcurrentHashMap<Long, Integer> SEQ = new ConcurrentHashMap<>();
 
     private static class RateState {
+
         long windowStartMs;
         int bytes;
     }
@@ -79,8 +80,8 @@ public class VoiceChatService {
                 }
                 st.bytes += dataLength;
             }
-            Logger.log(Logger.CYAN, "Voice from " + player.name + " in zone " + player.zone.zoneId +
-                    " (data length: " + dataLength + " bytes)\n");
+            Logger.log(Logger.CYAN, "Voice from " + player.name + " in zone " + player.zone.zoneId
+                    + " (data length: " + dataLength + " bytes)\n");
 
             broadcastVoiceToZone(player, payload);
 
@@ -133,8 +134,8 @@ public class VoiceChatService {
                 st.bytes += dataLength;
             }
 
-            Logger.log(Logger.CYAN, "Voice v2 from " + player.name + " in zone " + player.zone.zoneId +
-                    " (seq=" + seq + ", ts=" + ts + ", len=" + dataLength + ")\n");
+            Logger.log(Logger.CYAN, "Voice v2 from " + player.name + " in zone " + player.zone.zoneId
+                    + " (seq=" + seq + ", ts=" + ts + ", len=" + dataLength + ")\n");
 
             // Broadcast as usual (method will generate both v1 & v2 out messages)
             broadcastVoiceToZone(player, payload);
@@ -153,16 +154,13 @@ public class VoiceChatService {
                 return;
             }
 
-            // Create voice message to send to other players
-            Message voiceMsg = new Message(72); // Same command ID as client
+            Message voiceMsg = new Message(72);
             voiceMsg.writer().writeInt((int) sender.id);
             voiceMsg.writer().writeInt(zone.map.mapId);
             voiceMsg.writer().writeInt(zone.zoneId);
             voiceMsg.writer().writeInt(payload.length);
-            // Write payload directly (server/client framework handles signedness)
             voiceMsg.writer().write(payload);
 
-            // New v2 message with seq & timestamp for future clients (backward compatible)
             int seq = SEQ.merge(sender.id, 1, (oldV, one) -> oldV + 1);
             long ts = System.currentTimeMillis();
             Message voiceMsgV2 = new Message(174);
@@ -170,17 +168,15 @@ public class VoiceChatService {
             voiceMsgV2.writer().writeInt(zone.map.mapId);
             voiceMsgV2.writer().writeInt(zone.zoneId);
             voiceMsgV2.writer().writeInt(seq);
-            voiceMsgV2.writer().writeInt((int) (ts & 0x7fffffff)); // simple ms timestamp (fit into int)
+            voiceMsgV2.writer().writeInt((int) (ts & 0x7fffffff));
             voiceMsgV2.writer().writeInt(payload.length);
             voiceMsgV2.writer().write(payload);
 
-            // Send to all players in the same zone except sender
             List<Player> playersInZone = zone.getPlayers();
             for (Player targetPlayer : playersInZone) {
                 if (targetPlayer != null && targetPlayer.id != sender.id) {
                     try {
                         targetPlayer.sendMessage(voiceMsg);
-                        // Also send v2 for clients that understand it
                         targetPlayer.sendMessage(voiceMsgV2);
                     } catch (Exception e) {
                         Logger.error("Error sending voice to player " + targetPlayer.name + ": " + e.getMessage());
@@ -188,7 +184,6 @@ public class VoiceChatService {
                 }
             }
 
-            // Optionally send back to sender for testing (local echo)
             if (echoToSender) {
                 try {
                     sender.sendMessage(voiceMsg);
@@ -198,7 +193,6 @@ public class VoiceChatService {
                 }
             }
 
-            // Clean up message
             voiceMsg.cleanup();
             voiceMsgV2.cleanup();
 
@@ -221,9 +215,9 @@ public class VoiceChatService {
 
     public void onPlayerChangeZone(Player player, Zone oldZone, Zone newZone) {
         if (player != null) {
-            Logger.log(Logger.CYAN, "Player " + player.name + " voice zone changed from " +
-                    (oldZone != null ? oldZone.zoneId : "null") + " to " +
-                    (newZone != null ? newZone.zoneId : "null") + "\n");
+            Logger.log(Logger.CYAN, "Player " + player.name + " voice zone changed from "
+                    + (oldZone != null ? oldZone.zoneId : "null") + " to "
+                    + (newZone != null ? newZone.zoneId : "null") + "\n");
         }
     }
 

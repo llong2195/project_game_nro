@@ -5,7 +5,6 @@ import Dragon.services.Service;
 import Dragon.services.func.ChangeMapService;
 import Dragon.utils.Util;
 
-
 public class NewPet extends Player {
 
     public Player master;

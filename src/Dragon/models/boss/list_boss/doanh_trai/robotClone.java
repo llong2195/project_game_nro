@@ -18,26 +18,26 @@ import Dragon.services.func.ChangeMapService;
 import Dragon.utils.SkillUtil;
 import Dragon.utils.Util;
 
-
 public class robotClone extends Boss {
-  
+
     private long lastUpdate = System.currentTimeMillis();
     private long timeJoinMap;
     protected Player playerAtt;
     private int timeLive = 200000000;
-    public robotClone(Zone zone , long dame, long hp,int id) throws Exception {
+
+    public robotClone(Zone zone, long dame, long hp, int id) throws Exception {
         super(id, new BossData(
                 "robot ve si", //name
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{138, 139, 140, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-                ((1000) ), //dame
-                new long[]{((10000) )}, //hp
+                ((1000)), //dame
+                new long[]{((10000))}, //hp
                 new int[]{49}, //map join
                 new int[][]{
-                {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
-                {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11},{Skill.KAMEJOKO, 1, 12},
-              {Skill.ANTOMIC, 1, 13},  {Skill.ANTOMIC, 2, 14},  {Skill.ANTOMIC, 3, 15},{Skill.ANTOMIC, 4, 16},  {Skill.ANTOMIC, 5, 17},{Skill.ANTOMIC, 6, 19},  {Skill.ANTOMIC, 7, 20},
-                {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},},
+                    {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
+                    {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
+                    {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
+                    {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},},
                 new String[]{}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{}, //text chat 3
@@ -45,6 +45,7 @@ public class robotClone extends Boss {
         ));
         this.zone = zone;
     }
+
     @Override
     public void reward(Player plKill) {
         if (Util.isTrue(100, 100)) {
@@ -53,12 +54,13 @@ public class robotClone extends Boss {
             Service.getInstance().dropItemMap(this.zone, it);
         }
     }
+
     @Override
     public void active() {
-     if (this.typePk == ConstPlayer.NON_PK) {
+        if (this.typePk == ConstPlayer.NON_PK) {
             this.changeToTypePK();
-        } 
-       try {
+        }
+        try {
             switch (this.bossStatus) {
                 case RESPAWN:
                     this.respawn();
@@ -94,8 +96,7 @@ public class robotClone extends Boss {
             e.printStackTrace();
         }
     }
-    
- 
+
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
@@ -118,8 +119,6 @@ public class robotClone extends Boss {
         } else {
             return 0;
         }
-   
+
     }
 }
-
-

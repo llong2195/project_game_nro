@@ -15,7 +15,6 @@ import javax.imageio.stream.ImageOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-
 public class ImageUtil2 {
 
     public static void saveImage(BufferedImage image, String pathFolder, String name) {
@@ -27,7 +26,7 @@ public class ImageUtil2 {
             File outputfile = new File(pathFolder + "/" + name + ".png");
             ImageIO.write(image, "png", outputfile);
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -42,7 +41,7 @@ public class ImageUtil2 {
             File outputfile = new File(pathFolder + "/" + name + ".png");
             ImageIO.write(image, "png", outputfile);
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -52,7 +51,7 @@ public class ImageUtil2 {
                 try {
                     readmob(i, j);
                 } catch (Exception e) {
-                     
+
                 }
             }
         }
@@ -88,7 +87,7 @@ public class ImageUtil2 {
                 readFrameBoss(dis);
             }
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -131,9 +130,9 @@ public class ImageUtil2 {
                     imagesInfo[i] = image.getSubimage(x, y, w, h);
                 } catch (Exception e) {
                     System.out.println("mob: " + mobId);
-                     
+
                 }
-                
+
                 //từng bộ phận
                 saveImage(imagesInfo[i], "C:\\Users\\admin\\Desktop\\read mob\\imginfo\\x" + zoomLevel
                         + "\\" + mobId, mobId + "_" + id);
@@ -159,7 +158,7 @@ public class ImageUtil2 {
             }
 
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -193,7 +192,7 @@ public class ImageUtil2 {
                     imagesInfo[i] = image.getSubimage(x, y, w, h);
                 } catch (Exception e) {
                     System.out.println("mob: " + mobId);
-                     
+
                 }
                 //từng bộ phận
                 saveImage(imagesInfo[i], "C:\\Users\\admin\\Desktop\\read mob\\imginfo\\x" + zoomLevel
@@ -240,7 +239,7 @@ public class ImageUtil2 {
             output.close();
 
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -296,9 +295,8 @@ public class ImageUtil2 {
         }
         try {
             return image.getSubimage(left, top, right - left + 1, bottom - top + 1);
-        } catch (Exception e) 
-        {
-             
+        } catch (Exception e) {
+
             return image;
         }
     }
@@ -320,7 +318,7 @@ public class ImageUtil2 {
             byte[] data = new byte[dis.readInt()];
             dis.read(data);
             System.out.println(Arrays.toString(data));
-            
+
             byte[] dataImage = new byte[dis.readInt()];
             dis.read(dataImage);
             System.out.println(Arrays.toString(dataImage));
@@ -329,7 +327,7 @@ public class ImageUtil2 {
             readDataEffect(data, id, zoom, oriImage);
             JOptionPane.showMessageDialog(null, null, "", zoom, new ImageIcon(oriImage));
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -369,7 +367,7 @@ public class ImageUtil2 {
             }
 
         } catch (Exception e) {
-            
+
         }
     }
 

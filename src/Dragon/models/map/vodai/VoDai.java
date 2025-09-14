@@ -15,27 +15,21 @@ import Dragon.services.PlayerService;
 import Dragon.services.Service;
 import Dragon.services.func.ChangeMapService;
 import Dragon.utils.Util;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author Bùi Kim Trường
  */
-@Getter
 public class VoDai {
 
-    @Setter
     private Player player;
 
     private Boss boss; // Không dùng @Setter vì đã có setter thủ công
 
-    @Setter
     private Player npc;
 
     private int time;  // Không dùng @Setter vì đã có setter thủ công
     private int round;
 
-    @Getter
     private int timeWait;
 
     public void update() {
@@ -148,6 +142,18 @@ public class VoDai {
     public void setTimeWait(int timeWait) {
         this.timeWait = timeWait;
     }
+
+    // Getters previously provided by Lombok
+    public Player getPlayer() { return player; }
+    public Boss getBoss() { return boss; }
+    public Player getNpc() { return npc; }
+    public int getTime() { return time; }
+    public int getRound() { return round; }
+    public int getTimeWait() { return timeWait; }
+
+    // Setters for fields that previously used @Setter
+    public void setPlayer(Player player) { this.player = player; }
+    public void setNpc(Player npc) { this.npc = npc; }
 
     private void die() {
         Service.getInstance().sendThongBao(player, "Bạn bị xử thua vì chết queo");

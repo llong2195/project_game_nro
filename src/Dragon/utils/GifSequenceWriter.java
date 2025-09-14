@@ -7,7 +7,6 @@ import java.awt.image.*;
 import java.io.*;
 import java.util.Iterator;
 
-
 public class GifSequenceWriter {
 
     protected ImageWriter gifWriter;
@@ -177,24 +176,3 @@ public class GifSequenceWriter {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

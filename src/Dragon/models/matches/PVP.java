@@ -6,7 +6,6 @@ import Dragon.services.PlayerService;
 import Dragon.services.func.ChangeMapService;
 import Dragon.utils.Logger;
 
-
 public abstract class PVP implements IPVP {
 
     public TYPE_PVP typePVP;
@@ -20,14 +19,14 @@ public abstract class PVP implements IPVP {
     public PVP(TYPE_PVP type, Player p1, Player p2) {
         this.typePVP = type;
         this.p1 = p1;
-        this.p2 = p2;   
+        this.p2 = p2;
         p1.pvp = this;
         p2.pvp = this;
         this.lastTimeStart = System.currentTimeMillis();
         this.start();
         PVPManager.gI().addPVP(this);
     }
-    
+
     @Override
     public void start() {
         this.started = true;

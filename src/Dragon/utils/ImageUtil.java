@@ -14,7 +14,6 @@ import javax.imageio.stream.ImageOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-
 public class ImageUtil {
 
     public static void saveImage(BufferedImage image, String pathFolder, String name) {
@@ -26,7 +25,7 @@ public class ImageUtil {
             File outputfile = new File(pathFolder + "/" + name + ".png");
             ImageIO.write(image, "png", outputfile);
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -41,19 +40,19 @@ public class ImageUtil {
             File outputfile = new File(pathFolder + "/" + name + ".png");
             ImageIO.write(image, "png", outputfile);
         } catch (Exception e) {
-             
+
         }
     }
 
     public static void main(String[] args) {
 //        for (int i = 1; i < 5; i++) {
-            for (int j = 0; j < 100; j++) {
-                try {
-                    readmob(1, j);
-                } catch (Exception e) {
-                     
-                }
+        for (int j = 0; j < 100; j++) {
+            try {
+                readmob(1, j);
+            } catch (Exception e) {
+
             }
+        }
 //        }
     }
 
@@ -89,7 +88,7 @@ public class ImageUtil {
                 readFrameBoss(dis);
             }
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -130,7 +129,7 @@ public class ImageUtil {
                 try {
                     imagesInfo[i] = image.getSubimage(x, y, w, h);
                 } catch (Exception e) {
-                    
+
 //                    System.out.println("mob: " + mobId);
                 }
                 //từng bộ phận
@@ -158,8 +157,7 @@ public class ImageUtil {
             }
 
         } catch (Exception e) {
-            
-             
+
         }
     }
 
@@ -194,7 +192,7 @@ public class ImageUtil {
                 } catch (Exception e) {
                     System.out.println(x + " - " + y + " - " + w + " - " + h);
                     System.out.println("loi doc mob: " + mobId);
-                    
+
 //                    System.out.println("mob: " + mobId);
                 }
                 //từng bộ phận
@@ -242,7 +240,7 @@ public class ImageUtil {
             output.close();
 
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -297,9 +295,8 @@ public class ImageUtil {
         }
         try {
             return image.getSubimage(left, top, right - left + 1, bottom - top + 1);
-        } catch (Exception e) 
-        {
-             
+        } catch (Exception e) {
+
             return image;
         }
     }
@@ -311,7 +308,7 @@ public class ImageUtil {
 //                readEff(j, i);
 //            }
 //        }
-////        readEff(5, 1);
+    ////        readEff(5, 1);
 //    }
 
      public static void readEff(int id, int zoom) {
@@ -367,7 +364,7 @@ public class ImageUtil {
             }
 
         } catch (Exception e) {
-            
+
         }
     }
 

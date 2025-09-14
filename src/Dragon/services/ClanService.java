@@ -135,7 +135,6 @@ public class ClanService {
                     break;
             }
         } catch (Exception e) {
-            
 
         }
     }
@@ -155,7 +154,7 @@ public class ClanService {
                     break;
             }
         } catch (Exception e) {
-             
+
         }
 
     }
@@ -195,7 +194,7 @@ public class ClanService {
                     }
                 }
             } catch (Exception e) {
-                 
+
             }
         }
 
@@ -214,7 +213,7 @@ public class ClanService {
                     break;
             }
         } catch (Exception e) {
-             
+
         }
 
     }
@@ -238,9 +237,8 @@ public class ClanService {
                     break;
             }
 
-        } catch (Exception e) 
-        {
-             
+        } catch (Exception e) {
+
         }
     }
 
@@ -256,7 +254,7 @@ public class ClanService {
                     break;
             }
         } catch (Exception e) {
-             
+
         }
 
     }
@@ -277,7 +275,7 @@ public class ClanService {
                 pl.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
-                 
+
             }
         }
     }
@@ -308,7 +306,7 @@ public class ClanService {
             }
         } catch (Exception ex) {
             Service.gI().sendThongBao(player, ex.getMessage());
-             
+
         }
     }
 
@@ -543,7 +541,7 @@ public class ClanService {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-                 
+
         }
     }
 
@@ -574,7 +572,7 @@ public class ClanService {
                     msg.cleanup();
                 } catch (Exception e) {
                     Service.gI().sendThongBao(player, e.getMessage());
-                     
+
                 }
             }
         } catch (Exception ex) {
@@ -643,7 +641,7 @@ public class ClanService {
             msg.cleanup();
         } catch (Exception e) {
             Logger.logException(ClanService.class, e, "Lỗi send my clan " + player.clan.name + " - " + player.clan.id);
-             
+
         }
     }
 
@@ -660,7 +658,7 @@ public class ClanService {
             Service.gI().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
-             
+
         }
     }
 
@@ -844,7 +842,7 @@ public class ClanService {
             try {
                 ps.close();
             } catch (Exception e) {
-                 
+
             }
         }
     }
@@ -977,15 +975,14 @@ public class ClanService {
             try {
                 ps.close();
             } catch (Exception e) {
-                 
+
             }
         }
     }
     public boolean isSave;
-    public void saveclan() 
-    {
-        if(isSave)
-        {
+
+    public void saveclan() {
+        if (isSave) {
             return;
         }
         isSave = true;
@@ -1028,10 +1025,9 @@ public class ClanService {
             ps.executeBatch();
             Thread.sleep(30000);
         } catch (Exception e) {
-             
+
             Logger.logException(Clan.class, e, "Có lỗi khi update clan vào db");
-        } finally 
-        {
+        } finally {
 
         }
         isSave = false;

@@ -123,158 +123,164 @@ public class GachaService {
     }
 
     public static void readData(Message msg, Player player) {
-    try {
-        // An toàn: nếu không còn byte nào thì bỏ qua (trường hợp bị gọi trùng)
-        int avail = msg.reader().available();
-        if (avail <= 0) {
-            //System.out.println("[Gacha] readData: empty payload, skip");
-            return;
-        }
-
-        int type = msg.reader().readByte();
-        // Chỉ mở UI: KHÔNG đọc gì thêm, return ngay
-        if (type == 0 || type == 3) {
-            sendDataQuay(player, (byte) type);
-            return;
-        }
-
-        // Quay thật sự: cần thêm 4 byte cho số lượt
-        if (type == 1 || type == 4) {
-            if (msg.reader().available() < 4) {
-                //System.out.println("[Gacha] readData: not enough bytes for vongQuay, skip");
-                return;
-            }
-            int vongQuay = msg.reader().readInt();
-            List<Item> receive = new ArrayList<>();
-
-            // Trộn lại pools mỗi lần quay
-            shuffleArray(itemthg);
-            shuffleArray(itemvip);
-
-            listItem.clear();
-            listItemVip.clear();
-            for (int i = 0; i < 24; i++) {
-                Item item = ItemService.gI().createNewItem((short) itemthg[i]);
-                listItem.add(item);
-                Item itemVip = ItemService.gI().createNewItem((short) itemvip[i]);
-                listItemVip.add(itemVip);
-            }
-
-            for (int i = 0; i < vongQuay; i++) {
-                Item originalItem = (type == 1)
-                        ? listItem.get(Util.nextInt(listItem.size() - 1))
-                        : listItemVip.get(Util.nextInt(listItemVip.size() - 1));
-
-                Item clonedItem = ItemService.gI().createNewItem(originalItem.template.id);
-                clonedItem.itemOptions = new ArrayList<>(originalItem.itemOptions);
-                receive.add(clonedItem);
-            }
-
-            int dem = 0;
-            int slKey = 0;
-            for (Item it : player.inventory.itemsBag) {
-                if (it == null || it.template == null) {
-                    dem++;
-                    continue;
-                }
-                if ((type == 1 && it.template.id == 1750) || (type == 4 && it.template.id == 1751)) {
-                    slKey += it.quantity;
-                }
-            }
-
-            if (slKey < vongQuay) {
-                Service.gI().sendThongBao(player, "Bạn Không Đủ Chìa Khóa");
+        try {
+            // An toàn: nếu không còn byte nào thì bỏ qua (trường hợp bị gọi trùng)
+            int avail = msg.reader().available();
+            if (avail <= 0) {
+                //System.out.println("[Gacha] readData: empty payload, skip");
                 return;
             }
 
-            if (dem < vongQuay) {
-                Service.gI().sendThongBao(player, "Hành Trang Không Đủ Chỗ Trống");
+            int type = msg.reader().readByte();
+            // Chỉ mở UI: KHÔNG đọc gì thêm, return ngay
+            if (type == 0 || type == 3) {
+                sendDataQuay(player, (byte) type);
                 return;
             }
 
-            for (Item i : receive) {
-                if (i.template == null) return;
+            // Quay thật sự: cần thêm 4 byte cho số lượt
+            if (type == 1 || type == 4) {
+                if (msg.reader().available() < 4) {
+                    //System.out.println("[Gacha] readData: not enough bytes for vongQuay, skip");
+                    return;
+                }
+                int vongQuay = msg.reader().readInt();
+                List<Item> receive = new ArrayList<>();
 
-                if (i.template.id == 1300 || i.template.id == 1610 || i.template.id == 1599 || i.template.id == 1532 || i.template.id == 1452) {
-                    sendThongBaoBenDuoi("Chúc Mừng " + player.name + " Đã Quay Được " + i.template.name);
-                }
-                if (i.template.id == 1610 || i.template.id == 1599) {
-                    i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 45) : Util.nextInt(5, 35)));
-                    i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 45) : Util.nextInt(5, 35)));
-                    i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 45) : Util.nextInt(5, 35)));
-                    if (Util.isTrue(80, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(5, 100) ? Util.nextInt(5, 20) : Util.nextInt(2, 10)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(5, 100) ? Util.nextInt(3, 9) : Util.nextInt(2, 6)));
-                    }
-                    if (Util.isTrue(1, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(5, 100) ? Util.nextInt(1, 80) : Util.nextInt(1, 50)));
-                    }
-                }
-                if (i.template.id == 1532 || i.template.id == 1452) {
-                    i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 65) : Util.nextInt(5, 55)));
-                    i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 65) : Util.nextInt(5, 55)));
-                    i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 65) : Util.nextInt(5, 55)));
-                    if (Util.isTrue(70, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
-                    }
-                    if (Util.isTrue(3, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(10, 100) ? Util.nextInt(5, 25) : Util.nextInt(2, 20)));
-                    }
-                    if (Util.isTrue(3, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(10, 100) ? Util.nextInt(3, 19) : Util.nextInt(2, 16)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(10, 100) ? Util.nextInt(1, 120) : Util.nextInt(1, 70)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(95, Util.isTrue(10, 100) ? Util.nextInt(10, 40) : Util.nextInt(5, 30)));
-                    }
-                    if (Util.isTrue(2, 100)) {
-                        i.itemOptions.add(new Item.ItemOption(96, Util.isTrue(10, 100) ? Util.nextInt(10, 40) : Util.nextInt(5, 30)));
-                    }
-                }
-                if (i.template.id == 1300) {
-                    i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(20, 100) ? Util.nextInt(10, 15) : Util.nextInt(5, 5)));
-                    i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(20, 100) ? Util.nextInt(10, 15) : Util.nextInt(5, 5)));
-                    i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(20, 100) ? Util.nextInt(10, 15) : Util.nextInt(5, 5)));
+                // Trộn lại pools mỗi lần quay
+                shuffleArray(itemthg);
+                shuffleArray(itemvip);
+
+                listItem.clear();
+                listItemVip.clear();
+                for (int i = 0; i < 24; i++) {
+                    Item item = ItemService.gI().createNewItem((short) itemthg[i]);
+                    listItem.add(item);
+                    Item itemVip = ItemService.gI().createNewItem((short) itemvip[i]);
+                    listItemVip.add(itemVip);
                 }
 
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) >= vongQuay) {
-                    InventoryServiceNew.gI().addItemBag(player, i);
+                for (int i = 0; i < vongQuay; i++) {
+                    Item originalItem = (type == 1)
+                            ? listItem.get(Util.nextInt(listItem.size() - 1))
+                            : listItemVip.get(Util.nextInt(listItemVip.size() - 1));
+
+                    Item clonedItem = ItemService.gI().createNewItem(originalItem.template.id);
+                    clonedItem.itemOptions = new ArrayList<>(originalItem.itemOptions);
+                    receive.add(clonedItem);
                 }
+
+                int dem = 0;
+                int slKey = 0;
+                for (Item it : player.inventory.itemsBag) {
+                    if (it == null || it.template == null) {
+                        dem++;
+                        continue;
+                    }
+                    if ((type == 1 && it.template.id == 1750) || (type == 4 && it.template.id == 1751)) {
+                        slKey += it.quantity;
+                    }
+                }
+
+                if (slKey < vongQuay) {
+                    Service.gI().sendThongBao(player, "Bạn Không Đủ Chìa Khóa");
+                    return;
+                }
+
+                if (dem < vongQuay) {
+                    Service.gI().sendThongBao(player, "Hành Trang Không Đủ Chỗ Trống");
+                    return;
+                }
+
+                for (Item i : receive) {
+                    if (i.template == null) {
+                        return;
+                    }
+
+                    if (i.template.id == 1300 || i.template.id == 1610 || i.template.id == 1599 || i.template.id == 1532 || i.template.id == 1452) {
+                        sendThongBaoBenDuoi("Chúc Mừng " + player.name + " Đã Quay Được " + i.template.name);
+                    }
+                    if (i.template.id == 1610 || i.template.id == 1599) {
+                        i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 45) : Util.nextInt(5, 35)));
+                        i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 45) : Util.nextInt(5, 35)));
+                        i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 45) : Util.nextInt(5, 35)));
+                        if (Util.isTrue(80, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(5, 100) ? Util.nextInt(5, 20) : Util.nextInt(2, 10)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(5, 100) ? Util.nextInt(3, 9) : Util.nextInt(2, 6)));
+                        }
+                        if (Util.isTrue(1, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(5, 100) ? Util.nextInt(1, 80) : Util.nextInt(1, 50)));
+                        }
+                    }
+                    if (i.template.id == 1532 || i.template.id == 1452) {
+                        i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(10, 100) ? Util.nextInt(10, 65) : Util.nextInt(5, 55)));
+                        i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(10, 100) ? Util.nextInt(10, 65) : Util.nextInt(5, 55)));
+                        i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(10, 100) ? Util.nextInt(10, 65) : Util.nextInt(5, 55)));
+                        if (Util.isTrue(70, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(93, Util.isTrue(10, 100) ? Util.nextInt(1, 7) : Util.nextInt(1, 5)));
+                        }
+                        if (Util.isTrue(3, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(5, Util.isTrue(10, 100) ? Util.nextInt(5, 25) : Util.nextInt(2, 20)));
+                        }
+                        if (Util.isTrue(3, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(14, Util.isTrue(10, 100) ? Util.nextInt(3, 19) : Util.nextInt(2, 16)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(47, Util.isTrue(10, 100) ? Util.nextInt(1, 120) : Util.nextInt(1, 70)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(95, Util.isTrue(10, 100) ? Util.nextInt(10, 40) : Util.nextInt(5, 30)));
+                        }
+                        if (Util.isTrue(2, 100)) {
+                            i.itemOptions.add(new Item.ItemOption(96, Util.isTrue(10, 100) ? Util.nextInt(10, 40) : Util.nextInt(5, 30)));
+                        }
+                    }
+                    if (i.template.id == 1300) {
+                        i.itemOptions.add(new Item.ItemOption(50, Util.isTrue(20, 100) ? Util.nextInt(10, 15) : Util.nextInt(5, 5)));
+                        i.itemOptions.add(new Item.ItemOption(77, Util.isTrue(20, 100) ? Util.nextInt(10, 15) : Util.nextInt(5, 5)));
+                        i.itemOptions.add(new Item.ItemOption(103, Util.isTrue(20, 100) ? Util.nextInt(10, 15) : Util.nextInt(5, 5)));
+                    }
+
+                    if (InventoryServiceNew.gI().getCountEmptyBag(player) >= vongQuay) {
+                        InventoryServiceNew.gI().addItemBag(player, i);
+                    }
+                }
+
+                // Trừ chìa
+                int need = vongQuay;
+                for (Item it : player.inventory.itemsBag) {
+                    if (need == 0) {
+                        break;
+                    }
+                    if (it == null || it.template == null) {
+                        continue;
+                    }
+                    if ((type == 1 && it.template.id == 1750) || (type == 4 && it.template.id == 1751)) {
+                        int min = Math.min(need, it.quantity);
+                        need -= min;
+                        it.quantity -= min;
+                    }
+                }
+
+                InventoryServiceNew.gI().sendItemBags(player);
+                sendListReceive(receive, player);
+                return;
             }
 
-            // Trừ chìa
-            int need = vongQuay;
-            for (Item it : player.inventory.itemsBag) {
-                if (need == 0) break;
-                if (it == null || it.template == null) continue;
-                if ((type == 1 && it.template.id == 1750) || (type == 4 && it.template.id == 1751)) {
-                    int min = Math.min(need, it.quantity);
-                    need -= min;
-                    it.quantity -= min;
-                }
-            }
-
-            InventoryServiceNew.gI().sendItemBags(player);
-            sendListReceive(receive, player);
-            return;
+            // Loại không xác định -> bỏ qua
+            //System.out.println("[Gacha] readData: unknown type = " + type);
+        } catch (java.io.EOFException eof) {
+            // Nuốt lỗi EOF do gọi trùng/thiếu byte
+            //System.out.println("[Gacha] readData: EOF (duplicate/short packet) -> skip");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        // Loại không xác định -> bỏ qua
-        //System.out.println("[Gacha] readData: unknown type = " + type);
-    } catch (java.io.EOFException eof) {
-        // Nuốt lỗi EOF do gọi trùng/thiếu byte
-        //System.out.println("[Gacha] readData: EOF (duplicate/short packet) -> skip");
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
     public static void sendThongBaoBenDuoi(String text) {
         Message msg;

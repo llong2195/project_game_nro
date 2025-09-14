@@ -33,26 +33,27 @@ public class ArrietyDrop {
         ItemMap item = new ItemMap(player.zone, idItem, soluong, Util.nextInt((x - 50), (x + 50)), y, player.id);
         item.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(player.zone, item);
-        if(player.charms.tdThuHut > System.currentTimeMillis())
-        {
-             ItemMapService.gI().pickItem(player, item.itemMapId, true);
+        if (player.charms.tdThuHut > System.currentTimeMillis()) {
+            ItemMapService.gI().pickItem(player, item.itemMapId, true);
         }
     }
 
     public static void DropItemReWardDoHuyDietKichHoat(Player player, int soluong, int x, int y) {
         Item itemHuyDiet = ArrietyDrop.randomCS_DHD(ArrietyDrop.list_do_huy_diet[player.gender][Util.nextInt(0, 4)], player.gender);
-        ItemMap item = new ItemMap(player.zone,itemHuyDiet.template.id, soluong, Util.nextInt((x - 50), (x + 50)), y, player.id);
-        item.options = itemHuyDiet.itemOptions;      
+        ItemMap item = new ItemMap(player.zone, itemHuyDiet.template.id, soluong, Util.nextInt((x - 50), (x + 50)), y, player.id);
+        item.options = itemHuyDiet.itemOptions;
         Service.getInstance().dropItemMap(player.zone, item);
 
     }
+
     public static void DropManhThienSu(Player player, int soluong, int x, int y) {
         Item mts = ItemService.gI().createNewItem((short) Util.nextInt(1066, 1070));
-        ItemMap item = new ItemMap(player.zone,mts.template.id, soluong, Util.nextInt((x - 50), (x + 50)), y, player.id);
-        item.options.add(new Item.ItemOption(73, 0));  
+        ItemMap item = new ItemMap(player.zone, mts.template.id, soluong, Util.nextInt((x - 50), (x + 50)), y, player.id);
+        item.options.add(new Item.ItemOption(73, 0));
         Service.getInstance().dropItemMap(player.zone, item);
 
     }
+
     public static boolean IsItemKhongChoGiaoDich(int id) {
         return (id >= 663 && id <= 667);
     }
@@ -64,9 +65,9 @@ public class ArrietyDrop {
         List<Integer> gang = Arrays.asList(657, 659, 661);
         List<Integer> giay = Arrays.asList(658, 660, 662);
         int nhd = 656;
-        
-        int idOptionTD[] = new int[] {};
-        
+
+        int idOptionTD[] = new int[]{};
+
         if (ao.contains(itemId)) {
             it.itemOptions.add(new Item.ItemOption(47, Util.highlightsItem(gender == 2, new Random().nextInt(1001) + 1800))); // áo từ 1800-2800 giáp
         }

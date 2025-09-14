@@ -11,11 +11,9 @@ import java.util.List;
 
 public class MapMaBu {
 
-
     public static final byte HOUR_OPEN_MAP_MABU = 12;
     public static final byte MIN_OPEN_MAP_MABU = 0;
     public static final byte SECOND_OPEN_MAP_MABU = 0;
-
 
     public static final byte HOUR_CLOSE_MAP_MABU = 13;
     public static final byte MIN_CLOSE_MAP_MABU = 0;
@@ -45,11 +43,10 @@ public class MapMaBu {
                 TIME_OPEN_MABU = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_OPEN_MAP_MABU + ":" + MIN_OPEN_MAP_MABU + ":" + SECOND_OPEN_MAP_MABU, "dd/MM/yyyy HH:mm:ss");
                 TIME_CLOSE_MABU = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_CLOSE_MAP_MABU + ":" + MIN_CLOSE_MAP_MABU + ":" + SECOND_CLOSE_MAP_MABU, "dd/MM/yyyy HH:mm:ss");
             } catch (Exception e) {
-                      
+
             }
         }
     }
-
 
     private void kickOutOfMapMabu(Player player) {
         if (MapService.gI().isMapMaBu(player.zone.map.mapId)) {
@@ -58,15 +55,15 @@ public class MapMaBu {
         }
     }
 
-    private void ketthucmabu(Player player)
-    {
-        if(player != null && player.zone != null)
-        {player.zone.finishMapMaBu = true;
-        List<Player> playersMap = player.zone.getPlayers();
-        for (int i = playersMap.size() - 1; i >= 0; i--) {
-            Player pl = playersMap.get(i);
-            kickOutOfMapMabu(pl);
-        }}
+    private void ketthucmabu(Player player) {
+        if (player != null && player.zone != null) {
+            player.zone.finishMapMaBu = true;
+            List<Player> playersMap = player.zone.getPlayers();
+            for (int i = playersMap.size() - 1; i >= 0; i--) {
+                Player pl = playersMap.get(i);
+                kickOutOfMapMabu(pl);
+            }
+        }
     }
 
     public void joinMapMabu(Player player) {
@@ -93,7 +90,7 @@ public class MapMaBu {
                 if (now < TIME_OPEN_MABU || now > TIME_CLOSE_MABU) {
                     ketthucmabu(player);
                 }
-            } catch (Exception e) {      
+            } catch (Exception e) {
             }
         }
 

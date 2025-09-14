@@ -13,14 +13,13 @@ import Dragon.services.Service;
 import Dragon.services.TaskService;
 import Dragon.utils.Util;
 
-
 public class Android19 extends Boss {
 
     public Android19() throws Exception {
         super(BossID.ANDROID_19, BossesData.ANDROID_19);
     }
 
-     @Override
+    @Override
     public void reward(Player plKill) {
         int[] itemRan = new int[]{381, 382, 383, 384, 385};
         int itemId = itemRan[2];
@@ -31,7 +30,8 @@ public class Android19 extends Boss {
         }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
- @Override
+
+    @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
@@ -39,7 +39,7 @@ public class Android19 extends Boss {
 
     private long st;
 
-  /*  @Override
+    /*  @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
       if (Util.canDoWithTime(st, 900000)) {

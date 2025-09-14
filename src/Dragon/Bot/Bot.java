@@ -140,7 +140,7 @@ public class Bot extends Player {
                 break;
         }
         if (this.isDie()) {
-            Service.gI().hsChar(this, nPoint.hpMax,  nPoint.mpMax);
+            Service.gI().hsChar(this, nPoint.hpMax, nPoint.mpMax);
         }
     }
 

@@ -12,19 +12,19 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 
-
 /**
  *
- * @Stole By BTH 💖
+ * @Refactored By Ahwuocda 💖
  *
  */
 public class GiftService {
 
     private static GiftService i;
-    
-    private GiftService(){
-        
+
+    private GiftService() {
+
     }
+
     public String code;
     public int idGiftcode;
     public int gold;
@@ -33,26 +33,24 @@ public class GiftService {
     public Timestamp timecreate;
     public ArrayList<Item> listItem = new ArrayList<>();
     public static ArrayList<GiftService> gifts = new ArrayList<>();
-    public static GiftService gI(){
-        if(i == null){
+
+    public static GiftService gI() {
+        if (i == null) {
             i = new GiftService();
         }
         return i;
     }
-   
-    public void giftCode(Player player, String code){
-         MaQuaTang giftcode = MaQuaTangManager.gI().checkUseGiftCode((int)player.id, code);
-               // if(!Maintenance.gI().canUseCode){Service.gI().sendThongBao(player, "Không thể thực hiện lúc này ");return;}
-                       if(giftcode == null){
-                      
-                             Service.getInstance().sendThongBao(player,"Code đã được sử dụng, hoặc không tồn tại!");
-                        
-                       }
-                       else if(giftcode.timeCode()){
-                            Service.getInstance().sendThongBao(player,"Code đã hết hạn");
-                        }else {                       
-                            InventoryServiceNew.gI().addItemGiftCodeToPlayer(player, giftcode);
-                               }
+
+    public void giftCode(Player player, String code) {
+        // Sử dụng hệ thống gift code mới
+        GiftCodeService.GiftCodeResult result = GiftCodeService.getInstance().useGiftCode(player, code);
+
+        if (result.success) {
+            Service.getInstance().sendThongBao(player, result.message);
+        } else {
+            // Thông báo lỗi cụ thể để dễ debug
+            Service.getInstance().sendThongBao(player, result.message);
+        }
     }
-    
+
 }

@@ -45,7 +45,7 @@ public class DrLyChee extends Boss {
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{1288, 1289, 1230, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
                 ((15000 * level)), //dame    
-                new long[]{(((int)150000000 * level))}, //hp
+                new long[]{(((int) 150000000 * level))}, //hp
                 new int[]{148}, //map join
                 new int[][]{
                     {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
@@ -65,16 +65,14 @@ public class DrLyChee extends Boss {
     }
 
     @Override
-    public void reward(Player plKill) 
-    {
+    public void reward(Player plKill) {
         int paramhp = 0;
         int parammp = 0;
         int paramsd = 0;
         int paramgiap = 0;
-        for (int i = 0; i <= 4; i++) 
-        {
+        for (int i = 0; i <= 4; i++) {
             ItemMap it = new ItemMap(zone, 1965, 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
-            it.x = Util.nextInt(100,300);
+            it.x = Util.nextInt(100, 300);
             if (levell < 10) {
                 paramhp = Util.nextInt(3, 5);
                 parammp = Util.nextInt(3, 5);
@@ -124,8 +122,7 @@ public class DrLyChee extends Boss {
         super.active();
     }
 
-    
-   public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
+    public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(30, 100)) {
                 this.chat("Xí hụt");
@@ -143,7 +140,7 @@ public class DrLyChee extends Boss {
                 try {
                     new HaChiJack(playerSpawn, levell, (int) 1, (int) 2);
                 } catch (Exception ex) {
-                           System.err.print("\nError at 118\n");
+                    System.err.print("\nError at 118\n");
                     Logger.getLogger(DrLyChee.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 this.setDie(plAtt);

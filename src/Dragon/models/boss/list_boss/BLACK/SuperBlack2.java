@@ -10,7 +10,6 @@ import Dragon.utils.Util;
 
 import java.util.Random;
 
-
 public class SuperBlack2 extends Boss {
 
     public SuperBlack2() throws Exception {
@@ -22,19 +21,18 @@ public class SuperBlack2 extends Boss {
         byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         if (Util.isTrue(10, 100)) {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
-            
+            Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
+
         } else {
             Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
-   
 
-   @Override
+    @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
         if (Util.canDoWithTime(st, 900000000)) {
-        //    this.changeStatus(BossStatus.LEAVE_MAP);
+            //    this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
 
@@ -45,8 +43,8 @@ public class SuperBlack2 extends Boss {
     }
 
     private long st;
- 
-     @Override
+
+    @Override
     public long injured(Player plAtt, long damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
@@ -94,25 +92,3 @@ public class SuperBlack2 extends Boss {
 //        super.notifyJoinMap();
 //    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

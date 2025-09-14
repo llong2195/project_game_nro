@@ -113,24 +113,18 @@ public class BossManager implements Runnable {
 
     public void loadBoss() {
         if (this.loadedBoss) {
-            System.out.println("[BossManager] Boss already loaded, skipping...");
             return;
         }
         try {
-            System.out.println("[BossManager] Initializing boss system...");
         } catch (Exception e) {
-            System.out.println("[BossManager] Error during boss initialization: " + e.getMessage());
             e.printStackTrace();
         }
         this.loadedBoss = true;
-        System.out.println("[BossManager] Starting boss update thread...");
         new Thread(BossManager.I, "Update boss").start();
-        System.out.println("[BossManager] Boss update thread started!");
     }
 
     public void loadMultipleBosses(int bossId, int quantity) {
         try {
-            System.out.println("[BossManager] Loading " + quantity + " bosses of ID: " + bossId);
             int successCount = 0;
             for (int i = 0; i < quantity; i++) {
                 Boss boss = this.createBoss(bossId);
@@ -178,8 +172,9 @@ public class BossManager implements Runnable {
             }
 
             int totalBosses = 0;
-            for (int qty : quantities)
+            for (int qty : quantities) {
                 totalBosses += qty;
+            }
             System.out.println("[BossManager] Loading " + totalBosses + " bosses with custom quantities");
 
             int successCount = 0;
@@ -454,8 +449,9 @@ public class BossManager implements Runnable {
                             (int) bosses.stream()
                                     .filter(boss -> {
                                         int map0 = safeFirstMapId(boss);
-                                        if (map0 == -1)
+                                        if (map0 == -1) {
                                             return false;
+                                        }
                                         return !MapService.gI().isMapMaBu(map0)
                                                 && !MapService.gI().isMapDoanhTrai(map0)
                                                 && !MapService.gI().isMapBlackBallWar(map0);
@@ -510,8 +506,9 @@ public class BossManager implements Runnable {
                     .writeByte((int) bosses.stream()
                             .filter(boss -> {
                                 int map0 = safeFirstMapId(boss);
-                                if (map0 == -1)
+                                if (map0 == -1) {
                                     return false;
+                                }
                                 return !MapService.gI().isMapMaBu(map0)
                                         && !MapService.gI().isMapDoanhTrai(map0)
                                         && !(boss instanceof AnTrom)
@@ -563,12 +560,25 @@ public class BossManager implements Runnable {
 
     private int safeFirstMapId(Boss boss) {
         try {
-            if (boss == null || boss.data == null || boss.data.length == 0)
+            if (boss == null || boss.data == null || boss.data.length == 0) {
                 return -1;
+            }
             int[] mj = boss.data[0].getMapJoin();
-            if (mj == null || mj.length == 0)
+            if (mj == null || mj.length == 0) {
                 return -1;
-            return mj[0];
+            }
+            // Prefer the first map that is NOT filtered by UI rules
+            for (int mapId : mj) {
+                if (!MapService.gI().isMapMaBu(mapId)
+                        && !MapService.gI().isMapBlackBallWar(mapId)
+                        && !MapService.gI().isMapBanDoKhoBau(mapId)
+                        && !MapService.gI().isMapDoanhTrai(mapId)
+                        && !MapService.gI().isMapKhiGas(mapId)) {
+                    return mapId;
+                }
+            }
+            // None suitable -> indicate hidden
+            return -1;
         } catch (Exception e) {
             return -1;
         }
@@ -669,8 +679,9 @@ public class BossManager implements Runnable {
                 }
                 long elapsed = System.currentTimeMillis() - st;
                 long delay = 150 - elapsed;
-                if (delay < 5)
+                if (delay < 5) {
                     delay = 5; // clamp tránh giá trị âm hoặc quá nhỏ
+                }
                 Thread.sleep(delay);
             } catch (Exception e) {
                 // swallow và tiếp tục vòng lặp

@@ -75,7 +75,7 @@ public class HoTong extends Boss {
                 Service.getInstance().dropItemMap(this.zone, it1);
                 a += 20;
             }
-            playerTarger.point_vnd ++;
+            playerTarger.point_vnd++;
             Service.getInstance().sendMoney(playerTarger);
             this.leaveMap();
         }

@@ -7,7 +7,6 @@ import Dragon.server.Manager;
 import com.girlkun.network.io.Message;
 import java.util.ArrayList;
 
-
 public class FlagBagService {
 
     private List<FlagBag> flagClan = new ArrayList<>();

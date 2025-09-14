@@ -19,7 +19,7 @@ public final class MobMe extends Mob {
         this.id = (int) player.id;
         int level = player.playerSkill.getSkillbyId(12).point;
         this.tempId = SkillUtil.getTempMobMe(level);
-        this.point.maxHp = SkillUtil.getHPMobMe( player.nPoint.hpMax, level);
+        this.point.maxHp = SkillUtil.getHPMobMe(player.nPoint.hpMax, level);
         this.point.dame = SkillUtil.getHPMobMe(player.nPoint.getDameAttackDouble(false), level);
         if (this.player.setClothes.pikkoroDaimao == 5) {
             this.point.dame *= 2;
@@ -92,7 +92,6 @@ public final class MobMe extends Mob {
             Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
-                  
 
         }
     }
