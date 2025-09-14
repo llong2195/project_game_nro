@@ -62,8 +62,8 @@ public class TaskCache {
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT task_main_id, task_sub_id, requirement_type, target_id, target_count, " +
-                    "map_restriction, extra_data FROM task_requirements WHERE is_active = 1 " +
-                    "ORDER BY task_main_id, task_sub_id");
+                            "map_restriction, extra_data FROM task_requirements WHERE is_active = 1 " +
+                            "ORDER BY task_main_id, task_sub_id");
             ResultSet rs = ps.executeQuery();
 
             Map<String, List<TaskRequirement>> tempRequirements = new HashMap<>();
@@ -82,10 +82,10 @@ public class TaskCache {
                 String key = req.taskMainId + "_" + req.taskSubId;
                 tempRequirements.computeIfAbsent(key, k -> new ArrayList<>()).add(req);
                 reqCount++;
-                
-                Logger.log("TaskCache: Loaded requirement: " + req.requirementType + 
-                          " target=" + req.targetId + " count=" + req.targetCount + 
-                          " for task " + req.taskMainId + "_" + req.taskSubId);
+
+                Logger.log("TaskCache: Loaded requirement: " + req.requirementType +
+                        " target=" + req.targetId + " count=" + req.targetCount +
+                        " for task " + req.taskMainId + "_" + req.taskSubId);
             }
 
             requirementsCache.clear();
@@ -115,7 +115,7 @@ public class TaskCache {
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT task_main_id, task_sub_id, reward_type, reward_id, reward_quantity, " +
-                    "reward_description FROM task_rewards ORDER BY task_main_id, task_sub_id");
+                            "reward_description FROM task_rewards ORDER BY task_main_id, task_sub_id");
             ResultSet rs = ps.executeQuery();
 
             Map<String, List<TaskReward>> tempRewards = new HashMap<>();
@@ -133,10 +133,10 @@ public class TaskCache {
                 String key = reward.taskMainId + "_" + reward.taskSubId;
                 tempRewards.computeIfAbsent(key, k -> new ArrayList<>()).add(reward);
                 rewardCount++;
-                
-                Logger.log("TaskCache: Loaded reward: " + reward.rewardType + 
-                          " id=" + reward.rewardId + " quantity=" + reward.rewardQuantity + 
-                          " for task " + reward.taskMainId + "_" + reward.taskSubId);
+
+                Logger.log("TaskCache: Loaded reward: " + reward.rewardType +
+                        " id=" + reward.rewardId + " quantity=" + reward.rewardQuantity +
+                        " for task " + reward.taskMainId + "_" + reward.taskSubId);
             }
 
             rewardsCache.clear();
@@ -170,7 +170,7 @@ public class TaskCache {
 
         String key = taskMainId + "_" + taskSubId;
         List<TaskRequirement> allReqs = requirementsCache.getOrDefault(key, new ArrayList<>());
-        
+
         // Filter by requirement type if specified
         if (requirementType != null) {
             List<TaskRequirement> filteredReqs = new ArrayList<>();
@@ -181,7 +181,7 @@ public class TaskCache {
             }
             return filteredReqs;
         }
-        
+
         return allReqs;
     }
 
