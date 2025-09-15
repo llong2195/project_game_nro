@@ -59,27 +59,18 @@ public class BossRewardService {
         return drops;
     }
 
-    /**
-     * Refresh cache khi cần update data
-     */
     public void refreshCache() {
         cache.refreshCache();
     }
 
-    /**
-     * Get cache statistics
-     */
     public String getCacheStats() {
         return cache.getCacheStats();
     }
 
     private boolean shouldDropReward(double dropRate) {
-        return Dragon.utils.Util.isTrue((int) (dropRate * 10), 1000);
+        return Dragon.utils.Util.isTrue((int) dropRate, 100);
     }
 
-    /**
-     * Get boss rewards info for debugging (from cache)
-     */
     public List<BossRewardCache.BossReward> getBossRewards(int bossId) {
         return cache.getBossRewards(bossId);
     }

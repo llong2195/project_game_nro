@@ -397,7 +397,6 @@ public class BossManager implements Runnable {
                     }
                 }
                 if (!b.isDie()) {
-                    // Ensure boss is actually present in its zone
                     boolean present = isBossInZone(b);
                     if (!present && b.zone != null) {
                         try {
@@ -682,7 +681,8 @@ public class BossManager implements Runnable {
                 List<Boss> snapshot = new ArrayList<>(this.bosses);
                 for (Boss boss : snapshot) {
                     try {
-                        // Watchdog: nếu boss có zone nhưng không có trong danh sách bosses của zone -> tự sửa
+                        // Watchdog: nếu boss có zone nhưng không có trong danh sách bosses của zone ->
+                        // tự sửa
                         if (boss != null && boss.zone != null) {
                             boolean registered = false;
                             try {
