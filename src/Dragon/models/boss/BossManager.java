@@ -396,8 +396,21 @@ public class BossManager implements Runnable {
                         return;
                     }
                 }
-                if (!b.isDie() && b.zone != null) {
-                    ChangeMapService.gI().changeMapYardrat(pl, b.zone, b.location.x, b.location.y);
+                if (!b.isDie()) {
+                    // Ensure boss is actually present in its zone
+                    boolean present = isBossInZone(b);
+                    if (!present && b.zone != null) {
+                        try {
+                            ChangeMapService.gI().changeMapYardrat(b, b.zone, b.location.x, b.location.y);
+                            present = isBossInZone(b);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    if (present) {
+                        ChangeMapService.gI().changeMapYardrat(pl, b.zone, b.location.x, b.location.y);
+                    } else {
+                        Service.gI().sendThongBao(pl, "Nó trốn rồi");
+                    }
                 } else {
                     Service.gI().sendThongBao(pl, "Boss Hẹo Rồi");
                 }
@@ -476,7 +489,7 @@ public class BossManager implements Runnable {
                 msg.writer().writeShort(boss.data[0].getOutfit()[1]);
                 msg.writer().writeShort(boss.data[0].getOutfit()[2]);
                 msg.writer().writeUTF(boss.data[0].getName());
-                if (boss.zone != null) {
+                if (isBossInZone(boss)) {
                     msg.writer().writeUTF("Sống");
                     msg.writer()
                             .writeUTF("Thông Tin Boss\n" + "|7|Map : " + boss.zone.map.mapName + "("
@@ -538,7 +551,7 @@ public class BossManager implements Runnable {
                 msg.writer().writeShort(boss.data[0].getOutfit()[1]);
                 msg.writer().writeShort(boss.data[0].getOutfit()[2]);
                 msg.writer().writeUTF(boss.data[0].getName());
-                if (boss.zone != null) {
+                if (isBossInZone(boss)) {
                     msg.writer().writeUTF("Sống");
                     msg.writer()
                             .writeUTF("Thông Tin\n" + "|7|Bản Đồ: " + boss.zone.map.mapName + "\nKhu Vực: "
@@ -669,6 +682,25 @@ public class BossManager implements Runnable {
                 List<Boss> snapshot = new ArrayList<>(this.bosses);
                 for (Boss boss : snapshot) {
                     try {
+                        // Watchdog: nếu boss có zone nhưng không có trong danh sách bosses của zone -> tự sửa
+                        if (boss != null && boss.zone != null) {
+                            boolean registered = false;
+                            try {
+                                registered = boss.zone.getBosses().contains(boss);
+                            } catch (Exception ig) {
+                                registered = false;
+                            }
+                            if (!registered) {
+                                // cố gắng đưa boss vào lại zone hiện tại
+                                try {
+                                    ChangeMapService.gI().changeMapYardrat(boss, boss.zone, boss.location.x,
+                                            boss.location.y);
+                                } catch (Exception t) {
+                                    System.out.println(
+                                            "[BossManager] Auto-repair boss not registered in zone: id=" + boss.id);
+                                }
+                            }
+                        }
                         boss.update();
                     } catch (Exception ex) {
                         // Không để 1 boss lỗi chặn cả vòng lặp
@@ -687,6 +719,16 @@ public class BossManager implements Runnable {
                 // swallow và tiếp tục vòng lặp
             }
 
+        }
+    }
+
+    // Helpers
+    private boolean isBossInZone(Boss boss) {
+        try {
+            return boss != null && boss.zone != null && boss.zone.getBosses() != null
+                    && boss.zone.getBosses().contains(boss);
+        } catch (Exception e) {
+            return false;
         }
     }
 }

@@ -369,7 +369,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     protected void notifyJoinMap() {
-        // Notify on appear for normal maps. Still skip special event maps.
         if (this.zone != null && (MapService.gI().isMapMaBu(this.zone.map.mapId)
                 || MapService.gI().isMapBlackBallWar(this.zone.map.mapId))) {
             return;

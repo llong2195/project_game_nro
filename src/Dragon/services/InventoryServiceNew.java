@@ -40,10 +40,10 @@ public class InventoryServiceNew {
                 textGift += quantity + " vàng\b";
             } else if (idItem == -2) {
                 p.inventory.gem = Math.min(p.inventory.gem + quantity, 200000000);
-                textGift += quantity + " ng�?c\b";
+                textGift += quantity + " ngoc\b";
             } else if (idItem == -3) {
                 p.inventory.ruby = Math.min(p.inventory.ruby + quantity, 200000000);
-                textGift += quantity + " ng�?c khóa\b";
+                textGift += quantity + " ngoc khoa\b";
             } else {
                 Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
                 if (itemGiftTemplate != null) {
@@ -72,9 +72,9 @@ public class InventoryServiceNew {
 
     }
 
-//    private void __________________Tìm_kiếm_item_____________________________() {
-//        // **********************************************************************
-//    }
+    // private void __________________Tìm_kiếm_item_____________________________() {
+    // // **********************************************************************
+    // }
 
     public Item findItem(List<Item> list, int tempId) {
         try {
@@ -123,8 +123,6 @@ public class InventoryServiceNew {
         return this.isExistItem(player.inventory.itemsBox, tempId);
     }
 
-  
-
     public List<Item> copyList(List<Item> items) {
         List<Item> list = new ArrayList<>();
         for (Item item : items) {
@@ -145,11 +143,9 @@ public class InventoryServiceNew {
         return copyList(player.inventory.itemsBox);
     }
 
-
-
     public boolean IsThrowItem(Item item) {
         switch (item.template.id) {
-            case 457: // th�?i vàng và Pha Lê Z
+            case 457: // thoi vang va Pha Le Z
             case 194: // Capsule VIP
                 return false;
             default:
@@ -171,14 +167,13 @@ public class InventoryServiceNew {
                 sortItems(player.inventory.itemsBag);
                 sendItemBags(player);
             } else {
-                Service.gI().sendThongBao(player, "Vật phẩm không thể vứt b�?.");
+                Service.gI().sendThongBao(player, "Vat pham khong the vut bo.");
             }
         }
         if (itemThrow == null) {
             return;
         }
     }
-
 
     public void removeItem(List<Item> items, int index) {
         Item item = ItemService.gI().createItemNull();
@@ -219,7 +214,6 @@ public class InventoryServiceNew {
         this.removeItem(player.inventory.itemsBox, index);
     }
 
-
     public void subQuantityItemsBag(Player player, Item item, int quantity) {
         subQuantityItem(player.inventory.itemsBag, item, quantity);
     }
@@ -246,8 +240,6 @@ public class InventoryServiceNew {
         }
     }
 
- 
-
     public void sortItems(List<Item> list) {
         int first = -1;
         int last = -1;
@@ -273,8 +265,6 @@ public class InventoryServiceNew {
             sortItems(list);
         }
     }
-
-
 
     private Item putItemBag(Player player, Item item) {
         for (int i = 0; i < player.inventory.itemsBag.size(); i++) {
@@ -453,7 +443,7 @@ public class InventoryServiceNew {
                 }
             }
         } else {
-            Service.getInstance().sendThongBaoOK(player, "�?ệ tử phải đạt 1tr5 sức mạnh mới có thể mặc");
+            Service.getInstance().sendThongBaoOK(player, "De tu phai dat 1tr5 suc manh moi co the mac");
         }
     }
 
@@ -551,9 +541,9 @@ public class InventoryServiceNew {
         }
     }
 
-//    private void __________________Gửi_danh_sách_item_cho_ngư�?i_chơi________() {
-//        // **********************************************************************
-//    }
+    // private void __________________Gui_danh_sach_item_cho_nguoi_choi________() {
+    // // **********************************************************************
+    // }
 
     public void sendItemBags(Player player) {
         sortItems(player.inventory.itemsBag);
@@ -656,9 +646,9 @@ public class InventoryServiceNew {
         }
     }
 
-//    private void __________________Thêm_vật_phẩm_vào_danh_sách______________() {
-//        // **********************************************************************
-//    }
+    // private void __________________Thêm_vật_phẩm_vào_danh_sách______________() {
+    // // **********************************************************************
+    // }
 
     private boolean addItemSpecial(Player player, Item item) {
         // bùa
@@ -820,7 +810,7 @@ public class InventoryServiceNew {
                 return false;
             }
         }
-        // ng�?c rồng đen
+        // ngoc rong den
         if (ItemMapService.gI().isBlackBall(item.template.id)) {
             return BlackBallWar.gI().pickBlackBall(player, item);
         }
@@ -968,9 +958,9 @@ public class InventoryServiceNew {
         return false;
     }
 
-//    private void __________________Kiểm_tra_đi�?u_kiện_vật_phẩm______________() {
-//        // **********************************************************************
-//    }
+    // private void __________________Kiem_tra_dieu_kien_vat_pham______________() {
+    // // **********************************************************************
+    // }
 
     /**
      * Kiểm tra vật phẩm có phải là vật phẩm tăng chỉ số option hay không
@@ -982,13 +972,11 @@ public class InventoryServiceNew {
         for (Item.ItemOption io : item.itemOptions) {
             switch (io.optionTemplate.id) {
                 case 1:
-                    return new int[]{io.optionTemplate.id, io.param};
+                    return new int[] { io.optionTemplate.id, io.param };
             }
         }
-        return new int[]{-1, -1};
+        return new int[] { -1, -1 };
     }
-
-   
 
     public byte getCountEmptyBag(Player player) {
         return getCountEmptyListItem(player.inventory.itemsBag);
