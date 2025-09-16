@@ -24,18 +24,11 @@ public class TutienCombineService {
      * Xử lý ghép mảnh tàn đan (99 mảnh → 1 đan)
      */
     public void combineTanDanFragment(Player player) {
-        if (player.TUTIEN[2] <= 0) {
-            Service.gI().sendThongBao(player, "Bạn chưa mở thiên phú, không thể ghép đan!");
-            return;
-        }
-
-        // Kiểm tra số lượng item
         if (player.combineNew.itemsCombine.size() != 2) {
             Service.gI().sendThongBao(player, "Cần chọn 99 mảnh tàn đan và 99 công thức!");
             return;
         }
 
-        // Kiểm tra gold
         int cost = 100_000_000; // 100M gold
         if (player.inventory.gold < cost) {
             Service.gI().sendThongBao(player, "Không đủ Gold! Cần " + Util.numberToMoney(cost));
@@ -103,18 +96,8 @@ public class TutienCombineService {
         Dragon.services.func.CombineServiceNew.gI().reOpenItemCombine(player);
     }
 
-    /**
-     * Xử lý nâng cấp đan Tu Tiên - Tự động nhận biết cấp hiện tại và nâng cấp
-     * lên cấp tiếp theo
-     */
     public void upgradeTutienDan(Player player) {
-        // Kiểm tra đã mở thiên phú chưa
-        if (player.TUTIEN[2] <= 0) {
-            Service.gI().sendThongBao(player, "Bạn chưa mở thiên phú, không thể nâng cấp đan!");
-            return;
-        }
 
-        // Kiểm tra số lượng item
         if (player.combineNew.itemsCombine.size() != 2) {
             Service.gI().sendThongBao(player, "Cần chọn đan Tu Tiên và công thức!");
             return;
@@ -137,21 +120,17 @@ public class TutienCombineService {
             return;
         }
 
-        // Xác định cấp hiện tại của đan
-        int currentLevel = dan.template.id - 1805; // 1806 = cấp 1, 1807 = cấp 2, ...
-        int targetLevel = currentLevel + 1; // Nâng cấp lên cấp tiếp theo
+        int currentLevel = dan.template.id - 1805;
+        int targetLevel = currentLevel + 1;
 
-        // Kiểm tra đã đạt cấp tối đa chưa
         if (currentLevel >= 10) {
             Service.gI().sendThongBao(player, "Đan đã đạt cấp tối đa!");
             return;
         }
 
-        // Tính toán chi phí và số lượng cần thiết
-        int requiredQuantity = 99; // Luôn cần x99
-        int cost = 100_000_000; // Luôn cần 100M Gold
+        int requiredQuantity = 99;
+        int cost = 100_000_000;
 
-        // Kiểm tra gold
         if (player.inventory.gold < cost) {
             Service.gI().sendThongBao(player, "Không đủ Gold! Cần " + Util.numberToMoney(cost));
             return;
@@ -246,7 +225,7 @@ public class TutienCombineService {
                 npcSay += "|3|Tỉ lệ thành công: 100%\n\n";
                 npcSay += "|6|Kết quả: 1 "
                         + (Manager.ITEM_TEMPLATES.get(1806) != null ? Manager.ITEM_TEMPLATES.get(1806).name
-                        : "Đan Tu Tiên");
+                                : "Đan Tu Tiên");
 
                 // Sử dụng NPC hiện tại nếu có, nếu không thì dùng NPC mặc định
                 Dragon.models.npc.Npc currentNpc = npc != null ? npc
@@ -269,18 +248,12 @@ public class TutienCombineService {
         }
     }
 
-    /**
-     * Hiển thị thông tin nâng cấp đan Tu Tiên - Tự động nhận biết cấp hiện tại
-     */
     public void showInfoUpgradeTutienDan(Player player) {
         showInfoUpgradeTutienDan(player, null);
     }
 
-    /**
-     * Hiển thị thông tin nâng cấp đan Tu Tiên với NPC cụ thể
-     */
     public void showInfoUpgradeTutienDan(Player player, Dragon.models.npc.Npc npc) {
-        // Item đã được thêm vào itemsCombine từ trước
+
         if (player.combineNew.itemsCombine.size() == 2) {
             Item dan = null;
             Item congThuc = null;
@@ -298,7 +271,6 @@ public class TutienCombineService {
                 int currentLevel = dan.template.id - 1805; // 1806 = cấp 1, 1807 = cấp 2, ...
                 int targetLevel = currentLevel + 1; // Nâng cấp lên cấp tiếp theo
 
-                // Kiểm tra đã đạt cấp tối đa chưa
                 if (currentLevel >= 10) {
                     Dragon.services.func.CombineServiceNew.gI()
                             .getNpcByType(Dragon.services.func.CombineServiceNew.UPGRADE_TUTIEN_DAN)
@@ -307,8 +279,8 @@ public class TutienCombineService {
                     return;
                 }
 
-                int requiredQuantity = 99; // Luôn cần x99
-                int cost = 100_000_000; // Luôn cần 100M Gold
+                int requiredQuantity = 99;
+                int cost = 100_000_000;
                 int successRate = getSuccessRateForLevel(targetLevel);
                 int newDanId = 1805 + targetLevel;
 
@@ -320,7 +292,7 @@ public class TutienCombineService {
                 npcSay += "|4|Cần: " + requiredQuantity + " đan + " + requiredQuantity + " công thức\n\n";
                 npcSay += "|6|Kết quả: 1 "
                         + (Manager.ITEM_TEMPLATES.get(newDanId) != null ? Manager.ITEM_TEMPLATES.get(newDanId).name
-                        : "Đan Tu Tiên cấp " + targetLevel);
+                                : "Đan Tu Tiên cấp " + targetLevel);
 
                 Dragon.models.npc.Npc currentNpc = npc != null ? npc
                         : Dragon.services.func.CombineServiceNew.gI()
@@ -342,9 +314,6 @@ public class TutienCombineService {
         }
     }
 
-    /**
-     * Lấy tỉ lệ thành công cho cấp
-     */
     private int getSuccessRateForLevel(int level) {
         return Math.max(10, 100 - (level * 10)); // Cấp 1: 90%, cấp 2: 80%, ..., cấp 10: 10%
     }
