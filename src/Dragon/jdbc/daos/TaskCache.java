@@ -114,8 +114,11 @@ public class TaskCache {
             Logger.log("TaskCache: Loading task rewards from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT task_main_id, task_sub_id, reward_type, reward_id, reward_quantity, " +
-                            "reward_description FROM task_rewards ORDER BY task_main_id, task_sub_id");
+                    "SELECT req.task_main_id, req.task_sub_id, tr.reward_type, tr.reward_id, tr.reward_quantity, tr.reward_description "
+                            + "FROM task_rewards tr "
+                            + "JOIN task_requirements req ON req.id = tr.requirement_id "
+                            + "WHERE req.is_active = 1 "
+                            + "ORDER BY req.task_main_id, req.task_sub_id");
             ResultSet rs = ps.executeQuery();
 
             Map<String, List<TaskReward>> tempRewards = new HashMap<>();
@@ -259,8 +262,13 @@ public class TaskCache {
 
         @Override
         public String toString() {
-            return String.format("TaskReward{task=%d_%d, type=%s, id=%d, quantity=%d}",
-                    taskMainId, taskSubId, rewardType, rewardId, rewardQuantity);
+            if ("ITEM".equalsIgnoreCase(rewardType)) {
+                return String.format("TaskReward{task=%d_%d, type=%s, id=%d, quantity=%d}",
+                        taskMainId, taskSubId, rewardType, rewardId, rewardQuantity);
+            } else {
+                return String.format("TaskReward{task=%d_%d, type=%s, quantity=%d}",
+                        taskMainId, taskSubId, rewardType, rewardQuantity);
+            }
         }
     }
 }

@@ -597,7 +597,7 @@ public class PlayerDataLoader {
             } else {
                 item.itemOptions.add(new Item.ItemOption(
                         Integer.parseInt(String.valueOf(opt.get(0))) == 14 ? 5
-                        : Integer.parseInt(String.valueOf(opt.get(0))),
+                                : Integer.parseInt(String.valueOf(opt.get(0))),
                         Integer.parseInt(String.valueOf(opt.get(1)))));
             }
             if (Integer.parseInt(String.valueOf(opt.get(0))) == 50 && tempId == 884) {

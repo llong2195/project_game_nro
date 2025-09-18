@@ -101,7 +101,7 @@ public class Manager {
     public static final List<MobTemplate> MOB_TEMPLATES = new ArrayList<>();
     public static final List<NpcTemplate> NPC_TEMPLATES = new ArrayList<>();
     public static final List<String> CAPTIONS = new ArrayList<>();
-    public static final List<TaskMain> TASKS = new ArrayList<>();
+    public static final List<TaskMain> TASKS_TEMPLATE = new ArrayList<>();
     public static final List<SideTaskTemplate> SIDE_TASKS_TEMPLATE = new ArrayList<>();
     public static final List<Intrinsic> INTRINSICS = new ArrayList<>();
     public static final List<Intrinsic> INTRINSIC_TD = new ArrayList<>();
@@ -208,17 +208,17 @@ public class Manager {
         }
         this.loadDatabase();
 
-        // Initialize Mob Reward Cache
         Dragon.utils.Logger.log("Manager: Initializing Mob Reward Cache...");
         Dragon.jdbc.daos.MobRewardCache.getInstance().initializeCache();
 
-        // Initialize Boss Reward Cache
         Dragon.utils.Logger.log("Manager: Initializing Boss Reward Cache...");
         Dragon.jdbc.daos.BossRewardCache.getInstance().initializeCache();
 
-        // Initialize Gift Code Cache
         Dragon.utils.Logger.log("Manager: Initializing Gift Code Cache...");
         Dragon.jdbc.daos.GiftCodeCache.getInstance().initializeCache();
+
+        Dragon.utils.Logger.log("Manager: Initializing Task Cache...");
+        Dragon.jdbc.daos.TaskCache.getInstance().initializeCache();
 
         NpcFactory.createNpcConMeo();
         Dragon.nam.TamBaoService.loadItem();
@@ -577,34 +577,43 @@ public class Manager {
                 INTRINSICS.add(intrinsic);
             }
             Logger.log(Logger.GREEN, "[DONE] INTRINSIC(" + INTRINSICS.size() + ")\n");
-
-            // load task
-            ps = con.prepareStatement("SELECT task_main_template.id, task_main_template.NAME, detail, "
-                    + "task_sub_template.NAME AS 'sub_name', max_count, notify, npc_id, map "
-                    + "FROM task_main_template JOIN task_sub_template ON task_main_template.id = "
-                    + "task_sub_template.task_main_id");
+            ps = con.prepareStatement("SELECT id, NAME, detail FROM task_main_template ORDER BY id");
             rs = ps.executeQuery();
-            int taskId = -1;
-            TaskMain task = null;
             while (rs.next()) {
-                int id = rs.getInt("id");
-                if (id != taskId) {
-                    taskId = id;
-                    task = new TaskMain();
-                    task.id = taskId;
-                    task.name = rs.getString("NAME");
-                    task.detail = rs.getString("detail");
-                    TASKS.add(task);
-                }
-                SubTaskMain subTask = new SubTaskMain();
-                subTask.name = rs.getString("sub_name");
-                subTask.maxCount = rs.getShort("max_count");
-                subTask.notify = rs.getString("notify");
-                subTask.npcId = rs.getByte("npc_id");
-                subTask.mapId = rs.getShort("map");
-                task.subTasks.add(subTask);
+                TaskMain task = new TaskMain();
+                task.id = rs.getInt("id");
+                task.name = rs.getString("NAME");
+                task.detail = rs.getString("detail");
+                TASKS_TEMPLATE.add(task);
             }
-            Logger.log(Logger.GREEN, "[DONE] TASK(" + TASKS.size() + ")\n");
+            ps = con.prepareStatement(
+                    "SELECT task_main_id, task_sub_id, MAX(target_count) AS max_target " +
+                            "FROM task_requirements WHERE is_active = TRUE " +
+                            "GROUP BY task_main_id, task_sub_id ORDER BY task_main_id, task_sub_id");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int mainIdReq = rs.getInt("task_main_id");
+                int maxTarget = rs.getInt("max_target");
+                TaskMain tmFound = null;
+                for (TaskMain tm : TASKS_TEMPLATE) {
+                    if (tm.id == mainIdReq) {
+                        tmFound = tm;
+                        break;
+                    }
+                }
+                if (tmFound == null)
+                    continue;
+
+                SubTaskMain subTask = new SubTaskMain();
+                subTask.name = "Nhiệm vụ";
+                subTask.notify = "";
+                subTask.npcId = (byte) -1;
+                subTask.mapId = (short) -1;
+                subTask.maxCount = (short) Math.max(0, maxTarget);
+                tmFound.subTasks.add(subTask);
+            }
+            Logger.log(Logger.GREEN,
+                    "[DONE] TASK(" + TASKS_TEMPLATE.size() + ") built from task_main_template + task_requirements\n");
 
             // load side task
             ps = con.prepareStatement("select * from side_task_template");
