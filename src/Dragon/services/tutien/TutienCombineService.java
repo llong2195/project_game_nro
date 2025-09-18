@@ -6,9 +6,6 @@ import Dragon.server.Manager;
 import Dragon.services.*;
 import Dragon.utils.Util;
 
-/**
- * Service xử lý ghép đan và nâng cấp đan Tu Tiên
- */
 public class TutienCombineService {
 
     private static TutienCombineService instance;
@@ -20,9 +17,6 @@ public class TutienCombineService {
         return instance;
     }
 
-    /**
-     * Xử lý ghép mảnh tàn đan (99 mảnh → 1 đan)
-     */
     public void combineTanDanFragment(Player player) {
         if (player.combineNew.itemsCombine.size() != 2) {
             Service.gI().sendThongBao(player, "Cần chọn 99 mảnh tàn đan và 99 công thức!");
@@ -194,16 +188,10 @@ public class TutienCombineService {
         Dragon.services.func.CombineServiceNew.gI().reOpenItemCombine(player);
     }
 
-    /**
-     * Hiển thị thông tin ghép mảnh tàn đan
-     */
     public void showInfoCombineTanDanFragment(Player player) {
         showInfoCombineTanDanFragment(player, null);
     }
 
-    /**
-     * Hiển thị thông tin ghép mảnh tàn đan với NPC cụ thể
-     */
     public void showInfoCombineTanDanFragment(Player player, Dragon.models.npc.Npc npc) {
         if (player.combineNew.itemsCombine.size() == 2) {
             Item fragment = null;
@@ -226,8 +214,6 @@ public class TutienCombineService {
                 npcSay += "|6|Kết quả: 1 "
                         + (Manager.ITEM_TEMPLATES.get(1806) != null ? Manager.ITEM_TEMPLATES.get(1806).name
                                 : "Đan Tu Tiên");
-
-                // Sử dụng NPC hiện tại nếu có, nếu không thì dùng NPC mặc định
                 Dragon.models.npc.Npc currentNpc = npc != null ? npc
                         : Dragon.services.func.CombineServiceNew.gI()
                                 .getNpcByType(Dragon.services.func.CombineServiceNew.COMBINE_TAN_DAN_FRAGMENT);
