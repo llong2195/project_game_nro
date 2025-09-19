@@ -5,6 +5,7 @@ import Dragon.models.Template.ItemOptionTemplate;
 import Dragon.server.Manager;
 import com.girlkun.network.io.Message;
 import Dragon.server.io.MySession;
+import Dragon.utils.Logger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,15 +17,15 @@ public class ItemData {
     public static void updateItem(MySession session) {
         updateItemOptionItemplate(session);
         updateItemArrHead2F(session);
-        int maxItemId = Manager.ITEM_TEMPLATES.size();
-        int actualMax = Math.min(maxItemId, Manager.ITEM_TEMPLATES.size());
-        int chunkSize = 700;
-        int firstChunk = Math.min(chunkSize, actualMax);
-        updateItemTemplate(session, firstChunk);
-        for (int start = chunkSize; start < actualMax; start += chunkSize) {
-            int end = Math.min(start + chunkSize, actualMax);
-            updateItemTemplate(session, start, end);
-        }
+        int count = 1050;
+//        updateItemTemplate(session, count);
+//        updateItemTemplate(session, count, Manager.ITEM_TEMPLATES.size());
+
+        updateItemTemplate(session, 750);
+        updateItemTemplate(session, 750, Manager.ITEM_TEMPLATES.size());
+      //  updateItemArrHead2F(session);
+      //  DataGame.updateIDBongTai(session);
+//        updateItemTemplate(session, 1500, Manager.ITEM_TEMPLATES.size());
     }
 
     private static void updateItemArrHead2F(MySession session) {
@@ -88,8 +89,11 @@ public class ItemData {
             }
             session.doSendMessage(msg);
             msg.cleanup();
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
 
+            // 0358124452
+             Logger.logException(ItemData.class, ex);
         }
     }
 
@@ -104,6 +108,7 @@ public class ItemData {
             msg.writer().writeShort(start);
             msg.writer().writeShort(end);
             for (int i = start; i < end; i++) {
+//                System.out.println("start: " + start + " -> " + end + " id " + Manager.ITEM_TEMPLATES.get(i).id);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).type);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).gender);
                 msg.writer().writeUTF(Manager.ITEM_TEMPLATES.get(i).name);
@@ -116,8 +121,10 @@ public class ItemData {
             }
             session.doSendMessage(msg);
             msg.cleanup();
-        } catch (Exception e) {
-
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            // 0358124452
+            //Logger.logException(ItemData.class, e);
         }
     }
     //-------------------------------------------------------- end update client

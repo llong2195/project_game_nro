@@ -26,7 +26,7 @@ public class DataGame {
     public static byte vsItem = 88;
     public static int vsRes = 752012;
 
-    public static String LINK_IP_PORT = "Nro Kuroko:fw.nrokuroko.online:2010:0,0,0";
+    public static String LINK_IP_PORT = "NRO DAU PHA:36.50.135.62:13579:0,0,0";
     private static final String MOUNT_NUM = "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1092:11,1141:15,1445:17,1446:18,1447:19,1448:20,1449:23,1450:24,1451:26,1452:32,1465:33,1473:28,1474:29,1475:30,1476:31,1539:37"
             + ",1540:38,1541:39,1542:40,1629:41,1632:42,1665:55,1666:56,1667:57,1668:58";
     public static final Map MAP_MOUNT_NUM = new HashMap();
@@ -471,6 +471,7 @@ public class DataGame {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.out.println("        loi 11");
         }
 
     }
@@ -630,23 +631,12 @@ public class DataGame {
         try {
             msg = new Message(-29);
             msg.writer().writeByte(2);
-            msg.writer().writeUTF(DataControlGame.DataGame.IPServerGame);
-            msg.writer().writeInt(DataControlGame.DataGame.KeyLogin.length);
-            for (int i = 0; i < DataControlGame.DataGame.KeyLogin.length; i++) {
-                msg.writer().writeLong(DataControlGame.DataGame.KeyLogin[i]);
-            }
-            msg.writer().writeInt(DataControlGame.DataGame.KeyRes.length);
-            for (int i = 0; i < DataControlGame.DataGame.KeyRes.length; i++) {
-                msg.writer().writeLong(DataControlGame.DataGame.KeyRes[i]);
-            }
+            msg.writer().writeUTF(LINK_IP_PORT + ",0,0");
             msg.writer().writeByte(1);
             session.sendMessage(msg);
-            if (msg != null) {
-                msg.cleanup();
-            }
+            msg.cleanup();
         } catch (Exception e) {
-            System.err.print("\nError at 31\n");
-            e.printStackTrace();
+            System.out.println("        loi 20");
         }
     }
 

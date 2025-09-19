@@ -163,19 +163,10 @@ public class MySession extends Session {
             return;
         }
         if (Maintenance.isRuning) {
-            Service.gI().sendThongBaoOK(this, "Server Đang Bảo Trì, Vui Lòng Quay Lại Sau!");
+            Service.gI().sendThongBaoOK(this, "Server �?ang Bảo Trì, Vui Lòng Quay Lại Sau!");
             return;
         }
-        if (Maintenance.isRuning || version > 15) {// version
-            Service.gI().sendThongBaoOK(this,
-                    "UPDATE RỒI, LÊN TRANG CHỦ NROTUONGLAI.COM TẢI!\n------------------------\n[LƯU Ý: XÓA BẢN CŨ TẢI LẠI BẢN MỚI TRÊN WEB]");
-            return;
-        }
-        if (Maintenance.isRuning || version < 15) {// version
-            Service.gI().sendThongBaoOK(this,
-                    "UPDATE RỒI, LÊN TRANG CHỦ NROTUONGLAI.COM TẢI!\n------------------------\n[LƯU Ý: XÓA BẢN CŨ TẢI LẠI BẢN MỚI TRÊN WEB]");
-            return;
-        }
+        
         if (!this.isAdmin && Client.gI().getPlayers().size() >= Manager.MAX_PLAYER) {
             Service.gI().sendThongBaoOK(this, "Máy chủ hiện đang quá tải, "
                     + "cư dân vui lòng di chuyển sang máy chủ khác.");
@@ -211,7 +202,7 @@ public class MySession extends Session {
                     DataGame.sendVersionGame(this);
                     DataGame.sendDataItemBG(this);
                     Controller.getInstance().sendInfo(this);
-                    Service.gI().sendThongBao(player, "|30|Chào Bạn Đến Với NROEvils");
+                    Service.gI().sendThongBao(player, "|30|Chào Bạn �?ến Với NROEvils");
                 }
             } catch (Exception e) {
 

@@ -63,7 +63,7 @@ public class Controller implements IMessageHandler {
         try {
             player = _session.player;
             byte cmd = _msg.command;
-            // System.out.println("CMD : " + cmd);
+           // System.out.println("CMD : " + cmd);
             switch (cmd) {
                 case 70:
                     TamBaoService.readData(_msg, player);
@@ -158,7 +158,7 @@ public class Controller implements IMessageHandler {
                     }
                     break;
 
-                case -105: // Nhẫn thời không
+                case -105: // Nhẫn th�?i không
                     if (player.type == 0 && player.maxTime == 30) {
                         ChangeMapService.gI().changeMap(player, 102, 0, 100, 336);
                     } else if (player.type == 1 && player.maxTime == 5) {
@@ -599,7 +599,7 @@ public class Controller implements IMessageHandler {
                 case -30:
                     messageSubCommand(_session, _msg);
                     break;
-                case -15: // về nhà phước
+                case -15: // v�? nhà phước
                     if (player != null) {
                         ChangeMapService.gI().changeMapBySpaceShip(player, 2, 0, -1);
                     }
@@ -754,15 +754,15 @@ public class Controller implements IMessageHandler {
                 if (name.length() <= 6) {
                     rs = GirlkunDB.executeQuery("select * from player where name = ?", name);
                     if (rs.first()) {
-                        Service.gI().sendThongBaoOK(session, "Tên Nhân Vật Đã Tồn Tại");
+                        Service.gI().sendThongBaoOK(session, "Tên Nhân Vật �?ã Tồn Tại");
                     } else {
                         if (Util.haveSpecialCharacter(name)) {
-                            Service.gI().sendThongBaoOK(session, "Tên Nhân Vật Không Được Chứa Ki Tự Đặc Biệt");
+                            Service.gI().sendThongBaoOK(session, "Tên Nhân Vật Không �?ược Chứa Ki Tự �?ặc Biệt");
                         } else {
                             boolean isNotIgnoreName = true;
                             for (String n : ConstIgnoreName.IGNORE_NAME) {
                                 if (name.equals(n)) {
-                                    Service.gI().sendThongBaoOK(session, "Tên Nhân Vật Đã Tồn Tại");
+                                    Service.gI().sendThongBaoOK(session, "Tên Nhân Vật �?ã Tồn Tại");
                                     isNotIgnoreName = false;
                                     break;
                                 }
@@ -774,7 +774,7 @@ public class Controller implements IMessageHandler {
                         }
                     }
                 } else {
-                    Service.gI().sendThongBaoOK(session, "Tên Nhân Vật Tối Đa 6 Kí Tự");
+                    Service.gI().sendThongBaoOK(session, "Tên Nhân Vật Tối �?a 6 Kí Tự");
                 }
             } catch (Exception e) {
                 Logger.logException(Controller.class, e);
@@ -794,9 +794,9 @@ public class Controller implements IMessageHandler {
         if (!player.getSession().actived) {
             Service.gI().sendThongBaoFromAdmin(player, "|7|"
                     + "Active Status : "
-                    + (player.getSession().actived == true ? "Đã Mở Thành Viên\n"
+                    + (player.getSession().actived == true ? "�?ã Mở Thành Viên\n"
                     : "Chưa Mở Thành Viên\n"
-                    + "Nrotuonglai.com -> Đăng Nhập -> Nạp Tiền -> Tài Khoản\n"
+                    + "Nrotuonglai.com -> �?ăng Nhập -> Nạp Ti�?n -> Tài Khoản\n"
                     + "Không Thể GD, Kí Gửi"));
         }
 
@@ -804,7 +804,7 @@ public class Controller implements IMessageHandler {
 
     public void login2(MySession session, Message msg) {
         Service.gI().switchToRegisterScr(session);
-        Service.gI().sendThongBaoOK(session, "Vui Lòng Đăng Ký Tài Khoản Tại Trang Chủ!");
+        Service.gI().sendThongBaoOK(session, "Vui Lòng �?ăng Ký Tài Khoản Tại Trang Chủ!");
     }
 
     public void sendInfo(MySession session) {
@@ -864,7 +864,7 @@ public class Controller implements IMessageHandler {
 
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
-                    "Chào mừng " + player.name + " đến với Máy Chủ Ngọc rồng Kuroko\n"
+                    "Chào mừng " + player.name + " đến với Máy Chủ Ng�?c rồng Kuroko\n"
                     + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
                     + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         }
@@ -875,10 +875,10 @@ public class Controller implements IMessageHandler {
         // }
 
         if (player.vip >= 1 && player.vip < 5) {
-            ServerNotify.gI().notify("Người Chơi: " + player.name + ", VIP: " + player.vip + " Đã Vào Game");
+            ServerNotify.gI().notify("Ngư�?i Chơi: " + player.name + ", VIP: " + player.vip + " �?ã Vào Game");
         } else if (player.vip >= 5) {
-            ServerNotify.gI().notify("Người Chơi: " + player.name + ", SVIP"
-                    + " Đã Vào Game");
+            ServerNotify.gI().notify("Ngư�?i Chơi: " + player.name + ", SVIP"
+                    + " �?ã Vào Game");
         }
         if (player.inventory.itemsBody.get(11).isNotNullItem()) {
             new Thread(() -> {

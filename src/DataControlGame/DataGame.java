@@ -11,7 +11,7 @@ package DataControlGame;
  */
 public class DataGame {
 
-    public static String IPServerGame = "Nro Kuroko:fw.nrokuroko.online:2010:0,0,0";
+    public static String IPServerGame = "NRO DAU PHA:36.50.135.62:13579:0,0,0";
     public static boolean IsBaoTri = false;
     public final static int TiLeRoiDoThanBoss = 2;
     public final static int TiLeNap = 1;

@@ -80,7 +80,16 @@ public class Util {
             }
         }).start();
     }
-
+    public static long GH(double a) {
+        if (a > 0L && a <= 1L) {
+            a = 1L;
+        }
+        if (a > Long.MAX_VALUE) {
+            a = Long.MAX_VALUE;
+        }
+        return (long) a;
+    }
+    
     public static int createIdDuongTank(int idPlayer) {
         return -idPlayer - 100_000_000;
     }
@@ -180,7 +189,7 @@ public class Util {
         String hhString = String.valueOf(hh);
         String time;
         if (hh != 0) {
-            time = hhString + " giờ, " + mmString + " phút, " + ssString + " giây";
+            time = hhString + " gi�?, " + mmString + " phút, " + ssString + " giây";
         } else if (mm != 0) {
             time = mmString + " phút, " + ssString + "giây";
         } else if (ss != 0) {

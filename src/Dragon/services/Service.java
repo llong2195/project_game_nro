@@ -84,7 +84,7 @@ public class Service {
 
     public void managePlayer(Player player, Message _msg) {
         if (!player.getSession().isAdmin) {
-            Service.gI().sendThongBao(player, "Chỉ dành cho Admin");
+            Service.gI().sendThongBao(player, "Ch? d�nh cho Admin");
             return;
         }
         if (_msg != null) {
@@ -103,19 +103,19 @@ public class Service {
                             + "\nAccount ID : " + pl.id + " | " + "IP Connect : " + pl.getSession().ipAddress + " | "
                             + "Version Mod : " + pl.getSession().version
                             + "\nActive : " + (pl.getSession().actived == true ? "On" : "Off")
-                            + "\nThỏi Vàng : " + Util.format(sl)
-                            + "\nHồng Ngọc : " + Util.format(pl.inventory.ruby)
-                            + "\nTổng Nạp : " + Util.format(pl.getSession().tongnap)
-                            + "\nVNĐ : " + Util.format(pl.getSession().vnd)
+                            + "\nTh??i V�ng : " + Util.format(sl)
+                            + "\nH?ng Ng??c : " + Util.format(pl.inventory.ruby)
+                            + "\nT?ng N?p : " + Util.format(pl.getSession().tongnap)
+                            + "\nVN?? : " + Util.format(pl.getSession().vnd)
                             + "\n|7|[ DRAGONBALL Kamui ]",
-                            new String[]{"ĐỔI TÊN", "BAN", "KICK", "ACTIVE", "ĐỆ TỬ", "DANH HIỆU", "NHIỆM VỤ",
-                                "GIAM GIỮ", "MAKE ADMIN", "THU ITEM"},
+                            new String[]{"???I T�N", "BAN", "KICK", "ACTIVE", "??? T?", "DANH HI?U", "NHI?M V?",
+                                "GIAM GI?", "MAKE ADMIN", "THU ITEM"},
                             pl);
                 } else {
-                    Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
+                    Service.gI().sendThongBao(player, "Ng???i ch?i kh�ng t?n t?i ho?c ?ang offline");
                 }
             } catch (IOException e) {
-                System.out.println("Lỗi Manager Player");
+                System.out.println("L?i Manager Player");
             }
         } else {
             System.out.println("Manager Player msg null");
@@ -171,7 +171,7 @@ public class Service {
             e.printStackTrace();
         }
     }
-    // Phước Nơi Chứa Danh Hiệu
+    // Ph??c N?i Ch?a Danh Hi?u
 
     public void sendTitle(Player player, int id) {
         Message me;
@@ -456,7 +456,7 @@ public class Service {
                 msg.writer().writeUTF(top.getInfo1());
                 msg.writer().writeUTF(
                         isPVP == 1
-                                ? ("Sức Đánh: " + pl.nPoint.dame + "\n" + "HP: " + pl.nPoint.hpMax + "\n" + "KI: "
+                                ? ("S?c ??�nh: " + pl.nPoint.dame + "\n" + "HP: " + pl.nPoint.hpMax + "\n" + "KI: "
                                 + pl.nPoint.mpMax + "\n")
                                 : top.getInfo2());
             }
@@ -472,7 +472,7 @@ public class Service {
             msg.dispose();
             return;
         }
-        List<Player> players = new ArrayList<>(player.zone.getPlayers()); // Tạo bản sao của danh sách players
+        List<Player> players = new ArrayList<>(player.zone.getPlayers()); // T?o b?n sao c?a danh s�ch players
         if (players.isEmpty()) {
             msg.dispose();
             return;
@@ -1069,9 +1069,9 @@ public class Service {
 
     public void regisAccount(Session session, Message _msg) {
         try {
-            // Đọc dữ liệu từ message
-            _msg.readUTF(); // Bạn có thể cần xác định các trường cụ thể mà không cần dùng nếu không cần
-            // thiết
+            // ????c d? li?u t? message
+            _msg.readUTF(); // B?n c� th? c?n x�c ??nh c�c tr???ng c? th? m� kh�ng c?n d�ng n?u kh�ng c?n
+            // thi?t
             _msg.readUTF();
             _msg.readUTF();
             _msg.readUTF();
@@ -1079,24 +1079,24 @@ public class Service {
             _msg.readUTF();
             _msg.readUTF();
 
-            // Hiện thông báo yêu cầu người dùng lên web để đăng ký
-            sendThongBaoOK((MySession) session, "Vui lòng lên web để đăng ký tài khoản!");
+            // Hi?n th�ng b�o y�u c?u ng???i d�ng l�n web ?? ??ng k�
+            sendThongBaoOK((MySession) session, "Vui l�ng l�n web ?? ??ng k� t�i kho?n!");
 
-            // Nếu bạn muốn không cần đọc user và pass, có thể bỏ qua
+            // N?u b?n mu?n kh�ng c?n ???c user v� pass, c� th? b?? qua
             // String user = _msg.readUTF();
             // String pass = _msg.readUTF();
         } catch (Exception e) {
-            e.printStackTrace(); // In ra thông báo lỗi nếu có
+            e.printStackTrace(); // In ra th�ng b�o l?i n?u c�
         }
     }
 
     public void Send_Info_NV(Player pl) {
         Message msg;
         try {
-            msg = Service.gI().messageSubCommand((byte) 14);// Cập nhật máu
+            msg = Service.gI().messageSubCommand((byte) 14);// C?p nh?t m�u
             msg.writer().writeInt((int) pl.id);
             msg.writeDouble(pl.nPoint.hp);
-            msg.writer().writeByte(0);// Hiệu ứng Ăn Đậu
+            msg.writer().writeByte(0);// Hi?u ?ng ?n ???u
             msg.writeDouble(pl.nPoint.hpMax);
             sendMessAnotherNotMeInMap(pl, msg);
             msg.cleanup();
@@ -1205,7 +1205,7 @@ public class Service {
                 DataGame.updateData(player.getSession());
                 return;
             }
-            if (text.equals("r")) { // hồi all skill, Ki
+            if (text.equals("r")) { // h?i all skill, Ki
                 Service.getInstance().releaseCooldownSkill(player);
                 return;
             }
@@ -1239,7 +1239,7 @@ public class Service {
             } else if (text.equals("hs")) {
                 player.nPoint.setFullHpMpDame();
                 PlayerService.gI().sendInfoHpMp(player);
-                sendThongBao(player, "Quyền năng trị liệu\n");
+                sendThongBao(player, "Quy??n n?ng tr? li?u\n");
                 return;
             } else if (text.equals("m")) {
                 sendThongBao(player, "Map " + player.zone.map.mapName + " (" + player.zone.map.mapId + ")");
@@ -1288,12 +1288,12 @@ public class Service {
 
                     Service.gI().point(player);
                     Service.gI().sendThongBao(player,
-                            "Bạn vừa tự cộng cho mình " + Util.powerToString((long) powerToAdd) + " sức mạnh.");
+                            "B?n v?a t? c?ng cho m�nh " + Util.powerToString((long) powerToAdd) + " s?c m?nh.");
                     PlayerService.gI().sendInfoHpMp(player);
                 } catch (NumberFormatException e) {
-                    sendThongBao(player, "Số không hợp lệ. Dùng: setpoint_ hoặc setpoin_ [số sức mạnh]");
+                    sendThongBao(player, "S? kh�ng h?p l?. D�ng: setpoint_ ho?c setpoin_ [s? s?c m?nh]");
                 } catch (Exception e) {
-                    sendThongBao(player, "Cú pháp không hợp lệ. Dùng: setpoint_ hoặc setpoin_ [sức mạnh tùy chọn]");
+                    sendThongBao(player, "C� ph�p kh�ng h?p l?. D�ng: setpoint_ ho?c setpoin_ [s?c m?nh t�y ch??n]");
                 }
             } else if (text.startsWith("i")) {
                 System.out.println("Item: " + text);
@@ -1303,37 +1303,37 @@ public class Service {
                     if (it != null && item.length == 1) {
                         InventoryServiceNew.gI().addItemBag(player, it);
                         InventoryServiceNew.gI().sendItemBags(player);
-                        Service.gI().sendThongBao(player, "Đã nhận được " + it.template.name);
+                        Service.gI().sendThongBao(player, "??� nh?n ???c " + it.template.name);
                     } else if (it != null && item.length == 2
                             && Client.gI().getPlayer(String.valueOf(item[1])) == null) {
                         it.quantity = Integer.parseInt(item[1]);
                         InventoryServiceNew.gI().addItemBag(player, it);
                         InventoryServiceNew.gI().sendItemBags(player);
                         Service.gI().sendThongBao(player,
-                                "Đã nhận được x" + Integer.valueOf(item[1]) + " " + it.template.name);
+                                "??� nh?n ???c x" + Integer.valueOf(item[1]) + " " + it.template.name);
                     } else if (it != null && item.length == 2
                             && Client.gI().getPlayer(String.valueOf(item[1])) != null) {
                         String name = String.valueOf(item[1]);
                         InventoryServiceNew.gI().addItemBag(Client.gI().getPlayer(name), it);
                         InventoryServiceNew.gI().sendItemBags(Client.gI().getPlayer(name));
-                        Service.gI().sendThongBao(player, "Đã buff " + it.template.name + " đến player " + name);
-                        Service.gI().sendThongBao(Client.gI().getPlayer(name), "Đã nhận được " + it.template.name);
+                        Service.gI().sendThongBao(player, "??� buff " + it.template.name + " ??n player " + name);
+                        Service.gI().sendThongBao(Client.gI().getPlayer(name), "??� nh?n ???c " + it.template.name);
                     } else if (it != null && item.length == 3
                             && Client.gI().getPlayer(String.valueOf(item[2])) != null) {
                         String name = String.valueOf(item[2]);
                         it.quantity = Integer.parseInt(item[1]);
                         InventoryServiceNew.gI().addItemBag(Client.gI().getPlayer(name), it);
                         InventoryServiceNew.gI().sendItemBags(Client.gI().getPlayer(name));
-                        Service.gI().sendThongBao(player, "Đã buff x" + Integer.valueOf(item[1]) + " "
-                                + it.template.name + " đến player " + name);
+                        Service.gI().sendThongBao(player, "??� buff x" + Integer.valueOf(item[1]) + " "
+                                + it.template.name + " ??n player " + name);
                         Service.gI().sendThongBao(Client.gI().getPlayer(name),
-                                "Đã nhận được x" + Integer.valueOf(item[1]) + " " + it.template.name);
+                                "??� nh?n ???c x" + Integer.valueOf(item[1]) + " " + it.template.name);
                     } else {
-                        Service.gI().sendThongBao(player, "Không tìm thấy player");
+                        Service.gI().sendThongBao(player, "Kh�ng t�m th?y player");
                     }
 
                 } catch (NumberFormatException e) {
-                    Service.gI().sendThongBao(player, "Không tìm thấy player");
+                    Service.gI().sendThongBao(player, "Kh�ng t�m th?y player");
                 }
                 return;
             }
@@ -1353,12 +1353,12 @@ public class Service {
 
             if (text.equals("ad")) {
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, 21587,
-                        "|4| Người Đang Chơi: " + Client.gI().getPlayers().size() + "\n" + "|8|Current thread: "
+                        "|4| Ng???i ??ang Ch?i: " + Client.gI().getPlayers().size() + "\n" + "|8|Current thread: "
                         + (Thread.activeCount() - ServerManager.gI().threadMap)
                         + " : Session " + GirlkunSessionManager.gI().getSessions().size()
-                        + "\n|7|CPU: " + cpuUsage + "/100%" + " ♥ " + "RAM: " + usedPhysicalMemoryStr + "/10GB"
+                        + "\n|7|CPU: " + cpuUsage + "/100%" + " ? " + "RAM: " + usedPhysicalMemoryStr + "/10GB"
                         + "\n|7|Time start server: " + ServerManager.timeStart,
-                        "Menu Admin", "Call Boss", "Buff Item", "GIFTCODE", "Nạp", "Đóng");
+                        "Menu Admin", "Call Boss", "Buff Item", "GIFTCODE", "N?p", "??�ng");
                 return;
 
             }
@@ -1366,7 +1366,7 @@ public class Service {
                 NpcService.gI().createMenuConMeo(player, 206783, 206783, "|7| Menu bot\n"
                         + "Player Online : " + Client.gI().getPlayers().size() + "\n"
                         + "Bot Online : " + BotManager.gI().bot.size(),
-                        "Bot\nPem Quái", "Bot\nBán Item", "Bot\nSăn Boss", "Đóng");
+                        "Bot\nPem Qu�i", "Bot\nB�n Item", "Bot\nS?n Boss", "??�ng");
                 return;
             }
             if (text.equals("dtu")) {
@@ -1398,7 +1398,7 @@ public class Service {
                 try {
                     int mapId = Integer.parseInt(text.replace("m", ""));
                     ChangeMapService.gI().changeMapInYard(player, mapId, -1, -1);
-                    sendThongBao(player, "|7|" + player.name + " đã dịch chuyển tức thời đến: "
+                    sendThongBao(player, "|7|" + player.name + " ?� d?ch chuy?n t?c th??i ??n: "
                             + player.zone.map.mapName + " (" + player.zone.map.mapId + ")");
                     return;
                 } catch (Exception e) {
@@ -1424,9 +1424,9 @@ public class Service {
                     }
 
                     InventoryServiceNew.gI().sendItemBags(player);
-                    Service.getInstance().sendThongBao(player, "Đã lấy các món đồ từ kho đồ!");
+                    Service.getInstance().sendThongBao(player, "??� l?y c�c m�n ?? t? kho ??!");
                 } else {
-                    // Xử lý khi đầu vào không hợp lệ, ví dụ: "i 1112" hoặc "i 1112 1130 1150"
+                    // X? l� khi ??u v�o kh�ng h?p l?, v� d?: "i 1112" ho?c "i 1112 1130 1150"
                 }
             } else if (text.equals("keyz")) {// ???
                 Input.gI().createFormGiveItem(player);
@@ -1452,20 +1452,20 @@ public class Service {
             System.out.println("Creating dungeon instance for player " + player.name);
             try {
                 if (player.zone.map.mapId != 36) {
-                    sendThongBao(player, "Di chuyển đến map dungeon...");
+                    sendThongBao(player, "Di chuy?n ??n map dungeon...");
                     Dragon.services.func.ChangeMapService.gI().changeMapInYard(player, 36, -1, -1);
-                    sendThongBao(player, "Hãy chat 'dungoen' lại sau khi đã vào map 36!");
+                    sendThongBao(player, "H�y chat 'dungoen' l?i sau khi ?� v�o map 36!");
                     return;
                 }
                 Dragon.thuongnhanthanbi.Dungeon_Manager dungeonManager = Dragon.thuongnhanthanbi.Dungeon_Manager.gI();
                 String instanceId = java.util.UUID.randomUUID().toString();
                 Dragon.thuongnhanthanbi.DungeonInstance dungeonInstance = new Dragon.thuongnhanthanbi.DungeonInstance(
                         instanceId, player.zone, player);
-                sendThongBao(player, "Đã tạo dungeon test thành công! Instance ID: " + instanceId);
-                sendThongBao(player, "Dungeon bắt đầu ngay!");
+                sendThongBao(player, "??� t?o dungeon test th�nh c�ng! Instance ID: " + instanceId);
+                sendThongBao(player, "Dungeon b?t ??u ngay!");
                 dungeonInstance.startWave();
             } catch (Exception e) {
-                sendThongBao(player, "Lỗi khi tạo dungeon: " + e.getMessage());
+                sendThongBao(player, "L?i khi t?o dungeon: " + e.getMessage());
                 e.printStackTrace();
             }
             return;
@@ -1478,31 +1478,31 @@ public class Service {
                 if (player.muav == false) {
                     if (player.banv == false) {
                         player.banv = true;
-                        Service.getInstance().sendThongBao(player, "Đã bật tự động bán vàng khi vàng dưới 1 tỷ !");
+                        Service.getInstance().sendThongBao(player, "??� b?t t? ??ng b�n v�ng khi v�ng d??i 1 t? !");
                         lasttimechatbanv = System.currentTimeMillis();
-                        Logger.success("Thằng " + player.name + " chat banv\n");
+                        Logger.success("Th?ng " + player.name + " chat banv\n");
                         return;
                     } else if (player.banv == true) {
                         player.banv = false;
-                        Service.getInstance().sendThongBao(player, "Đã tắt tự động bán vàng khi vàng dưới 1 tỷ !");
+                        Service.getInstance().sendThongBao(player, "??� t?t t? ??ng b�n v�ng khi v�ng d??i 1 t? !");
                         lasttimechatbanv = System.currentTimeMillis();
-                        Logger.success("Thằng " + player.name + " chat banv\n");
+                        Logger.success("Th?ng " + player.name + " chat banv\n");
                         return;
                     }
                 } else {
-                    Service.getInstance().sendThongBao(player, "Vui lòng tắt mua vàng !");
+                    Service.getInstance().sendThongBao(player, "Vui l�ng t?t mua v�ng !");
                     lasttimechatbanv = System.currentTimeMillis();
                     return;
                 }
             } else {
-                Service.getInstance().sendThongBao(player, "Spam chat con mọe m !");
+                Service.getInstance().sendThongBao(player, "Spam chat con m??e m !");
                 return;
             }
         }
         if (text.startsWith("ten con la ")) {
             PetService.gI().changeNamePet(player, text.replaceAll("ten con la ", ""));
             // } else if (text.equals("mabu")) {
-            // sendThongBao(player, "Khởi Tạo Mabu Thành Công: " + (player.mabuEgg !=
+            // sendThongBao(player, "Kh?i T?o Mabu Th�nh C�ng: " + (player.mabuEgg !=
             // null));
             // MabuEgg.createMabuEgg(player);
             // } else if (text.equals("freakyex")) {
@@ -1598,7 +1598,7 @@ public class Service {
                     }
                 } catch (Exception e) {
                 }
-            } // phước autosave
+            } // ph??c autosave
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -1630,16 +1630,16 @@ public class Service {
                     + "|1|Name: " + player.TenThan
                     + "\n|2|Level: " + player.ThanLevel + " ("
                     + (player.ExpThan * 100 / (3000000L + player.ThanLevel * 1500000L)) + "%)"
-                    + "\n|2|Kinh nghiệm: " + Util.format(player.ExpThan)
-                    + "\nCấp bậc: " + player.NameThanthu(player.CapBacThan)
-                    + "\n|5|Thức ăn: " + player.ThucAnThan + "%"
-                    + "\nSức Đánh: " + Util.getFormatNumber(player.DameThan)
-                    + "\nMáu: " + Util.getFormatNumber(player.MauThan)
-                    + "\nKĩ năng: " + player.TrieuHoiKiNang(player.CapBacThan),
-                    "Load Chiến Thần", "Cho ăn\n200 Hồng ngọc", "Đi theo", "Tấn công người", "Tấn công Quái",
-                    "Về nhà", "Auto cho ăn sau 15p", "Đột phá\nChiến Thần");
+                    + "\n|2|Kinh nghi?m: " + Util.format(player.ExpThan)
+                    + "\nC?p b?c: " + player.NameThanthu(player.CapBacThan)
+                    + "\n|5|Th?c ?n: " + player.ThucAnThan + "%"
+                    + "\nS?c ??�nh: " + Util.getFormatNumber(player.DameThan)
+                    + "\nM�u: " + Util.getFormatNumber(player.MauThan)
+                    + "\nK? n?ng: " + player.TrieuHoiKiNang(player.CapBacThan),
+                    "Load Chi?n Th?n", "Cho ?n\n200 H?ng ng??c", "??i theo", "T?n c�ng ng???i", "T?n c�ng Qu�i",
+                    "V?? nh�", "Auto cho ?n sau 15p", "???t ph�\nChi?n Th?n");
         } else {
-            Service.gI().sendThongBaoOK(player, "Bạn chưa có Chiến Thần để sài tính năng này.");
+            Service.gI().sendThongBaoOK(player, "B?n ch?a c� Chi?n Th?n ?? s�i t�nh n?ng n�y.");
         }
     }
 
@@ -1765,7 +1765,7 @@ public class Service {
             msg.writer().writeByte(pl.playerTask.taskMain.id);
             msg.writer().writeByte(pl.gender);
             msg.writer().writeShort(pl.head);
-            // Phước Xóa VIP
+            // Ph??c X�a VIP
             msg.writer().writeUTF(pl.vip < 5 ? pl.name : pl.vip == 5 ? "[SVIP]" + pl.name : pl.name);
             msg.writer().writeByte(0); // cPK
             msg.writer().writeByte(pl.typePk);
@@ -1786,11 +1786,7 @@ public class Service {
             }
 
             // ---vang---luong--luongKhoa
-            if (pl.getSession().version == 15) {// version
-                msg.writer().writeLong(pl.inventory.gold);
-            } else {
-                msg.writer().writeInt((int) pl.inventory.gold);
-            }
+             msg.writer().writeLong(pl.inventory.gold);
             msg.writer().writeInt(pl.inventory.ruby);
             msg.writer().writeInt(pl.inventory.gem);
 
@@ -1860,10 +1856,10 @@ public class Service {
             // -----------------
             DataGame.sendHeadAvatar(msg);
             // -----------------
-            msg.writer().writeShort(514); // char info id - con chim thông báo
+            msg.writer().writeShort(514); // char info id - con chim th�ng b�o
             msg.writer().writeShort(515); // char info id
             msg.writer().writeShort(537); // char info id
-            msg.writer().writeByte(pl.fusion.typeFusion != ConstPlayer.NON_FUSION ? 1 : 0); // nhập thể
+            msg.writer().writeByte(pl.fusion.typeFusion != ConstPlayer.NON_FUSION ? 1 : 0); // nh?p th?
             // msg.writer().writeInt(1632811835); //deltatime
             msg.writer().writeInt(333); // deltatime
             msg.writer().writeByte(pl.isNewMember ? 1 : 0); // is new member
@@ -1979,9 +1975,9 @@ public class Service {
     public String get_HanhTinh(int hanhtinh) {
         switch (hanhtinh) {
             case 0:
-                return "Trái Đất";
+                return "Tr�i ???t";
             case 1:
-                return "Namếc";
+                return "Nam?c";
             case 2:
                 return "Xayda";
             default:
@@ -2148,7 +2144,7 @@ public class Service {
                 ((Thu_TrieuHoi) pl).LasttimeHs = System.currentTimeMillis();
             }
             if (pl.zone.map.mapId == 51) {
-                ChangeMapService.gI().changeMapBySpaceShip(pl, 3, 0, -1);// Phước load map 3
+                ChangeMapService.gI().changeMapBySpaceShip(pl, 3, 0, -1);// Ph??c load map 3
             }
             msg = new Message(-8);
             msg.writer().writeShort((int) pl.id);
@@ -2186,9 +2182,9 @@ public class Service {
                 msg.writer().writeShort(head);// set head
                 msg.writer().writeShort(body);// setbody
                 msg.writer().writeShort(leg);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
-                msg.writer().writeByte(player.effectSkill.isTranformation ? 1 : 0);// set khỉ
-                msg.writer().writeByte(player.effectSkill.isEvolution ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
+                msg.writer().writeByte(player.effectSkill.isTranformation ? 1 : 0);// set kh?
+                msg.writer().writeByte(player.effectSkill.isEvolution ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2209,7 +2205,7 @@ public class Service {
                 msg.writer().writeShort(head);// set head
                 msg.writer().writeShort(body);// setbody
                 msg.writer().writeShort(leg);// set leg
-                msg.writer().writeByte(0);// set khỉ
+                msg.writer().writeByte(0);// set kh?
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2230,7 +2226,7 @@ public class Service {
                 msg.writer().writeShort(head);// set head
                 msg.writer().writeShort(body);// setbody
                 msg.writer().writeShort(leg);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2248,7 +2244,7 @@ public class Service {
                 msg.writer().writeShort(1575);// set head
                 msg.writer().writeShort(1576);// setbody
                 msg.writer().writeShort(1577);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2267,7 +2263,7 @@ public class Service {
                 msg.writer().writeShort(1578);// set head
                 msg.writer().writeShort(1579);// setbody
                 msg.writer().writeShort(1580);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2286,7 +2282,7 @@ public class Service {
                 msg.writer().writeShort(1674);// set head
                 msg.writer().writeShort(1675);// setbody
                 msg.writer().writeShort(1676);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2305,7 +2301,7 @@ public class Service {
                 msg.writer().writeShort(1680);// set head
                 msg.writer().writeShort(1681);// setbody
                 msg.writer().writeShort(1682);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2324,7 +2320,7 @@ public class Service {
                 msg.writer().writeShort(1683);// set head
                 msg.writer().writeShort(1684);// setbody
                 msg.writer().writeShort(1685);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2343,7 +2339,7 @@ public class Service {
                 msg.writer().writeShort(1686);// set head
                 msg.writer().writeShort(1687);// setbody
                 msg.writer().writeShort(1688);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2362,7 +2358,7 @@ public class Service {
                 msg.writer().writeShort(1566);// set head
                 msg.writer().writeShort(1567);// setbody
                 msg.writer().writeShort(1568);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2381,7 +2377,7 @@ public class Service {
                 msg.writer().writeShort(1569);// set head
                 msg.writer().writeShort(1570);// setbody
                 msg.writer().writeShort(1571);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2400,7 +2396,7 @@ public class Service {
                 msg.writer().writeShort(1572);// set head
                 msg.writer().writeShort(1573);// setbody
                 msg.writer().writeShort(1574);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2419,7 +2415,7 @@ public class Service {
                 msg.writer().writeShort(1234);// set head
                 msg.writer().writeShort(1235);// setbody
                 msg.writer().writeShort(1236);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2438,7 +2434,7 @@ public class Service {
                 msg.writer().writeShort(1237);// set head
                 msg.writer().writeShort(1238);// setbody
                 msg.writer().writeShort(1239);// set leg
-                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set khỉ
+                msg.writer().writeByte(player.effectSkill.isMonkey ? 1 : 0);// set kh?
                 sendMessAllPlayerInMap(player, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2728,14 +2724,14 @@ public class Service {
     public void chooseFlag(Player pl, int index) {
         if (MapService.gI().isMapBlackBallWar(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId)
                 || MapService.gI().isMapPVP(pl.zone.map.mapId)) {
-            sendThongBao(pl, "Không Thể Đổi Cờ Lúc Này!");
+            sendThongBao(pl, "Kh�ng Th? ???i C?? L�c N�y!");
             return;
         }
         if (Util.canDoWithTime(pl.iDMark.getLastTimeChangeFlag(), 60000)) {
             changeFlag(pl, index);
         } else {
-            sendThongBao(pl, "Không thể đổi cờ lúc này! Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeFlag(), 60) + " nữa!");
+            sendThongBao(pl, "Kh�ng th? ??i c?? l�c n�y! Vui l�ng ??i "
+                    + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeFlag(), 60) + " n?a!");
         }
     }
 
@@ -2819,8 +2815,81 @@ public class Service {
             Logger.logException(Service.class, e);
         }
     }
-
     public void showInfoPet(Player pl) {
+        if (pl != null && pl.pet != null) {
+            Message msg;
+            try {
+                msg = new Message(-107);
+                msg.writer().writeByte(2);
+                msg.writer().writeShort(pl.pet.getHead());
+                msg.writer().writeByte(pl.pet.inventory.itemsBody.size());
+
+                for (Item item : pl.pet.inventory.itemsBody) {
+                    if (!item.isNotNullItem()) {
+                        msg.writer().writeShort(-1);
+                    } else {
+                        msg.writer().writeShort(item.template.id);
+                        msg.writer().writeInt(item.quantity);
+                        msg.writer().writeUTF(item.getInfo());
+                        msg.writer().writeUTF(item.getContent());
+
+                        int countOption = item.itemOptions.size();
+                        msg.writer().writeByte(countOption);
+                        for (ItemOption iop : item.itemOptions) {
+                            msg.writer().writeByte(iop.optionTemplate.id);
+                            msg.writer().writeShort(iop.param);
+                        }
+                    }
+                }
+
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hp)); // hp
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hpMax)); // hpfull
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.mp)); // mp
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.mpMax)); // mpfull
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.dame)); // damefull
+                msg.writer().writeUTF(pl.pet.name); // name
+                msg.writer().writeUTF(getCurrStrLevel(pl.pet)); // curr level
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.power)); // power
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.tiemNang)); // ti??m n?ng
+                msg.writer().writeByte(pl.pet.getStatus()); // status
+                msg.writer().writeShort(pl.pet.nPoint.stamina); // stamina
+                msg.writer().writeShort(pl.pet.nPoint.maxStamina); // stamina full
+                msg.writer().writeByte(pl.pet.nPoint.crit); // crit
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.def)); // def
+                msg.writer().writeByte(4); //counnt pet skill
+                for (int i = 0; i < pl.pet.playerSkill.skills.size(); i++) {
+                    if (pl.pet.playerSkill.skills.get(i).skillId != -1) {
+                        msg.writer().writeShort(pl.pet.playerSkill.skills.get(i).skillId);
+                    } else {
+                        switch (i) {
+                            case 1:
+                                msg.writer().writeShort(-1);
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 150tr ?? m?");
+                                break;
+                            case 2:
+                                msg.writer().writeShort(-1);
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 1t?5 ?? m?");
+                                break;
+                            case 3:
+                                msg.writer().writeShort(-1);
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 20t?\n?? m?");
+                                break;
+                            default:
+                                msg.writer().writeShort(-1);
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 60t?\n?? m?");
+                                break;
+                        }
+                    }
+                }
+                pl.sendMessage(msg);
+                msg.cleanup();
+
+            } catch (Exception e) {
+                Logger.logException(Service.class, e);
+            }
+        }
+    }
+    public void showInfoPet1(Player pl) {
         if (pl != null && pl.pet != null) {
             Message msg;
             try {
@@ -2849,13 +2918,13 @@ public class Service {
                     }
                 }
 
-                if (pl.getSession() != null && pl.getSession().version == 15) {// version
-                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hpg));
-                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.mpg));
-                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.dameg));
-                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.defg));
-                    msg.writer().writeInt(pl.pet.nPoint.critg);
-                }
+//                if (pl.getSession() != null && pl.getSession().version == 15) {// version
+//                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hpg));
+//                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.mpg));
+//                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.dameg));
+//                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.defg));
+//                    msg.writer().writeInt(pl.pet.nPoint.critg);
+//                }
 
                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hp)); // hp
                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hpMax)); // hpfull
@@ -2865,12 +2934,12 @@ public class Service {
                 msg.writer().writeUTF(pl.pet.name); // name
                 msg.writer().writeUTF(getCurrStrLevel(pl.pet)); // curr level
                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.power)); // power
-                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.tiemNang)); // tiềm năng
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.tiemNang)); // ti??m n?ng
                 msg.writer().writeByte(pl.pet.getStatus()); // status
                 msg.writer().writeShort(pl.pet.nPoint.stamina); // stamina
                 msg.writer().writeShort(pl.pet.nPoint.maxStamina); // stamina full
                 msg.writer().writeByte(pl.pet.nPoint.crit); // crit
-                msg.writer().writeShort(Util.maxShort((long) pl.pet.nPoint.def)); // def
+                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.def)); // def
                 int sizeSkill = pl.pet.playerSkill.skills.size();
                 msg.writer().writeByte(5); // counnt pet skill
                 for (int i = 0; i < pl.pet.playerSkill.skills.size(); i++) {
@@ -2880,19 +2949,19 @@ public class Service {
                         switch (i) {
                             case 1:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần đạt sức mạnh 150tr để mở");
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 150tr ?? m?");
                                 break;
                             case 2:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần đạt sức mạnh 1tỷ5 để mở");
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 1t?5 ?? m?");
                                 break;
                             case 3:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần đạt sức mạnh 20tỷ\nđể mở");
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 20t?\n?? m?");
                                 break;
                             default:
                                 msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Cần đạt sức mạnh 60tỷ\nđể mở");
+                                msg.writer().writeUTF("C?n ??t s?c m?nh 60t?\n?? m?");
                                 break;
                         }
                     }
@@ -2998,19 +3067,19 @@ public class Service {
                     try {
                         GirlkunDB.executeUpdate("update account set password = ? where id = ? and username = ?",
                                 rePass, player.getSession().userId, player.getSession().uu);
-                        Service.gI().sendThongBao(player, "Đổi Mật Khẩu Thành Công!");
+                        Service.gI().sendThongBao(player, "???i M?t Kh?u Th�nh C�ng!");
                     } catch (Exception ex) {
-                        Service.gI().sendThongBao(player, "Đổi Mật Khẩu Thất Bại!");
+                        Service.gI().sendThongBao(player, "???i M?t Kh?u Th?t B?i!");
                         Logger.logException(Service.class, ex);
                     }
                 } else {
-                    Service.gI().sendThongBao(player, "Mật Khẩu Nhập Lại Không Đúng!");
+                    Service.gI().sendThongBao(player, "M?t Kh?u Nh?p L?i Kh�ng ??�ng!");
                 }
             } else {
-                Service.gI().sendThongBao(player, "Mật Khẩu It Nhất 5 Kí Tự!");
+                Service.gI().sendThongBao(player, "M?t Kh?u It Nh?t 5 K� T?!");
             }
         } else {
-            Service.gI().sendThongBao(player, "Mật Khẩu Cũ Không Đúng!");
+            Service.gI().sendThongBao(player, "M?t Kh?u C? Kh�ng ??�ng!");
         }
     }
 
@@ -3031,8 +3100,8 @@ public class Service {
             msg = new Message(-41);
             msg.writer().writeByte(Manager.CAPTIONS.size());
             for (String caption : Manager.CAPTIONS) {
-                msg.writer().writeUTF(caption.replaceAll("%1", gender == ConstPlayer.TRAI_DAT ? "Trái đất"
-                        : (gender == ConstPlayer.NAMEC ? "Namếc" : "Xayda")));
+                msg.writer().writeUTF(caption.replaceAll("%1", gender == ConstPlayer.TRAI_DAT ? "Tr�i ??t"
+                        : (gender == ConstPlayer.NAMEC ? "Nam?c" : "Xayda")));
             }
             session.sendMessage(msg);
             msg.cleanup();
@@ -3106,7 +3175,7 @@ public class Service {
             String platform = msg.reader().readUTF();
             String[] arrPlatform = platform.split("\\|");
             session.version = Integer.parseInt(arrPlatform[1].replaceAll("\\.", ""));
-
+            System.out.println("version: " + session.version);
             // System.out.println(platform);
         } catch (Exception e) {
         } finally {
