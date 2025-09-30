@@ -658,8 +658,19 @@ public class Zone {
     }
 
     // Getters/Setters replacing Lombok for referees
-    public Player getReferee() { return referee; }
-    public void setReferee(Player referee) { this.referee = referee; }
-    public Player getReferee1() { return referee1; }
-    public void setReferee1(Player referee1) { this.referee1 = referee1; }
+    public Player getReferee() {
+        return referee;
+    }
+
+    public void setReferee(Player referee) {
+        this.referee = referee;
+    }
+
+    public Player getReferee1() {
+        return referee1;
+    }
+
+    public void setReferee1(Player referee1) {
+        this.referee1 = referee1;
+    }
 }

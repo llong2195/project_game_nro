@@ -76,7 +76,6 @@ public class ShopServiceNew {
     // private void _________________Xử_lý_cửa_hàng_trước_khi_gửi_______________() {
     // //**********************************************************************
     // }
-
     private Shop resolveShop(Player player, Shop shop, boolean allGender) {
         if (shop.tagName != null && (shop.tagName.equals("BUA_1H")
                 || shop.tagName.equals("BUA_8H") || shop.tagName.equals("BUA_1M"))) {
@@ -142,7 +141,6 @@ public class ShopServiceNew {
     // private void _________________Gui_cua_hang_cho_nguoi_choi________________() {
     // //**********************************************************************
     // }
-
     private void openShopType0(Player player, Shop shop) {
         player.iDMark.setShopOpen(shop);
         player.iDMark.setTagNameShop(shop.tagName);
@@ -452,7 +450,6 @@ public class ShopServiceNew {
     // private void _________________Bán_vật_phẩm______________________________() {
     // //**********************************************************************
     // }
-
     private boolean subIemByItemShop(Player pl, ItemShop itemShop) {
         boolean isBuy = false;
         short itSpec = ItemService.gI().getItemIdByIcon((short) itemShop.iconSpec);
@@ -579,13 +576,13 @@ public class ShopServiceNew {
             item = pl.inventory.itemsBag.get(index);
         }
         if (item != null && item.template.id != 921 && item.template.id != 454 && item.template.id != 194) { // Them
-                                                                                                             // dieu
-                                                                                                             // kien
-                                                                                                             // kiem tra
-                                                                                                             // id cua
-                                                                                                             // vat pham
-                                                                                                             // khac voi
-                                                                                                             // 921
+            // dieu
+            // kien
+            // kiem tra
+            // id cua
+            // vat pham
+            // khac voi
+            // 921
             int quantity = item.quantity;
             int cost = item.template.gold;
             if (item.template.id == 457) {

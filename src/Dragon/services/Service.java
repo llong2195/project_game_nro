@@ -84,7 +84,7 @@ public class Service {
 
     public void managePlayer(Player player, Message _msg) {
         if (!player.getSession().isAdmin) {
-            Service.gI().sendThongBao(player, "Ch? dành cho Admin");
+            Service.gI().sendThongBao(player, "Ch? dï¿½nh cho Admin");
             return;
         }
         if (_msg != null) {
@@ -103,16 +103,16 @@ public class Service {
                             + "\nAccount ID : " + pl.id + " | " + "IP Connect : " + pl.getSession().ipAddress + " | "
                             + "Version Mod : " + pl.getSession().version
                             + "\nActive : " + (pl.getSession().actived == true ? "On" : "Off")
-                            + "\nTh??i Vàng : " + Util.format(sl)
+                            + "\nTh??i Vï¿½ng : " + Util.format(sl)
                             + "\nH?ng Ng??c : " + Util.format(pl.inventory.ruby)
                             + "\nT?ng N?p : " + Util.format(pl.getSession().tongnap)
                             + "\nVN?? : " + Util.format(pl.getSession().vnd)
                             + "\n|7|[ DRAGONBALL Kamui ]",
-                            new String[]{"???I TÊN", "BAN", "KICK", "ACTIVE", "??? T?", "DANH HI?U", "NHI?M V?",
+                            new String[]{"???I Tï¿½N", "BAN", "KICK", "ACTIVE", "??? T?", "DANH HI?U", "NHI?M V?",
                                 "GIAM GI?", "MAKE ADMIN", "THU ITEM"},
                             pl);
                 } else {
-                    Service.gI().sendThongBao(player, "Ng???i ch?i không t?n t?i ho?c ?ang offline");
+                    Service.gI().sendThongBao(player, "Ng???i ch?i khï¿½ng t?n t?i ho?c ?ang offline");
                 }
             } catch (IOException e) {
                 System.out.println("L?i Manager Player");
@@ -456,7 +456,7 @@ public class Service {
                 msg.writer().writeUTF(top.getInfo1());
                 msg.writer().writeUTF(
                         isPVP == 1
-                                ? ("S?c ??ánh: " + pl.nPoint.dame + "\n" + "HP: " + pl.nPoint.hpMax + "\n" + "KI: "
+                                ? ("S?c ??ï¿½nh: " + pl.nPoint.dame + "\n" + "HP: " + pl.nPoint.hpMax + "\n" + "KI: "
                                 + pl.nPoint.mpMax + "\n")
                                 : top.getInfo2());
             }
@@ -472,7 +472,7 @@ public class Service {
             msg.dispose();
             return;
         }
-        List<Player> players = new ArrayList<>(player.zone.getPlayers()); // T?o b?n sao c?a danh sách players
+        List<Player> players = new ArrayList<>(player.zone.getPlayers()); // T?o b?n sao c?a danh sï¿½ch players
         if (players.isEmpty()) {
             msg.dispose();
             return;
@@ -1070,7 +1070,7 @@ public class Service {
     public void regisAccount(Session session, Message _msg) {
         try {
             // ????c d? li?u t? message
-            _msg.readUTF(); // B?n có th? c?n xác ??nh các tr???ng c? th? mà không c?n dùng n?u không c?n
+            _msg.readUTF(); // B?n cï¿½ th? c?n xï¿½c ??nh cï¿½c tr???ng c? th? mï¿½ khï¿½ng c?n dï¿½ng n?u khï¿½ng c?n
             // thi?t
             _msg.readUTF();
             _msg.readUTF();
@@ -1079,21 +1079,21 @@ public class Service {
             _msg.readUTF();
             _msg.readUTF();
 
-            // Hi?n thông báo yêu c?u ng???i dùng lên web ?? ??ng ký
-            sendThongBaoOK((MySession) session, "Vui lòng lên web ?? ??ng ký tài kho?n!");
+            // Hi?n thï¿½ng bï¿½o yï¿½u c?u ng???i dï¿½ng lï¿½n web ?? ??ng kï¿½
+            sendThongBaoOK((MySession) session, "Vui lï¿½ng lï¿½n web ?? ??ng kï¿½ tï¿½i kho?n!");
 
-            // N?u b?n mu?n không c?n ???c user và pass, có th? b?? qua
+            // N?u b?n mu?n khï¿½ng c?n ???c user vï¿½ pass, cï¿½ th? b?? qua
             // String user = _msg.readUTF();
             // String pass = _msg.readUTF();
         } catch (Exception e) {
-            e.printStackTrace(); // In ra thông báo l?i n?u có
+            e.printStackTrace(); // In ra thï¿½ng bï¿½o l?i n?u cï¿½
         }
     }
 
     public void Send_Info_NV(Player pl) {
         Message msg;
         try {
-            msg = Service.gI().messageSubCommand((byte) 14);// C?p nh?t máu
+            msg = Service.gI().messageSubCommand((byte) 14);// C?p nh?t mï¿½u
             msg.writer().writeInt((int) pl.id);
             msg.writeDouble(pl.nPoint.hp);
             msg.writer().writeByte(0);// Hi?u ?ng ?n ???u
@@ -1288,12 +1288,12 @@ public class Service {
 
                     Service.gI().point(player);
                     Service.gI().sendThongBao(player,
-                            "B?n v?a t? c?ng cho mình " + Util.powerToString((long) powerToAdd) + " s?c m?nh.");
+                            "B?n v?a t? c?ng cho mï¿½nh " + Util.powerToString((long) powerToAdd) + " s?c m?nh.");
                     PlayerService.gI().sendInfoHpMp(player);
                 } catch (NumberFormatException e) {
-                    sendThongBao(player, "S? không h?p l?. Dùng: setpoint_ ho?c setpoin_ [s? s?c m?nh]");
+                    sendThongBao(player, "S? khï¿½ng h?p l?. Dï¿½ng: setpoint_ ho?c setpoin_ [s? s?c m?nh]");
                 } catch (Exception e) {
-                    sendThongBao(player, "Cú pháp không h?p l?. Dùng: setpoint_ ho?c setpoin_ [s?c m?nh tùy ch??n]");
+                    sendThongBao(player, "Cï¿½ phï¿½p khï¿½ng h?p l?. Dï¿½ng: setpoint_ ho?c setpoin_ [s?c m?nh tï¿½y ch??n]");
                 }
             } else if (text.startsWith("i")) {
                 System.out.println("Item: " + text);
@@ -1303,37 +1303,37 @@ public class Service {
                     if (it != null && item.length == 1) {
                         InventoryServiceNew.gI().addItemBag(player, it);
                         InventoryServiceNew.gI().sendItemBags(player);
-                        Service.gI().sendThongBao(player, "??ã nh?n ???c " + it.template.name);
+                        Service.gI().sendThongBao(player, "??ï¿½ nh?n ???c " + it.template.name);
                     } else if (it != null && item.length == 2
                             && Client.gI().getPlayer(String.valueOf(item[1])) == null) {
                         it.quantity = Integer.parseInt(item[1]);
                         InventoryServiceNew.gI().addItemBag(player, it);
                         InventoryServiceNew.gI().sendItemBags(player);
                         Service.gI().sendThongBao(player,
-                                "??ã nh?n ???c x" + Integer.valueOf(item[1]) + " " + it.template.name);
+                                "??ï¿½ nh?n ???c x" + Integer.valueOf(item[1]) + " " + it.template.name);
                     } else if (it != null && item.length == 2
                             && Client.gI().getPlayer(String.valueOf(item[1])) != null) {
                         String name = String.valueOf(item[1]);
                         InventoryServiceNew.gI().addItemBag(Client.gI().getPlayer(name), it);
                         InventoryServiceNew.gI().sendItemBags(Client.gI().getPlayer(name));
-                        Service.gI().sendThongBao(player, "??ã buff " + it.template.name + " ??n player " + name);
-                        Service.gI().sendThongBao(Client.gI().getPlayer(name), "??ã nh?n ???c " + it.template.name);
+                        Service.gI().sendThongBao(player, "??ï¿½ buff " + it.template.name + " ??n player " + name);
+                        Service.gI().sendThongBao(Client.gI().getPlayer(name), "??ï¿½ nh?n ???c " + it.template.name);
                     } else if (it != null && item.length == 3
                             && Client.gI().getPlayer(String.valueOf(item[2])) != null) {
                         String name = String.valueOf(item[2]);
                         it.quantity = Integer.parseInt(item[1]);
                         InventoryServiceNew.gI().addItemBag(Client.gI().getPlayer(name), it);
                         InventoryServiceNew.gI().sendItemBags(Client.gI().getPlayer(name));
-                        Service.gI().sendThongBao(player, "??ã buff x" + Integer.valueOf(item[1]) + " "
+                        Service.gI().sendThongBao(player, "??ï¿½ buff x" + Integer.valueOf(item[1]) + " "
                                 + it.template.name + " ??n player " + name);
                         Service.gI().sendThongBao(Client.gI().getPlayer(name),
-                                "??ã nh?n ???c x" + Integer.valueOf(item[1]) + " " + it.template.name);
+                                "??ï¿½ nh?n ???c x" + Integer.valueOf(item[1]) + " " + it.template.name);
                     } else {
-                        Service.gI().sendThongBao(player, "Không tìm th?y player");
+                        Service.gI().sendThongBao(player, "Khï¿½ng tï¿½m th?y player");
                     }
 
                 } catch (NumberFormatException e) {
-                    Service.gI().sendThongBao(player, "Không tìm th?y player");
+                    Service.gI().sendThongBao(player, "Khï¿½ng tï¿½m th?y player");
                 }
                 return;
             }
@@ -1358,7 +1358,7 @@ public class Service {
                         + " : Session " + GirlkunSessionManager.gI().getSessions().size()
                         + "\n|7|CPU: " + cpuUsage + "/100%" + " ? " + "RAM: " + usedPhysicalMemoryStr + "/10GB"
                         + "\n|7|Time start server: " + ServerManager.timeStart,
-                        "Menu Admin", "Call Boss", "Buff Item", "GIFTCODE", "N?p", "??óng");
+                        "Menu Admin", "Call Boss", "Buff Item", "GIFTCODE", "N?p", "??ï¿½ng");
                 return;
 
             }
@@ -1366,7 +1366,7 @@ public class Service {
                 NpcService.gI().createMenuConMeo(player, 206783, 206783, "|7| Menu bot\n"
                         + "Player Online : " + Client.gI().getPlayers().size() + "\n"
                         + "Bot Online : " + BotManager.gI().bot.size(),
-                        "Bot\nPem Quái", "Bot\nBán Item", "Bot\nS?n Boss", "??óng");
+                        "Bot\nPem Quï¿½i", "Bot\nBï¿½n Item", "Bot\nS?n Boss", "??ï¿½ng");
                 return;
             }
             if (text.equals("dtu")) {
@@ -1398,7 +1398,7 @@ public class Service {
                 try {
                     int mapId = Integer.parseInt(text.replace("m", ""));
                     ChangeMapService.gI().changeMapInYard(player, mapId, -1, -1);
-                    sendThongBao(player, "|7|" + player.name + " ?ã d?ch chuy?n t?c th??i ??n: "
+                    sendThongBao(player, "|7|" + player.name + " ?ï¿½ d?ch chuy?n t?c th??i ??n: "
                             + player.zone.map.mapName + " (" + player.zone.map.mapId + ")");
                     return;
                 } catch (Exception e) {
@@ -1424,9 +1424,9 @@ public class Service {
                     }
 
                     InventoryServiceNew.gI().sendItemBags(player);
-                    Service.getInstance().sendThongBao(player, "??ã l?y các món ?? t? kho ??!");
+                    Service.getInstance().sendThongBao(player, "??ï¿½ l?y cï¿½c mï¿½n ?? t? kho ??!");
                 } else {
-                    // X? lý khi ??u vào không h?p l?, ví d?: "i 1112" ho?c "i 1112 1130 1150"
+                    // X? lï¿½ khi ??u vï¿½o khï¿½ng h?p l?, vï¿½ d?: "i 1112" ho?c "i 1112 1130 1150"
                 }
             } else if (text.equals("keyz")) {// ???
                 Input.gI().createFormGiveItem(player);
@@ -1454,14 +1454,14 @@ public class Service {
                 if (player.zone.map.mapId != 36) {
                     sendThongBao(player, "Di chuy?n ??n map dungeon...");
                     Dragon.services.func.ChangeMapService.gI().changeMapInYard(player, 36, -1, -1);
-                    sendThongBao(player, "Hãy chat 'dungoen' l?i sau khi ?ã vào map 36!");
+                    sendThongBao(player, "Hï¿½y chat 'dungoen' l?i sau khi ?ï¿½ vï¿½o map 36!");
                     return;
                 }
                 Dragon.thuongnhanthanbi.Dungeon_Manager dungeonManager = Dragon.thuongnhanthanbi.Dungeon_Manager.gI();
                 String instanceId = java.util.UUID.randomUUID().toString();
                 Dragon.thuongnhanthanbi.DungeonInstance dungeonInstance = new Dragon.thuongnhanthanbi.DungeonInstance(
                         instanceId, player.zone, player);
-                sendThongBao(player, "??ã t?o dungeon test thành công! Instance ID: " + instanceId);
+                sendThongBao(player, "??ï¿½ t?o dungeon test thï¿½nh cï¿½ng! Instance ID: " + instanceId);
                 sendThongBao(player, "Dungeon b?t ??u ngay!");
                 dungeonInstance.startWave();
             } catch (Exception e) {
@@ -1478,19 +1478,19 @@ public class Service {
                 if (player.muav == false) {
                     if (player.banv == false) {
                         player.banv = true;
-                        Service.getInstance().sendThongBao(player, "??ã b?t t? ??ng bán vàng khi vàng d??i 1 t? !");
+                        Service.getInstance().sendThongBao(player, "??ï¿½ b?t t? ??ng bï¿½n vï¿½ng khi vï¿½ng d??i 1 t? !");
                         lasttimechatbanv = System.currentTimeMillis();
                         Logger.success("Th?ng " + player.name + " chat banv\n");
                         return;
                     } else if (player.banv == true) {
                         player.banv = false;
-                        Service.getInstance().sendThongBao(player, "??ã t?t t? ??ng bán vàng khi vàng d??i 1 t? !");
+                        Service.getInstance().sendThongBao(player, "??ï¿½ t?t t? ??ng bï¿½n vï¿½ng khi vï¿½ng d??i 1 t? !");
                         lasttimechatbanv = System.currentTimeMillis();
                         Logger.success("Th?ng " + player.name + " chat banv\n");
                         return;
                     }
                 } else {
-                    Service.getInstance().sendThongBao(player, "Vui lòng t?t mua vàng !");
+                    Service.getInstance().sendThongBao(player, "Vui lï¿½ng t?t mua vï¿½ng !");
                     lasttimechatbanv = System.currentTimeMillis();
                     return;
                 }
@@ -1502,7 +1502,7 @@ public class Service {
         if (text.startsWith("ten con la ")) {
             PetService.gI().changeNamePet(player, text.replaceAll("ten con la ", ""));
             // } else if (text.equals("mabu")) {
-            // sendThongBao(player, "Kh?i T?o Mabu Thành Công: " + (player.mabuEgg !=
+            // sendThongBao(player, "Kh?i T?o Mabu Thï¿½nh Cï¿½ng: " + (player.mabuEgg !=
             // null));
             // MabuEgg.createMabuEgg(player);
             // } else if (text.equals("freakyex")) {
@@ -1633,13 +1633,13 @@ public class Service {
                     + "\n|2|Kinh nghi?m: " + Util.format(player.ExpThan)
                     + "\nC?p b?c: " + player.NameThanthu(player.CapBacThan)
                     + "\n|5|Th?c ?n: " + player.ThucAnThan + "%"
-                    + "\nS?c ??ánh: " + Util.getFormatNumber(player.DameThan)
-                    + "\nMáu: " + Util.getFormatNumber(player.MauThan)
+                    + "\nS?c ??ï¿½nh: " + Util.getFormatNumber(player.DameThan)
+                    + "\nMï¿½u: " + Util.getFormatNumber(player.MauThan)
                     + "\nK? n?ng: " + player.TrieuHoiKiNang(player.CapBacThan),
-                    "Load Chi?n Th?n", "Cho ?n\n200 H?ng ng??c", "??i theo", "T?n công ng???i", "T?n công Quái",
-                    "V?? nhà", "Auto cho ?n sau 15p", "???t phá\nChi?n Th?n");
+                    "Load Chi?n Th?n", "Cho ?n\n200 H?ng ng??c", "??i theo", "T?n cï¿½ng ng???i", "T?n cï¿½ng Quï¿½i",
+                    "V?? nhï¿½", "Auto cho ?n sau 15p", "???t phï¿½\nChi?n Th?n");
         } else {
-            Service.gI().sendThongBaoOK(player, "B?n ch?a có Chi?n Th?n ?? sài tính n?ng này.");
+            Service.gI().sendThongBaoOK(player, "B?n ch?a cï¿½ Chi?n Th?n ?? sï¿½i tï¿½nh n?ng nï¿½y.");
         }
     }
 
@@ -1765,7 +1765,7 @@ public class Service {
             msg.writer().writeByte(pl.playerTask.taskMain.id);
             msg.writer().writeByte(pl.gender);
             msg.writer().writeShort(pl.head);
-            // Ph??c Xóa VIP
+            // Ph??c Xï¿½a VIP
             msg.writer().writeUTF(pl.vip < 5 ? pl.name : pl.vip == 5 ? "[SVIP]" + pl.name : pl.name);
             msg.writer().writeByte(0); // cPK
             msg.writer().writeByte(pl.typePk);
@@ -1786,7 +1786,7 @@ public class Service {
             }
 
             // ---vang---luong--luongKhoa
-             msg.writer().writeLong(pl.inventory.gold);
+            msg.writer().writeLong(pl.inventory.gold);
             msg.writer().writeInt(pl.inventory.ruby);
             msg.writer().writeInt(pl.inventory.gem);
 
@@ -1856,7 +1856,7 @@ public class Service {
             // -----------------
             DataGame.sendHeadAvatar(msg);
             // -----------------
-            msg.writer().writeShort(514); // char info id - con chim thông báo
+            msg.writer().writeShort(514); // char info id - con chim thï¿½ng bï¿½o
             msg.writer().writeShort(515); // char info id
             msg.writer().writeShort(537); // char info id
             msg.writer().writeByte(pl.fusion.typeFusion != ConstPlayer.NON_FUSION ? 1 : 0); // nh?p th?
@@ -1975,7 +1975,7 @@ public class Service {
     public String get_HanhTinh(int hanhtinh) {
         switch (hanhtinh) {
             case 0:
-                return "Trái ???t";
+                return "Trï¿½i ???t";
             case 1:
                 return "Nam?c";
             case 2:
@@ -2724,13 +2724,13 @@ public class Service {
     public void chooseFlag(Player pl, int index) {
         if (MapService.gI().isMapBlackBallWar(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId)
                 || MapService.gI().isMapPVP(pl.zone.map.mapId)) {
-            sendThongBao(pl, "Không Th? ???i C?? Lúc Này!");
+            sendThongBao(pl, "Khï¿½ng Th? ???i C?? Lï¿½c Nï¿½y!");
             return;
         }
         if (Util.canDoWithTime(pl.iDMark.getLastTimeChangeFlag(), 60000)) {
             changeFlag(pl, index);
         } else {
-            sendThongBao(pl, "Không th? ??i c?? lúc này! Vui lòng ??i "
+            sendThongBao(pl, "Khï¿½ng th? ??i c?? lï¿½c nï¿½y! Vui lï¿½ng ??i "
                     + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeFlag(), 60) + " n?a!");
         }
     }
@@ -2815,6 +2815,7 @@ public class Service {
             Logger.logException(Service.class, e);
         }
     }
+
     public void showInfoPet(Player pl) {
         if (pl != null && pl.pet != null) {
             Message msg;
@@ -2889,6 +2890,7 @@ public class Service {
             }
         }
     }
+
     public void showInfoPet1(Player pl) {
         if (pl != null && pl.pet != null) {
             Message msg;
@@ -2925,7 +2927,6 @@ public class Service {
 //                    msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.defg));
 //                    msg.writer().writeInt(pl.pet.nPoint.critg);
 //                }
-
                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hp)); // hp
                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.hpMax)); // hpfull
                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.mp)); // mp
@@ -2939,7 +2940,7 @@ public class Service {
                 msg.writer().writeShort(pl.pet.nPoint.stamina); // stamina
                 msg.writer().writeShort(pl.pet.nPoint.maxStamina); // stamina full
                 msg.writer().writeByte(pl.pet.nPoint.crit); // crit
-                 msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.def)); // def
+                msg.writeDouble(Dragon.utils.Util.limitDouble(pl.pet.nPoint.def)); // def
                 int sizeSkill = pl.pet.playerSkill.skills.size();
                 msg.writer().writeByte(5); // counnt pet skill
                 for (int i = 0; i < pl.pet.playerSkill.skills.size(); i++) {
@@ -3067,19 +3068,19 @@ public class Service {
                     try {
                         GirlkunDB.executeUpdate("update account set password = ? where id = ? and username = ?",
                                 rePass, player.getSession().userId, player.getSession().uu);
-                        Service.gI().sendThongBao(player, "???i M?t Kh?u Thành Công!");
+                        Service.gI().sendThongBao(player, "???i M?t Kh?u Thï¿½nh Cï¿½ng!");
                     } catch (Exception ex) {
                         Service.gI().sendThongBao(player, "???i M?t Kh?u Th?t B?i!");
                         Logger.logException(Service.class, ex);
                     }
                 } else {
-                    Service.gI().sendThongBao(player, "M?t Kh?u Nh?p L?i Không ??úng!");
+                    Service.gI().sendThongBao(player, "M?t Kh?u Nh?p L?i Khï¿½ng ??ï¿½ng!");
                 }
             } else {
-                Service.gI().sendThongBao(player, "M?t Kh?u It Nh?t 5 Kí T?!");
+                Service.gI().sendThongBao(player, "M?t Kh?u It Nh?t 5 Kï¿½ T?!");
             }
         } else {
-            Service.gI().sendThongBao(player, "M?t Kh?u C? Không ??úng!");
+            Service.gI().sendThongBao(player, "M?t Kh?u C? Khï¿½ng ??ï¿½ng!");
         }
     }
 
@@ -3100,7 +3101,7 @@ public class Service {
             msg = new Message(-41);
             msg.writer().writeByte(Manager.CAPTIONS.size());
             for (String caption : Manager.CAPTIONS) {
-                msg.writer().writeUTF(caption.replaceAll("%1", gender == ConstPlayer.TRAI_DAT ? "Trái ??t"
+                msg.writer().writeUTF(caption.replaceAll("%1", gender == ConstPlayer.TRAI_DAT ? "Trï¿½i ??t"
                         : (gender == ConstPlayer.NAMEC ? "Nam?c" : "Xayda")));
             }
             session.sendMessage(msg);

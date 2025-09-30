@@ -75,7 +75,6 @@ public class InventoryServiceNew {
     // private void __________________Tìm_kiếm_item_____________________________() {
     // // **********************************************************************
     // }
-
     public Item findItem(List<Item> list, int tempId) {
         try {
             for (Item item : list) {
@@ -544,7 +543,6 @@ public class InventoryServiceNew {
     // private void __________________Gui_danh_sach_item_cho_nguoi_choi________() {
     // // **********************************************************************
     // }
-
     public void sendItemBags(Player player) {
         sortItems(player.inventory.itemsBag);
         Message msg;
@@ -649,7 +647,6 @@ public class InventoryServiceNew {
     // private void __________________Thêm_vật_phẩm_vào_danh_sách______________() {
     // // **********************************************************************
     // }
-
     private boolean addItemSpecial(Player player, Item item) {
         // bùa
         if (item.template.type == 13) {
@@ -961,7 +958,6 @@ public class InventoryServiceNew {
     // private void __________________Kiem_tra_dieu_kien_vat_pham______________() {
     // // **********************************************************************
     // }
-
     /**
      * Kiểm tra vật phẩm có phải là vật phẩm tăng chỉ số option hay không
      *
@@ -972,10 +968,10 @@ public class InventoryServiceNew {
         for (Item.ItemOption io : item.itemOptions) {
             switch (io.optionTemplate.id) {
                 case 1:
-                    return new int[] { io.optionTemplate.id, io.param };
+                    return new int[]{io.optionTemplate.id, io.param};
             }
         }
-        return new int[] { -1, -1 };
+        return new int[]{-1, -1};
     }
 
     public byte getCountEmptyBag(Player player) {

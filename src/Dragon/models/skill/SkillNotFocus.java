@@ -27,15 +27,35 @@ public class SkillNotFocus extends Skill {
     }
 
     // Getters/Setters
-    public int getTimePre() { return timePre; }
-    public void setTimePre(int timePre) { this.timePre = timePre; }
+    public int getTimePre() {
+        return timePre;
+    }
 
-    public int getTimeDame() { return timeDame; }
-    public void setTimeDame(int timeDame) { this.timeDame = timeDame; }
+    public void setTimePre(int timePre) {
+        this.timePre = timePre;
+    }
 
-    public short getRange() { return range; }
-    public void setRange(short range) { this.range = range; }
+    public int getTimeDame() {
+        return timeDame;
+    }
 
-    public long getTime() { return time; }
-    public void setTime(long time) { this.time = time; }
+    public void setTimeDame(int timeDame) {
+        this.timeDame = timeDame;
+    }
+
+    public short getRange() {
+        return range;
+    }
+
+    public void setRange(short range) {
+        this.range = range;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 }

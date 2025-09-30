@@ -147,7 +147,7 @@ public class PlayerService {
     public void sendInfoHpMpMoney(Player player) {
         Message msg;
         try {
-            
+
             msg = Service.gI().messageSubCommand((byte) 4);
             try {
                 if (player.getSession() != null && player.getSession().version == 15) {// version
@@ -168,7 +168,7 @@ public class PlayerService {
         }
     }
 
-    public void playerMove(Player player, int x, int y) { // NRSD đưa v�? nhà
+    public void playerMove(Player player, int x, int y) { // NRSD đưa v�? nhà
         if (player.zone == null) {
             return;
         }
@@ -189,7 +189,7 @@ public class PlayerService {
                 case 19:
                 case 20:
                 case 21:
-                case 22:// data t�?a độ phước khi tắt netbean mở lại
+                case 22:// data t�?a độ phước khi tắt netbean mở lại
                     if (!player.isBoss && !player.isPet && !player.isTrieuhoipet && !player.isClone) {
                         if (x < 24 || x > player.zone.map.mapWidth - 24 || y < 0
                                 || y > player.zone.map.mapHeight - 24) {
@@ -305,7 +305,7 @@ public class PlayerService {
                     canHs = true;
                 } else {
                     Service.gI().sendThongBao(player,
-                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD
+                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD
                                     - player.inventory.gold) + " Vàng");
                     return;
                 }
@@ -316,7 +316,7 @@ public class PlayerService {
                     canHs = true;
                 } else {
                     Service.gI().sendThongBao(player,
-                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_PVP
+                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_PVP
                                     - player.inventory.gold) + " Vàng");
                     return;
                 }
@@ -326,7 +326,7 @@ public class PlayerService {
                     canHs = true;
                 } else {
                     Service.gI().sendThongBao(player,
-                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH
+                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH
                                     - player.inventory.gold) + " Vàng");
                     return;
                 }
@@ -347,7 +347,7 @@ public class PlayerService {
                     canHs = true;
                 } else {
                     Service.gI().sendThongBao(player,
-                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD
+                            "Không �?ủ Vàng �?ể Thực Hiện, Còn Thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD
                                     - player.inventory.gold) + " vàng");
                     return;
                 }

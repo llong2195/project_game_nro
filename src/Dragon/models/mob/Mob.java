@@ -131,9 +131,8 @@ public class Mob {
                     this.lvMob = 0;
                     this.status = 0;
                     this.sendMobDieAffterAttacked(plAtt, damage);
-                    TaskService.gI().checkDoneTaskKillMob(plAtt, this);
+                    TaskServiceNew.getInstance().checkDoneTaskKillMob(plAtt, this);
                     TaskService.gI().checkDoneSideTaskKillMob(plAtt, this);
-
                     for (Item item : plAtt.inventory.itemsBody) {
                         if (item != null) {
                             for (ItemOption io : item.itemOptions) {

@@ -68,8 +68,8 @@ public class GiftCodeCache {
             Logger.log("GiftCodeCache: Loading gift codes from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT id, code, name, description, max_uses, current_uses, created_date, expired_date, " +
-                            "is_active, player_limit_type, vip_level_min FROM gift_codes WHERE is_active = 1");
+                    "SELECT id, code, name, description, max_uses, current_uses, created_date, expired_date, "
+                    + "is_active, player_limit_type, vip_level_min FROM gift_codes WHERE is_active = 1");
             ResultSet rs = ps.executeQuery();
 
             Map<String, GiftCodeData> tempCodes = new HashMap<>();
@@ -89,8 +89,8 @@ public class GiftCodeCache {
                 giftCode.vipLevelMin = rs.getInt("vip_level_min");
 
                 tempCodes.put(giftCode.code, giftCode);
-                Logger.log("GiftCodeCache: Loaded gift code: " + giftCode.code + " (" + giftCode.name +
-                        ") - Type: " + giftCode.playerLimitType + ", Uses: " + giftCode.currentUses + "/"
+                Logger.log("GiftCodeCache: Loaded gift code: " + giftCode.code + " (" + giftCode.name
+                        + ") - Type: " + giftCode.playerLimitType + ", Uses: " + giftCode.currentUses + "/"
                         + giftCode.maxUses);
             }
 
@@ -120,10 +120,10 @@ public class GiftCodeCache {
             Logger.log("GiftCodeCache: Loading gift code items from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT gci.id, gci.gift_code_id, gci.item_id, gci.quantity " +
-                            "FROM gift_code_items gci " +
-                            "JOIN gift_codes gc ON gci.gift_code_id = gc.id " +
-                            "WHERE gc.is_active = 1 ORDER BY gci.gift_code_id");
+                    "SELECT gci.id, gci.gift_code_id, gci.item_id, gci.quantity "
+                    + "FROM gift_code_items gci "
+                    + "JOIN gift_codes gc ON gci.gift_code_id = gc.id "
+                    + "WHERE gc.is_active = 1 ORDER BY gci.gift_code_id");
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, List<GiftCodeItem>> tempItems = new HashMap<>();
@@ -138,8 +138,8 @@ public class GiftCodeCache {
 
                 tempItems.computeIfAbsent(item.giftCodeId, k -> new ArrayList<>()).add(item);
                 itemCount++;
-                Logger.log("GiftCodeCache: Loaded item: ID=" + item.itemId + " x" + item.quantity +
-                        " for gift_code_id=" + item.giftCodeId);
+                Logger.log("GiftCodeCache: Loaded item: ID=" + item.itemId + " x" + item.quantity
+                        + " for gift_code_id=" + item.giftCodeId);
             }
 
             itemsCache.clear();
@@ -168,11 +168,11 @@ public class GiftCodeCache {
             Logger.log("GiftCodeCache: Loading gift code item options from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT gcio.gift_code_item_id, gcio.option_id, gcio.param " +
-                            "FROM gift_code_item_options gcio " +
-                            "JOIN gift_code_items gci ON gcio.gift_code_item_id = gci.id " +
-                            "JOIN gift_codes gc ON gci.gift_code_id = gc.id " +
-                            "WHERE gc.is_active = 1 ORDER BY gcio.gift_code_item_id");
+                    "SELECT gcio.gift_code_item_id, gcio.option_id, gcio.param "
+                    + "FROM gift_code_item_options gcio "
+                    + "JOIN gift_code_items gci ON gcio.gift_code_item_id = gci.id "
+                    + "JOIN gift_codes gc ON gci.gift_code_id = gc.id "
+                    + "WHERE gc.is_active = 1 ORDER BY gcio.gift_code_item_id");
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, List<GiftCodeItemOption>> tempOptions = new HashMap<>();
@@ -186,8 +186,8 @@ public class GiftCodeCache {
 
                 tempOptions.computeIfAbsent(giftCodeItemId, k -> new ArrayList<>()).add(option);
                 optionCount++;
-                Logger.log("GiftCodeCache: Loaded option: optionId=" + option.optionId +
-                        " param=" + option.param + " for gift_code_item_id=" + giftCodeItemId);
+                Logger.log("GiftCodeCache: Loaded option: optionId=" + option.optionId
+                        + " param=" + option.param + " for gift_code_item_id=" + giftCodeItemId);
             }
 
             optionsCache.clear();
@@ -216,10 +216,10 @@ public class GiftCodeCache {
             Logger.log("GiftCodeCache: Loading player restrictions from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT gcpr.gift_code_id, gcpr.player_id, gcpr.restriction_type " +
-                            "FROM gift_code_player_restrictions gcpr " +
-                            "JOIN gift_codes gc ON gcpr.gift_code_id = gc.id " +
-                            "WHERE gc.is_active = 1 ORDER BY gcpr.gift_code_id");
+                    "SELECT gcpr.gift_code_id, gcpr.player_id, gcpr.restriction_type "
+                    + "FROM gift_code_player_restrictions gcpr "
+                    + "JOIN gift_codes gc ON gcpr.gift_code_id = gc.id "
+                    + "WHERE gc.is_active = 1 ORDER BY gcpr.gift_code_id");
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, List<Integer>> tempRestrictions = new HashMap<>();
@@ -233,8 +233,8 @@ public class GiftCodeCache {
                 if ("ALLOWED".equals(restrictionType)) {
                     tempRestrictions.computeIfAbsent(giftCodeId, k -> new ArrayList<>()).add(playerId);
                     restrictionCount++;
-                    Logger.log("GiftCodeCache: Loaded restriction: gift_code_id=" + giftCodeId +
-                            " allows player_id=" + playerId);
+                    Logger.log("GiftCodeCache: Loaded restriction: gift_code_id=" + giftCodeId
+                            + " allows player_id=" + playerId);
                 }
             }
 
@@ -350,6 +350,7 @@ public class GiftCodeCache {
 
     // Inner classes
     public static class GiftCodeData {
+
         public int id;
         public String code;
         public String name;
@@ -364,6 +365,7 @@ public class GiftCodeCache {
     }
 
     public static class GiftCodeItem {
+
         public int id;
         public int giftCodeId;
         public int itemId;
@@ -371,6 +373,7 @@ public class GiftCodeCache {
     }
 
     public static class GiftCodeItemOption {
+
         public int optionId;
         public int param;
     }

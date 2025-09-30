@@ -469,11 +469,11 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                             if (SkillUtil.isUseSkillChuong(this)) {
                                 this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
                                         Util.nextInt(10) % 2 == 0 ? pl.location.y
-                                                : pl.location.y - Util.nextInt(0, 70));
+                                        : pl.location.y - Util.nextInt(0, 70));
                             } else {
                                 this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
                                         Util.nextInt(10) % 2 == 0 ? pl.location.y
-                                                : pl.location.y - Util.nextInt(0, 50));
+                                        : pl.location.y - Util.nextInt(0, 50));
                             }
                         }
                         SkillService.gI().useSkill(this, pl, null, null);
@@ -543,7 +543,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     public void rewardFutureBoss(Player plKill) {
-        int[] itemDos = new int[] { 16, 17, 934, 934 };
+        int[] itemDos = new int[]{16, 17, 934, 934};
         int randomnro = new Random().nextInt(itemDos.length);
         byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
         if (Util.isTrue(70, 100)) {

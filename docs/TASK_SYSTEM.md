@@ -22,6 +22,14 @@ CREATE TABLE task_main_template (
 );
 ```
 
+Deprecated (chỉ còn để tham chiếu dữ liệu cũ):
+- Code hiện tại KHÔNG còn load sub task từ bảng này. `Manager.loadDatabase()` chỉ load `task_main_template`, sau đó build toàn bộ `subTasks` từ bảng `task_requirements` (group theo `(task_main_id, task_sub_id)` và lấy `MAX(target_count)` làm `maxCount`).
+- Có thể giữ bảng này một thời gian để tham chiếu/fallback; về sau có thể drop sau khi dữ liệu đã migrate.
+
+Note:
+- Trường `max_count` tại `task_sub_template` chỉ còn vai trò Fallback/Placeholder cho dữ liệu di sản (legacy).
+- Hệ thống mới khi gửi UI sẽ đồng bộ `maxCount` của từng sub task từ `task_requirements.target_count` (SQL). Vì vậy con số hiển thị tổng yêu cầu trên client được quyết định bởi dữ liệu requirements trong SQL, không còn đọc trực tiếp từ `task_sub_template.max_count` nữa (trừ khi không có requirement tương ứng thì mới dùng fallback).
+
 ### 2. `task_sub_template` - Sub tasks (đã có sẵn)
 ```sql
 CREATE TABLE task_sub_template (
@@ -219,14 +227,18 @@ TaskServiceNew.getInstance().checkDoneTaskGoToMap(player, zone);
 ```
 
 ### Task Flow
-1. **Player thực hiện action** (giết mob, gặp NPC, etc.)
-2. **TaskServiceNew check requirements** từ cache
-3. **Match requirement** với action (mob.tempId, npc.tempId, etc.)
-4. **Check map restriction** nếu có
-5. **Increment progress** cho requirement
-6. **Complete task** nếu đủ target_count
-7. **Give rewards** từ task_rewards table
-8. **Move to next sub task**
+1. **Player thực hiện action** (giết mob, gặp NPC, nhặt đồ, đi map...)
+2. `TaskServiceNew` lấy requirements phù hợp từ cache SQL (theo `task_main_id` + `task_sub_id` + `requirement_type`).
+3. **Match requirement** với action (so khớp `target_id`, `map_restriction`...).
+4. **Increment progress** cho requirement hiện đang khớp.
+5. Nếu `progress >= target_count` của requirement đó: **Complete sub task**.
+6. **Trao thưởng** (đọc từ `task_rewards`).
+7. **Chuyển sub task**: tăng `task_main.index` nếu còn sub task trong `task_main`.
+8. Nếu đã hoàn thành sub task cuối cùng của `task_main`:
+   - Kiểm tra sự tồn tại của `TaskMain` kế tiếp theo ID (`getTaskMainByIdTemplate(currentId + 1)`).
+   - Nếu có: chuyển sang `task_main` tiếp theo, reset index = 0 và đồng bộ lại `maxCount` từ SQL.
+   - Nếu không: hiển thị một nhiệm vụ placeholder: tên "Nhiệm vụ sắp cập nhật", chi tiết "Nhiệm vụ sẽ được cập nhật trong thời gian tới" (1 sub task thông báo) và gửi UI cho người chơi.
+9. Trước khi gửi UI: đồng bộ lại `maxCount` của tất cả sub task trong `task_main` hiện tại từ SQL (xem Integration bên dưới).
 
 ### Debug Logs
 ```
@@ -338,14 +350,34 @@ refreshtaskcache
 
 ### Current Implementation
 ```java
-// Trong Boss.java
-TaskService.gI().checkDoneTaskKillBoss(plKill, this);          // Old system
-TaskServiceNew.getInstance().checkDoneTaskKillBoss(plKill, this); // New system
-
-// Trong Mob.java  
-TaskService.gI().checkDoneTaskKillMob(plAtt, this);            // Old system
-TaskServiceNew.getInstance().checkDoneTaskKillMob(plAtt, this);   // New system
+// Các entry-point cũ vẫn gọi TaskService, nhưng bên trong đã ủy quyền sang TaskServiceNew
+// Ví dụ:
+TaskService.gI().checkDoneTaskKillBoss(plKill, this);          // Delegates to TaskServiceNew
+TaskService.gI().checkDoneTaskKillMob(plAtt, this);            // Delegates to TaskServiceNew
 ```
+
+### UI Count Source (quan trọng)
+- `TaskService.sendTaskMain(...)` đã được cập nhật để trước khi build message gửi client, sẽ gọi:
+  ```java
+  TaskServiceNew.getInstance().syncAllSubTaskMaxCountsForCurrentTask(player);
+  TaskServiceNew.getInstance().prepareSubTaskMetaForUI(player);
+  ```
+  - Đồng bộ `stm.maxCount` theo SQL (`task_requirements.target_count`, lấy max nếu có nhiều requirement).
+  - Sinh nhãn UI tự động theo caches/template:
+    - KILL_MOB: "Tiêu diệt <mobName>" từ `Manager.MOB_TEMPLATES` (fallback: "Tiêu diệt quái").
+    - TALK_NPC: "Gặp <npcName>" từ `Manager.NPC_TEMPLATES` (fallback: "Nói chuyện với NPC").
+    - KILL_BOSS: "Tiêu diệt <bossName>" từ `BossDataService` (fallback: "Tiêu diệt Boss").
+    - Các loại khác (PICK_ITEM, GO_TO_MAP, USE_ITEM) hiện hiển thị nhãn tổng quát; có thể mở rộng hiển thị tên item/map nếu cần.
+
+- Vì vậy UI luôn hiển thị tổng cần làm theo dữ liệu requirements trong SQL, không phụ thuộc vào `task_sub_template.max_count` (chỉ dùng như fallback nếu sub task không có requirement nào trong SQL).
+
+### Chuyển tiếp nhiệm vụ (advance)
+- Khi hoàn thành sub task cuối của một `task_main`, hệ thống không so sánh với kích thước danh sách template nữa, mà kiểm tra sự tồn tại của `TaskMain` kế tiếp theo ID:
+  ```java
+  var next = TaskService.gI().getTaskMainByIdTemplate(currentId + 1);
+  if (next != null) { /* move to next main task */ } else { /* all done */ }
+  ```
+- Sau khi chuyển task hoặc sub task, hệ thống đồng bộ lại `maxCount` từ SQL và gửi lại `TaskMain` để UI cập nhật chính xác.
 
 ---
 

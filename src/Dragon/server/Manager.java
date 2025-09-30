@@ -101,7 +101,7 @@ public class Manager {
     public static final List<MobTemplate> MOB_TEMPLATES = new ArrayList<>();
     public static final List<NpcTemplate> NPC_TEMPLATES = new ArrayList<>();
     public static final List<String> CAPTIONS = new ArrayList<>();
-    public static final List<TaskMain> TASKS = new ArrayList<>();
+    public static final List<TaskMain> TASKS_TEMPLATE = new ArrayList<>();
     public static final List<SideTaskTemplate> SIDE_TASKS_TEMPLATE = new ArrayList<>();
     public static final List<Intrinsic> INTRINSICS = new ArrayList<>();
     public static final List<Intrinsic> INTRINSIC_TD = new ArrayList<>();
@@ -147,48 +147,48 @@ public class Manager {
     public static List<TOP> TopLeoThap;
     public static List<TOP> topSieuHang;
     public static long timeRealTop = 0;
-    public static final short[] itemIds_TL = { 555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561, 555,
-            557, 559, 556, 558, 560, 563, 565, 567, 555, 557, 559, 556, 558, 560, 563, 565, 567 };
-    public static final short[] itemIds_HuyDiet = { 650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662 };
-    public static final short[] itemAVATAR_BLACK = { 1124, 1125 };
-    public static final short[] itemIds_NR_SB = { 16, 17, 934, 934 };
-    public static final short[] itemIds_CB = { 1991, 1992 };
-    public static final short[] itemDC12 = { 233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277 };
-    public static final short[] itemmabu = { 1545, 568 };
+    public static final short[] itemIds_TL = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561, 555,
+        557, 559, 556, 558, 560, 563, 565, 567, 555, 557, 559, 556, 558, 560, 563, 565, 567};
+    public static final short[] itemIds_HuyDiet = {650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662};
+    public static final short[] itemAVATAR_BLACK = {1124, 1125};
+    public static final short[] itemIds_NR_SB = {16, 17, 934, 934};
+    public static final short[] itemIds_CB = {1991, 1992};
+    public static final short[] itemDC12 = {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277};
+    public static final short[] itemmabu = {1545, 568};
 
     // SKH THƯỜNG
-    public static final short[] aotdt = { 0 };
-    public static final short[] quantdt = { 6 };
-    public static final short[] gangtdt = { 21 };
-    public static final short[] giaytdt = { 27 };
-    public static final short[] aoxdt = { 2 };
-    public static final short[] quanxdt = { 8 };
-    public static final short[] gangxdt = { 23 };
-    public static final short[] giayxdt = { 29 };
-    public static final short[] aonmt = { 1 };
-    public static final short[] quannmt = { 7 };
-    public static final short[] gangnmt = { 22 };
-    public static final short[] giaynmt = { 28 };
-    public static final short[] radaSKH = { 12 };
+    public static final short[] aotdt = {0};
+    public static final short[] quantdt = {6};
+    public static final short[] gangtdt = {21};
+    public static final short[] giaytdt = {27};
+    public static final short[] aoxdt = {2};
+    public static final short[] quanxdt = {8};
+    public static final short[] gangxdt = {23};
+    public static final short[] giayxdt = {29};
+    public static final short[] aonmt = {1};
+    public static final short[] quannmt = {7};
+    public static final short[] gangnmt = {22};
+    public static final short[] giaynmt = {28};
+    public static final short[] radaSKH = {12};
     // SKH VIP
-    public static final short[] aotd = { 138, 139, 230, 231, 232, 233, 555 };
-    public static final short[] quantd = { 142, 143, 242, 243, 244, 245, 556 };
-    public static final short[] gangtd = { 146, 147, 254, 255, 256, 257, 562 };
-    public static final short[] giaytd = { 150, 151, 266, 267, 268, 269, 563 };
-    public static final short[] aoxd = { 170, 171, 238, 239, 240, 241, 559 };
-    public static final short[] quanxd = { 174, 175, 250, 251, 252, 253, 560 };
-    public static final short[] gangxd = { 178, 179, 262, 263, 264, 265, 566 };
-    public static final short[] giayxd = { 182, 183, 274, 275, 276, 277, 567 };
-    public static final short[] aonm = { 154, 155, 234, 235, 236, 237, 557 };
-    public static final short[] quannm = { 158, 159, 246, 247, 248, 249, 558 };
-    public static final short[] gangnm = { 162, 163, 258, 259, 260, 261, 564 };
-    public static final short[] giaynm = { 166, 167, 270, 271, 272, 273, 565 };
-    public static final short[] radaSKHVip = { 186, 187, 278, 279, 280, 281, 561 };
-    public static final short[][][] doSKH = { { aotdt, quantdt, gangtdt, giaytdt, radaSKH },
-            { aonmt, quannmt, gangnmt, giaynmt, radaSKH }, { aoxdt, quanxdt, gangxdt, giayxdt, radaSKH } };
+    public static final short[] aotd = {138, 139, 230, 231, 232, 233, 555};
+    public static final short[] quantd = {142, 143, 242, 243, 244, 245, 556};
+    public static final short[] gangtd = {146, 147, 254, 255, 256, 257, 562};
+    public static final short[] giaytd = {150, 151, 266, 267, 268, 269, 563};
+    public static final short[] aoxd = {170, 171, 238, 239, 240, 241, 559};
+    public static final short[] quanxd = {174, 175, 250, 251, 252, 253, 560};
+    public static final short[] gangxd = {178, 179, 262, 263, 264, 265, 566};
+    public static final short[] giayxd = {182, 183, 274, 275, 276, 277, 567};
+    public static final short[] aonm = {154, 155, 234, 235, 236, 237, 557};
+    public static final short[] quannm = {158, 159, 246, 247, 248, 249, 558};
+    public static final short[] gangnm = {162, 163, 258, 259, 260, 261, 564};
+    public static final short[] giaynm = {166, 167, 270, 271, 272, 273, 565};
+    public static final short[] radaSKHVip = {186, 187, 278, 279, 280, 281, 561};
+    public static final short[][][] doSKH = {{aotdt, quantdt, gangtdt, giaytdt, radaSKH},
+    {aonmt, quannmt, gangnmt, giaynmt, radaSKH}, {aoxdt, quanxdt, gangxdt, giayxdt, radaSKH}};
 
-    public static final short[][][] doSKHVip = { { aotd, quantd, gangtd, giaytd }, { aonm, quannm, gangnm, giaynm },
-            { aoxd, quanxd, gangxd, giayxd } };
+    public static final short[][][] doSKHVip = {{aotd, quantd, gangtd, giaytd}, {aonm, quannm, gangnm, giaynm},
+    {aoxd, quanxd, gangxd, giayxd}};
 
     public static Manager gI() {
         if (i == null) {
@@ -208,17 +208,17 @@ public class Manager {
         }
         this.loadDatabase();
 
-        // Initialize Mob Reward Cache
         Dragon.utils.Logger.log("Manager: Initializing Mob Reward Cache...");
         Dragon.jdbc.daos.MobRewardCache.getInstance().initializeCache();
 
-        // Initialize Boss Reward Cache
         Dragon.utils.Logger.log("Manager: Initializing Boss Reward Cache...");
         Dragon.jdbc.daos.BossRewardCache.getInstance().initializeCache();
 
-        // Initialize Gift Code Cache
         Dragon.utils.Logger.log("Manager: Initializing Gift Code Cache...");
         Dragon.jdbc.daos.GiftCodeCache.getInstance().initializeCache();
+
+        Dragon.utils.Logger.log("Manager: Initializing Task Cache...");
+        Dragon.jdbc.daos.TaskCache.getInstance().initializeCache();
 
         NpcFactory.createNpcConMeo();
         Dragon.nam.TamBaoService.loadItem();
@@ -577,34 +577,44 @@ public class Manager {
                 INTRINSICS.add(intrinsic);
             }
             Logger.log(Logger.GREEN, "[DONE] INTRINSIC(" + INTRINSICS.size() + ")\n");
-
-            // load task
-            ps = con.prepareStatement("SELECT task_main_template.id, task_main_template.NAME, detail, "
-                    + "task_sub_template.NAME AS 'sub_name', max_count, notify, npc_id, map "
-                    + "FROM task_main_template JOIN task_sub_template ON task_main_template.id = "
-                    + "task_sub_template.task_main_id");
+            ps = con.prepareStatement("SELECT id, NAME, detail FROM task_main_template ORDER BY id");
             rs = ps.executeQuery();
-            int taskId = -1;
-            TaskMain task = null;
             while (rs.next()) {
-                int id = rs.getInt("id");
-                if (id != taskId) {
-                    taskId = id;
-                    task = new TaskMain();
-                    task.id = taskId;
-                    task.name = rs.getString("NAME");
-                    task.detail = rs.getString("detail");
-                    TASKS.add(task);
-                }
-                SubTaskMain subTask = new SubTaskMain();
-                subTask.name = rs.getString("sub_name");
-                subTask.maxCount = rs.getShort("max_count");
-                subTask.notify = rs.getString("notify");
-                subTask.npcId = rs.getByte("npc_id");
-                subTask.mapId = rs.getShort("map");
-                task.subTasks.add(subTask);
+                TaskMain task = new TaskMain();
+                task.id = rs.getInt("id");
+                task.name = rs.getString("NAME");
+                task.detail = rs.getString("detail");
+                TASKS_TEMPLATE.add(task);
             }
-            Logger.log(Logger.GREEN, "[DONE] TASK(" + TASKS.size() + ")\n");
+            ps = con.prepareStatement(
+                    "SELECT task_main_id, task_sub_id, MAX(target_count) AS max_target "
+                    + "FROM task_requirements WHERE is_active = TRUE "
+                    + "GROUP BY task_main_id, task_sub_id ORDER BY task_main_id, task_sub_id");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int mainIdReq = rs.getInt("task_main_id");
+                int maxTarget = rs.getInt("max_target");
+                TaskMain tmFound = null;
+                for (TaskMain tm : TASKS_TEMPLATE) {
+                    if (tm.id == mainIdReq) {
+                        tmFound = tm;
+                        break;
+                    }
+                }
+                if (tmFound == null) {
+                    continue;
+                }
+
+                SubTaskMain subTask = new SubTaskMain();
+                subTask.name = "Nhiệm vụ";
+                subTask.notify = "";
+                subTask.npcId = (byte) -1;
+                subTask.mapId = (short) -1;
+                subTask.maxCount = (short) Math.max(0, maxTarget);
+                tmFound.subTasks.add(subTask);
+            }
+            Logger.log(Logger.GREEN,
+                    "[DONE] TASK(" + TASKS_TEMPLATE.size() + ") built from task_main_template + task_requirements\n");
 
             // load side task
             ps = con.prepareStatement("select * from side_task_template");
@@ -752,18 +762,18 @@ public class Manager {
                             DatamobreWard += "\nMapDrop:" + mapDrop[g];
                         }
                         ItemMobReward item = new ItemMobReward(itemId, mapDrop,
-                                new int[] { Integer.parseInt(quantity[0]), Integer.parseInt(quantity[1]) },
-                                new int[] { Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1]) }, gender);
+                                new int[]{Integer.parseInt(quantity[0]), Integer.parseInt(quantity[1])},
+                                new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1])}, gender);
                         DatamobreWard += "\nItemName:" + item.getTemp().name;
                         DatamobreWard += "\nRatio:" + Integer.parseInt(ratio[0]) + "to" + Integer.parseInt(ratio[1]);
                         if (item.getTemp().type == 30) { // sao pha lê
-                            item.setRatio(new int[] { 20, Integer.parseInt(ratio[1]) });
+                            item.setRatio(new int[]{20, Integer.parseInt(ratio[1])});
                         }
                         if (item.getTemp().type == 14) { // 14 đá nâng cấp
-                            item.setRatio(new int[] { 20, Integer.parseInt(ratio[1]) });
+                            item.setRatio(new int[]{20, Integer.parseInt(ratio[1])});
                         }
                         if (item.getTemp().type < 5) {
-                            item.setRatio(new int[] { Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1]) });
+                            item.setRatio(new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1])});
                         }
                         if (item.getTemp().type == 9) { // vàng
                             mobReward.getGoldReward().add(item);
@@ -771,7 +781,7 @@ public class Manager {
                             boolean flag = false;
                             for (int z = 0; z < Manager.itemIds_TL.length; z++) {
                                 if (Manager.itemIds_TL[z] == item.getTemp().id) {
-                                    item.setRatio(new int[] { 1, 5000000 });
+                                    item.setRatio(new int[]{1, 5000000});
                                 }
                             }
                             if (!flag) {
@@ -784,8 +794,8 @@ public class Manager {
                             String[] param = dis.readUTF().split("-");
                             String[] ratioOption = dis.readUTF().split("-");
                             ItemOptionMobReward option = new ItemOptionMobReward(optionId,
-                                    new int[] { Integer.parseInt(param[0]), Integer.parseInt(param[1]) },
-                                    new int[] { Integer.parseInt(ratioOption[0]), Integer.parseInt(ratioOption[1]) });
+                                    new int[]{Integer.parseInt(param[0]), Integer.parseInt(param[1])},
+                                    new int[]{Integer.parseInt(ratioOption[0]), Integer.parseInt(ratioOption[1])});
                             item.getOption().add(option);
                         }
                     }

@@ -69,7 +69,7 @@ public class MobRewardCache {
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT id, mob_id, map_restriction, planet_restriction, is_active "
-                            + "FROM mob_reward_groups WHERE is_active = 1 ORDER BY mob_id, id");
+                    + "FROM mob_reward_groups WHERE is_active = 1 ORDER BY mob_id, id");
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, List<MobRewardGroup>> tempGroups = new HashMap<>();
@@ -113,7 +113,7 @@ public class MobRewardCache {
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT id, group_id, item_id, quantity_min, quantity_max, drop_rate "
-                            + "FROM mob_reward_items ORDER BY group_id, id");
+                    + "FROM mob_reward_items ORDER BY group_id, id");
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, List<MobRewardItem>> tempItems = new HashMap<>();
@@ -158,7 +158,7 @@ public class MobRewardCache {
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT option_id, param, reward_item_id "
-                            + "FROM mob_reward_item_options ORDER BY reward_item_id, id");
+                    + "FROM mob_reward_item_options ORDER BY reward_item_id, id");
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, List<MobRewardOption>> tempOptions = new HashMap<>();

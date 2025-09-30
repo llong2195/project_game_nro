@@ -3,6 +3,7 @@ package Dragon.models.player;
 import Dragon.consts.ConstNpc;
 import Dragon.models.npc.Npc;
 import Dragon.models.shop.Shop;
+
 public class IDMark {
 
     private int idItemUpTop;
@@ -86,126 +87,331 @@ public class IDMark {
     }
 
     // Getters and Setters
-    public int getIdItemUpTop() { return idItemUpTop; }
-    public void setIdItemUpTop(int idItemUpTop) { this.idItemUpTop = idItemUpTop; }
+    public int getIdItemUpTop() {
+        return idItemUpTop;
+    }
 
-    public int getTypeChangeMap() { return typeChangeMap; }
-    public void setTypeChangeMap(int typeChangeMap) { this.typeChangeMap = typeChangeMap; }
+    public void setIdItemUpTop(int idItemUpTop) {
+        this.idItemUpTop = idItemUpTop;
+    }
 
-    public int getIndexMenu() { return indexMenu; }
-    public void setIndexMenu(int indexMenu) { this.indexMenu = indexMenu; }
+    public int getTypeChangeMap() {
+        return typeChangeMap;
+    }
 
-    public int getTypeInput() { return typeInput; }
-    public void setTypeInput(int typeInput) { this.typeInput = typeInput; }
+    public void setTypeChangeMap(int typeChangeMap) {
+        this.typeChangeMap = typeChangeMap;
+    }
 
-    public byte getTypeLuckyRound() { return typeLuckyRound; }
-    public void setTypeLuckyRound(byte typeLuckyRound) { this.typeLuckyRound = typeLuckyRound; }
+    public int getIndexMenu() {
+        return indexMenu;
+    }
 
-    public long getIdPlayThachDau() { return idPlayThachDau; }
-    public void setIdPlayThachDau(long idPlayThachDau) { this.idPlayThachDau = idPlayThachDau; }
+    public void setIndexMenu(int indexMenu) {
+        this.indexMenu = indexMenu;
+    }
 
-    public int getGoldThachDau() { return goldThachDau; }
-    public void setGoldThachDau(int goldThachDau) { this.goldThachDau = goldThachDau; }
+    public int getTypeInput() {
+        return typeInput;
+    }
 
-    public long getIdEnemy() { return idEnemy; }
-    public void setIdEnemy(long idEnemy) { this.idEnemy = idEnemy; }
+    public void setTypeInput(int typeInput) {
+        this.typeInput = typeInput;
+    }
 
-    public Shop getShopOpen() { return shopOpen; }
-    public void setShopOpen(Shop shopOpen) { this.shopOpen = shopOpen; }
+    public byte getTypeLuckyRound() {
+        return typeLuckyRound;
+    }
 
-    public String getTagNameShop() { return tagNameShop; }
-    public void setTagNameShop(String tagNameShop) { this.tagNameShop = tagNameShop; }
+    public void setTypeLuckyRound(byte typeLuckyRound) {
+        this.typeLuckyRound = typeLuckyRound;
+    }
 
-    public boolean isGoToGas() { return goToGas; }
-    public void setGoToGas(boolean goToGas) { this.goToGas = goToGas; }
+    public long getIdPlayThachDau() {
+        return idPlayThachDau;
+    }
 
-    public long getLastTimeGotoGas() { return lastTimeGotoGas; }
-    public void setLastTimeGotoGas(long lastTimeGotoGas) { this.lastTimeGotoGas = lastTimeGotoGas; }
+    public void setIdPlayThachDau(long idPlayThachDau) {
+        this.idPlayThachDau = idPlayThachDau;
+    }
 
-    public byte getIdSpaceShip() { return idSpaceShip; }
-    public void setIdSpaceShip(byte idSpaceShip) { this.idSpaceShip = idSpaceShip; }
+    public int getGoldThachDau() {
+        return goldThachDau;
+    }
 
-    public long getLastTimeBan() { return lastTimeBan; }
-    public void setLastTimeBan(long lastTimeBan) { this.lastTimeBan = lastTimeBan; }
+    public void setGoldThachDau(int goldThachDau) {
+        this.goldThachDau = goldThachDau;
+    }
 
-    public boolean isBan() { return isBan; }
-    public void setBan(boolean isBan) { this.isBan = isBan; }
+    public long getIdEnemy() {
+        return idEnemy;
+    }
 
-    public int getPlayerTradeId() { return playerTradeId; }
-    public void setPlayerTradeId(int playerTradeId) { this.playerTradeId = playerTradeId; }
+    public void setIdEnemy(long idEnemy) {
+        this.idEnemy = idEnemy;
+    }
 
-    public Player getPlayerTrade() { return playerTrade; }
-    public void setPlayerTrade(Player playerTrade) { this.playerTrade = playerTrade; }
+    public Shop getShopOpen() {
+        return shopOpen;
+    }
 
-    public long getLastTimeTrade() { return lastTimeTrade; }
-    public void setLastTimeTrade(long lastTimeTrade) { this.lastTimeTrade = lastTimeTrade; }
+    public void setShopOpen(Shop shopOpen) {
+        this.shopOpen = shopOpen;
+    }
 
-    public long getLastTimeNotifyTimeHoldBlackBall() { return lastTimeNotifyTimeHoldBlackBall; }
-    public void setLastTimeNotifyTimeHoldBlackBall(long lastTimeNotifyTimeHoldBlackBall) { this.lastTimeNotifyTimeHoldBlackBall = lastTimeNotifyTimeHoldBlackBall; }
+    public String getTagNameShop() {
+        return tagNameShop;
+    }
 
-    public long getLastTimeHoldBlackBall() { return lastTimeHoldBlackBall; }
-    public void setLastTimeHoldBlackBall(long lastTimeHoldBlackBall) { this.lastTimeHoldBlackBall = lastTimeHoldBlackBall; }
+    public void setTagNameShop(String tagNameShop) {
+        this.tagNameShop = tagNameShop;
+    }
 
-    public int getTempIdBlackBallHold() { return tempIdBlackBallHold; }
-    public void setTempIdBlackBallHold(int tempIdBlackBallHold) { this.tempIdBlackBallHold = tempIdBlackBallHold; }
+    public boolean isGoToGas() {
+        return goToGas;
+    }
 
-    public boolean isHoldBlackBall() { return holdBlackBall; }
-    public void setHoldBlackBall(boolean holdBlackBall) { this.holdBlackBall = holdBlackBall; }
+    public void setGoToGas(boolean goToGas) {
+        this.goToGas = goToGas;
+    }
 
-    public int getTempIdNamecBallHold() { return tempIdNamecBallHold; }
-    public void setTempIdNamecBallHold(int tempIdNamecBallHold) { this.tempIdNamecBallHold = tempIdNamecBallHold; }
+    public long getLastTimeGotoGas() {
+        return lastTimeGotoGas;
+    }
 
-    public boolean isHoldNamecBall() { return holdNamecBall; }
-    public void setHoldNamecBall(boolean holdNamecBall) { this.holdNamecBall = holdNamecBall; }
+    public void setLastTimeGotoGas(long lastTimeGotoGas) {
+        this.lastTimeGotoGas = lastTimeGotoGas;
+    }
 
-    public boolean isLoadedAllDataPlayer() { return loadedAllDataPlayer; }
-    public void setLoadedAllDataPlayer(boolean loadedAllDataPlayer) { this.loadedAllDataPlayer = loadedAllDataPlayer; }
+    public byte getIdSpaceShip() {
+        return idSpaceShip;
+    }
 
-    public long getLastTimeChangeFlag() { return lastTimeChangeFlag; }
-    public void setLastTimeChangeFlag(long lastTimeChangeFlag) { this.lastTimeChangeFlag = lastTimeChangeFlag; }
+    public void setIdSpaceShip(byte idSpaceShip) {
+        this.idSpaceShip = idSpaceShip;
+    }
 
-    public boolean isGotoFuture() { return gotoFuture; }
-    public void setGotoFuture(boolean gotoFuture) { this.gotoFuture = gotoFuture; }
+    public long getLastTimeBan() {
+        return lastTimeBan;
+    }
 
-    public long getLastTimeGoToFuture() { return lastTimeGoToFuture; }
-    public void setLastTimeGoToFuture(long lastTimeGoToFuture) { this.lastTimeGoToFuture = lastTimeGoToFuture; }
+    public void setLastTimeBan(long lastTimeBan) {
+        this.lastTimeBan = lastTimeBan;
+    }
 
-    public long getLastTimeChangeZone() { return lastTimeChangeZone; }
-    public void setLastTimeChangeZone(long lastTimeChangeZone) { this.lastTimeChangeZone = lastTimeChangeZone; }
+    public boolean isBan() {
+        return isBan;
+    }
 
-    public long getLastTimeChatGlobal() { return lastTimeChatGlobal; }
-    public void setLastTimeChatGlobal(long lastTimeChatGlobal) { this.lastTimeChatGlobal = lastTimeChatGlobal; }
+    public void setBan(boolean isBan) {
+        this.isBan = isBan;
+    }
 
-    public long getLastTimeChatPrivate() { return lastTimeChatPrivate; }
-    public void setLastTimeChatPrivate(long lastTimeChatPrivate) { this.lastTimeChatPrivate = lastTimeChatPrivate; }
+    public int getPlayerTradeId() {
+        return playerTradeId;
+    }
 
-    public long getLastTimePickItem() { return lastTimePickItem; }
-    public void setLastTimePickItem(long lastTimePickItem) { this.lastTimePickItem = lastTimePickItem; }
+    public void setPlayerTradeId(int playerTradeId) {
+        this.playerTradeId = playerTradeId;
+    }
 
-    public boolean isGoToBDKB() { return goToBDKB; }
-    public void setGoToBDKB(boolean goToBDKB) { this.goToBDKB = goToBDKB; }
+    public Player getPlayerTrade() {
+        return playerTrade;
+    }
 
-    public long getLastTimeGoToBDKB() { return lastTimeGoToBDKB; }
-    public void setLastTimeGoToBDKB(long lastTimeGoToBDKB) { this.lastTimeGoToBDKB = lastTimeGoToBDKB; }
+    public void setPlayerTrade(Player playerTrade) {
+        this.playerTrade = playerTrade;
+    }
 
-    public long getLastTimeAnXienTrapBDKB() { return lastTimeAnXienTrapBDKB; }
-    public void setLastTimeAnXienTrapBDKB(long lastTimeAnXienTrapBDKB) { this.lastTimeAnXienTrapBDKB = lastTimeAnXienTrapBDKB; }
+    public long getLastTimeTrade() {
+        return lastTimeTrade;
+    }
 
-    public boolean isGoToKG() { return goToKG; }
-    public void setGoToKG(boolean goToKG) { this.goToKG = goToKG; }
+    public void setLastTimeTrade(long lastTimeTrade) {
+        this.lastTimeTrade = lastTimeTrade;
+    }
 
-    public long getLastTimeGoToKG() { return lastTimeGoToKG; }
-    public void setLastTimeGoToKG(long lastTimeGoToKG) { this.lastTimeGoToKG = lastTimeGoToKG; }
+    public long getLastTimeNotifyTimeHoldBlackBall() {
+        return lastTimeNotifyTimeHoldBlackBall;
+    }
 
-    public long getLastTimeAnXienTrapKG() { return lastTimeAnXienTrapKG; }
-    public void setLastTimeAnXienTrapKG(long lastTimeAnXienTrapKG) { this.lastTimeAnXienTrapKG = lastTimeAnXienTrapKG; }
+    public void setLastTimeNotifyTimeHoldBlackBall(long lastTimeNotifyTimeHoldBlackBall) {
+        this.lastTimeNotifyTimeHoldBlackBall = lastTimeNotifyTimeHoldBlackBall;
+    }
 
-    public Npc getNpcChose() { return npcChose; }
-    public void setNpcChose(Npc npcChose) { this.npcChose = npcChose; }
+    public long getLastTimeHoldBlackBall() {
+        return lastTimeHoldBlackBall;
+    }
 
-    public byte getLoaiThe() { return loaiThe; }
-    public void setLoaiThe(byte loaiThe) { this.loaiThe = loaiThe; }
+    public void setLastTimeHoldBlackBall(long lastTimeHoldBlackBall) {
+        this.lastTimeHoldBlackBall = lastTimeHoldBlackBall;
+    }
 
-    public long getLastTimeSkillSpecial() { return lastTimeSkillSpecial; }
-    public void setLastTimeSkillSpecial(long lastTimeSkillSpecial) { this.lastTimeSkillSpecial = lastTimeSkillSpecial; }
+    public int getTempIdBlackBallHold() {
+        return tempIdBlackBallHold;
+    }
+
+    public void setTempIdBlackBallHold(int tempIdBlackBallHold) {
+        this.tempIdBlackBallHold = tempIdBlackBallHold;
+    }
+
+    public boolean isHoldBlackBall() {
+        return holdBlackBall;
+    }
+
+    public void setHoldBlackBall(boolean holdBlackBall) {
+        this.holdBlackBall = holdBlackBall;
+    }
+
+    public int getTempIdNamecBallHold() {
+        return tempIdNamecBallHold;
+    }
+
+    public void setTempIdNamecBallHold(int tempIdNamecBallHold) {
+        this.tempIdNamecBallHold = tempIdNamecBallHold;
+    }
+
+    public boolean isHoldNamecBall() {
+        return holdNamecBall;
+    }
+
+    public void setHoldNamecBall(boolean holdNamecBall) {
+        this.holdNamecBall = holdNamecBall;
+    }
+
+    public boolean isLoadedAllDataPlayer() {
+        return loadedAllDataPlayer;
+    }
+
+    public void setLoadedAllDataPlayer(boolean loadedAllDataPlayer) {
+        this.loadedAllDataPlayer = loadedAllDataPlayer;
+    }
+
+    public long getLastTimeChangeFlag() {
+        return lastTimeChangeFlag;
+    }
+
+    public void setLastTimeChangeFlag(long lastTimeChangeFlag) {
+        this.lastTimeChangeFlag = lastTimeChangeFlag;
+    }
+
+    public boolean isGotoFuture() {
+        return gotoFuture;
+    }
+
+    public void setGotoFuture(boolean gotoFuture) {
+        this.gotoFuture = gotoFuture;
+    }
+
+    public long getLastTimeGoToFuture() {
+        return lastTimeGoToFuture;
+    }
+
+    public void setLastTimeGoToFuture(long lastTimeGoToFuture) {
+        this.lastTimeGoToFuture = lastTimeGoToFuture;
+    }
+
+    public long getLastTimeChangeZone() {
+        return lastTimeChangeZone;
+    }
+
+    public void setLastTimeChangeZone(long lastTimeChangeZone) {
+        this.lastTimeChangeZone = lastTimeChangeZone;
+    }
+
+    public long getLastTimeChatGlobal() {
+        return lastTimeChatGlobal;
+    }
+
+    public void setLastTimeChatGlobal(long lastTimeChatGlobal) {
+        this.lastTimeChatGlobal = lastTimeChatGlobal;
+    }
+
+    public long getLastTimeChatPrivate() {
+        return lastTimeChatPrivate;
+    }
+
+    public void setLastTimeChatPrivate(long lastTimeChatPrivate) {
+        this.lastTimeChatPrivate = lastTimeChatPrivate;
+    }
+
+    public long getLastTimePickItem() {
+        return lastTimePickItem;
+    }
+
+    public void setLastTimePickItem(long lastTimePickItem) {
+        this.lastTimePickItem = lastTimePickItem;
+    }
+
+    public boolean isGoToBDKB() {
+        return goToBDKB;
+    }
+
+    public void setGoToBDKB(boolean goToBDKB) {
+        this.goToBDKB = goToBDKB;
+    }
+
+    public long getLastTimeGoToBDKB() {
+        return lastTimeGoToBDKB;
+    }
+
+    public void setLastTimeGoToBDKB(long lastTimeGoToBDKB) {
+        this.lastTimeGoToBDKB = lastTimeGoToBDKB;
+    }
+
+    public long getLastTimeAnXienTrapBDKB() {
+        return lastTimeAnXienTrapBDKB;
+    }
+
+    public void setLastTimeAnXienTrapBDKB(long lastTimeAnXienTrapBDKB) {
+        this.lastTimeAnXienTrapBDKB = lastTimeAnXienTrapBDKB;
+    }
+
+    public boolean isGoToKG() {
+        return goToKG;
+    }
+
+    public void setGoToKG(boolean goToKG) {
+        this.goToKG = goToKG;
+    }
+
+    public long getLastTimeGoToKG() {
+        return lastTimeGoToKG;
+    }
+
+    public void setLastTimeGoToKG(long lastTimeGoToKG) {
+        this.lastTimeGoToKG = lastTimeGoToKG;
+    }
+
+    public long getLastTimeAnXienTrapKG() {
+        return lastTimeAnXienTrapKG;
+    }
+
+    public void setLastTimeAnXienTrapKG(long lastTimeAnXienTrapKG) {
+        this.lastTimeAnXienTrapKG = lastTimeAnXienTrapKG;
+    }
+
+    public Npc getNpcChose() {
+        return npcChose;
+    }
+
+    public void setNpcChose(Npc npcChose) {
+        this.npcChose = npcChose;
+    }
+
+    public byte getLoaiThe() {
+        return loaiThe;
+    }
+
+    public void setLoaiThe(byte loaiThe) {
+        this.loaiThe = loaiThe;
+    }
+
+    public long getLastTimeSkillSpecial() {
+        return lastTimeSkillSpecial;
+    }
+
+    public void setLastTimeSkillSpecial(long lastTimeSkillSpecial) {
+        this.lastTimeSkillSpecial = lastTimeSkillSpecial;
+    }
 }

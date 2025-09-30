@@ -170,8 +170,12 @@ public class BossData {
     }
 
     // Manual Builder to replace Lombok @Builder
-    public static Builder builder() { return new Builder(); }
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
+
         private String name;
         private byte gender;
         private long dame;
@@ -184,27 +188,70 @@ public class BossData {
         private String[] textM;
         private String[] textE;
 
-        public Builder name(String v) { this.name = v; return this; }
-        public Builder gender(byte v) { this.gender = v; return this; }
-        public Builder dame(long v) { this.dame = v; return this; }
-        public Builder hp(long[] v) { this.hp = v; return this; }
-        public Builder outfit(short[] v) { this.outfit = v; return this; }
-        public Builder mapJoin(int[] v) { this.mapJoin = v; return this; }
-        public Builder skillTemp(int[][] v) { this.skillTemp = v; return this; }
-        public Builder secondsRest(int v) { this.secondsRest = v; return this; }
-        public Builder textS(String[] v) { this.textS = v; return this; }
-        public Builder textM(String[] v) { this.textM = v; return this; }
-        public Builder textE(String[] v) { this.textE = v; return this; }
+        public Builder name(String v) {
+            this.name = v;
+            return this;
+        }
+
+        public Builder gender(byte v) {
+            this.gender = v;
+            return this;
+        }
+
+        public Builder dame(long v) {
+            this.dame = v;
+            return this;
+        }
+
+        public Builder hp(long[] v) {
+            this.hp = v;
+            return this;
+        }
+
+        public Builder outfit(short[] v) {
+            this.outfit = v;
+            return this;
+        }
+
+        public Builder mapJoin(int[] v) {
+            this.mapJoin = v;
+            return this;
+        }
+
+        public Builder skillTemp(int[][] v) {
+            this.skillTemp = v;
+            return this;
+        }
+
+        public Builder secondsRest(int v) {
+            this.secondsRest = v;
+            return this;
+        }
+
+        public Builder textS(String[] v) {
+            this.textS = v;
+            return this;
+        }
+
+        public Builder textM(String[] v) {
+            this.textM = v;
+            return this;
+        }
+
+        public Builder textE(String[] v) {
+            this.textE = v;
+            return this;
+        }
 
         public BossData build() {
             // Use the existing constructor to keep conversion logic
             BossData data = new BossData(name, gender, dame,
-                    hp != null ? hp : new long[] { },
+                    hp != null ? hp : new long[]{},
                     outfit, mapJoin, skillTemp,
                     secondsRest,
-                    textS != null ? textS : new String[] {},
-                    textM != null ? textM : new String[] {},
-                    textE != null ? textE : new String[] {});
+                    textS != null ? textS : new String[]{},
+                    textM != null ? textM : new String[]{},
+                    textE != null ? textE : new String[]{});
             return data;
         }
     }

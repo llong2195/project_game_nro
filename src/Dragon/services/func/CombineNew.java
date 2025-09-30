@@ -20,7 +20,7 @@ public class CombineNew {
     public int rubyCombine;
 
     public int dapdo = 1;
-    
+
     public int DiemNangcap;
     public int DaNangcap;
     public float TileNangcap;

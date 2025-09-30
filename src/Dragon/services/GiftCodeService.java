@@ -131,8 +131,8 @@ public class GiftCodeService {
 
             case "SPECIFIC_PLAYERS":
                 PreparedStatement ps = con.prepareStatement(
-                        "SELECT 1 FROM gift_code_player_restrictions WHERE gift_code_id = ? " +
-                                "AND player_id = ? AND restriction_type = 'ALLOWED'");
+                        "SELECT 1 FROM gift_code_player_restrictions WHERE gift_code_id = ? "
+                        + "AND player_id = ? AND restriction_type = 'ALLOWED'");
                 ps.setInt(1, giftCodeId);
                 ps.setInt(2, (int) player.id);
                 ResultSet rs = ps.executeQuery();
@@ -143,8 +143,8 @@ public class GiftCodeService {
 
             case "EXCLUDE_PLAYERS":
                 PreparedStatement ps2 = con.prepareStatement(
-                        "SELECT 1 FROM gift_code_player_restrictions WHERE gift_code_id = ? " +
-                                "AND player_id = ? AND restriction_type = 'BLOCKED'");
+                        "SELECT 1 FROM gift_code_player_restrictions WHERE gift_code_id = ? "
+                        + "AND player_id = ? AND restriction_type = 'BLOCKED'");
                 ps2.setInt(1, giftCodeId);
                 ps2.setInt(2, (int) player.id);
                 ResultSet rs2 = ps2.executeQuery();
@@ -162,8 +162,8 @@ public class GiftCodeService {
         List<GiftItem> items = new ArrayList<>();
 
         PreparedStatement ps = con.prepareStatement(
-                "SELECT gci.id, gci.item_id, gci.quantity FROM gift_code_items gci " +
-                        "WHERE gci.gift_code_id = ?");
+                "SELECT gci.id, gci.item_id, gci.quantity FROM gift_code_items gci "
+                + "WHERE gci.gift_code_id = ?");
         ps.setInt(1, giftCodeId);
         ResultSet rs = ps.executeQuery();
 
@@ -242,15 +242,15 @@ public class GiftCodeService {
 
         switch (playerLimitType) {
             case "VIP_ONLY":
-                Logger.log("GiftCodeService: Checking VIP restriction - player vip=" + player.vip +
-                        " required=" + vipLevelMin);
+                Logger.log("GiftCodeService: Checking VIP restriction - player vip=" + player.vip
+                        + " required=" + vipLevelMin);
                 return player.vip >= vipLevelMin;
 
             case "SPECIFIC_PLAYERS":
                 List<Integer> allowedPlayers = cache.getAllowedPlayers(giftCodeId);
                 boolean allowed = allowedPlayers.contains((int) player.id);
-                Logger.log("GiftCodeService: Checking specific players - player_id=" + player.id +
-                        " allowed=" + allowed + " (allowed_list=" + allowedPlayers + ")");
+                Logger.log("GiftCodeService: Checking specific players - player_id=" + player.id
+                        + " allowed=" + allowed + " (allowed_list=" + allowedPlayers + ")");
                 return allowed;
 
             case "EXCLUDE_PLAYERS":
@@ -285,8 +285,8 @@ public class GiftCodeService {
             }
 
             items.add(item);
-            Logger.log("GiftCodeService: Prepared item " + item.itemId + " x" + item.quantity +
-                    " with " + item.options.size() + " options");
+            Logger.log("GiftCodeService: Prepared item " + item.itemId + " x" + item.quantity
+                    + " with " + item.options.size() + " options");
         }
 
         return items;
@@ -294,6 +294,7 @@ public class GiftCodeService {
 
     // Inner classes
     public static class GiftCodeResult {
+
         public boolean success;
         public String message;
         public List<GiftItem> items;
@@ -312,6 +313,7 @@ public class GiftCodeService {
     }
 
     public static class GiftItem {
+
         public int giftItemId;
         public int itemId;
         public int quantity;
@@ -319,6 +321,7 @@ public class GiftCodeService {
     }
 
     public static class ItemOption {
+
         public int optionId;
         public int param;
 

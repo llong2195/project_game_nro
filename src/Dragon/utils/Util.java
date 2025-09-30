@@ -62,7 +62,7 @@ public class Util {
     }
 
     public static int randomMapBossBroly() {
-        int[] listMap = new int[] { 6, 10, 11, 12, 13, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38 };
+        int[] listMap = new int[]{6, 10, 11, 12, 13, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38};
         int mapId = Util.nextInt(listMap.length);
         while (!MapService.gI().getZone(mapId).getBosses().isEmpty()) {
             mapId = Util.nextInt(listMap.length);
@@ -80,6 +80,7 @@ public class Util {
             }
         }).start();
     }
+
     public static long GH(double a) {
         if (a > 0L && a <= 1L) {
             a = 1L;
@@ -89,7 +90,7 @@ public class Util {
         }
         return (long) a;
     }
-    
+
     public static int createIdDuongTank(int idPlayer) {
         return -idPlayer - 100_000_000;
     }
@@ -189,7 +190,7 @@ public class Util {
         String hhString = String.valueOf(hh);
         String time;
         if (hh != 0) {
-            time = hhString + " gi�?, " + mmString + " phút, " + ssString + " giây";
+            time = hhString + " gi�?, " + mmString + " phút, " + ssString + " giây";
         } else if (mm != 0) {
             time = mmString + " phút, " + ssString + "giây";
         } else if (ss != 0) {
@@ -546,7 +547,9 @@ public class Util {
     }
 
     public static String removeAccent(String str) {
-        if (str == null) return null;
+        if (str == null) {
+            return null;
+        }
         String normalized = Normalizer.normalize(str, Normalizer.Form.NFD);
         return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
@@ -951,14 +954,14 @@ public class Util {
             BufferedImage img = new BufferedImage(nextInt(80, 250), nextInt(80, 250), BufferedImage.TYPE_INT_ARGB);
             IntStream.range(0, img.getWidth())
                     .forEach(x -> IntStream.range(0, img.getHeight())
-                            .forEach(y -> {
-                                int a = ThreadLocalRandom.current().nextInt(256);
-                                int r = ThreadLocalRandom.current().nextInt(256);
-                                int g = ThreadLocalRandom.current().nextInt(256);
-                                int b = ThreadLocalRandom.current().nextInt(256);
-                                int p = (a << 24) | (r << 16) | (g << 8) | b;
-                                img.setRGB(x, y, p);
-                            }));
+                    .forEach(y -> {
+                        int a = ThreadLocalRandom.current().nextInt(256);
+                        int r = ThreadLocalRandom.current().nextInt(256);
+                        int g = ThreadLocalRandom.current().nextInt(256);
+                        int b = ThreadLocalRandom.current().nextInt(256);
+                        int p = (a << 24) | (r << 16) | (g << 8) | b;
+                        img.setRGB(x, y, p);
+                    }));
             ImageIO.write(img, "png", baos);
             array = baos.toByteArray();
         } catch (IOException e) {

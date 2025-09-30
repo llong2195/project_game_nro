@@ -172,16 +172,38 @@ public class MartialCongress {
     }
 
     // Getters that were previously provided by Lombok @Getter
-    public Player getPlayer() { return player; }
-    public Boss getBoss() { return boss; }
-    public int getTime() { return time; }
-    public int getTimeWait() { return timeWait; }
-    public Player getNpc() { return npc; }
-    public int getRound() { return round; }
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Boss getBoss() {
+        return boss;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getTimeWait() {
+        return timeWait;
+    }
+
+    public Player getNpc() {
+        return npc;
+    }
+
+    public int getRound() {
+        return round;
+    }
 
     // Setters for fields that previously used @Setter
-    public void setPlayer(Player player) { this.player = player; }
-    public void setNpc(Player npc) { this.npc = npc; }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void setNpc(Player npc) {
+        this.npc = npc;
+    }
 
     private void die() {
         Service.getInstance().sendThongBao(player, "Bạn bị xử thua vì chết queo");

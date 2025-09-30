@@ -9,6 +9,7 @@ import Dragon.server.Manager;
 import Dragon.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
+
 public class ItemMobReward {
 
     private Template.ItemTemplate temp;
@@ -67,23 +68,53 @@ public class ItemMobReward {
     }
 
     // Getters/Setters
-    public Template.ItemTemplate getTemp() { return temp; }
-    public void setTemp(Template.ItemTemplate temp) { this.temp = temp; }
+    public Template.ItemTemplate getTemp() {
+        return temp;
+    }
 
-    public int[] getMapDrop() { return mapDrop; }
-    public void setMapDrop(int[] mapDrop) { this.mapDrop = mapDrop; }
+    public void setTemp(Template.ItemTemplate temp) {
+        this.temp = temp;
+    }
 
-    public int[] getQuantity() { return quantity; }
-    public void setQuantity(int[] quantity) { this.quantity = quantity; }
+    public int[] getMapDrop() {
+        return mapDrop;
+    }
 
-    public int[] getRatio() { return ratio; }
-    public void setRatio(int[] ratio) { this.ratio = ratio; }
+    public void setMapDrop(int[] mapDrop) {
+        this.mapDrop = mapDrop;
+    }
 
-    public int getGender() { return gender; }
-    public void setGender(int gender) { this.gender = gender; }
+    public int[] getQuantity() {
+        return quantity;
+    }
 
-    public List<ItemOptionMobReward> getOption() { return option; }
-    public void setOption(List<ItemOptionMobReward> option) { this.option = option; }
+    public void setQuantity(int[] quantity) {
+        this.quantity = quantity;
+    }
+
+    public int[] getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(int[] ratio) {
+        this.ratio = ratio;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public List<ItemOptionMobReward> getOption() {
+        return option;
+    }
+
+    public void setOption(List<ItemOptionMobReward> option) {
+        this.option = option;
+    }
 }
 
 /**

@@ -132,6 +132,7 @@ public class Player {
     public long timeoff = 5;
     public boolean isTitleUse;
     public long lastTimeTitle1;
+      public boolean allowFullMapAccess = true;
     public byte typetrain;
     public int expoff;
     public boolean istrain;

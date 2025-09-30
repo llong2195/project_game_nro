@@ -153,6 +153,12 @@ public class UseItem {
                                 } else {
 
                                     UseItem.gI().useItem(player, item, index);
+                                    try {
+                                        Dragon.services.TaskServiceNew.getInstance()
+                                                .checkDoneTaskUseItem(player, item.template.id);
+                                    } catch (Exception e) {
+                                        Logger.logException(UseItem.class, e);
+                                    }
                                 }
                             }
                         } else {
@@ -186,8 +192,16 @@ public class UseItem {
                     InventoryServiceNew.gI().sendItemBags(player);
                     break;
                 case ACCEPT_USE_ITEM:
-
                     UseItem.gI().useItem(player, player.inventory.itemsBag.get(index), index);
+                    try {
+                        Item used = player.inventory.itemsBag.get(index);
+                        if (used != null && used.isNotNullItem()) {
+                            Dragon.services.TaskServiceNew.getInstance()
+                                    .checkDoneTaskUseItem(player, used.template.id);
+                        }
+                    } catch (Exception e) {
+                        Logger.logException(UseItem.class, e);
+                    }
                     break;
             }
         } catch (Exception e) {

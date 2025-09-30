@@ -213,6 +213,7 @@ public class BossRewardCache {
      * Inner classes để chứa boss reward data
      */
     public static class BossReward {
+
         public int id;
         public int bossId;
         public int itemId;
@@ -227,6 +228,7 @@ public class BossRewardCache {
     }
 
     public static class BossRewardOption {
+
         public int optionId;
         public int param;
 

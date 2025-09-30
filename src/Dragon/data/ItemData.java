@@ -23,8 +23,8 @@ public class ItemData {
 
         updateItemTemplate(session, 750);
         updateItemTemplate(session, 750, Manager.ITEM_TEMPLATES.size());
-      //  updateItemArrHead2F(session);
-      //  DataGame.updateIDBongTai(session);
+        //  updateItemArrHead2F(session);
+        //  DataGame.updateIDBongTai(session);
 //        updateItemTemplate(session, 1500, Manager.ITEM_TEMPLATES.size());
     }
 
@@ -93,7 +93,7 @@ public class ItemData {
             ex.printStackTrace();
 
             // 0358124452
-             Logger.logException(ItemData.class, ex);
+            Logger.logException(ItemData.class, ex);
         }
     }
 

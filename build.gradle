@@ -15,9 +15,6 @@ java {
     }
 }
 
-application {
-    mainClass = 'Dragon.server.ServerManager'
-}
 
 repositories {
     // No remote repositories; using local libs
@@ -50,6 +47,24 @@ tasks.withType(JavaCompile).configureEach {
     if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)) {
         options.release = 17
     }
+}
+
+// Ensure all tasks use UTF-8 encoding
+tasks.withType(JavaExec).configureEach {
+    systemProperty 'file.encoding', 'UTF-8'
+    systemProperty 'sun.jnu.encoding', 'UTF-8'
+    systemProperty 'console.encoding', 'UTF-8'
+}
+
+// Configure application plugin to use UTF-8
+application {
+    mainClass = 'Dragon.server.ServerManager'
+    applicationDefaultJvmArgs = [
+        '-Dfile.encoding=UTF-8',
+        '-Dsun.jnu.encoding=UTF-8',
+        '-Dconsole.encoding=UTF-8',
+        '-Djava.awt.headless=true'
+    ]
 }
 
 // Create a fat jar to run without Gradle

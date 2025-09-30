@@ -61,9 +61,9 @@ public class TaskCache {
             Logger.log("TaskCache: Loading task requirements from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT task_main_id, task_sub_id, requirement_type, target_id, target_count, " +
-                            "map_restriction, extra_data FROM task_requirements WHERE is_active = 1 " +
-                            "ORDER BY task_main_id, task_sub_id");
+                    "SELECT task_main_id, task_sub_id, requirement_type, target_id, target_count, "
+                    + "map_restriction, extra_data FROM task_requirements WHERE is_active = 1 "
+                    + "ORDER BY task_main_id, task_sub_id");
             ResultSet rs = ps.executeQuery();
 
             Map<String, List<TaskRequirement>> tempRequirements = new HashMap<>();
@@ -83,9 +83,9 @@ public class TaskCache {
                 tempRequirements.computeIfAbsent(key, k -> new ArrayList<>()).add(req);
                 reqCount++;
 
-                Logger.log("TaskCache: Loaded requirement: " + req.requirementType +
-                        " target=" + req.targetId + " count=" + req.targetCount +
-                        " for task " + req.taskMainId + "_" + req.taskSubId);
+                Logger.log("TaskCache: Loaded requirement: " + req.requirementType
+                        + " target=" + req.targetId + " count=" + req.targetCount
+                        + " for task " + req.taskMainId + "_" + req.taskSubId);
             }
 
             requirementsCache.clear();
@@ -114,8 +114,11 @@ public class TaskCache {
             Logger.log("TaskCache: Loading task rewards from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT task_main_id, task_sub_id, reward_type, reward_id, reward_quantity, " +
-                            "reward_description FROM task_rewards ORDER BY task_main_id, task_sub_id");
+                    "SELECT req.task_main_id, req.task_sub_id, tr.reward_type, tr.reward_id, tr.reward_quantity, tr.reward_description "
+                    + "FROM task_rewards tr "
+                    + "JOIN task_requirements req ON req.id = tr.requirement_id "
+                    + "WHERE req.is_active = 1 "
+                    + "ORDER BY req.task_main_id, req.task_sub_id");
             ResultSet rs = ps.executeQuery();
 
             Map<String, List<TaskReward>> tempRewards = new HashMap<>();
@@ -134,9 +137,9 @@ public class TaskCache {
                 tempRewards.computeIfAbsent(key, k -> new ArrayList<>()).add(reward);
                 rewardCount++;
 
-                Logger.log("TaskCache: Loaded reward: " + reward.rewardType +
-                        " id=" + reward.rewardId + " quantity=" + reward.rewardQuantity +
-                        " for task " + reward.taskMainId + "_" + reward.taskSubId);
+                Logger.log("TaskCache: Loaded reward: " + reward.rewardType
+                        + " id=" + reward.rewardId + " quantity=" + reward.rewardQuantity
+                        + " for task " + reward.taskMainId + "_" + reward.taskSubId);
             }
 
             rewardsCache.clear();
@@ -216,8 +219,8 @@ public class TaskCache {
         int totalReqs = requirementsCache.values().stream().mapToInt(List::size).sum();
         int totalRewards = rewardsCache.values().stream().mapToInt(List::size).sum();
 
-        return String.format("TaskCache Stats - Requirement Groups: %d, Reward Groups: %d, " +
-                "Total Requirements: %d, Total Rewards: %d, Last Refresh: %d ms ago",
+        return String.format("TaskCache Stats - Requirement Groups: %d, Reward Groups: %d, "
+                + "Total Requirements: %d, Total Rewards: %d, Last Refresh: %d ms ago",
                 requirementsCache.size(), rewardsCache.size(), totalReqs, totalRewards,
                 System.currentTimeMillis() - lastRefreshTime);
     }
@@ -234,6 +237,7 @@ public class TaskCache {
 
     // Inner classes
     public static class TaskRequirement {
+
         public int taskMainId;
         public int taskSubId;
         public String requirementType;
@@ -250,6 +254,7 @@ public class TaskCache {
     }
 
     public static class TaskReward {
+
         public int taskMainId;
         public int taskSubId;
         public String rewardType;
@@ -259,8 +264,13 @@ public class TaskCache {
 
         @Override
         public String toString() {
-            return String.format("TaskReward{task=%d_%d, type=%s, id=%d, quantity=%d}",
-                    taskMainId, taskSubId, rewardType, rewardId, rewardQuantity);
+            if ("ITEM".equalsIgnoreCase(rewardType)) {
+                return String.format("TaskReward{task=%d_%d, type=%s, id=%d, quantity=%d}",
+                        taskMainId, taskSubId, rewardType, rewardId, rewardQuantity);
+            } else {
+                return String.format("TaskReward{task=%d_%d, type=%s, quantity=%d}",
+                        taskMainId, taskSubId, rewardType, rewardQuantity);
+            }
         }
     }
 }

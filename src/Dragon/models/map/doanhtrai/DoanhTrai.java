@@ -9,6 +9,7 @@ import Dragon.services.func.ChangeMapService;
 import Dragon.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
+
 public class DoanhTrai {
 
     //bang hội đủ số người mới đc mở
@@ -95,18 +96,43 @@ public class DoanhTrai {
     }
 
     // Getters/Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public List<Zone> getZones() { return zones; }
-    public void setZones(List<Zone> zones) { this.zones = zones; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public Clan getClan() { return clan; }
-    public void setClan(Clan clan) { this.clan = clan; }
+    public List<Zone> getZones() {
+        return zones;
+    }
 
-    public boolean isOpened() { return isOpened; }
-    public void setOpened(boolean opened) { isOpened = opened; }
+    public void setZones(List<Zone> zones) {
+        this.zones = zones;
+    }
 
-    public long getLastTimeOpen() { return lastTimeOpen; }
-    public void setLastTimeOpen(long lastTimeOpen) { this.lastTimeOpen = lastTimeOpen; }
+    public Clan getClan() {
+        return clan;
+    }
+
+    public void setClan(Clan clan) {
+        this.clan = clan;
+    }
+
+    public boolean isOpened() {
+        return isOpened;
+    }
+
+    public void setOpened(boolean opened) {
+        isOpened = opened;
+    }
+
+    public long getLastTimeOpen() {
+        return lastTimeOpen;
+    }
+
+    public void setLastTimeOpen(long lastTimeOpen) {
+        this.lastTimeOpen = lastTimeOpen;
+    }
 }

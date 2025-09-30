@@ -144,16 +144,38 @@ public class VoDai {
     }
 
     // Getters previously provided by Lombok
-    public Player getPlayer() { return player; }
-    public Boss getBoss() { return boss; }
-    public Player getNpc() { return npc; }
-    public int getTime() { return time; }
-    public int getRound() { return round; }
-    public int getTimeWait() { return timeWait; }
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Boss getBoss() {
+        return boss;
+    }
+
+    public Player getNpc() {
+        return npc;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public int getTimeWait() {
+        return timeWait;
+    }
 
     // Setters for fields that previously used @Setter
-    public void setPlayer(Player player) { this.player = player; }
-    public void setNpc(Player npc) { this.npc = npc; }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void setNpc(Player npc) {
+        this.npc = npc;
+    }
 
     private void die() {
         Service.getInstance().sendThongBao(player, "Bạn bị xử thua vì chết queo");

@@ -2,6 +2,7 @@ package Dragon.models.reward;
 
 import Dragon.models.Template;
 import Dragon.server.Manager;
+
 public class ItemOptionMobReward {
 
     private Template.ItemOptionTemplate temp;
@@ -29,12 +30,27 @@ public class ItemOptionMobReward {
         this.ratio = ratio;
     }
 
-    public Template.ItemOptionTemplate getTemp() { return temp; }
-    public void setTemp(Template.ItemOptionTemplate temp) { this.temp = temp; }
+    public Template.ItemOptionTemplate getTemp() {
+        return temp;
+    }
 
-    public int[] getParam() { return param; }
-    public void setParam(int[] param) { this.param = param; }
+    public void setTemp(Template.ItemOptionTemplate temp) {
+        this.temp = temp;
+    }
 
-    public int[] getRatio() { return ratio; }
-    public void setRatio(int[] ratio) { this.ratio = ratio; }
+    public int[] getParam() {
+        return param;
+    }
+
+    public void setParam(int[] param) {
+        this.param = param;
+    }
+
+    public int[] getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(int[] ratio) {
+        this.ratio = ratio;
+    }
 }

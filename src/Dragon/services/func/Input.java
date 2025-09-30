@@ -108,18 +108,18 @@ public class Input {
                                 : InventoryServiceNew.gI().findItemBag(ql, (short) 457).quantity;
                         NpcService.gI().createMenuConMeo(player, ConstNpc.QUANLYTK, 21587,
                                 "|7|[ QUẢN LÝ ACCOUNT BẬC 2 ]\n"
-                                        + "|1|Player Name : " + ql.name + "\n"
-                                        + "Account ID : " + ql.id + " | " + "IP Connected : "
-                                        + ql.getSession().ipAddress + " | " + "Version : " + ql.getSession().version
-                                        + "\nHồng Ngọc Inventory : " + ql.inventory.ruby
-                                        + "\nCoin Vnđ Inventory : " + ql.getSession().vnd
-                                        + "\nThỏi Vàng Inventory : " + sl
-                                        + "\nActive Status : "
-                                        + (ql.getSession().actived == true ? "isActived" : "isNonActive")
-                                        + "\nAccount Status : " + (ql.isAdmin() ? "Key Controller" : "PlayerOnline ")
-                                        + "\n"
-                                        + "|7|[Dev By Evils]",
-                                new String[] { "CONTROLLER\nADMIN" },
+                                + "|1|Player Name : " + ql.name + "\n"
+                                + "Account ID : " + ql.id + " | " + "IP Connected : "
+                                + ql.getSession().ipAddress + " | " + "Version : " + ql.getSession().version
+                                + "\nHồng Ngọc Inventory : " + ql.inventory.ruby
+                                + "\nCoin Vnđ Inventory : " + ql.getSession().vnd
+                                + "\nThỏi Vàng Inventory : " + sl
+                                + "\nActive Status : "
+                                + (ql.getSession().actived == true ? "isActived" : "isNonActive")
+                                + "\nAccount Status : " + (ql.isAdmin() ? "Key Controller" : "PlayerOnline ")
+                                + "\n"
+                                + "|7|[Dev By Evils]",
+                                new String[]{"CONTROLLER\nADMIN"},
                                 ql);
                     } else {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
@@ -146,7 +146,7 @@ public class Input {
                         }
                     }
                 }
-                    break;
+                break;
                 case BOTITEM:
                     int slot = Integer.parseInt(text[0]);
                     int idBan = Integer.parseInt(text[1]);
@@ -194,7 +194,7 @@ public class Input {
                         }
                     }
                 }
-                    break;
+                break;
                 case TAO_PET: {
                     String NamePet = text[0];
                     if (NamePet.length() < 3 || NamePet.length() > 8) {
@@ -464,20 +464,20 @@ public class Input {
                         NpcService
                                 .gI().createMenuConMeo(
                                         player, ConstNpc.MENU_FIND_PLAYER, 21587, "|7|[ QUẢN LÝ PLAYER ]\n"
-                                                + "|7|Player Name : " + pl.name + "\n"
-                                                + "Account ID : " + pl.id + " | " + "IP Connected : "
-                                                + pl.getSession().ipAddress + " | " + "Version : "
-                                                + pl.getSession().version
-                                                + "\nHồng Ngọc Inventory : " + pl.inventory.ruby
-                                                + "\nCoin Vnđ Inventory : " + pl.getSession().vnd
-                                                + "\nThỏi Vàng Inventory : " + sl
-                                                + "\nActive Status : "
-                                                + (pl.getSession().actived == true ? "Đã Mở Thành Viên"
-                                                        : "Chưa Mở Thành Viên")
-                                                + "\nAccount Status : " + (pl.isAdmin() ? "ADMIN" : "")
-                                                + "\n|7|[Dev Evils]",
-                                        new String[] { "Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên",
-                                                "Ban", "Kick" },
+                                        + "|7|Player Name : " + pl.name + "\n"
+                                        + "Account ID : " + pl.id + " | " + "IP Connected : "
+                                        + pl.getSession().ipAddress + " | " + "Version : "
+                                        + pl.getSession().version
+                                        + "\nHồng Ngọc Inventory : " + pl.inventory.ruby
+                                        + "\nCoin Vnđ Inventory : " + pl.getSession().vnd
+                                        + "\nThỏi Vàng Inventory : " + sl
+                                        + "\nActive Status : "
+                                        + (pl.getSession().actived == true ? "Đã Mở Thành Viên"
+                                        : "Chưa Mở Thành Viên")
+                                        + "\nAccount Status : " + (pl.isAdmin() ? "ADMIN" : "")
+                                        + "\n|7|[Dev Evils]",
+                                        new String[]{"Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên",
+                                            "Ban", "Kick"},
                                         pl);
                     } else {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
@@ -560,8 +560,8 @@ public class Input {
                     } else {
                         Service.gI().sendThongBao(player,
                                 "Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                        + " đổi " + goldTrade + " Hồng Ngọc " + " " + "bạn cần thêm"
-                                        + (player.getSession().vnd - goldTrade));
+                                + " đổi " + goldTrade + " Hồng Ngọc " + " " + "bạn cần thêm"
+                                + (player.getSession().vnd - goldTrade));
                     }
                     break;
                 case QUY_DOI_HONG_NGOC:
@@ -580,8 +580,8 @@ public class Input {
                     } else {
                         Service.gI().sendThongBao(player,
                                 "Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                        + " đổi " + gemTrade + " Thỏi Vàng" + " " + "bạn cần thêm"
-                                        + (player.getSession().vnd - gemTrade));
+                                + " đổi " + gemTrade + " Thỏi Vàng" + " " + "bạn cần thêm"
+                                + (player.getSession().vnd - gemTrade));
                     }
                     break;
                 case CHOOSE_LEVEL_GAS:
@@ -591,7 +591,7 @@ public class Input {
                         if (npc != null) {
                             npc.createOtherMenu(player, ConstNpc.MENU_ACCPET_GO_TO_GAS,
                                     "Con có chắc chắn muốn tới Khí gas huỷ diệt cấp độ " + level + "?",
-                                    new String[] { "Đồng ý, Let's Go", "Từ chối" }, level);
+                                    new String[]{"Đồng ý, Let's Go", "Từ chối"}, level);
                         }
                     } else {
                         Service.getInstance().sendThongBao(player, "Không thể thực hiện");
@@ -604,7 +604,7 @@ public class Input {
                         if (npc != null) {
                             npc.createOtherMenu(player, ConstNpc.MENU_ACCEPT_GO_TO_BDKB,
                                     "Con có chắc chắn muốn tới bản đồ kho báu cấp độ " + levele + "?",
-                                    new String[] { "Đồng ý", "Từ chối" }, levele);
+                                    new String[]{"Đồng ý", "Từ chối"}, levele);
                         }
                     } else {
                         Service.gI().sendThongBao(player, "Không thể thực hiện");
@@ -651,17 +651,17 @@ public class Input {
                                     if (player != null) {
                                         Service.getInstance().sendThongBaoOK(player,
                                                 "Kết quả" + "\nSố hệ thống quay ra là :"
-                                                        + " " + x + " " + y + " " + z + "\nTổng là : " + tong
-                                                        + "\nBạn đã cược : "
-                                                        + sohntai + " VNĐ vào Tài" + "\nKết quả : Xỉu" + "\nBạn Thua.");
+                                                + " " + x + " " + y + " " + z + "\nTổng là : " + tong
+                                                + "\nBạn đã cược : "
+                                                + sohntai + " VNĐ vào Tài" + "\nKết quả : Xỉu" + "\nBạn Thua.");
                                         return;
                                     }
                                 } else if (x == y && x == z) {
                                     if (player != null) {
                                         Service.getInstance().sendThongBaoOK(player,
                                                 "Kết quả" + "Số hệ thống quay ra : " + x + " " + y + " " + z
-                                                        + "\nTổng là : " + tong + "\nBạn đã cược : " + sohntai
-                                                        + " VNĐ vào Xỉu" + "\nKết quả : Tam hoa" + "\nBạn Thua.");
+                                                + "\nTổng là : " + tong + "\nBạn đã cược : " + sohntai
+                                                + " VNĐ vào Xỉu" + "\nKết quả : Tam hoa" + "\nBạn Thua.");
                                         return;
                                     }
                                 } else if ((x + y + z) > 10) {
@@ -743,18 +743,18 @@ public class Input {
                                     if (player != null) {
                                         Service.getInstance().sendThongBaoOK(player,
                                                 "Kết quả" + "Số hệ thống quay ra : " + x + " " + y + " " + z
-                                                        + "\nTổng là : " + tong + "\nBạn đã cược : " + sohnxiu
-                                                        + " VNĐ vào Xỉu" + "\nKết quả : Tam hoa" + "\nBạn thua.");
+                                                + "\nTổng là : " + tong + "\nBạn đã cược : " + sohnxiu
+                                                + " VNĐ vào Xỉu" + "\nKết quả : Tam hoa" + "\nBạn thua.");
                                         return;
                                     }
                                 } else if ((x + y + z) > 10) {
                                     if (player != null) {
                                         Service.getInstance().sendThongBaoOK(player,
                                                 "Kết quả" + "\nSố hệ thống quay ra là :"
-                                                        + " " + x + " " + y + " " + z + "\nTổng là : " + tong
-                                                        + "\nBạn đã cược : "
-                                                        + sohnxiu + " Hồng Ngọc vào Xỉu" + "\nKết quả : Tài"
-                                                        + "\nBạn đã thua.");
+                                                + " " + x + " " + y + " " + z + "\nTổng là : " + tong
+                                                + "\nBạn đã cược : "
+                                                + sohnxiu + " Hồng Ngọc vào Xỉu" + "\nKết quả : Tài"
+                                                + "\nBạn đã thua.");
                                         return;
                                     }
                                 }
