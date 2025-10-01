@@ -35,7 +35,7 @@ cd ..\..
 REM Create run script
 echo @echo off > run-admin-server.bat
 echo echo Starting Standalone Admin Server... >> run-admin-server.bat
-echo java -cp "build\lib\*;build\standalone-admin-server.jar" admin.server.StandaloneAdminServer >> run-admin-server.bat
+echo java -cp "build\lib\gson.jar;build\standalone-admin-server.jar" admin.server.StandaloneAdminServer >> run-admin-server.bat
 echo pause >> run-admin-server.bat
 
 echo ✅ Build completed!
