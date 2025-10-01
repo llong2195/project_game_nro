@@ -44,15 +44,36 @@ public class LuyenDuocSuNpcInstance extends NpcInstance {
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
                         switch (player.combineNew.typeCombine) {
-                            case CombineServiceNew.COMBINE_TAN_DAN_FRAGMENT:
-                                if (select == 0) {
-                                    CombineServiceNew.gI().startCombine(player, 0);
+                            case CombineServiceNew.UPGRADE_TUTIEN_DAN:
+                                switch (select) {
+                                    case 0:
+                                        player.combineNew.dapdo = 1;
+                                        CombineServiceNew.gI().startCombine(player, 0);
+                                        break;
+                                    case 1:
+                                        player.combineNew.dapdo = 10;
+                                        CombineServiceNew.gI().startCombine(player, 0);
+                                        break;
+                                    case 2:
+                                        player.combineNew.dapdo = 100;
+                                        CombineServiceNew.gI().startCombine(player, 0);
+                                        break;
                                 }
                                 break;
-                            case CombineServiceNew.UPGRADE_TUTIEN_DAN:
-                                // Chỉ cần 1 nút "Nâng Cấp" - tự động nhận biết cấp hiện tại
-                                if (select == 0) {
-                                    CombineServiceNew.gI().startCombine(player, 0);
+                            case CombineServiceNew.COMBINE_TAN_DAN_FRAGMENT:
+                                switch (select) {
+                                    case 0:
+                                        player.combineNew.dapdo = 1;
+                                        CombineServiceNew.gI().startCombine(player, 0);
+                                        break;
+                                    case 1:
+                                        player.combineNew.dapdo = 10;
+                                        CombineServiceNew.gI().startCombine(player, 0);
+                                        break;
+                                    case 2:
+                                        player.combineNew.dapdo = 100;
+                                        CombineServiceNew.gI().startCombine(player, 0);
+                                        break;
                                 }
                                 break;
                             default:
