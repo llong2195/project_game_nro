@@ -13,14 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
-/**
- * Standalone Admin Web Server để quản lý NRO Game Server từ bên ngoài
- * Chạy độc lập với game server, có thể restart/monitor game server
- */
 public class StandaloneAdminServer {
     
     private static final int ADMIN_PORT = 9090;
-    private static final String GAME_SERVER_DIR = "../"; // Đường dẫn đến game server
+    private static final String GAME_SERVER_DIR = "../"; 
     private static final String GAME_START_SCRIPT = "./start-server.sh";
     private static final String GAME_STOP_SCRIPT = "./stop-server.sh";
     
