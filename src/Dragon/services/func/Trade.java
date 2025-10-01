@@ -144,7 +144,7 @@ public class Trade {
             }
         } else {
             Service.getInstance().sendThongBaoFromAdmin(pl,
-                    "|5|Chưa Kích Hoạt Tài Khoản\n|7|Nạp Ít Nhất 5K Để Kích Hoạt\n|5|Nrotuonglai.com -> Đăng Nhập -> Nạp Tiền");
+                    "|5|Chưa Kích Hoạt Tài Khoản\n|7|Nạp Ít Nhất 5K Để Kích Hoạt\n|5|Nrodaupha.online -> Đăng Nhập -> Nạp Tiền");
             removeItemTrade(pl, index);
         }
     }

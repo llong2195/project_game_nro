@@ -196,14 +196,13 @@ public class MySession extends Session {
             Service.gI().sendThongBaoOK(this, "Server này chỉ để lưu dữ liệu\nVui lòng qua server khác");
             return;
         }
-        if (Maintenance.isRuning) {
-            Service.gI().sendThongBaoOK(this, "Server �?ang Bảo Trì, Vui Lòng Quay Lại Sau!");
+        if (DataControlGame.DataGame.IsBaoTri) {
+            Service.gI().sendThongBaoOK(this, "🔧 SERVER ĐANG BẢO TRÌ\nVui lòng quay lại sau khi bảo trì hoàn tất!");
             return;
         }
 
         if (!this.isAdmin && Client.gI().getPlayers().size() >= Manager.MAX_PLAYER) {
-            Service.gI().sendThongBaoOK(this, "Máy chủ hiện đang quá tải, "
-                    + "cư dân vui lòng di chuyển sang máy chủ khác.");
+            Service.gI().sendThongBaoOK(this, "Máy chủ hiện đang quá tải, vui lòng thử lại sau!");
             return;
         }
         if (this.player != null) {

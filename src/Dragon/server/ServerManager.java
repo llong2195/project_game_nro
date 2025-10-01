@@ -173,6 +173,10 @@ public class ServerManager {
             return;
         }
 
+        // Start Admin Web Server
+        Logger.log("ServerManager: Starting Admin Web Server...");
+        AdminWebServer.getInstance().start();
+        
         // Traditional server startup
         // Logger.log("ServerManager: Starting traditional server...");
         GirlkunServer.gI().init().setAcceptHandler(new ISessionAcceptHandler() {

@@ -1392,9 +1392,9 @@ public class NpcFactory {
 
             private void createFutureWorldMenu(Player player, String activeStatus) {
                 String menuMessage = new StringBuilder()
-                        .append("NROTUONGLAI.COM\n")
+                    .append("NRODAUPHA.ONLINE\n")
                         .append(activeStatus)
-                        .append("Chào Bạn Đến Với Thế Giới Tương Lai\n")
+                        .append("Chào Bạn Đến Với Thế Giới Đấu Phá\n")
                         .append("Cày Cuốc, Tạo Cộng Đồng, Mua Bán\n")
                         .append("Còn Nhiều Chức Năng Mới Đang Chờ Bạn Khám Phá\n")
                         .append("Hãy Đi Khám Phá Và Chung Vui Cùng Mọi Người Nào!\n")
@@ -2266,7 +2266,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     createOtherMenu(player, ConstNpc.BASE_MENU,
-                            "|2|Tết Đến Rồi, Ăn Tết Cùng NRO Tương Lai\n"
+                            "|2|Tết Đến Rồi, Ăn Tết Cùng NRO Đấu Phá\n"
                             + "Trong Thời Gian Diễn Ra Sự Kiện\n"
                             + "Thu Thập 200 Thịt Về Nấu Thịt Kho Hột Vịt\n"
                             + "Thịt Được Kiếm Ở Khắp Nơi Khi Bạn Đánh Quái Tỉ Lệ 1/3\n"
@@ -2356,7 +2356,7 @@ public class NpcFactory {
                                             + "|2|Cách thức tìm nguyên liệu làm bánh Trung Thu\n"
                                             + "|4|- Gà quay nguyên con: Đánh các quái bay\n"
                                             + "- Trứng vịt muối: Đánh các quái dưới đất\n"
-                                            + "- Đậu xanh, Bột mì: Đánh quái sên bên Tương Lai\n"
+                                            + "- Đậu xanh, Bột mì: Đánh quái sên bên Đấu Phá\n"
                                             + "- Thỏ Màu: Dắt Thỏ Tại Npc Ông Gohan, Ông Moori, Ông Paragus\n"
                                             + "Cà Rốt: Săn Thỏ Đại Ca\n\n"
                                             + "|5|Làm bánh để nhận điểm và đổi các phần quà hấp dẫn\n"

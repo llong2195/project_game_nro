@@ -165,7 +165,7 @@ public class Controller implements IMessageHandler {
                         ChangeMapService.gI().changeMap(player, 170, 0, 1560, 336);
                     } else if (player.type == 3 && player.maxTime == 5) {
                         ChangeMapService.gI().changeMap(player, 173, 0, 210, 576);
-                    } else if (player.type == 4 && player.maxTime == 5) {// Phước Dịch Chuyển Tương Lai
+                    } else if (player.type == 4 && player.maxTime == 5) {// Phước Dịch Chuyển Đấu Phá
                         ChangeMapService.gI().changeMap(player, 2, 0, 178, 360);
                     } else if (player.type == 5 && player.maxTime == 7) {
                         ChangeMapService.gI().changeMap(player, 29, 0, 374, 408);
