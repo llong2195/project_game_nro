@@ -208,19 +208,13 @@ public class Manager {
         }
         this.loadDatabase();
 
-        Dragon.utils.Logger.log("Manager: Initializing Mob Reward Cache...");
         Dragon.jdbc.daos.MobRewardCache.getInstance().initializeCache();
 
-        Dragon.utils.Logger.log("Manager: Initializing Boss Reward Cache...");
         Dragon.jdbc.daos.BossRewardCache.getInstance().initializeCache();
-
-        Dragon.utils.Logger.log("Manager: Initializing Gift Code Cache...");
         Dragon.jdbc.daos.GiftCodeCache.getInstance().initializeCache();
 
-        Dragon.utils.Logger.log("Manager: Initializing Task Cache...");
         Dragon.jdbc.daos.TaskCache.getInstance().initializeCache();
 
-        Dragon.utils.Logger.log("Manager: Initializing Top Ranking Cache...");
         Dragon.jdbc.daos.TopRankingCache.getInstance();
 
         NpcFactory.createNpcConMeo();
@@ -228,9 +222,6 @@ public class Manager {
         Dragon.nam.GachaService.loadItem();
         NpcFactory.createNpcRongThieng();
         this.initMap();
-
-        // TopService đã được tối ưu - không còn chạy background thread
-        Dragon.utils.Logger.log("Manager: TopService background thread disabled to reduce lag");
     }
 
     public boolean HoTroNhiemVu() {
@@ -267,10 +258,10 @@ public class Manager {
         }
 
         // Khởi tạo GameLoopManager để update tất cả maps
-        Logger.log("Manager: Initializing GameLoopManager...");
+        // Logger.log("Manager: Initializing GameLoopManager...");
         GameLoopManager.getInstance().initialize();
         GameLoopManager.getInstance().start();
-        Logger.log("Manager: GameLoopManager started - Maps will be updated by thread pool");
+        // Logger.log("Manager: GameLoopManager started - Maps will be updated by thread pool");
 
         Referee r = new Referee();
         r.initReferee();

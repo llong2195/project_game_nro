@@ -174,7 +174,7 @@ public class ServerManager {
         }
 
         // Traditional server startup
-        Logger.log("ServerManager: Starting traditional server...");
+        // Logger.log("ServerManager: Starting traditional server...");
         GirlkunServer.gI().init().setAcceptHandler(new ISessionAcceptHandler() {
             @Override
             public void sessionInit(ISession is) {
@@ -248,7 +248,7 @@ public class ServerManager {
 
     private void activeCommandLine() {
         if (System.console() == null) {
-            Logger.log(Logger.YELLOW, "Command-line input disabled (no console available).\n");
+            // Logger.log(Logger.YELLOW, "Command-line input disabled (no console available).\n");
             return;
         }
         new Thread(() -> {

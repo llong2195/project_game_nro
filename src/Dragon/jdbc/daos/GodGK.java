@@ -7,8 +7,6 @@ import com.girlkun.result.GirlkunResultSet;
 import Dragon.consts.ConstPlayer;
 import Dragon.data.DataGame;
 import Dragon.models.Template.ArchivementTemplate;
-//import Dragon.models.ThanhTich.ThanhTich;
-//import Dragon.models.ThanhTich.ThanhTichPlayer;
 import Dragon.models.clan.Clan;
 import Dragon.models.clan.ClanMember;
 import Dragon.models.item.Item;
@@ -93,7 +91,7 @@ public class GodGK {
 
             session.userId = rsAcc.getInt("id");
             try {
-                session.isAdmin = rsAcc.getInt("is_admin") == 1;
+                session.isAdmin = rsAcc.getBoolean("is_admin") == true;
             } catch (Exception ignored) {
                 session.isAdmin = false;
             }

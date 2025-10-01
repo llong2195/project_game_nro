@@ -55,7 +55,7 @@ public class GiftCodeCache {
     private void loadAllGiftCodes() {
         Connection con = null;
         try {
-            Logger.log("GiftCodeCache: Loading gift codes from database...");
+            // Logger.log("GiftCodeCache: Loading gift codes from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT id, code, name, description, max_uses, current_uses, created_date, expired_date, "
@@ -79,14 +79,14 @@ public class GiftCodeCache {
                 giftCode.vipLevelMin = rs.getInt("vip_level_min");
 
                 tempCodes.put(giftCode.code, giftCode);
-                Logger.log("GiftCodeCache: Loaded gift code: " + giftCode.code + " (" + giftCode.name
-                        + ") - Type: " + giftCode.playerLimitType + ", Uses: " + giftCode.currentUses + "/"
-                        + giftCode.maxUses);
+                // Logger.log("GiftCodeCache: Loaded gift code: " + giftCode.code + " (" + giftCode.name
+                //         + ") - Type: " + giftCode.playerLimitType + ", Uses: " + giftCode.currentUses + "/"
+                //         + giftCode.maxUses);
             }
 
             giftCodesCache.clear();
             giftCodesCache.putAll(tempCodes);
-            Logger.log("GiftCodeCache: Successfully loaded " + tempCodes.size() + " gift codes");
+            // Logger.log("GiftCodeCache: Successfully loaded " + tempCodes.size() + " gift codes");
 
             rs.close();
             ps.close();
@@ -107,7 +107,7 @@ public class GiftCodeCache {
     private void loadAllGiftCodeItems() {
         Connection con = null;
         try {
-            Logger.log("GiftCodeCache: Loading gift code items from database...");
+            // Logger.log("GiftCodeCache: Loading gift code items from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT gci.id, gci.gift_code_id, gci.item_id, gci.quantity "
@@ -128,13 +128,13 @@ public class GiftCodeCache {
 
                 tempItems.computeIfAbsent(item.giftCodeId, k -> new ArrayList<>()).add(item);
                 itemCount++;
-                Logger.log("GiftCodeCache: Loaded item: ID=" + item.itemId + " x" + item.quantity
-                        + " for gift_code_id=" + item.giftCodeId);
+                // Logger.log("GiftCodeCache: Loaded item: ID=" + item.itemId + " x" + item.quantity
+                //         + " for gift_code_id=" + item.giftCodeId);
             }
 
             itemsCache.clear();
             itemsCache.putAll(tempItems);
-            Logger.log("GiftCodeCache: Successfully loaded " + itemCount + " gift code items");
+            // Logger.log("GiftCodeCache: Successfully loaded " + itemCount + " gift code items");
 
             rs.close();
             ps.close();
@@ -155,7 +155,7 @@ public class GiftCodeCache {
     private void loadAllGiftCodeItemOptions() {
         Connection con = null;
         try {
-            Logger.log("GiftCodeCache: Loading gift code item options from database...");
+            // Logger.log("GiftCodeCache: Loading gift code item options from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT gcio.gift_code_item_id, gcio.option_id, gcio.param "
@@ -176,13 +176,13 @@ public class GiftCodeCache {
 
                 tempOptions.computeIfAbsent(giftCodeItemId, k -> new ArrayList<>()).add(option);
                 optionCount++;
-                Logger.log("GiftCodeCache: Loaded option: optionId=" + option.optionId
-                        + " param=" + option.param + " for gift_code_item_id=" + giftCodeItemId);
+                // Logger.log("GiftCodeCache: Loaded option: optionId=" + option.optionId
+                //         + " param=" + option.param + " for gift_code_item_id=" + giftCodeItemId);
             }
 
             optionsCache.clear();
             optionsCache.putAll(tempOptions);
-            Logger.log("GiftCodeCache: Successfully loaded " + optionCount + " gift code item options");
+            // Logger.log("GiftCodeCache: Successfully loaded " + optionCount + " gift code item options");
 
             rs.close();
             ps.close();
@@ -203,7 +203,7 @@ public class GiftCodeCache {
     private void loadAllPlayerRestrictions() {
         Connection con = null;
         try {
-            Logger.log("GiftCodeCache: Loading player restrictions from database...");
+            // Logger.log("GiftCodeCache: Loading player restrictions from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT gcpr.gift_code_id, gcpr.player_id, gcpr.restriction_type "
@@ -223,14 +223,14 @@ public class GiftCodeCache {
                 if ("ALLOWED".equals(restrictionType)) {
                     tempRestrictions.computeIfAbsent(giftCodeId, k -> new ArrayList<>()).add(playerId);
                     restrictionCount++;
-                    Logger.log("GiftCodeCache: Loaded restriction: gift_code_id=" + giftCodeId
-                            + " allows player_id=" + playerId);
+                    // Logger.log("GiftCodeCache: Loaded restriction: gift_code_id=" + giftCodeId
+                    //         + " allows player_id=" + playerId);
                 }
             }
 
             playerRestrictionsCache.clear();
             playerRestrictionsCache.putAll(tempRestrictions);
-            Logger.log("GiftCodeCache: Successfully loaded " + restrictionCount + " player restrictions");
+            // Logger.log("GiftCodeCache: Successfully loaded " + restrictionCount + " player restrictions");
 
             rs.close();
             ps.close();

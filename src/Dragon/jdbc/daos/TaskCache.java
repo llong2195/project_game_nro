@@ -31,7 +31,7 @@ public class TaskCache {
     }
 
     public void initializeCache() {
-        Logger.log("TaskCache: Starting cache initialization...");
+        // Logger.log("TaskCache: Starting cache initialization...");
 
         try {
             loadAllTaskRequirements();
@@ -46,7 +46,7 @@ public class TaskCache {
     private void loadAllTaskRequirements() {
         Connection con = null;
         try {
-            Logger.log("TaskCache: Loading task requirements from database...");
+            // Logger.log("TaskCache: Loading task requirements from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT task_main_id, task_sub_id, requirement_type, target_id, target_count, "
@@ -94,7 +94,7 @@ public class TaskCache {
     private void loadAllTaskRewards() {
         Connection con = null;
         try {
-            Logger.log("TaskCache: Loading task rewards from database...");
+            // Logger.log("TaskCache: Loading task rewards from database...");
             con = GirlkunDB.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "SELECT req.task_main_id, req.task_sub_id, tr.reward_type, tr.reward_id, tr.reward_quantity, tr.reward_description "
@@ -123,7 +123,7 @@ public class TaskCache {
 
             rewardsCache.clear();
             rewardsCache.putAll(tempRewards);
-            Logger.log("TaskCache: Successfully loaded " + rewardCount + " task rewards");
+            // Logger.log("TaskCache: Successfully loaded " + rewardCount + " task rewards");
 
             rs.close();
             ps.close();

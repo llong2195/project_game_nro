@@ -46,9 +46,6 @@ public class GameLoopManager {
      * Khởi tạo game loop manager
      */
     public void initialize() {
-        Logger.log("GameLoopManager: Initializing optimized game loop...");
-
-        // Tạo thread pools
         gameLoopExecutor = Executors.newScheduledThreadPool(2, r -> {
             Thread t = new Thread(r, "GameLoop-Map");
             t.setDaemon(true);
@@ -66,8 +63,6 @@ public class GameLoopManager {
             t.setDaemon(true);
             return t;
         });
-
-        Logger.log("GameLoopManager: Thread pools created successfully");
     }
 
     /**
@@ -79,7 +74,7 @@ public class GameLoopManager {
             return;
         }
 
-        Logger.log("GameLoopManager: Starting optimized game loop...");
+        // Logger.log("GameLoopManager: Starting optimized game loop...");
 
         // Map update loop
         gameLoopExecutor.scheduleAtFixedRate(() -> {
@@ -109,7 +104,7 @@ public class GameLoopManager {
         }, 0, SYSTEM_UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
 
         isRunning = true;
-        Logger.log("GameLoopManager: Game loop started successfully");
+        // Logger.log("GameLoopManager: Game loop started successfully");
     }
 
     /**
@@ -136,11 +131,11 @@ public class GameLoopManager {
         updateCount.incrementAndGet();
 
         // Log performance mỗi 60 giây
-        if (updateCount.get() % 60 == 0) {
-            long avgTime = totalUpdateTime.get() / updateCount.get();
-            Logger.log("GameLoopManager: Map update performance - Avg: " + avgTime + "ms, Total maps: "
-                    + Manager.MAPS.size());
-        }
+        // if (updateCount.get() % 60 == 0) {
+        //     long avgTime = totalUpdateTime.get() / updateCount.get();
+        //     Logger.log("GameLoopManager: Map update performance - Avg: " + avgTime + "ms, Total maps: "
+        //             + Manager.MAPS.size());
+        // }
     }
 
     private void updatePlayers() {
@@ -168,8 +163,6 @@ public class GameLoopManager {
      */
     private void updateSystems() {
         try {
-            // Update các system khác
-            // Có thể thêm các system update khác ở đây
         } catch (Exception e) {
             Logger.logException(GameLoopManager.class, e);
         }

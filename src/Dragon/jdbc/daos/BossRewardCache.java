@@ -36,18 +36,12 @@ public class BossRewardCache {
      * Initialize cache - Load tất cả boss rewards từ database vào memory
      */
     public void initializeCache() {
-        Logger.log("BossRewardCache: Starting cache initialization...");
-
         try {
             loadAllBossRewards();
             loadAllBossRewardOptions();
 
             isInitialized = true;
             lastRefreshTime = System.currentTimeMillis();
-
-            Logger.log("BossRewardCache: Cache initialized successfully!");
-            Logger.log("BossRewardCache: Loaded rewards for " + rewardsCache.size() + " bosses");
-            Logger.log("BossRewardCache: Loaded " + optionsCache.size() + " option groups");
 
         } catch (Exception e) {
             Logger.logException(BossRewardCache.class, e);

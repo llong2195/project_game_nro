@@ -39,7 +39,7 @@ public class MobRewardCache {
      * Initialize cache - Load tất cả data từ database vào memory
      */
     public void initializeCache() {
-        Logger.log("MobRewardCache: Starting cache initialization...");
+        // Logger.log("MobRewardCache: Starting cache initialization...");
 
         try {
             loadAllGroups();
@@ -49,10 +49,10 @@ public class MobRewardCache {
             isInitialized = true;
             lastRefreshTime = System.currentTimeMillis();
 
-            Logger.log("MobRewardCache: Cache initialized successfully!");
-            Logger.log("MobRewardCache: Loaded " + groupsCache.size() + " mob groups");
-            Logger.log("MobRewardCache: Loaded " + itemsCache.size() + " item groups");
-            Logger.log("MobRewardCache: Loaded " + optionsCache.size() + " option groups");
+            // Logger.log("MobRewardCache: Cache initialized successfully!");
+            // Logger.log("MobRewardCache: Loaded " + groupsCache.size() + " mob groups");
+            // Logger.log("MobRewardCache: Loaded " + itemsCache.size() + " item groups");
+            // Logger.log("MobRewardCache: Loaded " + optionsCache.size() + " option groups");
 
         } catch (Exception e) {
             Logger.logException(MobRewardCache.class, e);
