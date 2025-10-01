@@ -19,28 +19,16 @@ import java.util.List;
 public class MobDropHandler {
 
     public static List<ItemMap> getItemMobReward(Mob mob, Player player, int x, int yEnd) {
-        Dragon.utils.Logger.log("MobDropHandler: Starting getItemMobReward for mob ID: " + mob.tempId
-                + ", player: " + player.name + ", map: " + player.zone.map.mapId);
-
         List<ItemMap> list = new ArrayList<>();
         MobReward mobReward = Manager.MOB_REWARDS.get(mob.tempId);
         if (mobReward == null) {
-            Dragon.utils.Logger.log("MobDropHandler: No mob reward config found for mob ID: " + mob.tempId);
             return list;
         }
 
-        Dragon.utils.Logger.log("MobDropHandler: Found mob reward config for mob ID: " + mob.tempId);
-
         if (MapStart(player.zone.map.mapId)) {
-            Dragon.utils.Logger.log("MobDropHandler: Map is in start state, returning empty list");
             return new ArrayList<>();
         }
-
-        // List<ItemMobReward> items = mobReward.getItemReward();
-        // List<ItemMobReward> golds = mobReward.getGoldReward();
         handleSqlDrops(mob, player, x, yEnd, list);
-        Dragon.utils.Logger.log("MobDropHandler: Final result - Total items to drop: " + list.size()
-                + " for mob ID: " + mob.tempId + ", player: " + player.name);
         return list;
     }
 
@@ -62,12 +50,9 @@ public class MobDropHandler {
         }
     }
 
-    /**
-     * Handles crystal star drops - COMMENTED OUT FOR SQL
-     */
+
     @SuppressWarnings("unused")
     private static void handleCrystalStarDrops(Mob mob, Player player, int x, int yEnd, List<ItemMap> list) {
-        // Danh sách thông tin các sao pha lê: {itemId, optionId, optionLevel}
         int[][] saoPhaLeInfo = {
             {441, 95, 5}, // Sao Pha Lê Đỏ
             {442, 96, 5}, // Sao Pha Lê Xanh Dương
@@ -250,12 +235,8 @@ public class MobDropHandler {
      */
     private static void handleSqlDrops(Mob mob, Player player, int x, int yEnd, List<ItemMap> list) {
         try {
-            Dragon.utils.Logger
-                    .log("MobDropHandler: Starting SQL drops for mob ID: " + mob.tempId + ", player: " + player.name);
             List<ItemMap> sqlDrops = MobRewardService.getInstance().processRewards(mob, player, x, yEnd);
-            Dragon.utils.Logger.log("MobDropHandler: SQL drops returned " + sqlDrops.size() + " items");
             list.addAll(sqlDrops);
-            Dragon.utils.Logger.log("MobDropHandler: Total items after SQL drops: " + list.size());
         } catch (Exception e) {
             // Log error but don't break the drop system
             Dragon.utils.Logger.logException(MobDropHandler.class, e);

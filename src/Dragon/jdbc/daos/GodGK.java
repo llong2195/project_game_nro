@@ -124,8 +124,7 @@ public class GodGK {
 
             Player existingPlayer = Client.gI().getPlayerByUser(session.userId);
             if (existingPlayer != null) {
-                Logger.log("LOGIN: userId=" + session.userId
-                        + " đã online (GodGK), tiến hành kick session cũ (playerName=" + existingPlayer.name + ")");
+                Logger.log("LOGIN: User " + session.userId + " already online, kicking old session");
                 existingPlayer.getSession().disconnect();
                 try {
                     Thread.sleep(200);
@@ -135,10 +134,8 @@ public class GodGK {
             }
 
             // Load player by correct account_id
-            Logger.log("LOGIN: Loading player for account_id=" + session.userId + ", user=" + session.uu);
             rs = GirlkunDB.executeQuery("select * from player where account_id = ? limit 1", session.userId);
             if (!rs.first()) {
-                Logger.log("LOGIN: No player found for account_id=" + session.userId + ", switching to create char");
                 Service.gI().switchToCreateChar(session);
                 DataGame.sendDataItemBG(session);
                 DataGame.sendVersionGame(session);
@@ -146,25 +143,15 @@ public class GodGK {
                 Service.gI().sendMessage(session, -93, "1630679752231_-93_r");
                 DataGame.updateData(session);
             } else {
-                Logger.log("LOGIN: Found player for account_id=" + session.userId + ", loading player data");
                 player = PlayerDataLoader.loadPlayer(rs, PlayerDataLoader.LoadType.FULL_LOGIN);
-                Logger.log("LOGIN: PlayerDataLoader completed for user=" + session.uu + ", player.id=" + (player != null ? player.id : "null"));
 
                 long now = System.currentTimeMillis();
                 long thoiGianOffline = now - session.lastTimeOff;
                 player.timeoff = thoiGianOffline /= 60000;
                 player.totalPlayerViolate = 0;
-                Logger.log("LOGIN: Player setup completed for user=" + session.uu);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            Logger.error("LOGIN: exception user=" + session.uu + ", ip=" + session.ipAddress + ", sessionId=" + session.id);
-            Logger.error("LOGIN: exception details: " + e.getClass().getSimpleName() + " - " + e.getMessage());
-            System.err.println("LOGIN EXCEPTION DETAILS:");
-            System.err.println("User: " + session.uu);
-            System.err.println("Exception: " + e.getClass().getSimpleName());
-            System.err.println("Message: " + e.getMessage());
-            e.printStackTrace(System.err);
+            Logger.error("LOGIN: Failed for user=" + session.uu + " - " + e.getMessage());
             if (player != null) {
                 player.dispose();
             }
@@ -229,7 +216,6 @@ public class GodGK {
                 player = PlayerDataLoader.loadPlayer(rs, PlayerDataLoader.LoadType.SIEU_HANG_ONLY);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             if (player != null) {
                 player.dispose();
             }
