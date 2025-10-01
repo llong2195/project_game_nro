@@ -32,18 +32,20 @@ cd build\classes
 jar -cf ..\standalone-admin-server.jar admin\
 cd ..\..
 
-REM Create run script
-echo @echo off > run-admin-server.bat
-echo echo Starting Standalone Admin Server... >> run-admin-server.bat
-echo java -cp "build\lib\gson.jar;build\standalone-admin-server.jar" admin.server.StandaloneAdminServer >> run-admin-server.bat
-echo pause >> run-admin-server.bat
-
 echo ✅ Build completed!
 
 echo.
-echo To run the admin server:
-echo   Windows:   run-admin-server.bat
-echo   Linux/Mac: ./run-admin-server.sh
-echo.
 echo Admin API will be available at: http://localhost:9090/admin
-pause
+echo.
+
+set /p choice="Do you want to start the Admin Server now? (Y/N): "
+if /i "%choice%"=="Y" (
+    echo.
+    echo Starting Admin Server...
+    echo.
+    java -cp "build\lib\gson.jar;build\standalone-admin-server.jar" admin.server.StandaloneAdminServer
+) else (
+    echo.
+    echo You can run the server later with: build-admin.bat
+    pause
+)

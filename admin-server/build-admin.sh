@@ -27,29 +27,21 @@ if [ $? -eq 0 ]; then
     jar -cf ../standalone-admin-server.jar admin/
     cd ../..
     
-    # Tạo run script
-    cat > run-admin-server.sh << 'EOF'
-#!/bin/bash
-echo "Starting Standalone Admin Server..."
-java -cp "build/lib/*:build/standalone-admin-server.jar" admin.server.StandaloneAdminServer
-EOF
-    chmod +x run-admin-server.sh
-    
-    # Tạo Windows batch file
-    cat > run-admin-server.bat << 'EOF'
-@echo off
-echo Starting Standalone Admin Server...
-java -cp "build/lib/*;build/standalone-admin-server.jar" admin.server.StandaloneAdminServer
-pause
-EOF
-    
     echo "✅ Build completed!"
     echo ""
-    echo "To run the admin server:"
-    echo "  Linux/Mac: ./run-admin-server.sh"
-    echo "  Windows:   run-admin-server.bat"
+    echo "Admin API will be available at: http://localhost:9090/admin"
     echo ""
-    echo "Admin API will be available at: http://localhost:8080/admin"
+    
+    read -p "Do you want to start the Admin Server now? (Y/N): " choice
+    if [[ $choice =~ ^[Yy]$ ]]; then
+        echo ""
+        echo "Starting Admin Server..."
+        echo ""
+        java -cp "build/lib/*:build/standalone-admin-server.jar" admin.server.StandaloneAdminServer
+    else
+        echo ""
+        echo "You can run the server later with: ./build-admin.sh"
+    fi
     
 else
     echo "❌ Compilation failed!"
