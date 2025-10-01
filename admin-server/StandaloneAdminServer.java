@@ -147,18 +147,31 @@ public class StandaloneAdminServer {
             String os = System.getProperty("os.name").toLowerCase();
             
             if (os.contains("win")) {
-                builder.command("cmd", "/c", "start-server.bat");
+                builder.command("cmd", "/c", "gradlew.bat", "run");
             } else {
-                builder.command("./start-server.sh");
+                builder.command("./gradlew", "run");
             }
             
             builder.directory(new File(GAME_SERVER_DIR));
             builder.redirectOutput(new File("game-server.log"));
             builder.redirectError(new File("game-server-error.log"));
             
+            // Set environment variables for Windows
+            Map<String, String> env = builder.environment();
+            if (os.contains("win")) {
+                env.put("JAVA_OPTS", "-Xmx2G -Xms1G");
+            }
+            
             gameServerProcess = builder.start();
             
-            return "Game server started successfully (PID: " + gameServerProcess.pid() + ")";
+            // Wait a bit to check if process started successfully
+            Thread.sleep(2000);
+            
+            if (gameServerProcess.isAlive()) {
+                return "Game server started successfully (PID: " + gameServerProcess.pid() + ")";
+            } else {
+                return "Game server failed to start. Check logs for details.";
+            }
             
         } catch (Exception e) {
             return "Error starting game server: " + e.getMessage();
@@ -173,10 +186,25 @@ public class StandaloneAdminServer {
             
             String os = System.getProperty("os.name").toLowerCase();
             
+            // First try graceful shutdown
+            if (gameServerProcess != null && gameServerProcess.isAlive()) {
+                gameServerProcess.destroy();
+                Thread.sleep(3000);
+                
+                if (gameServerProcess.isAlive()) {
+                    gameServerProcess.destroyForcibly();
+                }
+            }
+            
             // Kill processes multiple ways to ensure success
             if (os.contains("win")) {
-                // Windows
-                Runtime.getRuntime().exec("taskkill /f /im java.exe");
+                // Windows: More specific targeting
+                Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Gradle*\"");
+                Runtime.getRuntime().exec("netstat -ano | findstr :13579");
+                Runtime.getRuntime().exec("netstat -ano | findstr :8080");
+                // Kill by port
+                Runtime.getRuntime().exec("for /f \"tokens=5\" %a in ('netstat -aon ^| find \":13579\" ^| find \"LISTENING\"') do taskkill /f /pid %a");
+                Runtime.getRuntime().exec("for /f \"tokens=5\" %a in ('netstat -aon ^| find \":8080\" ^| find \"LISTENING\"') do taskkill /f /pid %a");
             } else {
                 // Linux/Mac: Multiple kill strategies
                 Runtime.getRuntime().exec("pkill -f 'gradle.*run'");
@@ -186,14 +214,14 @@ public class StandaloneAdminServer {
             }
             
             // Wait and verify
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             
             // Reset process reference
             gameServerProcess = null;
             
             // Verify server is actually stopped
             if (isGameServerRunning()) {
-                return "Game server stop initiated, but may still be running. Please check manually.";
+                return "Game server stop initiated, but may still be running. Try force-kill command.";
             }
             
             return "Game server stopped successfully";
