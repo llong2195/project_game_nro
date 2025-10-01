@@ -39,23 +39,13 @@ public class GiftCodeCache {
      * Initialize cache - Load tất cả gift code data từ database vào memory
      */
     public void initializeCache() {
-        Logger.log("GiftCodeCache: Starting cache initialization...");
-
         try {
             loadAllGiftCodes();
             loadAllGiftCodeItems();
             loadAllGiftCodeItemOptions();
             loadAllPlayerRestrictions();
-
             isInitialized = true;
             lastRefreshTime = System.currentTimeMillis();
-
-            Logger.log("GiftCodeCache: Cache initialized successfully!");
-            Logger.log("GiftCodeCache: Loaded " + giftCodesCache.size() + " gift codes");
-            Logger.log("GiftCodeCache: Loaded " + itemsCache.size() + " item groups");
-            Logger.log("GiftCodeCache: Loaded " + optionsCache.size() + " option groups");
-            Logger.log("GiftCodeCache: Loaded " + playerRestrictionsCache.size() + " restriction groups");
-
         } catch (Exception e) {
             Logger.logException(GiftCodeCache.class, e);
             Logger.log("GiftCodeCache: Failed to initialize cache!");

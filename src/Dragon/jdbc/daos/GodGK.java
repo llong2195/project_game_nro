@@ -64,7 +64,8 @@ public class GodGK {
             for (int i = 0; i < json.size(); i++) {
                 JSONObject ob = (JSONObject) json.get(i);
                 if (ob != null) {
-                    ops.add(new OptionCard(Integer.parseInt(ob.get("id").toString()), Integer.parseInt(ob.get("param").toString()), Byte.parseByte(ob.get("active").toString())));
+                    ops.add(new OptionCard(Integer.parseInt(ob.get("id").toString()),
+                            Integer.parseInt(ob.get("param").toString()), Byte.parseByte(ob.get("active").toString())));
                 }
             }
         } catch (Exception e) {
@@ -72,134 +73,123 @@ public class GodGK {
         }
         return ops;
     }
+
     public static Boolean baotri = false;
 
     public static synchronized Player login(MySession session, AntiLogin al) {
         Player player = null;
         GirlkunResultSet rs = null;
+        GirlkunResultSet rsAcc = null;
         try {
-            rs = GirlkunDB.executeQuery("SELECT * FROM account WHERE username = ? AND password = ?", session.uu, session.pp);
-            if (rs.first()) {
-                session.userId = rs.getInt("account.id");
-                session.isAdmin = rs.getBoolean("is_admin");
-                session.lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
-                session.lastTimeOff = rs.getTimestamp("last_time_off").getTime();
-                session.actived = rs.getBoolean("active");
-                session.mtvgtd = rs.getBoolean("mtvgt");
-                session.vip1d = rs.getBoolean("vip1");
-                session.vip2d = rs.getBoolean("vip2");
-                session.vip3d = rs.getBoolean("vip3");
-                session.vip4d = rs.getBoolean("vip4");
-                session.vip5d = rs.getBoolean("vip5");
-                session.vip6d = rs.getBoolean("vip6");
-                session.tongnap = rs.getInt("tongnap");
-                session.vnd = rs.getInt("vnd");
-                session.mocnap = rs.getInt("mocnap");
-                session.gioithieu = rs.getInt("gioithieu");
-                session.goldBar = rs.getInt("account.thoi_vang");
-                session.bdPlayer = rs.getDouble("account.bd_player");
-                long lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
-                int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
-                long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
-                int secondsPass = (int) ((System.currentTimeMillis() - lastTimeLogout) / 1000);
-                if (rs.getBoolean("ban")) {
-                    Service.getInstance().sendThongBaoOK(session, "Tài khoản đã bị khóa!");
-                } //                else if (!session.isAdmin) {
-                //                    Service.gI().sendThongBaoOK(session, "Chi danh cho admin");
-                //                }
-                else if (baotri && session.isAdmin) {
-                    Service.getInstance().sendThongBaoOK(session, "Máy chủ đang bảo trì, vui lòng quay lại sau!");
-                } else if (secondsPass1 < Manager.SECOND_WAIT_LOGIN) {
-                    if (secondsPass < secondsPass1) {
-                        Service.getInstance().sendThongBaoOK(session, "Vui lòng chờ " + (Manager.SECOND_WAIT_LOGIN - secondsPass) + "s");
-                        return null;
-                    }
-                    Service.getInstance().sendThongBaoOK(session, "Vui lòng chờ " + (Manager.SECOND_WAIT_LOGIN - secondsPass1) + "s");
-                    return null;
-                } else if (rs.getTimestamp("last_time_login").getTime() > session.lastTimeLogout) {
-                    Player plInGame = Client.gI().getPlayerByUser(session.userId);
-                    if (plInGame != null) {
-                        Client.gI().kickSession(plInGame.getSession());
-                        Service.getInstance().sendThongBaoOK(session, "Có Người Đăng Nhập Tài Khoản?");
-                    } else {
-                    }
-                    //Service.getInstance().sendThongBaoOK(session, "Tài khoản đang được đăng nhập tại máy chủ khác");
-                } else {
-                    if (secondsPass < Manager.SECOND_WAIT_LOGIN) {
-                        Service.getInstance().sendThongBaoOK(session, "Vui lòng chờ " + (Manager.SECOND_WAIT_LOGIN - secondsPass) + "s");
-                    } else {//set time logout trước rồi đọc data player
-                        rs = GirlkunDB.executeQuery("select * from player where account_id = ? limit 1", session.userId);
-                        if (!rs.first()) {
-                            Service.gI().switchToCreateChar(session);
-                            DataGame.sendDataItemBG(session);
-                            DataGame.sendVersionGame(session);
-                            DataGame.sendTileSetInfo(session);
-                            Service.gI().sendMessage(session, -93, "1630679752231_-93_r");
-                            DataGame.updateData(session);
-                        } else {
-                            Player plInGame = Client.gI().getPlayerByUser(session.userId);
-                            if (plInGame != null) {
-                                Client.gI().kickSession(plInGame.getSession());
-                            }
-
-                            // Sử dụng PlayerDataLoader thay thế toàn bộ duplicate code
-                            player = PlayerDataLoader.loadPlayer(rs, PlayerDataLoader.LoadType.FULL_LOGIN);
-
-                            // Thêm các logic đặc biệt cho login
-                            long now = System.currentTimeMillis();
-                            long thoiGianOffline = now - session.lastTimeOff;
-                            player.timeoff = thoiGianOffline /= 60000;
-                            player.totalPlayerViolate = 0;
-
-                            GirlkunDB.executeUpdate("update account set last_time_login = '" + new Timestamp(System.currentTimeMillis()) + "', ip_address = '" + session.ipAddress + "' where id = " + session.userId);
-                        }
-                    }
-                }
-                al.reset();
-            } else {
+            // Authenticate against account table
+            rsAcc = GirlkunDB.executeQuery(
+                    "select * from account where username = ? and password = ? limit 1",
+                    session.uu, session.pp);
+            if (!rsAcc.first()) {
                 Service.gI().sendThongBaoOK(session, "Thông tin tài khoản hoặc mật khẩu không chính xác");
                 al.wrong();
+                return null;
+            }
+
+            session.userId = rsAcc.getInt("id");
+            try {
+                session.isAdmin = rsAcc.getInt("is_admin") == 1;
+            } catch (Exception ignored) {
+                session.isAdmin = false;
+            }
+            try {
+                Timestamp lastLogout = rsAcc.getTimestamp("last_time_logout");
+                Timestamp lastOff = rsAcc.getTimestamp("last_time_off");
+                session.lastTimeLogout = lastLogout != null ? lastLogout.getTime()
+                        : (System.currentTimeMillis() - 86400000);
+                session.lastTimeOff = lastOff != null ? lastOff.getTime() : (System.currentTimeMillis() - 86400000);
+            } catch (Exception ignored) {
+                session.lastTimeLogout = System.currentTimeMillis() - 86400000;
+                session.lastTimeOff = System.currentTimeMillis() - 86400000;
+            }
+            session.actived = true;
+            session.mtvgtd = false;
+            session.vip1d = false;
+            session.vip2d = false;
+            session.vip3d = false;
+            session.vip4d = false;
+            session.vip5d = false;
+            session.vip6d = false;
+            session.tongnap = 0;
+            session.vnd = 0;
+            session.mocnap = 0;
+            session.gioithieu = 0;
+            session.goldBar = 0;
+            session.bdPlayer = 0.0;
+
+            al.reset();
+
+            Player existingPlayer = Client.gI().getPlayerByUser(session.userId);
+            if (existingPlayer != null) {
+                Logger.log("LOGIN: userId=" + session.userId
+                        + " đã online (GodGK), tiến hành kick session cũ (playerName=" + existingPlayer.name + ")");
+                existingPlayer.getSession().disconnect();
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+
+            // Load player by correct account_id
+            Logger.log("LOGIN: Loading player for account_id=" + session.userId + ", user=" + session.uu);
+            rs = GirlkunDB.executeQuery("select * from player where account_id = ? limit 1", session.userId);
+            if (!rs.first()) {
+                Logger.log("LOGIN: No player found for account_id=" + session.userId + ", switching to create char");
+                Service.gI().switchToCreateChar(session);
+                DataGame.sendDataItemBG(session);
+                DataGame.sendVersionGame(session);
+                DataGame.sendTileSetInfo(session);
+                Service.gI().sendMessage(session, -93, "1630679752231_-93_r");
+                DataGame.updateData(session);
+            } else {
+                Logger.log("LOGIN: Found player for account_id=" + session.userId + ", loading player data");
+                player = PlayerDataLoader.loadPlayer(rs, PlayerDataLoader.LoadType.FULL_LOGIN);
+                Logger.log("LOGIN: PlayerDataLoader completed for user=" + session.uu + ", player.id=" + (player != null ? player.id : "null"));
+
+                long now = System.currentTimeMillis();
+                long thoiGianOffline = now - session.lastTimeOff;
+                player.timeoff = thoiGianOffline /= 60000;
+                player.totalPlayerViolate = 0;
+                Logger.log("LOGIN: Player setup completed for user=" + session.uu);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.error(session.uu);
-            player.dispose();
+            Logger.error("LOGIN: exception user=" + session.uu + ", ip=" + session.ipAddress + ", sessionId=" + session.id);
+            Logger.error("LOGIN: exception details: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+            System.err.println("LOGIN EXCEPTION DETAILS:");
+            System.err.println("User: " + session.uu);
+            System.err.println("Exception: " + e.getClass().getSimpleName());
+            System.err.println("Message: " + e.getMessage());
+            e.printStackTrace(System.err);
+            if (player != null) {
+                player.dispose();
+            }
             player = null;
             Logger.logException(GodGK.class, e);
         } finally {
             if (rs != null) {
                 rs.dispose();
             }
+            if (rsAcc != null) {
+                rsAcc.dispose();
+            }
         }
         return player;
     }
 
+    // Compatibility methods for PlayerDataLoader
     public static void SetPlayer(Player pl) {
-//        if(pl == null)
-//        {
-//            return;
-//        }
-//        if(!pl.getSession().isAdmin)
-//        {  if(pl.nPoint.limitPower > 11)
-//        {
-//            pl.nPoint.limitPower = 11;
-//        }
-//        if(pl.nPoint.power > 130000000000L)
-//        {
-//           pl.nPoint.power = 130000000000L;
-//        }
-//        if(pl.nPoint.dameg > 27500)
-//        {
-//           pl.nPoint.power = 27500;
-//        }
-//        if(pl.nPoint.hpg > 630000)
-//        {
-//           pl.nPoint.hpg = 630000;
-//        }
-//        if(pl.nPoint.mpg > 630000)
-//        {
-//           pl.nPoint.mpg = 630000;
-//        }}
+        // no-op for compatibility
+    }
+
+    public static void SetPlayer(Pet pet) {
+        // no-op for compatibility
     }
 
     public static Player loadById(int id) {
@@ -212,12 +202,12 @@ public class GodGK {
         try {
             rs = GirlkunDB.executeQuery("select * from player where id = ? limit 1", id);
             if (rs.first()) {
-                // Sử dụng PlayerDataLoader thay thế toàn bộ duplicate code
                 player = PlayerDataLoader.loadPlayer(rs, PlayerDataLoader.LoadType.FULL_BY_ID);
             }
         } catch (Exception e) {
-
-            player.dispose();
+            if (player != null) {
+                player.dispose();
+            }
             player = null;
             Logger.logException(GodGK.class, e);
         } finally {
@@ -242,7 +232,9 @@ public class GodGK {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            player.dispose();
+            if (player != null) {
+                player.dispose();
+            }
             player = null;
             Logger.logException(GodGK.class, e);
         } finally {

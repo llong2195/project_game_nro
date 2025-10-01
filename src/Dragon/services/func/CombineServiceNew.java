@@ -1097,7 +1097,7 @@ public class CombineServiceNew {
                             if (player.combineNew.goldCombine <= player.inventory.gold) {
                                 npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine) + " Vàng";
                                 baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
-                                        "Nâng Cấp\nCần " + player.combineNew.gemCombine + " Ngọc");
+                                        "Nâng Cấp\nX1","Nâng Cấp\nX10","Nâng Cấp\nX100");
                             } else {
                                 npcSay += "Còn Thiếu "
                                         + Util.numberToMoney(player.combineNew.goldCombine - player.inventory.gold)
@@ -3118,18 +3118,14 @@ public class CombineServiceNew {
     }
 
     private void phaLeHoaTrangBi(Player player, int type) {
-        if (type == 0) {
             if (!player.combineNew.itemsCombine.isEmpty()) {
+                 while(player.combineNew.dapdo > 0){
                 long gold = player.combineNew.goldCombine;
                 int gem = player.combineNew.gemCombine;
                 if (player.inventory.gold < gold) {
                     Service.gI().sendThongBao(player, "Không Đủ Vàng Để Thực Hiện");
-                    return;
+                    break;
                 }
-                // else if (player.inventory.gem < gem) {
-                // Service.gI().sendThongBao(player, "Không Đủ Ngọc Để Thực Hiện");
-                // return;
-                // }
                 Item item = player.combineNew.itemsCombine.get(0);
                 if (isTrangBiPhaLeHoa(item)) {
                     int star = 0;
@@ -3157,81 +3153,16 @@ public class CombineServiceNew {
                                         + "thành công " + item.template.name + " lên " + optionStar.param
                                         + " sao pha lê");
                             }
+                            break;
                         } else {
                             sendEffectFailCombine(player);
                         }
                     }
+                    player.combineNew.dapdo--;
                     InventoryServiceNew.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
-                }
-            }
-        }
-        if (type == 1) {
-            if (player.combineNew.itemsCombine.isEmpty()) {
-                return;
-            }
-            long gold = player.combineNew.goldCombine;
-            int gem = player.combineNew.gemCombine;
-            if (player.inventory.gold < gold) {
-                Service.gI().sendThongBao(player, "Không đủ vàng để thực hiện");
-                return;
-            } else if (player.inventory.gem < gem) {
-                Service.gI().sendThongBao(player, "Không đủ ngọc để thực hiện");
-                return;
-            }
-            Item item = player.combineNew.itemsCombine.get(0);
-            if (!isTrangBiPhaLeHoa(item)) {
-                return;
-            }
-            int star = 0;
-            Item.ItemOption optionStar = null;
-            for (Item.ItemOption io : item.itemOptions) {
-                if (io.optionTemplate.id == 107) {
-                    star = io.param;
-                    optionStar = io;
-                    break;
-                }
-            }
-            boolean flag = false;
-            for (int i = 0; i < 100; i++) {
-                gold = player.combineNew.goldCombine;
-                gem = player.combineNew.gemCombine;
-                if (player.inventory.gold < gold) {
-                    Service.gI().sendThongBao(player, "Không đủ vàng để thực hiện");
-                    break;
-                } else if (player.inventory.gem < gem) {
-                    Service.gI().sendThongBao(player, "Không đủ ngọc để thực hiện");
-                    break;
-                }
-                if (star < MAX_STAR_ITEM) {
-                    player.inventory.gold -= gold;
-                    player.inventory.gem -= gem;
-                    byte ratio = (optionStar != null && optionStar.param > 6) ? (byte) 3 : 1;
-                    if (Util.isTrue(player.combineNew.ratioCombine, 100 * ratio)) {
-                        if (optionStar == null) {
-                            item.itemOptions.add(new Item.ItemOption(107, 1));
-                        } else {
-                            optionStar.param++;
-                        }
-                        sendEffectSuccessCombine(player);
-                        flag = true;
-                        if (optionStar != null && optionStar.param >= 7) {
-                            // ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa pha lê hóa "
-                            // + "thành công " + item.template.name + " lên " + optionStar.param + " sao pha
-                            // lê");
-                        }
-                        Service.gI().sendThongBao(player, "Nâng cấp thành công sau " + (i + 1) + " lần");
-                        break;
-                    }
-                }
-            }
-            if (!flag) {
-                sendEffectFailCombine(player);
-            }
-            InventoryServiceNew.gI().sendItemBags(player);
-            Service.gI().sendMoney(player);
-            reOpenItemCombine(player);
+                } }
         }
     }
 

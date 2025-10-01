@@ -46,7 +46,8 @@ public class smallVersion {
                         smallVersion[i] = new byte[max + 1];
                         for (File file : files) {
                             if (file.isFile() && file.getName().endsWith(".png")) {
-                                smallVersion[i][Integer.parseInt(FileIO.replacePng(file.getName()))] = (byte) (Files.readAllBytes(file.toPath()).length % 127);
+                                smallVersion[i][Integer.parseInt(FileIO.replacePng(
+                                        file.getName()))] = (byte) (Files.readAllBytes(file.toPath()).length % 127);
                             }
                         }
                     }
@@ -60,7 +61,23 @@ public class smallVersion {
 
     public static void send(MySession session) {
         try {
-            byte[] data = smallVersion[session.zoomLevel - 1];
+            if (smallVersion == null) {
+                System.err.println("smallVersion.send(): smallVersion array is null");
+                return;
+            }
+            int zoomLevel = session.zoomLevel;
+            if (zoomLevel < 1 || zoomLevel > 4) {
+                zoomLevel = 1;
+                session.zoomLevel = (byte) zoomLevel;
+            }
+
+            int index = zoomLevel - 1;
+            if (index < 0 || index >= smallVersion.length || smallVersion[index] == null) {
+                System.err.println("smallVersion.send(): Invalid zoom level or data not available: " + zoomLevel);
+                return;
+            }
+
+            byte[] data = smallVersion[index];
             Message msg = new Message(-77);
             msg.writer().writeShort(data.length);
             msg.writer().write(data);
@@ -68,6 +85,11 @@ public class smallVersion {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (IOException ex) {
+            System.err.println("smallVersion.send(): IOException - " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            System.err.println("smallVersion.send(): Exception - " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

@@ -3,7 +3,6 @@ package Dragon.jdbc.daos;
 import Dragon.card.Card;
 import com.girlkun.database.GirlkunDB;
 import Dragon.models.ThanhTich.CheckDataDay;
-//import Dragon.models.ThanhTich.ThanhTich;
 import Dragon.models.item.Item;
 import Dragon.models.item.ItemTime;
 import Dragon.models.player.Friend;
@@ -75,46 +74,10 @@ public class PlayerDAO {
             dataArray.add(new Date().getTime()); // last time upgrade
             String magicTree = dataArray.toJSONString();
             dataArray.clear();
-            /**
-             *
-             * [
-             * {"temp_id":"1","option":[[5,7],[7,3]],"create_time":"49238749283748957""},
-             * {"temp_id":"1","option":[[5,7],[7,3]],"create_time":"49238749283748957""},
-             * {"temp_id":"-1","option":[],"create_time":"0""}, ... ]
-             */
 
-            // int idAo = gender == 0 ? 0 : gender == 1 ? 1 : 2;
-            // int idQuan = gender == 0 ? 6 : gender == 1 ? 7 : 8;
-            // int def = gender == 2 ? 3 : 2;
-            // int hp = gender == 0 ? 30 : 20;
             JSONArray item = new JSONArray();
             JSONArray options = new JSONArray();
             JSONArray opt = new JSONArray();
-            // for (int i = 0; i < 13; i++) {
-            // if (i == 0) { //áo
-            // opt.add(47); //id option
-            // opt.add(def); //param option
-            // item.add(idAo); //id item
-            // item.add(1); //số lượng
-            // options.add(opt.toJSONString());
-            // opt.clear();
-            // } else if (i == 1) { //quần
-            // opt.add(6); //id option
-            // opt.add(hp); //param option
-            // item.add(idQuan); //id item
-            // item.add(1); //số lượng
-            // options.add(opt.toJSONString());
-            // opt.clear();
-            // } else {
-            // item.add(-1); //id item
-            // item.add(0); //số lượng
-            // }
-            // item.add(options.toJSONString()); //full option item
-            // item.add(System.currentTimeMillis()); //thời gian item được tạo
-            // dataArray.add(item.toJSONString());
-            // options.clear();
-            // item.clear();
-            // }
             String itemsBody = dataArray.toJSONString();
             dataArray.clear();
 
@@ -127,6 +90,7 @@ public class PlayerDAO {
                         opt.clear();
                         item.add(1761); // id item
                         item.add(1); // số lượng
+
                         break;
 
                     case 1:
@@ -241,7 +205,7 @@ public class PlayerDAO {
             String dkhi = dataArray.toJSONString();
             dataArray.clear();
 
-            dataArray.add(14); // id nhiệm vụ
+            dataArray.add(Manager.TASKS_TEMPLATE.get(0).id); // id nhiệm vụ
             dataArray.add(0); // index nhiệm vụ con
             dataArray.add(0); // số lượng đã làm
             String task = dataArray.toJSONString();
@@ -263,10 +227,9 @@ public class PlayerDAO {
             String charms = dataArray.toJSONString();
             dataArray.clear();
 
-            int[] skillsArr = gender == 0 ? new int[]{0, 1, 6, 9, 10, 20, 22, 19, 24, 27, 28, 29}
-                    : gender == 1 ? new int[]{2, 3, 7, 11, 12, 17, 18, 19, 26, 27, 28, 29}
-                    : new int[]{4, 5, 8, 13, 14, 21, 23, 19, 25, 27, 28, 29};
-            // [{"temp_id":"4","point":0,"last_time_use":0},]
+            int[] skillsArr = gender == 0 ? new int[] { 0, 1, 6, 9, 10, 20, 22, 19, 24, 27, 28, 29 }
+                    : gender == 1 ? new int[] { 2, 3, 7, 11, 12, 17, 18, 19, 26, 27, 28, 29 }
+                            : new int[] { 4, 5, 8, 13, 14, 21, 23, 19, 25, 27, 28, 29 };
 
             JSONArray skill = new JSONArray();
             for (int i = 0; i < skillsArr.length; i++) {
@@ -668,7 +631,7 @@ public class PlayerDAO {
                 dataArray.add(player.itemTime.iconMeal);
                 dataArray.add((player.itemTime.isUseTDLT
                         ? ((player.itemTime.timeTDLT - (System.currentTimeMillis() - player.itemTime.lastTimeUseTDLT))
-                        / 60 / 1000)
+                                / 60 / 1000)
                         : 0));
                 String itemTime = dataArray.toJSONString();
                 dataArray.clear();
@@ -1127,7 +1090,8 @@ public class PlayerDAO {
     // return true;
     // }
     public static void saveisBienHinh(Player player) {
-        try (Connection con = GirlkunDB.getConnection(); PreparedStatement ps = con.prepareStatement("update player set isbienhinh = ? where id = ?");) {
+        try (Connection con = GirlkunDB.getConnection();
+                PreparedStatement ps = con.prepareStatement("update player set isbienhinh = ? where id = ?");) {
             ps.setInt(1, player.isbienhinh);
             ps.setInt(2, (int) player.id);
             ps.executeUpdate();

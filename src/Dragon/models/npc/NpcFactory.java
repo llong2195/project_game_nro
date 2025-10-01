@@ -3232,7 +3232,7 @@ public class NpcFactory {
                                         CombineServiceNew.gI().startCombine(player, 0);
                                         break;
                                     case 1:
-                                        player.combineNew.dapdo = 100;
+                                        player.combineNew.dapdo = 10;
                                         CombineServiceNew.gI().startCombine(player, 0);
                                         break;
                                     case 2:
@@ -3249,9 +3249,6 @@ public class NpcFactory {
             }
         };
     }
-
-    // Phước NPC Chế
-    // Tạo--------------------------------------------------------------
     public static Npc dodo(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             public void chatWithNpc(Player player) {
@@ -5431,7 +5428,6 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     BlackBallWar.gI().setTime();
-                    if (this.mapId == 5) {
                         try {
                             long now = System.currentTimeMillis();
                             if (now > BlackBallWar.TIME_OPEN && now < BlackBallWar.TIME_CLOSE) {
@@ -5470,9 +5466,7 @@ public class NpcFactory {
                             Logger.error("Lỗi mở menu rồng Omega");
                         }
                     }
-                }
             }
-
             @Override
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
@@ -9494,7 +9488,6 @@ public class NpcFactory {
                         break;
                     case 19872:
                         switch (select) {
-
                             case 0:
                                 try {
                                     ItemService.gI().set1godgalick(player);

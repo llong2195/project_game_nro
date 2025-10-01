@@ -62,7 +62,7 @@ public class Util {
     }
 
     public static int randomMapBossBroly() {
-        int[] listMap = new int[]{6, 10, 11, 12, 13, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38};
+        int[] listMap = new int[] { 6, 10, 11, 12, 13, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38 };
         int mapId = Util.nextInt(listMap.length);
         while (!MapService.gI().getZone(mapId).getBosses().isEmpty()) {
             mapId = Util.nextInt(listMap.length);
@@ -882,7 +882,8 @@ public class Util {
 
     public static void showListTop(Player player, byte select) {
         try {
-            List<TOP> tops = tops = Manager.topSM;
+            // Sử dụng TopRankingService thay vì Manager.topSM
+            List<TOP> tops = Dragon.services.TopRankingService.getInstance().getTopSucManh();
 
             Message msg = new Message(-96);
             msg.writer().writeByte(0);
@@ -954,14 +955,14 @@ public class Util {
             BufferedImage img = new BufferedImage(nextInt(80, 250), nextInt(80, 250), BufferedImage.TYPE_INT_ARGB);
             IntStream.range(0, img.getWidth())
                     .forEach(x -> IntStream.range(0, img.getHeight())
-                    .forEach(y -> {
-                        int a = ThreadLocalRandom.current().nextInt(256);
-                        int r = ThreadLocalRandom.current().nextInt(256);
-                        int g = ThreadLocalRandom.current().nextInt(256);
-                        int b = ThreadLocalRandom.current().nextInt(256);
-                        int p = (a << 24) | (r << 16) | (g << 8) | b;
-                        img.setRGB(x, y, p);
-                    }));
+                            .forEach(y -> {
+                                int a = ThreadLocalRandom.current().nextInt(256);
+                                int r = ThreadLocalRandom.current().nextInt(256);
+                                int g = ThreadLocalRandom.current().nextInt(256);
+                                int b = ThreadLocalRandom.current().nextInt(256);
+                                int p = (a << 24) | (r << 16) | (g << 8) | b;
+                                img.setRGB(x, y, p);
+                            }));
             ImageIO.write(img, "png", baos);
             array = baos.toByteArray();
         } catch (IOException e) {

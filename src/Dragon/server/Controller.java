@@ -71,11 +71,9 @@ public class Controller implements IMessageHandler {
                     GachaService.readData(_msg, player);
                     break;
                 case 72:
-                    // Voice chat message v1 (PCM)
                     VoiceChatService.gI().handleVoiceMessage(player, _msg);
                     break;
                 case -82: // 174 as signed byte
-                    // Voice chat message v2 (seq, timestamp, payload - currently PCM, future Opus)
                     VoiceChatService.gI().handleVoiceMessageV2(player, _msg);
                     break;
                 case -100:
@@ -795,9 +793,9 @@ public class Controller implements IMessageHandler {
             Service.gI().sendThongBaoFromAdmin(player, "|7|"
                     + "Active Status : "
                     + (player.getSession().actived == true ? "�?ã Mở Thành Viên\n"
-                    : "Chưa Mở Thành Viên\n"
-                    + "Nrotuonglai.com -> �?ăng Nhập -> Nạp Ti�?n -> Tài Khoản\n"
-                    + "Không Thể GD, Kí Gửi"));
+                            : "Chưa Mở Thành Viên\n"
+                                    + "Nrotuonglai.com -> �?ăng Nhập -> Nạp Ti�?n -> Tài Khoản\n"
+                                    + "Không Thể GD, Kí Gửi"));
         }
 
     }
@@ -865,8 +863,8 @@ public class Controller implements IMessageHandler {
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
                     "Chào mừng " + player.name + " đến với Máy Chủ Ng�?c rồng Kuroko\n"
-                    + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
-                    + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
+                            + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
+                            + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         }
         // if (player.istrain && MapService.gI().isMapTrainOff(player,
         // player.zone.map.mapId)) {

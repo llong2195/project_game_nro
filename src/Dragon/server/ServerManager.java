@@ -18,12 +18,8 @@ import Dragon.models.map.BDKB.BanDoKhoBau;
 import Dragon.models.map.Zone;
 import Dragon.models.map.challenge.MartialCongressManager;
 import Dragon.models.map.vodai.VoDaiManager;
-import Dragon.models.npc.DuaHau;
-//import Dragon.models.map.challenge.MartialCongressManager;
-//import Dragon.models.matches.pvp.DaiHoiVoThuat;
 import Dragon.models.player.Player;
 import Dragon.models.sieuhang.SieuHangManager;
-import Dragon.models.player.Playerao;
 import Dragon.thuongnhanthanbi.Dungeon_Manager;
 import com.girlkun.network.session.ISession;
 import com.girlkun.network.example.MessageSendCollect;
@@ -34,14 +30,12 @@ import static Dragon.server.Maintenance.isBaoTri;
 import Dragon.server.io.MyKeyHandler;
 import Dragon.server.io.MySession;
 import Dragon.services.*;
-import Dragon.services.func.ChonAiDay;
-import Dragon.services.func.TopService;
 import Dragon.models.npc.NpcFactory;
+import Dragon.server.GameLoopManager;
+import Dragon.server.netty.NettyServerManager;
 import Dragon.utils.Logger;
 import Dragon.utils.TimeUtil;
 import Dragon.utils.Util;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -81,8 +75,6 @@ public class ServerManager {
             if (Manager.LOCAL) {
                 return;
             }
-            GirlkunDB.executeUpdate("update account set last_time_login = '2000-01-01', "
-                    + "last_time_logout = '2001-01-01'");
         } catch (Exception e) {
             System.err.print("\nError at 310\n");
             e.printStackTrace();
@@ -109,12 +101,10 @@ public class ServerManager {
                 Logger.log(Logger.YELLOW, "UI disabled or headless environment detected. Skipping Swing menu.\n");
             }
         } catch (Throwable t) {
-            // Avoid aborting the server if AWT/Swing is unavailable
             Logger.log(Logger.RED, "Failed to start Swing menu (ignored): " + t.getClass().getSimpleName() + " - "
                     + t.getMessage() + "\n");
         }
-        // Tạo và chạy player ảo
-        // Playerao.createVirtualPlayers(200); // Thay đổi số lượng player ảo tùy thích
+
     }
 
     public void run() {
@@ -176,6 +166,15 @@ public class ServerManager {
     }
 
     private void act() throws Exception {
+        // Check if Netty mode is enabled
+        if (NettyServerManager.isNettyModeEnabled()) {
+            Logger.log("ServerManager: Starting Netty server...");
+            NettyServerManager.getInstance().startNettyServer(PORT);
+            return;
+        }
+
+        // Traditional server startup
+        Logger.log("ServerManager: Starting traditional server...");
         GirlkunServer.gI().init().setAcceptHandler(new ISessionAcceptHandler() {
             @Override
             public void sessionInit(ISession is) {
@@ -410,6 +409,68 @@ public class ServerManager {
                         e.printStackTrace();
                         Dragon.utils.Logger.log("ServerManager: Failed to reload Gift Codes!");
                     }
+                } else if (line.equals("gameloopstats")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: GameLoopManager Performance Stats:");
+                        Dragon.utils.Logger.log(GameLoopManager.getInstance().getPerformanceStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to get GameLoop stats!");
+                    }
+                } else if (line.equals("netty")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Netty Server Manager:");
+                        Dragon.utils.Logger.log(NettyServerManager.getInstance().getStats());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to get Netty stats!");
+                    }
+                } else if (line.equals("enablenetty")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Enabling Netty mode...");
+                        NettyServerManager.getInstance().enableNettyMode();
+                        Dragon.utils.Logger.log("ServerManager: Netty mode enabled! Restart server to use Netty.");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to enable Netty mode!");
+                    }
+                } else if (line.equals("disablenetty")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Disabling Netty mode...");
+                        NettyServerManager.getInstance().disableNettyMode();
+                        Dragon.utils.Logger.log(
+                                "ServerManager: Traditional mode enabled! Restart server to use traditional server.");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to disable Netty mode!");
+                    }
+                } else if (line.equals("startnetty")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Starting Netty server...");
+                        NettyServerManager.getInstance().startNettyServer(PORT);
+                        Dragon.utils.Logger.log("ServerManager: Netty server started!");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to start Netty server!");
+                    }
+                } else if (line.equals("stopnetty")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Stopping Netty server...");
+                        NettyServerManager.getInstance().stopNettyServer();
+                        Dragon.utils.Logger.log("ServerManager: Netty server stopped!");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to stop Netty server!");
+                    }
+                } else if (line.equals("closeallnetty")) {
+                    try {
+                        Dragon.utils.Logger.log("ServerManager: Force closing all Netty connections...");
+                        NettyServerManager.getInstance().forceCloseAllConnections();
+                        Dragon.utils.Logger.log("ServerManager: All Netty connections closed!");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Dragon.utils.Logger.log("ServerManager: Failed to close Netty connections!");
+                    }
                 }
             }
         }, "activeCommandLineThread").start();
@@ -427,7 +488,6 @@ public class ServerManager {
                     }
 
                     ClanService.gI().saveclan();
-                    Service.gI().AutoSavePlayerData();
                     ShopKyGuiManager.gI().save();
 
                     Thread.sleep(delay);

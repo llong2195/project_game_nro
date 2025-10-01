@@ -52,8 +52,6 @@ public class TaskServiceNew {
      */
     public void checkDoneTaskUseItem(Player player, int itemTemplateId) {
         if (!player.isBoss && !player.isPet && !player.isClone) {
-            Logger.log("TaskServiceNew: Player " + player.name + " used item template " + itemTemplateId);
-
             int currentTaskId = getCurrentTaskId(player);
             if (currentTaskId == -1) {
                 return;
@@ -68,14 +66,7 @@ public class TaskServiceNew {
             for (TaskCache.TaskRequirement req : requirements) {
                 if (req.targetId == itemTemplateId) {
                     if (isCurrentTask(player, req.taskMainId, req.taskSubId)) {
-                        Logger.log(
-                                "TaskServiceNew: ✅ Use-item task requirement matched and is current task - "
-                                + req.toString());
                         incrementTaskProgress(player, req, 1);
-                    } else {
-                        Logger.log(
-                                "TaskServiceNew: ❌ Use-item task requirement found but NOT current task - "
-                                + req.toString());
                     }
                 }
             }
@@ -100,8 +91,6 @@ public class TaskServiceNew {
                 if (maxTarget > 0) {
                     Dragon.models.task.SubTaskMain stm = player.playerTask.taskMain.subTasks.get(sub);
                     if (stm.maxCount != maxTarget) {
-                        Logger.log("TaskServiceNew: Sync subtask[" + sub + "] maxCount from " + stm.maxCount
-                                + " -> " + maxTarget + " for task " + mainId + "_" + sub);
                         stm.maxCount = (short) maxTarget;
                     }
                 }
@@ -258,9 +247,6 @@ public class TaskServiceNew {
 
     public void checkDoneTaskKillMob(Player player, Mob mob) {
         if (!player.isBoss && !player.isPet && !player.isClone) {
-            Logger.log("TaskServiceNew: Player " + player.name + " killed mob " + mob.tempId
-                    + " at map " + mob.zone.map.mapId);
-
             int currentTaskId = getCurrentTaskId(player);
             if (currentTaskId == -1) {
                 return;
@@ -274,13 +260,9 @@ public class TaskServiceNew {
             for (TaskCache.TaskRequirement req : requirements) {
                 if (req.targetId == mob.tempId && checkMapRestriction(req.mapRestriction, mob.zone.map.mapId)) {
                     if (isCurrentTask(player, req.taskMainId, req.taskSubId)) {
-                        Logger.log("TaskServiceNew: ✅ Mob task requirement matched and is current task - "
-                                + req.toString());
+                       
                         incrementTaskProgress(player, req, 1);
-                    } else {
-                        Logger.log("TaskServiceNew: ❌ Mob task requirement found but NOT current task - "
-                                + req.toString());
-                    }
+                    } 
                 }
             }
         }
@@ -288,8 +270,6 @@ public class TaskServiceNew {
 
     public void checkDoneTaskKillBoss(Player player, Boss boss) {
         if (player != null && !player.isBoss && !player.isPet && !player.isClone) {
-            Logger.log("TaskServiceNew: Player " + player.name + " killed boss " + boss.id);
-
             int currentTaskId = getCurrentTaskId(player);
             if (currentTaskId == -1) {
                 return;
@@ -304,70 +284,35 @@ public class TaskServiceNew {
             for (TaskCache.TaskRequirement req : requirements) {
                 if (req.targetId == (int) boss.id) {
                     if (isCurrentTask(player, req.taskMainId, req.taskSubId)) {
-                        Logger.log("TaskServiceNew: ✅ Boss task requirement matched and is current task - "
-                                + req.toString());
                         incrementTaskProgress(player, req, 1);
-                    } else {
-                        Logger.log("TaskServiceNew: ❌ Boss task requirement found but NOT current task - "
-                                + req.toString());
-                    }
+                    } 
                 }
             }
         }
     }
 
     public boolean checkDoneTaskTalkNpc(Player player, Npc npc) {
-        Logger.log("TaskServiceNew: Player " + player.name + " talked to NPC " + npc.tempId
-                + " at map " + npc.mapId);
-
         int currentTaskId = getCurrentTaskId(player);
-        Logger.log("TaskServiceNew: Current task ID for player " + player.name + ": " + currentTaskId);
-
         if (currentTaskId == -1) {
-            Logger.log("TaskServiceNew: No current task for player " + player.name);
             return false;
         }
-
         int taskMainId = getTaskMainId(currentTaskId);
         int taskSubId = getTaskSubId(currentTaskId);
-
-        Logger.log("TaskServiceNew: Current task: Main=" + taskMainId + ", Sub=" + taskSubId);
-
         List<TaskCache.TaskRequirement> requirements = cache.getTaskRequirements(taskMainId, taskSubId, "TALK_NPC");
-        Logger.log("TaskServiceNew: Found " + requirements.size() + " TALK_NPC requirements for task " + taskMainId
-                + "_" + taskSubId);
-
         for (TaskCache.TaskRequirement req : requirements) {
-            Logger.log("TaskServiceNew: Checking requirement - " + req.toString());
-            Logger.log("TaskServiceNew: NPC ID match: " + (req.targetId == npc.tempId)
-                    + " (required: " + req.targetId + ", actual: " + npc.tempId + ")");
-            Logger.log("TaskServiceNew: Map restriction check: " + checkMapRestriction(req.mapRestriction, npc.mapId)
-                    + " (restriction: " + req.mapRestriction + ", map: " + npc.mapId + ")");
-
             if (req.targetId == npc.tempId && checkMapRestriction(req.mapRestriction, npc.mapId)) {
                 if (isCurrentTask(player, req.taskMainId, req.taskSubId)) {
-                    Logger.log(
-                            "TaskServiceNew: ✅ NPC task requirement matched and is current task - " + req.toString());
                     return incrementTaskProgress(player, req, 1);
                 } else {
-                    Logger.log("TaskServiceNew: ❌ NPC task requirement found but NOT current task - " + req.toString());
-                    Logger.log("TaskServiceNew: Required task: " + req.taskMainId + "_" + req.taskSubId
-                            + ", Current task: " + taskMainId + "_" + taskSubId);
-                    return false; // Không hoàn thành nếu không đúng thứ tự
+                    return false;
                 }
-            } else {
-                Logger.log("TaskServiceNew: Requirement not matched - " + req.toString());
-            }
+            } 
         }
-
-        Logger.log("TaskServiceNew: No matching TALK_NPC requirements found for player " + player.name);
         return false;
     }
 
     public void checkDoneTaskPickItem(Player player, ItemMap item) {
         if (!player.isBoss && !player.isPet && !player.isClone && item != null) {
-            Logger.log("TaskServiceNew: Player " + player.name + " picked item " + item.itemTemplate.id);
-
             int currentTaskId = getCurrentTaskId(player);
             if (currentTaskId == -1) {
                 return;
@@ -382,13 +327,8 @@ public class TaskServiceNew {
             for (TaskCache.TaskRequirement req : requirements) {
                 if (req.targetId == item.itemTemplate.id) {
                     if (isCurrentTask(player, req.taskMainId, req.taskSubId)) {
-                        Logger.log("TaskServiceNew: ✅ Item task requirement matched and is current task - "
-                                + req.toString());
                         incrementTaskProgress(player, req, 1);
-                    } else {
-                        Logger.log("TaskServiceNew: ❌ Item task requirement found but NOT current task - "
-                                + req.toString());
-                    }
+                    } 
                 }
             }
         }
@@ -399,8 +339,6 @@ public class TaskServiceNew {
      */
     public void checkDoneTaskGoToMap(Player player, Zone zoneJoin) {
         if (player.isPl() && !player.isBot) {
-            Logger.log("TaskServiceNew: Player " + player.name + " entered map " + zoneJoin.map.mapId);
-
             int currentTaskId = getCurrentTaskId(player);
             if (currentTaskId == -1) {
                 return;
@@ -415,13 +353,8 @@ public class TaskServiceNew {
             for (TaskCache.TaskRequirement req : requirements) {
                 if (req.targetId == zoneJoin.map.mapId) {
                     if (isCurrentTask(player, req.taskMainId, req.taskSubId)) {
-                        Logger.log("TaskServiceNew: ✅ Map task requirement matched and is current task - "
-                                + req.toString());
                         incrementTaskProgress(player, req, 1);
-                    } else {
-                        Logger.log("TaskServiceNew: ❌ Map task requirement found but NOT current task - "
-                                + req.toString());
-                    }
+                    } 
                 }
             }
         }
@@ -438,7 +371,6 @@ public class TaskServiceNew {
         try {
             String restriction = mapRestriction.trim();
 
-            // Handle exclusion (!)
             if (restriction.startsWith("!")) {
                 return !checkMapInRange(restriction.substring(1), mapId);
             }
@@ -481,9 +413,6 @@ public class TaskServiceNew {
     private boolean incrementTaskProgress(Player player, TaskCache.TaskRequirement req, int amount) {
         int currentProgress = getCurrentTaskProgress(player, req);
         int newProgress = currentProgress + amount;
-        Logger.log("TaskServiceNew: Task progress " + req.taskMainId + "_" + req.taskSubId
-                + ": " + currentProgress + " + " + amount + " = " + newProgress + "/" + req.targetCount);
-
         boolean maxChanged = ensureCurrentSubTaskMaxCount(player, req);
         setCurrentTaskProgress(player, req, newProgress);
 
@@ -502,18 +431,11 @@ public class TaskServiceNew {
     }
 
     private void completeTask(Player player, int taskMainId, int taskSubId) {
-        Logger.log("TaskServiceNew: Completing task " + taskMainId + "_" + taskSubId + " for player " + player.name);
         if (player == null || player.playerTask == null || player.playerTask.taskMain == null
                 || player.playerTask.taskMain.id != taskMainId
                 || player.playerTask.taskMain.index != taskSubId) {
-            Logger.log("TaskServiceNew: Skip completion - player already moved to task "
-                    + (player != null && player.playerTask != null && player.playerTask.taskMain != null
-                            ? (player.playerTask.taskMain.id + "_" + player.playerTask.taskMain.index)
-                            : "null"));
             return;
         }
-
-        // Build a user-friendly completion message before mutating task state
         String mainTaskName = player.playerTask.taskMain.name;
         String subTaskName = null;
         try {
@@ -560,7 +482,6 @@ public class TaskServiceNew {
                 } catch (Exception ignored) {
                 }
                 prepareSubTaskMetaForUI(player);
-                Logger.log("TaskServiceNew: Moved to next main task: " + player.playerTask.taskMain.id + "_0");
                 TaskService.gI().sendTaskMain(player);
             } else {
                 Logger.log("TaskServiceNew: No next task template. Showing placeholder task.");
@@ -610,9 +531,6 @@ public class TaskServiceNew {
         }
         return false;
     }
-
-    // Lấy targetCount từ cache cho subtask hiện tại và set vào maxCount nếu tìm
-    // thấy
     private void syncMaxCountForCurrentSubTaskFromCache(Player player) {
         try {
             if (player.playerTask == null || player.playerTask.taskMain == null) {
@@ -691,11 +609,6 @@ public class TaskServiceNew {
 
         boolean isCurrent = player.playerTask.taskMain.id == taskMainId
                 && player.playerTask.taskMain.index == taskSubId;
-
-        Logger.log("TaskServiceNew: Task sequence check - Required: " + taskMainId + "_" + taskSubId
-                + ", Current: " + player.playerTask.taskMain.id + "_" + player.playerTask.taskMain.index
-                + ", Match: " + isCurrent);
-
         return isCurrent;
     }
 
@@ -705,7 +618,6 @@ public class TaskServiceNew {
         }
         if (player.playerTask.taskMain.id == req.taskMainId
                 && player.playerTask.taskMain.index == req.taskSubId) {
-
             if (player.playerTask.taskMain.index < player.playerTask.taskMain.subTasks.size()) {
                 return (int) player.playerTask.taskMain.subTasks.get(player.playerTask.taskMain.index).count;
             }
@@ -727,17 +639,6 @@ public class TaskServiceNew {
             }
         }
     }
-
-    /**
-     * Refresh cache
-     */
-    public void refreshCache() {
-        cache.refreshCache();
-    }
-
-    /**
-     * Get cache stats
-     */
     public String getCacheStats() {
         return cache.getCacheStats();
     }
