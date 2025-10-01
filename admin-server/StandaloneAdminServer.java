@@ -186,7 +186,6 @@ public class StandaloneAdminServer {
             
             String os = System.getProperty("os.name").toLowerCase();
             
-            // First try graceful shutdown
             if (gameServerProcess != null && gameServerProcess.isAlive()) {
                 gameServerProcess.destroy();
                 Thread.sleep(3000);
@@ -265,10 +264,16 @@ public class StandaloneAdminServer {
         try {
             boolean isRunning = isGameServerRunning();
             long pid = gameServerProcess != null ? gameServerProcess.pid() : -1;
+            boolean processAlive = gameServerProcess != null && gameServerProcess.isAlive();
+            boolean port13579Open = isPortOpen("127.0.0.1", 13579);
+            boolean port8080Open = isPortOpen("127.0.0.1", 8080);
             
             JsonObject status = new JsonObject();
             status.addProperty("running", isRunning);
             status.addProperty("pid", pid);
+            status.addProperty("process_alive", processAlive);
+            status.addProperty("port_13579_open", port13579Open);
+            status.addProperty("port_8080_open", port8080Open);
             status.addProperty("uptime", getGameServerUptime());
             status.addProperty("log_size", getLogFileSize());
             
@@ -379,7 +384,36 @@ public class StandaloneAdminServer {
     
     // Helper methods
     private static boolean isGameServerRunning() {
-        return isPortOpen("127.0.0.1", 13579) || isPortOpen("127.0.0.1", 8080);
+        // Check if process is alive first
+        if (gameServerProcess != null && gameServerProcess.isAlive()) {
+            return true;
+        }
+        
+        // Then check ports
+        boolean port13579 = isPortOpen("127.0.0.1", 13579);
+        boolean port8080 = isPortOpen("127.0.0.1", 8080);
+        
+        // Also check for Java processes running gradle or Dragon server
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            Process proc;
+            
+            if (os.contains("win")) {
+                proc = Runtime.getRuntime().exec("tasklist /fi \"imagename eq java.exe\" /fo csv");
+            } else {
+                proc = Runtime.getRuntime().exec("pgrep -f 'gradle.*run|Dragon.*ServerManager'");
+            }
+            
+            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line = reader.readLine();
+            boolean processFound = line != null && !line.trim().isEmpty();
+            
+            return port13579 || port8080 || processFound;
+            
+        } catch (Exception e) {
+            // Fallback to port checking only
+            return port13579 || port8080;
+        }
     }
     
     private static boolean isPortOpen(String host, int port) {
