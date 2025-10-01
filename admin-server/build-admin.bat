@@ -1,9 +1,24 @@
 @echo off
 echo === Building Standalone Admin Server ===
 
+REM Create build directories
+if not exist build\classes mkdir build\classes
+if not exist build\lib mkdir build\lib
+
+REM Download Gson dependency if not exists
+if not exist build\lib\gson.jar (
+    echo Downloading Gson library...
+    powershell -Command "Invoke-WebRequest -Uri 'https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar' -OutFile 'build\lib\gson.jar'"
+    if %ERRORLEVEL% neq 0 (
+        echo ❌ Failed to download Gson library!
+        pause
+        exit /b 1
+    )
+)
+
 REM Compile Java source
 echo Compiling Java source...
-javac -cp "..\lib\*" -d build StandaloneAdminServer.java
+javac -cp "build\lib\*" -d build\classes StandaloneAdminServer.java
 if %ERRORLEVEL% neq 0 (
     echo ❌ Compilation failed!
     pause
@@ -13,10 +28,16 @@ echo ✅ Compilation successful!
 
 REM Create JAR file
 echo Creating JAR file...
-if not exist build mkdir build
-cd build
-jar -cf ..\StandaloneAdminServer.jar admin\server\*.class
-cd ..
+cd build\classes
+jar -cf ..\standalone-admin-server.jar admin\
+cd ..\..
+
+REM Create run script
+echo @echo off > run-admin-server.bat
+echo echo Starting Standalone Admin Server... >> run-admin-server.bat
+echo java -cp "build\lib\*;build\standalone-admin-server.jar" admin.server.StandaloneAdminServer >> run-admin-server.bat
+echo pause >> run-admin-server.bat
+
 echo ✅ Build completed!
 
 echo.
