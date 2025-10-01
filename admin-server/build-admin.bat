@@ -26,12 +26,6 @@ if %ERRORLEVEL% neq 0 (
 )
 echo ✅ Compilation successful!
 
-REM Create JAR file
-echo Creating JAR file...
-cd build\classes
-jar -cf ..\standalone-admin-server.jar admin\
-cd ..\..
-
 echo ✅ Build completed!
 
 echo.
@@ -43,7 +37,7 @@ if /i "%choice%"=="Y" (
     echo.
     echo Starting Admin Server...
     echo.
-    java -cp "build\lib\gson.jar;build\standalone-admin-server.jar" admin.server.StandaloneAdminServer
+    java -cp "build\lib\gson.jar;build\classes" admin.server.StandaloneAdminServer
 ) else (
     echo.
     echo You can run the server later with: build-admin.bat
