@@ -10,13 +10,13 @@ import Dragon.models.player.Fusion;
 import Dragon.models.player.Inventory;
 import Dragon.models.player.Player;
 import Dragon.models.skill.Skill;
-import Dragon.server.Manager;
-import Dragon.services.InventoryServiceNew;
 import Dragon.services.ItemTimeService;
 import Dragon.services.MapService;
 import Dragon.services.Service;
 import Dragon.utils.Logger;
-
+import Dragon.server.Manager;
+import Dragon.jdbc.helpers.DatabaseAutoMigration;
+import static Dragon.jdbc.helpers.DatabaseAutoMigration.PlayerColumn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,6 +34,8 @@ public class PlayerDAO {
 
     public static boolean createNewPlayer(int userId, String name, byte gender, int hair) {
         try {
+            // Không cần kiểm tra columns nữa vì đã được kiểm tra khi server start
+            
             JSONArray dataArray = new JSONArray();
             // phước Tạo Nhân Vật
             dataArray.add(10000); // vàng
@@ -227,36 +229,11 @@ public class PlayerDAO {
             String charms = dataArray.toJSONString();
             dataArray.clear();
 
-            int[] skillsArr = gender == 0 ? new int[] { 0, 1, 6, 9, 10, 20, 22, 19, 24, 27, 28, 29 }
-                    : gender == 1 ? new int[] { 2, 3, 7, 11, 12, 17, 18, 19, 26, 27, 28, 29 }
-                            : new int[] { 4, 5, 8, 13, 14, 21, 23, 19, 25, 27, 28, 29 };
-
-            JSONArray skill = new JSONArray();
-            for (int i = 0; i < skillsArr.length; i++) {
-                skill.add(skillsArr[i]); // id skill
-                if (i == 0 || i == 11) {
-                    skill.add(1); // level skill
-                } else {
-                    skill.add(0); // level skill
-                }
-                skill.add(0); // thời gian sử dụng trước đó
-                skill.add(0);
-                dataArray.add(skill.toString());
-                skill.clear();
-            }
-            String skills = dataArray.toJSONString();
+            // Chuẩn bị skills và skills shortcut dựa trên gender
+            String skills = prepareDefaultSkills(gender, dataArray);
             dataArray.clear();
-
-            dataArray.add(gender == 0 ? 0 : gender == 1 ? 2 : 4);
-            dataArray.add(-1);
-            dataArray.add(-1);
-            dataArray.add(-1);
-            dataArray.add(-1);
-            dataArray.add(-1);
-            dataArray.add(-1);
-            dataArray.add(-1);
-            dataArray.add(-1);
-            String skillsShortcut = dataArray.toJSONString();
+            
+            String skillsShortcut = prepareDefaultSkillsShortcut(gender, dataArray);
             dataArray.clear();
 
             String petData = dataArray.toJSONString();
@@ -291,17 +268,73 @@ public class PlayerDAO {
 
             String trieuhoithu = "[-1]";
 
-            GirlkunDB.executeUpdate("insert into player"
-                    + "(account_id, name, head, gender, have_tennis_space_ship, clan_id_sv" + Manager.SERVER + ", "
-                    + "data_inventory, data_location, data_point, data_magic_tree, items_body, "
-                    + "items_bag, items_box, items_box_lucky_round, friends, enemies, data_intrinsic, data_item_time,"
-                    + "data_task, data_mabu_egg, data_charm, skills, skills_shortcut, pet,"
-                    + "data_black_ball, data_side_task, data_card, bill_data,data_item_time_sieu_cap,PointBoss,dataArchiverment,ResetSkill,PointCauCa,LastDoanhTrai,RuongItemC2,CuongNoC2,BoHuyetC2,BoKhiC2,DaBaoVe,DaNguSac,dothanlinh, data_offtrain,Thu_TrieuHoi,data_cai_trang_send) "
-                    + "values ()", userId, name, hair, gender, 0, -1, inventory, location, point, magicTree,
-                    itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friends, enemies, intrinsic,
-                    itemTime, task, mabuEgg, charms, skills, skillsShortcut, petData, dataBlackBall, dataSideTask,
-                    data_card, bill_data, data_item_time_sieu_cap, 0, "[\"[-1,0]\"]", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    dataoff, trieuhoithu, dkhi);
+            // Chuẩn bị câu SQL INSERT với PreparedStatement để dễ đọc và maintain
+            String insertSQL = buildInsertPlayerSQL();
+            
+            // Thực thi câu SQL với các parameters được sắp xếp theo thứ tự
+            GirlkunDB.executeUpdate(insertSQL, 
+                // Basic player info
+                userId,                    // account_id
+                name,                      // name  
+                hair,                      // head
+                gender,                    // gender
+                0,                         // have_tennis_space_ship
+                
+                // Game data
+                inventory,                 // data_inventory
+                location,                  // data_location
+                point,                     // data_point
+                magicTree,                 // data_magic_tree
+                
+                // Items data
+                itemsBody,                 // items_body
+                itemsBag,                  // items_bag
+                itemsBox,                  // items_box
+                itemsBoxLuckyRound,        // items_box_lucky_round
+                
+                // Social data
+                friends,                   // friends
+                enemies,                   // enemies
+                
+                // Character progression
+                intrinsic,                 // data_intrinsic
+                itemTime,                  // data_item_time
+                task,                      // data_task
+                mabuEgg,                   // data_mabu_egg
+                charms,                    // data_charm
+                skills,                    // skills
+                skillsShortcut,            // skills_shortcut
+                petData,                   // pet
+                
+                // Special features
+                dataBlackBall,             // data_black_ball
+                dataSideTask,              // data_side_task
+                data_card,                 // data_card
+                bill_data,                 // bill_data
+                data_item_time_sieu_cap,   // data_item_time_sieu_cap
+                dataoff,                   // data_offtrain
+                trieuhoithu,              // Thu_TrieuHoi
+                dkhi,                      // data_cai_trang_send
+                0,                         // PointBoss
+                "[\"[-1,0]\"]",           // dataArchiverment  
+                1,                         // ResetSkill
+                0,                         // PointCauCa
+                0,                         // LastDoanhTrai
+                0,                         // RuongItemC2
+                0,                         // CuongNoC2
+                0,                         // BoHuyetC2
+                0,                         // BoKhiC2
+                0,                         // DaBaoVe
+                0,                         // DaNguSac
+                0,                         // dothanlinh
+                0,                         // total_kill_mobs
+                0,                         // total_kill_boss
+                0,                         // pvp_wins
+                0,                         // pvp_losses
+                0,                         // last_login_time
+                0,                         // total_play_time
+                -1                         // clan_id_sv (mặc định = -1)
+            );
             Logger.success("Tạo Nhân Vật Thành công!\n");
             return true;
         } catch (Exception e) {
@@ -309,6 +342,60 @@ public class PlayerDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    private static String buildInsertPlayerSQL() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO player (");
+        PlayerColumn[] columns = PlayerColumn.values();
+        for (int i = 0; i < columns.length; i++) {
+            if (i > 0) sql.append(", ");
+            sql.append(columns[i].getColumnName());
+        }
+        sql.append(", clan_id_sv").append(Manager.SERVER);
+        sql.append(") VALUES (");
+        int totalParams = columns.length + 1;
+        for (int i = 0; i < totalParams; i++) {
+            if (i > 0) sql.append(", ");
+            sql.append("?");
+        }
+        
+        sql.append(")");
+        return sql.toString();
+    }
+
+   
+    private static String prepareDefaultSkills(byte gender, JSONArray dataArray) {
+        int[] skillsArr = gender == 0 ? new int[] { 0, 1, 6, 9, 10, 20, 22, 19, 24, 27, 28, 29 }
+                : gender == 1 ? new int[] { 2, 3, 7, 11, 12, 17, 18, 19, 26, 27, 28, 29 }
+                        : new int[] { 4, 5, 8, 13, 14, 21, 23, 19, 25, 27, 28, 29 };
+
+        JSONArray skill = new JSONArray();
+        for (int i = 0; i < skillsArr.length; i++) {
+            skill.add(skillsArr[i]); // id skill
+            if (i == 0 || i == 11) {
+                skill.add(1); // level skill (skill đầu và cuối có level 1)
+            } else {
+                skill.add(0); // level skill (các skill khác level 0)
+            }
+            skill.add(0); // thời gian sử dụng trước đó
+            skill.add(0); // reserved
+            dataArray.add(skill.toString());
+            skill.clear();
+        }
+        return dataArray.toJSONString();
+    }
+
+    /**
+     * Chuẩn bị dữ liệu skills shortcut mặc định dựa trên gender
+     */
+    private static String prepareDefaultSkillsShortcut(byte gender, JSONArray dataArray) {
+        dataArray.add(gender == 0 ? 0 : gender == 1 ? 2 : 4); // Skill đầu tiên
+        for (int i = 0; i < 8; i++) {
+            dataArray.add(-1); // Các slot shortcut khác để trống
+        }
+        return dataArray.toJSONString();
     }
 
     public static void updatePlayer(Player player) {
@@ -1038,7 +1125,6 @@ public class PlayerDAO {
                         player.isbienhinh,
                         Trung_thu,
                         player.id);
-                // phước save
                 Logger.log(Logger.RED, player.name + " Save! " + (System.currentTimeMillis() - st) + "\n");
             } catch (Exception e) {
                 System.err.print("\nError at 47\n");
@@ -1068,27 +1154,6 @@ public class PlayerDAO {
         return true;
     }
 
-    // public static boolean subvnd(Player player, int num) {
-    // PreparedStatement ps = null;
-    // try (Connection con = GirlkunDB.getConnection();) {
-    // ps = con.prepareStatement("update account set vnd = (vnd - ?), active = ?
-    // where id = ?");
-    // ps.setInt(1, num);
-    // ps.setInt(2, player.getSession().actived ? 1 : 0);
-    // ps.setInt(3, player.getSession().userId);
-    // ps.executeUpdate();
-    // ps.close();
-    // player.getSession().vnd -= num;
-    // } catch (Exception e) {
-    // Logger.logException(PlayerDAO.class, e, "Lỗi update vnd " + player.name);
-    // return false;
-    // } finally {
-    // }
-    // if (num > 1000) {
-    // insertHistoryGold(player, num);
-    // }
-    // return true;
-    // }
     public static void saveisBienHinh(Player player) {
         try (Connection con = GirlkunDB.getConnection();
                 PreparedStatement ps = con.prepareStatement("update player set isbienhinh = ? where id = ?");) {

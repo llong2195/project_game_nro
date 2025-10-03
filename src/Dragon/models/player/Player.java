@@ -267,6 +267,9 @@ public class Player {
     public int data_task;
     public List<Integer> idEffChar = new ArrayList<>();
     public int rateModifier;
+    //set default de test
+    public long point_kill_mobs = 999999;
+    public long point_kill_boss = 999999;
 
     // GameLoop optimization - throttle player updates
     public long lastUpdateTime = 0;

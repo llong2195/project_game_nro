@@ -11,17 +11,37 @@ public class SetClothes {
         this.player = player;
     }
 
+
+    public static int BONUS_DAMAGE_SONGOKU = 100;           // Sát thương x2 = +100%
+    public static int BONUS_STUN_THIENXINHANG = 100;        // Choáng x2 = +100%  
+    public static int BONUS_DAMAGE_KIRIN = 100;             // Sát thương x2 = +100%
+    public static int BONUS_DAMAGE_OCTIEU = 100;            // Sát thương x2 = +100%
+    public static int BONUS_DAMAGE_PIKKORO_DAIMAO = 100;    // Sát thương x2 = +100%
+    public static int BONUS_DAMAGE_PICOLO = 100;            // Sát thương x2 = +100%
+    public static int BONUS_DAMAGE_NAPPA = 100;             // Sát thương x2 = +100%
+    public static int BONUS_DAMAGE_KAKAROT = 100;           // Sát thương x2 = +100%
+    public static int BONUS_DAMAGE_CADIC = 100;             // Sát thương x2 = +100%
+
     public byte songoku;
+    public int songokuParam; 
     public byte thienXinHang;
+    public int thienXinHangParam;
     public byte kirin;
+    public int kirinParam;
 
     public byte ocTieu;
+    public int ocTieuParam;
     public byte pikkoroDaimao;
+    public int pikkoroDaimaoParam;
     public byte picolo;
+    public int picoloParam;
 
     public byte kakarot;
+    public int kakarotParam; 
     public byte cadic;
+    public int cadicParam;
     public byte nappa;
+    public int nappaParam;
 
     public byte setBom;
     public byte set8;
@@ -122,52 +142,51 @@ public class SetClothes {
                 boolean isActSet = false;
                 for (Item.ItemOption io : item.itemOptions) {
                     switch (io.optionTemplate.id) {
-                        case 129:
                         case 141:
                             isActSet = true;
                             songoku++;
+                            songokuParam = Math.min(songokuParam, io.param);
                             break;
-                        case 127:
                         case 139:
                             isActSet = true;
                             thienXinHang++;
+                            thienXinHangParam = Math.min(thienXinHangParam, io.param);
                             break;
-                        case 128:
                         case 140:
                             isActSet = true;
                             kirin++;
+                            kirinParam = Math.min(kirinParam, io.param);
                             break;
-                        case 131:
                         case 143:
                             isActSet = true;
                             ocTieu++;
+                            ocTieuParam = Math.min(ocTieuParam, io.param);
                             break;
-                        case 132:
                         case 144:
                             isActSet = true;
                             pikkoroDaimao++;
+                            pikkoroDaimaoParam = Math.min(pikkoroDaimaoParam, io.param);
                             break;
-                        case 130:
                         case 142:
                             isActSet = true;
                             picolo++;
+                            picoloParam = Math.min(picoloParam, io.param);
                             break;
-                        case 135:
                         case 138:
                             isActSet = true;
                             nappa++;
+                            nappaParam = Math.min(nappaParam, io.param);
                             break;
-                        case 133:
                         case 136:
                             isActSet = true;
                             kakarot++;
+                            kakarotParam = Math.min(kakarotParam, io.param);
                             break;
-                        case 134:
                         case 137:
                             isActSet = true;
                             cadic++;
+                            cadicParam = Math.min(cadicParam, io.param);
                             break;
-                        case 188:
                         case 189:
                             isActSet = true;
                             tromcho++;
@@ -183,7 +202,7 @@ public class SetClothes {
                                 setDHD++;
                             }
                             break;
-                        case 190: // Bomb set option
+                        case 190: 
                             isActSet = true;
                             setBom++;
                             break;
@@ -201,14 +220,23 @@ public class SetClothes {
 
     private void setDefault() {
         this.songoku = 0;
+        this.songokuParam = Integer.MAX_VALUE;
         this.thienXinHang = 0;
+        this.thienXinHangParam = Integer.MAX_VALUE;
         this.kirin = 0;
+        this.kirinParam = Integer.MAX_VALUE;
         this.ocTieu = 0;
+        this.ocTieuParam = Integer.MAX_VALUE;
         this.pikkoroDaimao = 0;
+        this.pikkoroDaimaoParam = Integer.MAX_VALUE;
         this.picolo = 0;
+        this.picoloParam = Integer.MAX_VALUE;
         this.kakarot = 0;
+        this.kakarotParam = Integer.MAX_VALUE;
         this.cadic = 0;
+        this.cadicParam = Integer.MAX_VALUE;
         this.nappa = 0;
+        this.nappaParam = Integer.MAX_VALUE;
         this.setDHD = 0;
         this.worldcup = 0;
         this.godClothes = false;

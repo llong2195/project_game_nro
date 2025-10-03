@@ -67,10 +67,6 @@ public class BossDataService {
         }
         return bosses;
     }
-
-    /**
-     * Load boss data theo ID
-     */
     public BossData loadBossById(int bossId) {
         Connection con = null;
         try {
@@ -107,10 +103,6 @@ public class BossDataService {
         }
         return null;
     }
-
-    /**
-     * Map ResultSet thành BossData object
-     */
     private BossData mapResultSetToBossData(ResultSet rs) throws SQLException {
         String name = rs.getString("name");
         byte gender = rs.getByte("gender");

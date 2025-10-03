@@ -680,7 +680,7 @@ public class NPoint {
         }
         // set nappa
         if (this.player.setClothes.nappa == 5) {
-            this.hpMax += ((long) this.hpMax * 100 / 100);
+            this.hpMax += ((long) this.hpMax * this.player.setClothes.nappaParam / 100);
         }
         // set worldcup
         if (this.player.setClothes.worldcup == 2) {
@@ -994,8 +994,8 @@ public class NPoint {
         for (Integer tl : this.tlMp) {
             this.mpMax += (this.mpMax * tl / 100);
         }
-        if (this.player.setClothes.picolo == 5) {
-            this.mpMax *= 2;
+        if (this.player.setClothes.picolo == 5 && this.player.setClothes.picoloParam > 0) {
+            this.mpMax += (this.mpMax * this.player.setClothes.picoloParam / 100);
         }
         // ngọc rồng đen 3 sao
         if (this.player.rewardBlackBall.timeOutOfDateReward[2] > System.currentTimeMillis()) {
@@ -1744,7 +1744,7 @@ public class NPoint {
         }
         percentDameIntrinsic = 0;
         int percentDameSkill = 0;
-        byte percentXDame = 0;
+        short percentXDame = 0;
         switch (skillSelect.template.id) {
             case Skill.DRAGON:
                 if (intrinsic.id == 1) {
@@ -1758,7 +1758,7 @@ public class NPoint {
                 }
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.songoku == 5) {
-                    percentXDame = 100;
+                    percentXDame = (short) this.player.setClothes.songokuParam;
                 }
                 break;
             case Skill.GALICK:
@@ -1767,7 +1767,7 @@ public class NPoint {
                 }
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.kakarot == 5) {
-                    percentXDame = 100;
+                    percentXDame = (short) this.player.setClothes.kakarotParam;
                 }
                 break;
             case Skill.ANTOMIC:
@@ -1794,7 +1794,7 @@ public class NPoint {
                 }
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.kirin == 5) {
-                    percentXDame = 70;
+                    percentXDame = (short) this.player.setClothes.kirinParam;
                 }
                 break;
             case Skill.LIEN_HOAN:
@@ -1803,7 +1803,7 @@ public class NPoint {
                 }
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.ocTieu == 5) {
-                    percentXDame = 50;
+                    percentXDame = (short) this.player.setClothes.ocTieuParam;
                 }
                 break;
             case Skill.DICH_CHUYEN_TUC_THOI:
@@ -1817,7 +1817,7 @@ public class NPoint {
             case Skill.QUA_CAU_KENH_KHI:
                 double dame = this.dame * 40;
                 if (this.player.setClothes.kirin == 5) {
-                    dame *= 2;
+                    dame += (dame * this.player.setClothes.kirinParam / 100);
                 }
                 dame = dame + (Util.nextInt(-5, 5) * dame / 100);
                 return dame;

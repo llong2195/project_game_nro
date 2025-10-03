@@ -72,9 +72,7 @@ public class InventoryServiceNew {
 
     }
 
-    // private void __________________Tìm_kiếm_item_____________________________() {
-    // // **********************************************************************
-    // }
+
     public Item findItem(List<Item> list, int tempId) {
         try {
             for (Item item : list) {
@@ -712,6 +710,17 @@ public class InventoryServiceNew {
     }
 
     public boolean addItemBag(Player player, Item item) {
+        if (item.template.id == 1003) {
+            int pointsToAdd = item.quantity;
+            player.point_kill_boss += pointsToAdd;
+            return true;
+        }
+        if (item.template.id == 1004) {
+            int pointsToAdd = item.quantity;
+            player.point_kill_mobs += pointsToAdd;
+            return true;
+        }
+        
         if (item.template.id >= 650 && item.template.id <= 662 && player.zone.map.mapId == 48) { // ITEM HUY DIET
             Item ThucAn = player.inventory.itemsBag.stream()
                     .filter(itemm -> itemm.isNotNullItem() && itemm.isThucAn() && itemm.quantity >= 99).findFirst()

@@ -36,33 +36,9 @@ public class LeoThap extends Boss {
 
     @Override
     public void reward(Player plKill) {
-
         plKill.capboss++;
         Service.gI().sendMoney(plKill);
         PlayerDAO.updatePlayer(plKill);
-//                        if (plKill.TamkjllCapPb < 500) {
-//                                plKill.TamkjllCapPb++;
-//                        }
-//                        if (plKill.CapTamkjll < 100) {
-//                                if (Util.isTrue(10f, 100)) {
-//                                        plKill.CapTamkjll++;
-//                                        Service.gI().sendThongBao(plKill, "Bạn nhận đc 1 cấp tamkjll");
-//                                }
-//                        }
-//                        int[] itemCt = new int[] { 457, 1099, 1100, 1101, 1102, 1103 };
-//                        int randomDo = new Random().nextInt(itemCt.length);
-//                        if (Util.isTrue(50f, 100)) {
-//                                Service.gI().dropItemMap(this.zone,
-//                                                Util.useItem(zone, itemCt[randomDo], Util.nextInt(4),
-//                                                                this.location.x, this.location.y, plKill.id));
-//                        }
-//                        if (Util.isTrue(30f, 100)) {
-//                                Service.gI().dropItemMap(this.zone,
-//                                                Util.useItem(zone, 1144, 1, this.location.x, this.location.y,
-//                                                                plKill.id));
-//                                return;
-//                        }
-
     }
 
     @Override

@@ -108,7 +108,7 @@ public class CombineServiceNew {
     public static final int PHUC_HOI_SACH = 1236;
     public static final int PHAN_RA_SACH = 1237;
 
-    public static final int NANG_CAP_DO_KICH_HOAT = 550;
+    public static final int MO_SET_KICH_HOAT = 550;
     public static final int NANG_CAP_DO_KICH_HOAT_THUONG = 800;
     public static final int COMBINE_TAN_DAN_FRAGMENT = 6000; // Ghép mảnh tàn đan (99 mảnh → 1 đan)
     public static final int UPGRADE_TUTIEN_DAN = 6001; // Nâng cấp đan (9 đan + công thức)
@@ -550,81 +550,11 @@ public class CombineServiceNew {
                     return;
                 }
                 break;
-            case NANG_CAP_DO_KICH_HOAT:
-                if (player.combineNew.itemsCombine.size() == 3) {
-                    Item thiensu = null;
-                    Item skh1 = null;
-                    Item skh2 = null;
-                    if (player.combineNew.itemsCombine.get(0).isDTS()) {
-                        thiensu = player.combineNew.itemsCombine.get(0);
-                    }
-                    if (player.combineNew.itemsCombine.get(1).isSKH()) {
-                        skh1 = player.combineNew.itemsCombine.get(1);
-                    }
-                    if (player.combineNew.itemsCombine.get(2).isSKH()) {
-                        skh2 = player.combineNew.itemsCombine.get(2);
-                    }
-                    if (thiensu != null && skh1 != null && skh2 != null) {
-                        player.combineNew.goldCombine = 500_000_000;
-                        player.combineNew.ratioCombine = 100;
-                        String npcSay = "\n|2| " + thiensu.template.name;
-                        npcSay += "\n|2| " + skh1.template.name;
-                        npcSay += "\n|2| " + skh2.template.name + "\n";
-                        npcSay += "\n|7|Ta sẽ phù phép trang bị ngươi cho ta thành 1 trang bị thiên sứ kích hoạt có chỉ số ngẫu nhiên";
-                        npcSay += "\n|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
-                        if (player.combineNew.goldCombine <= player.inventory.gold) {
-                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine) + " vàng";
-                            baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
-                                    "Nâng cấp\ncần " + player.combineNew.goldCombine + " vàng");
-                        } else {
-                            npcSay += "Còn thiếu "
-                                    + Util.numberToMoney(player.combineNew.goldCombine - player.inventory.gold)
-                                    + " vàng";
-                            baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay, "Đóng");
-                        }
-                    }
-                } else {
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy đưa cho ta 1 trang bị Thiên sứ"
-                            + "\n và 2 trang bị kích hoạt", "Đóng");
-                }
-
+            case MO_SET_KICH_HOAT:
+                ActivationUpgradeService.gI().ShowMenuSetKichHoat(player, this.baHatMit);
                 break;
             case NANG_CAP_DO_KICH_HOAT_THUONG:
-                if (player.combineNew.itemsCombine.size() == 0) {
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                            "Hãy đưa ta 1 món huỷ diệt, ta sẽ cho 1 món huỷ diệt tương ứng", "Đóng");
-                    return;
-                }
-                if (player.combineNew.itemsCombine.size() == 2) {
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTL())
-                            .count() != 2) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đồ huỷ diệt rồi", "Đóng");
-                        return;
-                    }
-                    String npcSay = "|7|Ngoc Rong Meta\n" + "|7|NÂNG CẤP TRANG BỊ KÍCH HOẠT\n"
-                            + "|2|Đã đạt đủ số lượng nguyên liệu, bạn sẽ nhận được : \n"
-                            + "("
-                            + player.combineNew.itemsCombine.stream().filter(Item::isDTL).findFirst().get().typeName()
-                            + " kích hoạt)\n" + "[ THƯỜNG ]\n"
-                            + "|7|Nâng Cấp Ngay?\n"
-                            + "|1|Cần " + Util.numberToMoney(500000000) + " vàng";
-
-                    if (player.inventory.gold < 500000000) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hết tiền rồi\nẢo ít thôi con",
-                                "Đóng");
-                        return;
-                    }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE,
-                            npcSay, "Nâng cấp\n" + Util.numberToMoney(500000000) + " vàng", "Từ chối");
-                } else {
-                    if (player.combineNew.itemsCombine.size() > 2) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Nguyên liệu không phù hợp",
-                                "Đóng");
-                        return;
-                    }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                            "Còn thiếu nguyên liệu để nâng cấp hãy quay lại sau", "Đóng");
-                }
+                SetKichHoatUpgradeService.gI().showUpgradeMenu(player, this.baHatMit);
                 break;
             case Nang_Chien_Linh:
                 if (player.combineNew.itemsCombine.size() == 2) {
@@ -1612,11 +1542,11 @@ public class CombineServiceNew {
             case NANG_CAP_DO_TS:
                 openDTS(player);
                 break;
-            case NANG_CAP_DO_KICH_HOAT:
-                dapDoKichHoat(player);
+            case MO_SET_KICH_HOAT:
+                ActivationUpgradeService.gI().ShowMenuSetKichHoat(player, this.baHatMit);
                 break;
             case NANG_CAP_DO_KICH_HOAT_THUONG:
-                dapDoKichHoatthuong(player);
+                SetKichHoatUpgradeService.gI().showUpgradeMenu(player, this.baHatMit);
                 break;
             case NANG_CAP_SKH_VIP:
                 openSKHVIP(player);
@@ -2295,38 +2225,6 @@ public class CombineServiceNew {
         }
     }
 
-    private void dapDoKichHoat(Player player) {
-        if (InventoryServiceNew.gI().getCountEmptyBag(player) == 0) {
-            Service.gI().sendThongBao(player, "Hãy chuẩn bị ít nhất 1 ô trống trong hành trang");
-            return;
-        }
-        if (player.combineNew.itemsCombine.size() == 3) {
-            Item thiensu = null;
-            Item skh1 = null;
-            Item skh2 = null;
-            if (player.combineNew.itemsCombine.get(0).isDTS()) {
-                thiensu = player.combineNew.itemsCombine.get(0);
-            }
-            if (player.combineNew.itemsCombine.get(1).isSKH()) {
-                skh1 = player.combineNew.itemsCombine.get(1);
-            }
-            if (player.combineNew.itemsCombine.get(2).isSKH()) {
-                skh2 = player.combineNew.itemsCombine.get(2);
-            }
-            if (thiensu != null && skh1 != null && skh2 != null) {
-                UpdateItem.createSKHThienSu(player, thiensu.template.gender, thiensu.template.type, thiensu);
-                player.inventory.gold -= 500000000;
-                Service.gI().sendMoney(player);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, thiensu, 1);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, skh1, 1);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, skh2, 1);
-                InventoryServiceNew.gI().sendItemBags(player);
-                reOpenItemCombine(player);
-            }
-        } else {
-            return;
-        }
-    }
 
     private void dapDoKichHoatthuong(Player player) {
         if (player.combineNew.itemsCombine.size() != 2) {
@@ -4262,10 +4160,10 @@ public class CombineServiceNew {
                 return "Ta sẽ Giúp \ncho Cải trang Luffy của ngươi\nthức tỉnh!!";
             case Nang_Chien_Linh:
                 return "Ta sẽ biến linh thú của ngươi \nThành Chiến Linh!!!";
-            case NANG_CAP_DO_KICH_HOAT:
-                return "Ta sẽ phù phép\ntrang bị kích hoạt Thiên sứ";
+            case MO_SET_KICH_HOAT:
+                return "Ta sẽ kích hoạt\nSet Kích Hoạt cho trang bị của ngươi\nTỉ lệ thành công: 50%";
             case NANG_CAP_DO_KICH_HOAT_THUONG:
-                return "Ngọc Rồng KuRoKo\nNâng Cấp Trang Bị\n [ SET KÍCH HOẠT ]";
+                return "Ta sẽ nâng cấp\nSet Kích Hoạt cho trang bị của ngươi\nTăng sức mạnh lên cấp độ mới!";
             case CHE_TAO_TRANG_BI_TS:
                 return "Chế tạo\ntrang bị thiên sứ";
             case GIAM_DINH_SACH:
@@ -4344,14 +4242,23 @@ public class CombineServiceNew {
                 return "Vào hành trang\nChọn Cải Luffy \nChọn Đá thức tỉnh để nâng cấp\nSau đó chọn 'Nâng cấp'";
             case Nang_Chien_Linh:
                 return "Vào hành trang\nChọn Linh Thú \nChọn x10 Thăng tinh thạch để nâng cấp\nSau đó chọn 'Nâng cấp'";
-            case NANG_CAP_DO_KICH_HOAT:
-                return "Vào hành trang\nchọn 1 trang bị thiên sứ , 2 trang bị kích hoạt\n "
-                        + " và 500tr vàng\n"
-                        + "Sau đó chọn 'Nâng Cấp'";
+            case MO_SET_KICH_HOAT:
+                return "[ KÍCH HOẠT SET KÍCH HOẠT ]\n\n"
+                        + "YÊU CẦU:\n"
+                        + "+ 1 trang bị body (Áo, Quần, Giày, Găng, Rada)\n"
+                        + "+ 99 điểm giết quái\n\n"
+                        + "TỈ LỆ THÀNH CÔNG: 50%\n"
+                        + "Lưu ý: Thất bại chỉ mất điểm, không mất trang bị\n\n"
+                        + "Sau đó chọn 'Set Kích Hoạt'";
             case NANG_CAP_DO_KICH_HOAT_THUONG:
-                return "[ NÂNG CẤP TRANG BỊ KÍCH HOẠT ]\n" + "\nYÊU CẦU\n+ 2 món đồ Thần Linh\n+ 500tr vàng\n\n "
-                        + "Lưu Ý : Đồ Kích Hoạt\nsẽ ra cùng loại với DTL ban đầu\nvà cùng hành tinh với bạn!\n" + "\n"
-                        + "Sau đó chỉ cần chọn 'Nâng Cấp'";
+                return "[ NÂNG CẤP SET KÍCH HOẠT ]\n\n"
+                        + "YÊU CẦU:\n"
+                        + "+ 1 trang bị đã có SKH\n"
+                        + "+ " + SetKichHoatUpgradeService.getUpgradeCostMobs() + " điểm săn quái HOẶC " + SetKichHoatUpgradeService.getUpgradeCostBoss() + " điểm giết boss\n\n"
+                        + "TỈ LỆ THÀNH CÔNG: 90%-20% (giảm theo cấp)\n"
+                        + "Param tăng: 8-25% tùy set\n"
+                        + "Tối đa +" + SetKichHoatUpgradeService.getMaxUpgradeLevel() + " cấp\n\n"
+                        + "Sau đó chọn loại điểm để nâng cấp";
             case REN_KIEM_Z:
                 return "VChọn Kiếm Z\nChọn Quặng Z, số lượng\n99 cái\nSau đó chọn 'Rèn Kiếm'\n Ngẫu nhiên Kiếm Z cấp 1 đến cấp 16";
             case CHE_TAO_TRANG_BI_TS:

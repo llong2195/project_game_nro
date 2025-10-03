@@ -8,6 +8,7 @@ import java.awt.GraphicsEnvironment;
 import Dragon.Bot.BotManager;
 import Dragon.jdbc.daos.HistoryTransactionDAO;
 import Dragon.jdbc.daos.PlayerDAO;
+import Dragon.jdbc.helpers.DatabaseAutoMigration;
 import Dragon.kygui.ShopKyGuiManager;
 import Dragon.kygui.ShopKyGuiService;
 import Dragon.models.ThanhTich.CheckDataDay;
@@ -104,7 +105,6 @@ public class ServerManager {
             Logger.log(Logger.RED, "Failed to start Swing menu (ignored): " + t.getClass().getSimpleName() + " - "
                     + t.getMessage() + "\n");
         }
-
     }
 
     public void run() {
@@ -115,7 +115,7 @@ public class ServerManager {
         Logger.log(Logger.GREEN, "Voice Chat Service integrated with game server\n");
         TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 50000;
         Logger.log(Logger.YELLOW, "TIME STARTING THE SERVER: " + ServerManager.timeStart + "\n");
-        // Logger.log(Logger.GREEN, "BY NROEVEIL");
+        // DatabaseAutoMigration.initializeOnServerStart();
 
         new Thread(() -> {
             while (true) {

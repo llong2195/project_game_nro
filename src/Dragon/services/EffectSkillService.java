@@ -329,7 +329,7 @@ public class EffectSkillService {
         }
         int timeMonkey = SkillUtil.getTimeMonkey(player.playerSkill.skillSelect.point);
         if (player.setClothes.cadic == 5) {
-            timeMonkey *= 5;
+            timeMonkey += timeMonkey * player.setClothes.cadicParam / 100;
         }
         player.effectSkill.isMonkey = true;
         player.effectSkill.timeMonkey = timeMonkey;

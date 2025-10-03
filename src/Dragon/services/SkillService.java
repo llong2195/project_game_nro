@@ -1237,7 +1237,7 @@ public class SkillService {
             case Skill.THAI_DUONG_HA_SAN:
                 int timeStun = SkillUtil.getTimeStun(player.playerSkill.skillSelect.point);
                 if (player.setClothes.thienXinHang == 5) {
-                    timeStun *= 2;
+                    timeStun += timeStun * player.setClothes.thienXinHangParam / 100;
                 }
                 mobs = new ArrayList<>();
                 players = new ArrayList<>();
@@ -1519,8 +1519,6 @@ public class SkillService {
             msg.writer().writeByte(typeSkill == 2 ? 0 : 1); // read continue
             msg.writer().writeByte(typeSkill); // type skill
             msg.writer().writeDouble(Dragon.utils.Util.limitDouble(dameHit)); // dame ăn
-            Service.getInstance().sendThongBao(plAtt, "DAMAGE LOG: Player " + plInjure.name + " nhận " + (long) dameHit
-                    + " dame từ " + plAtt.name + " (ID: " + plAtt.id + ", isBoss: " + plAtt.isBoss + ")");
             msg.writer().writeBoolean(plInjure.isDie()); // is die
             msg.writer().writeBoolean(plAtt.nPoint.isCrit); // crit
             if (typeSkill != 1) {

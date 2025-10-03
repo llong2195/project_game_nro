@@ -3148,7 +3148,10 @@ public class NpcFactory {
                                 "Cửa Hàng\nBùa", "Nâng Cấp\nVật Phẩm",
                                 "Nâng cấp\nBông tai",
                                 "Nhập\nNgọc Rồng",
-                                "Ép Sao\nTrang Bị", "Pha Lê\nHóa");
+                                "Ép Sao\nTrang Bị",
+                                 "Pha Lê\nHóa",
+                                 "Set Kích Hoạt"
+                                 );
                     }
 
                 }
@@ -3185,6 +3188,13 @@ public class NpcFactory {
                                     CombineServiceNew.gI().openTabCombine(player,
                                             CombineServiceNew.PHA_LE_HOA_TRANG_BI);
                                     break;
+                                    case 6:
+                                  createOtherMenu(player, 2112,
+                                            "Set Kích Hoạt\n" +
+                                            "Bạn hiện có: " + player.point_kill_mobs + " điểm săn quái\n" +
+                                            "Chọn chức năng:",
+                                            "Mở SKH", "Nâng cấp SKH", "Đóng");
+                                    break;
 
                             }
                         } else {
@@ -3217,6 +3227,27 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI);
+                                break;
+                        }
+                    } else if (player.iDMark.getIndexMenu() == 214) {
+                        // Menu chọn set kích hoạt
+                        if (select < 3) { 
+                            ActivationUpgradeService.gI().processSetActivation(player, select);
+                        }
+                        // select == 3 = Đóng (không làm gì)
+                    } else if (player.iDMark.getIndexMenu() == 215) {
+                        // Menu nâng cấp SKH
+                        SetKichHoatUpgradeService.gI().handleUpgradeMenuSelection(player, select);
+                    } else if (player.iDMark.getIndexMenu() == 2112) {
+                        // Menu chọn loại SKH
+                        switch (select) {
+                            case 0: // Mở SKH
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_SET_KICH_HOAT);
+                                break;
+                            case 1: // Nâng cấp SKH
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_DO_KICH_HOAT_THUONG);
+                                break;
+                            case 2: // Đóng
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
