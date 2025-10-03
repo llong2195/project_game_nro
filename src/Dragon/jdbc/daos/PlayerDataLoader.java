@@ -277,6 +277,9 @@ public class PlayerDataLoader {
         // Load pet data
         loadPetData(player, rs);
 
+        // Load point kill data
+        loadPointKillData(player, rs);
+
         // Set HP/MP cuối cùng
         player.nPoint.hp = pointResult.hp;
         player.nPoint.mp = pointResult.mp;
@@ -1108,5 +1111,13 @@ public class PlayerDataLoader {
                     ? Skill.DRAGON
                     : (player.gender == ConstPlayer.NAMEC ? Skill.DEMON : Skill.GALICK));
         }
+    }
+
+    /**
+     * Load point kill data
+     */
+    private static void loadPointKillData(Player player, GirlkunResultSet rs) throws Exception {
+        player.point_kill_mobs = rs.getInt("point_kill_mobs");
+        player.point_kill_boss = rs.getInt("point_kill_boss");
     }
 }

@@ -58,10 +58,8 @@ public class SieuHang {
                         }
                         player1.rankSieuHang = temp;
                         updateTop(player1, (int) player1.rankSieuHang);
-                        // PlayerDAO.updatePlayer(player1);
                     }
                     Service.gI().chat(player, "Haha thắng cuộc rồi! Đã thăng lên hạng " + player.rankSieuHang);
-                    //  PlayerDAO.updatePlayer(player);
                     updateTop(player, (int) player.rankSieuHang);
                     boss.leaveMap();
                 }

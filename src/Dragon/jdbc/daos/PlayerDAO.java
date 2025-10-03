@@ -1065,7 +1065,7 @@ public class PlayerDAO {
                         + "LastDoanhTrai = ?,DataDay = ? ,"
                         + "RuongItemC2 = ? , CuongNoC2 = ? , BoHuyetC2 = ? , BoKhiC2 = ? ,DaBaoVe = ? ,"
                         + " DaNguSac = ?,dothanlinh = ? ,Binh_can_data = ? ,point_gapthu = ? ,pointSb = ?, data_offtrain =?,dhtime = ?, diemdanh=?,point_vnd = ?,thankhi = ?,blackballdata = ?, data_diem =?,Bkttutien=?,Captutien=?, Exptutien= ?,Bkt_Tu_Ma=?, BktDLDL= ?,ChuyenSinh = ?,Thu_TrieuHoi= ?,capboss= ?,data_cai_trang_send =?,checkNhanQua = ? ,diemdanhsk = ?,Nuoc_mia = ?, kemtraicay = ?, nuocmia = ?  "
-                        + ", isbienhinh =?,Trung_thu=? where id = ?";
+                        + ", isbienhinh =?,Trung_thu=?,point_kill_mobs=?,point_kill_boss=? where id = ?";
                 GirlkunDB.executeUpdate(query,
                         itemTimeSC,
                         player.head,
@@ -1124,7 +1124,10 @@ public class PlayerDAO {
                         player.nuocmia,
                         player.isbienhinh,
                         Trung_thu,
-                        player.id);
+                        player.point_kill_mobs,
+                        player.point_kill_boss,
+                        player.id
+                        );
                 Logger.log(Logger.RED, player.name + " Save! " + (System.currentTimeMillis() - st) + "\n");
             } catch (Exception e) {
                 System.err.print("\nError at 47\n");
@@ -1204,48 +1207,7 @@ public class PlayerDAO {
         return false;
     }
 
-    /*
-     * public static boolean subvndBar(Player player, int num) {
-     * PreparedStatement ps = null;
-     * try (Connection con = GirlkunDB.getConnection();) {
-     * ps = con.
-     * prepareStatement("update account set vnd = (vnd - ?), active = ? where id = ?"
-     * );
-     * ps.setInt(1, num);
-     * ps.setInt(2, player.getSession().actived ? 1 : 0);
-     * ps.setInt(3, player.getSession().userId);
-     * ps.executeUpdate();
-     * ps.close();
-     * player.getSession().vnd -= num;
-     * } catch (Exception e) {
-     * System.err.print("\nError at 49\n");
-     * e.printStackTrace();
-     * return false;
-     * } finally {
-     * }
-     * return false;
-     * }
-     * 
-     * public static boolean subvang(Player player, int num) {
-     * PreparedStatement ps = null;
-     * try (Connection con = GirlkunDB.getConnection();) {
-     * ps = con.
-     * prepareStatement("update account set thoi_vang = (thoi_vang - ?), mtvgt = 1 where id = ?"
-     * );
-     * ps.setInt(1, num);
-     * ps.setInt(2, player.getSession().userId);
-     * ps.executeUpdate();
-     * ps.close();
-     * player.getSession().vang -= num;
-     * } catch (Exception e) {
-     * System.err.print("\nError at 50\n");
-     * e.printStackTrace();
-     * return false;
-     * } finally {
-     * }
-     * return false;
-     * }
-     */
+    
     public static boolean subvip1(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = GirlkunDB.getConnection();) {
@@ -1488,31 +1450,7 @@ public class PlayerDAO {
         return false;
     }
 
-    /*
-     * public static boolean subcoinBar(Player player, int num) {
-     * PreparedStatement ps = null;
-     * try (Connection con = GirlkunDB.getConnection();) {
-     * ps = con.
-     * prepareStatement("update account set coin = (coin - ?), active = ? where id = ?"
-     * );
-     * ps.setInt(1, num);
-     * ps.setInt(2, player.getSession().actived ? 1 : 0);
-     * ps.setInt(3, player.getSession().userId);
-     * ps.executeUpdate();
-     * ps.close();
-     * player.getSession().coinBar -= num;
-     * } catch (Exception e) {
-     * System.err.print("\nError at 64\n");
-     * e.printStackTrace();
-     * return false;
-     * } finally {
-     * }
-     * if (num > 1000) {
-     * insertHistoryGold(player, num);
-     * }
-     * return true;
-     * }
-     */
+    
     public static boolean setIs_gift_box(Player player) {
         PreparedStatement ps = null;
         try (Connection con = GirlkunDB.getConnection();) {

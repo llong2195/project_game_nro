@@ -79,7 +79,6 @@ public class GodGK {
         GirlkunResultSet rs = null;
         GirlkunResultSet rsAcc = null;
         try {
-            // Authenticate against account table
             rsAcc = GirlkunDB.executeQuery(
                     "select * from account where username = ? and password = ? limit 1",
                     session.uu, session.pp);

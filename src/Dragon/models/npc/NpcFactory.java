@@ -3192,6 +3192,7 @@ public class NpcFactory {
                                   createOtherMenu(player, 2112,
                                             "Set Kích Hoạt\n" +
                                             "Bạn hiện có: " + player.point_kill_mobs + " điểm săn quái\n" +
+                                            "Bạn hiện có: " + player.point_kill_boss + " điểm săn boss\n" +
                                             "Chọn chức năng:",
                                             "Mở SKH", "Nâng cấp SKH", "Đóng");
                                     break;
