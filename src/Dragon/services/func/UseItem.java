@@ -17,6 +17,7 @@ import Dragon.models.player.Player;
 import Dragon.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import Dragon.server.Manager;
+import Dragon.utils.PetFusionBonus;
 import Dragon.utils.SkillUtil;
 import Dragon.services.Service;
 import Dragon.utils.Util;
@@ -513,6 +514,51 @@ public class UseItem {
                         case 1639:
                             kem(pl, item);
                             break;
+                    //   ===========================
+                        // Pet transformation items - organized by PetBonusType enum order
+                        case 1850: // NORMAL pet
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.NORMAL, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1851: // MABU pet  
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.MABU, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1852: // BERUS pet
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.BERUS, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1853: // BROLY pet
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.BROLY, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1854: // UBB pet
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.UBB, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1855: // XEN_CON pet
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.XEN_CON, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1856: // ANDROID_21 pet (VIP)
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.ANDROID_21, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1857: // FU pet (VIP)
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.FU, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1858: // KID_BILL pet (VIP)
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.KID_BILL, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                        case 1859: // GOKU_SSJ4 pet (VIP - Strongest!)
+                            PetService.gI().createPet(pl, PetFusionBonus.PetBonusType.GOKU_SSJ4, true, (byte) pl.gender, null);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            break;
+                  
+ 
+// ================================
                         case 1641:
                             quekem(pl, item);
                             break;

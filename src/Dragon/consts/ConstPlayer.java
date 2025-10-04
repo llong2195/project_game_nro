@@ -23,4 +23,16 @@ public class ConstPlayer {
     public static final byte HOP_THE_GOGETA = 14;
     public static byte NAMEC1;
 
+    //pet types
+    public static final byte PET_NORMAL = 0;
+    public static final byte PET_MABU = 1;
+    public static final byte PET_BERUS = 2;
+    public static final byte PET_BROLY = 3;
+    public static final byte PET_UBB = 4;
+    public static final byte PET_XEN_CON = 5;
+    public static final byte PET_ANDROID_21 = 6;
+    public static final byte PET_FU = 7;
+    public static final byte PET_KID_BILL = 8;
+    public static final byte PET_GOKU_SSJ4 = 9;
+
 }

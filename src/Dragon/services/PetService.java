@@ -6,6 +6,7 @@ import Dragon.models.player.Pet;
 import Dragon.models.player.Player;
 import static Dragon.services.PetService.Thu_TrieuHoi;
 import Dragon.services.func.ChangeMapService;
+import Dragon.utils.PetFusionBonus;
 import Dragon.utils.SkillUtil;
 import Dragon.utils.Util;
 import Dragon.De2.Thu_TrieuHoi;
@@ -20,551 +21,300 @@ public class PetService {
         }
         return i;
     }
-
-    public void createAndroid21Vip(Player player, boolean isChange, byte gender) {
-        byte limitPower;
-        if (isChange) {
-            limitPower = player.pet.nPoint.limitPower;
-            if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-                player.pet.unFusion();
-            }
-            ChangeMapService.gI().exitMap(player.pet);
-            player.pet.dispose();
-            player.pet = null;
-        } else {
-            limitPower = 1;
-        }
+    
+    /**
+     * Generic method to create any pet using PetBonusType enum
+     * @param player The player
+     * @param petType Pet type from PetBonusType enum
+     * @param isChange Whether to change existing pet or create new
+     * @param gender Pet gender (optional, random if not specified)
+     * @param limitPower Limit power (optional)
+     */
+    public void createPet(Player player, PetFusionBonus.PetBonusType petType, boolean isChange, Byte gender, Byte limitPower) {
         new Thread(() -> {
             try {
-                Pet pet = new Pet(player);
-                pet.name = "$Android 21 Majin Form";
-                pet.gender = gender;
-                pet.id = -player.id;
-                pet.nPoint.power = 1500000;
-                pet.typePet = 6;
-                pet.nPoint.stamina = 1000;
-                pet.nPoint.maxStamina = 1000;
-                pet.nPoint.hpg = 5000;
-                pet.nPoint.mpg = 5000;
-                pet.nPoint.dameg = 320;
-                pet.nPoint.defg = 250;
-                pet.nPoint.critg = 25;
-                for (int i = 0; i < 7; i++) {
-                    pet.inventory.itemsBody.add(ItemService.gI().createItemNull());
+                byte finalLimitPower = 1;
+                
+                // Handle existing pet if changing
+                if (isChange && player.pet != null) {
+                    finalLimitPower = player.pet.nPoint.limitPower;
+                    if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
+                        player.pet.unFusion();
+                    }
+                    ChangeMapService.gI().exitMap(player.pet);
+                    player.pet.dispose();
+                    player.pet = null;
                 }
-                pet.playerSkill.skills.add(SkillUtil.createSkill(Util.nextInt(0, 2) * 2, 1));
-                for (int i = 0; i < 4; i++) {
-                    pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
+                
+                // Override limitPower if specified
+                if (limitPower != null) {
+                    finalLimitPower = limitPower;
                 }
-                pet.nPoint.setFullHpMp();
-                player.pet = pet;
-                ;
-                player.pet.nPoint.limitPower = limitPower;
+                
+                // Create pet based on type
+                if (isVipPet(petType)) {
+                    createVipPetInternal(player, petType, gender != null ? gender : (byte) Util.nextInt(0, 2));
+                } else {
+                    createNormalPetInternal(player, petType, gender != null ? gender : (byte) Util.nextInt(0, 2));
+                }
+                
+                // Set limit power
+                if (player.pet != null) {
+                    player.pet.nPoint.limitPower = finalLimitPower;
+                }
+                
                 Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Đệ tử vip vãi nồi đây...");
+                
+                // Send appropriate message
+                String message = getPetCreationMessage(petType);
+                Service.getInstance().chatJustForMe(player, player.pet, message);
+                
             } catch (Exception e) {
+                // Handle exception
             }
         }).start();
+    }
+    
+    /**
+     * Check if pet type is VIP (high-tier pets)
+     */
+    private boolean isVipPet(PetFusionBonus.PetBonusType petType) {
+        return petType == PetFusionBonus.PetBonusType.ANDROID_21 ||
+               petType == PetFusionBonus.PetBonusType.FU ||
+               petType == PetFusionBonus.PetBonusType.KID_BILL ||
+               petType == PetFusionBonus.PetBonusType.GOKU_SSJ4;
+    }
+    
+    /**
+     * Create VIP pet with high stats
+     */
+    private void createVipPetInternal(Player player, PetFusionBonus.PetBonusType petType, byte gender) {
+        Pet pet = new Pet(player);
+        pet.name = "$" + petType.getDisplayName();
+        pet.gender = gender;
+        pet.id = -player.id;
+        pet.nPoint.power = 1500000;
+        pet.typePet = petType.getPetType();
+        pet.nPoint.stamina = 1000;
+        pet.nPoint.maxStamina = 1000;
+        pet.nPoint.hpg = 5000;
+        pet.nPoint.mpg = 5000;
+        pet.nPoint.dameg = 320;
+        pet.nPoint.defg = 250;
+        pet.nPoint.critg = 25;
+        
+        for (int i = 0; i < 7; i++) {
+            pet.inventory.itemsBody.add(ItemService.gI().createItemNull());
+        }
+        pet.playerSkill.skills.add(SkillUtil.createSkill(Util.nextInt(0, 2) * 2, 1));
+        for (int i = 0; i < 4; i++) {
+            pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
+        }
+        pet.nPoint.setFullHpMp();
+        player.pet = pet;
+    }
+    
+    /**
+     * Create normal pet with appropriate stats based on type
+     */
+    private void createNormalPetInternal(Player player, PetFusionBonus.PetBonusType petType, byte gender) {
+        // Use existing createNewPet methods based on pet type
+        switch (petType) {
+            case NORMAL:
+                createNewPet(player, false, false, false, gender);
+                break;
+            case MABU:
+                createNewPet(player, true, false, false, gender);
+                break;
+            case BERUS:
+                createNewPet(player, false, true, false, gender);
+                break;
+            case BROLY:
+                createNewPet1(player, true, false, false, gender);
+                break;
+            case UBB:
+                createNewPet1(player, false, true, false, gender);
+                break;
+            case XEN_CON:
+                createNewPet1(player, false, false, true, gender);
+                break;
+            default:
+                createNewPet(player, false, false, false, gender); // Fallback to normal
+                break;
+        }
+    }
+    
+    /**
+     * Get appropriate creation message for pet type
+     */
+    private String getPetCreationMessage(PetFusionBonus.PetBonusType petType) {
+        switch (petType) {
+            case NORMAL:
+                return "Xin hãy thu nhận làm đệ tử";
+            case MABU:
+                return "Oa oa oa...";
+            case BERUS:
+            case BROLY:
+            case UBB:
+            case XEN_CON:
+                return "Thần hủy diệt hiện thân tất cả quỳ xuống...";
+            case ANDROID_21:
+            case FU:
+            case KID_BILL:
+            case GOKU_SSJ4:
+                return "Đệ tử vip vãi nồi đây...";
+            default:
+                return "Xin hãy thu nhận làm đệ tử";
+        }
+    }
+    
+
+    public void createVipPet(Player player, PetFusionBonus.PetBonusType petType, boolean isChange, byte gender) {
+        byte limitPower = isChange && player.pet != null ? player.pet.nPoint.limitPower : 1;
+        createPet(player, petType, isChange, gender, limitPower);
+    }
+
+    public void createAndroid21Vip(Player player, boolean isChange, byte gender) {
+        createVipPet(player, PetFusionBonus.PetBonusType.ANDROID_21, isChange, gender);
     }
 
     public void createFuVip(Player player, boolean isChange, byte gender) {
-        byte limitPower;
-        if (isChange) {
-            limitPower = player.pet.nPoint.limitPower;
-            if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-                player.pet.unFusion();
-            }
-            ChangeMapService.gI().exitMap(player.pet);
-            player.pet.dispose();
-            player.pet = null;
-        } else {
-            limitPower = 1;
-        }
-        new Thread(() -> {
-            try {
-                Pet pet = new Pet(player);
-                pet.name = "$Fu";
-                pet.gender = gender;
-                pet.id = -player.id;
-                pet.nPoint.power = 1500000;
-                pet.typePet = 7;
-                pet.nPoint.stamina = 1000;
-                pet.nPoint.maxStamina = 1000;
-                pet.nPoint.hpg = 5000;
-                pet.nPoint.mpg = 5000;
-                pet.nPoint.dameg = 320;
-                pet.nPoint.defg = 250;
-                pet.nPoint.critg = 25;
-                for (int i = 0; i < 7; i++) {
-                    pet.inventory.itemsBody.add(ItemService.gI().createItemNull());
-                }
-                pet.playerSkill.skills.add(SkillUtil.createSkill(Util.nextInt(0, 2) * 2, 1));
-                for (int i = 0; i < 4; i++) {
-                    pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
-                }
-                pet.nPoint.setFullHpMp();
-                player.pet = pet;
-                ;
-                player.pet.nPoint.limitPower = limitPower;
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Đệ tử vip vãi nồi đây...");
-            } catch (Exception e) {
-            }
-        }).start();
+        createVipPet(player, PetFusionBonus.PetBonusType.FU, isChange, gender);
     }
 
     public void createKidbillVip(Player player, boolean isChange, byte gender) {
-        byte limitPower;
-        if (isChange) {
-            limitPower = player.pet.nPoint.limitPower;
-            if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-                player.pet.unFusion();
-            }
-            ChangeMapService.gI().exitMap(player.pet);
-            player.pet.dispose();
-            player.pet = null;
-        } else {
-            limitPower = 1;
-        }
-        new Thread(() -> {
-            try {
-                Pet pet = new Pet(player);
-                pet.name = "$Kid Bill";
-                pet.gender = gender;
-                pet.id = -player.id;
-                pet.nPoint.power = 1500000;
-                pet.typePet = 8;
-                pet.nPoint.stamina = 1000;
-                pet.nPoint.maxStamina = 1000;
-                pet.nPoint.hpg = 5000;
-                pet.nPoint.mpg = 5000;
-                pet.nPoint.dameg = 320;
-                pet.nPoint.defg = 250;
-                pet.nPoint.critg = 25;
-                for (int i = 0; i < 7; i++) {
-                    pet.inventory.itemsBody.add(ItemService.gI().createItemNull());
-                }
-                pet.playerSkill.skills.add(SkillUtil.createSkill(Util.nextInt(0, 2) * 2, 1));
-                for (int i = 0; i < 4; i++) {
-                    pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
-                }
-                pet.nPoint.setFullHpMp();
-                player.pet = pet;
-                ;
-                player.pet.nPoint.limitPower = limitPower;
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Đệ tử vip vãi nồi đây...");
-            } catch (Exception e) {
-            }
-        }).start();
+        createVipPet(player, PetFusionBonus.PetBonusType.KID_BILL, isChange, gender);
     }
 
     public void createGokuSSJ4Vip(Player player, boolean isChange, byte gender) {
-        byte limitPower;
-        if (isChange) {
-            limitPower = player.pet.nPoint.limitPower;
-            if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-                player.pet.unFusion();
-            }
-            ChangeMapService.gI().exitMap(player.pet);
-            player.pet.dispose();
-            player.pet = null;
-        } else {
-            limitPower = 1;
-        }
-        new Thread(() -> {
-            try {
-                Pet pet = new Pet(player);
-                pet.name = "$Goku SSJ4";
-                pet.gender = gender;
-                pet.id = -player.id;
-                pet.nPoint.power = 1500000;
-                pet.typePet = 9;
-                pet.nPoint.stamina = 1000;
-                pet.nPoint.maxStamina = 1000;
-                pet.nPoint.hpg = 5000;
-                pet.nPoint.mpg = 5000;
-                pet.nPoint.dameg = 320;
-                pet.nPoint.defg = 250;
-                pet.nPoint.critg = 25;
-                for (int i = 0; i < 7; i++) {
-                    pet.inventory.itemsBody.add(ItemService.gI().createItemNull());
-                }
-                pet.playerSkill.skills.add(SkillUtil.createSkill(Util.nextInt(0, 2) * 2, 1));
-                for (int i = 0; i < 4; i++) {
-                    pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
-                }
-                pet.nPoint.setFullHpMp();
-                player.pet = pet;
-                ;
-                player.pet.nPoint.limitPower = limitPower;
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Đệ tử vip vãi nồi đây...");
-            } catch (Exception e) {
-            }
-        }).start();
+        createVipPet(player, PetFusionBonus.PetBonusType.GOKU_SSJ4, isChange, gender);
     }
 
+    // Simplified pet creation methods using the generic createPet method
     public void createNormalPet(Player player, int gender, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, false, false, false, (byte) gender);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Xin hãy thu nhận làm đệ tử");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.NORMAL, false, (byte) gender, limit);
     }
 
     public void createNormalPet(Player player, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, false, false, false);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Xin hãy thu nhận làm đệ tử");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.NORMAL, false, null, limit);
     }
 
     public void createMabuPet(Player player, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, true, false, false);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.gI().chatJustForMe(player, player.pet, "Oa oa oa...");
-            } catch (Exception e) {
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.MABU, false, null, limit);
     }
 
     public void createMabuPet(Player player, int gender, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, true, false, false, (byte) gender);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.gI().chatJustForMe(player, player.pet, "Oa oa oa...");
-            } catch (Exception e) {
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.MABU, false, (byte) gender, limit);
     }
 
     public void createBerusPet(Player player, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, false, true, false);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.BERUS, false, null, limit);
     }
 
     public void createBerusPet(Player player, int gender, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, false, true, false, (byte) gender);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.BERUS, false, (byte) gender, limit);
     }
 
     public void createBrolyPet(Player player, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet1(player, true, false, false);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, false, null, limit);
     }
 
     public void createBrolyPet(Player player, int gender, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet1(player, true, false, false, (byte) gender);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, false, (byte) gender, limit);
     }
 
     public void creatUbbPet(Player player, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet1(player, false, true, false);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.UBB, false, null, limit);
     }
 
     public void creatUbbPet(Player player, int gender, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet1(player, false, true, false, (byte) gender);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.UBB, false, (byte) gender, limit);
     }
 
     public void creatXenConPet(Player player, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet1(player, false, false, true);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.XEN_CON, false, null, limit);
     }
 
     public void creatXenConPet(Player player, int gender, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet1(player, false, false, true, (byte) gender);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.XEN_CON, false, (byte) gender, limit);
     }
 
     public void createPicPet(Player player, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, false, false, true);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Sư Phụ Broly hiện thân tụi mày quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, false, null, limit); // Note: Pic uses BROLY type
     }
 
     public void createPicPet(Player player, int gender, byte... limitPower) {
-        new Thread(() -> {
-            try {
-                createNewPet(player, false, false, true, (byte) gender);
-                if (limitPower != null && limitPower.length == 1) {
-                    player.pet.nPoint.limitPower = limitPower[0];
-                }
-                Thread.sleep(1000);
-                Service.getInstance().chatJustForMe(player, player.pet, "Sư Phụ Broly hiện thân tụi mày quỳ xuống...");
-            } catch (Exception e) {
-
-            }
-        }).start();
+        byte limit = (limitPower != null && limitPower.length > 0) ? limitPower[0] : 1;
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, false, (byte) gender, limit); // Note: Pic uses BROLY type
     }
 
     public void changeNormalPet(Player player, int gender) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createNormalPet(player, gender, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.NORMAL, true, (byte) gender, null);
     }
 
     public void changeNormalPet(Player player) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createNormalPet(player, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.NORMAL, true, null, null);
     }
 
     public void changeMabuPet(Player player) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createMabuPet(player, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.MABU, true, null, null);
     }
 
     public void changeMabuPet(Player player, int gender) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createMabuPet(player, gender, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.MABU, true, (byte) gender, null);
     }
 
     public void changeBerusPet(Player player) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createBerusPet(player, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.BERUS, true, null, null);
     }
 
     public void changeBerusPet(Player player, int gender) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createBerusPet(player, gender, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.BERUS, true, (byte) gender, null);
     }
 
     public void changeBrolyPet(Player player) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createBrolyPet(player, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, true, null, null);
     }
 
     public void changeBrolyPet(Player player, int gender) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createBrolyPet(player, gender, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, true, (byte) gender, null);
     }
 
     public void changeUbbPet(Player player) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        creatUbbPet(player, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.UBB, true, null, null);
     }
 
     public void changeUbbPet(Player player, int gender) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        creatUbbPet(player, gender, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.UBB, true, (byte) gender, null);
     }
 
     public void changeXenConPet(Player player) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        creatXenConPet(player, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.XEN_CON, true, null, null);
     }
 
     public void changeXenConPet(Player player, int gender) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        creatXenConPet(player, gender, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.XEN_CON, true, (byte) gender, null);
     }
 
     public void changePicPet(Player player) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createPicPet(player, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, true, null, null); // Note: Pic uses BROLY type
     }
 
     public void changePicPet(Player player, int gender) {
-        byte limitPower = player.pet.nPoint.limitPower;
-        if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            player.pet.unFusion();
-        }
-        ChangeMapService.gI().exitMap(player.pet);
-        player.pet.dispose();
-        player.pet = null;
-        createPicPet(player, gender, limitPower);
+        createPet(player, PetFusionBonus.PetBonusType.BROLY, true, (byte) gender, null); // Note: Pic uses BROLY type
     }
 
     public void changeNamePet(Player player, String name) {
@@ -670,7 +420,7 @@ public class PetService {
         pet.gender = (gender != null && gender.length != 0) ? gender[0] : (byte) Util.nextInt(0, 2);
         pet.id = -player.id;
         pet.nPoint.power = isMabu || isBerus || isPic ? 1500000 : 2000;
-        pet.typePet = (byte) (isMabu ? 1 : isBerus ? 2 : isPic ? 3 : 0);
+        pet.typePet = (byte) (isMabu ? ConstPlayer.PET_MABU : isBerus ? ConstPlayer.PET_BERUS : isPic ? ConstPlayer.PET_BROLY : ConstPlayer.PET_NORMAL);
         pet.nPoint.stamina = 1000;
         pet.nPoint.maxStamina = 1000;
         pet.nPoint.hpg = data[0];
@@ -696,7 +446,7 @@ public class PetService {
         pet.gender = (gender != null && gender.length != 0) ? gender[0] : (byte) Util.nextInt(0, 2);
         pet.id = -player.id;
         pet.nPoint.power = isBroly || isUbb || isXencon ? 1500000 : 2000;
-        pet.typePet = (byte) (isBroly ? 3 : isUbb ? 4 : isXencon ? 5 : 0);
+        pet.typePet = (byte) (isBroly ? ConstPlayer.PET_BROLY : isUbb ? ConstPlayer.PET_UBB : isXencon ? ConstPlayer.PET_XEN_CON : ConstPlayer.PET_NORMAL);
         pet.nPoint.stamina = 1000;
         pet.nPoint.maxStamina = 1000;
         pet.nPoint.hpg = data[0];
