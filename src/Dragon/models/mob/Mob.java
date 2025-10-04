@@ -567,20 +567,13 @@ public class Mob {
             if (player == null) {
                 return new ArrayList<>();
             }
-            if (zone.map.mapId == 9999 && Util.isTrue(1, 100)) {
-                Item mts = ItemService.gI().createNewItem((short) (1066 + Util.nextInt(5)), 1);
+                int mapId = player.zone.map.mapId;
+                int quantity = Math.max(1, mapId / 5); 
+                
+                Item mts = ItemService.gI().createNewItem((short) 1004, quantity);
                 InventoryServiceNew.gI().addItemBag(player, mts);
                 InventoryServiceNew.gI().sendItemBags(player);
-                Service.gI().sendThongBao(player, "Bạn vừa nhận được x1" + mts.template.name);
-            }
-            if (zone.map.mapId == 9999) {
-                if (Util.isTrue(50, 100)) {
-                    Item mts = ItemService.gI().createNewItem((short) Util.nextInt(1545, 1559));
-                    InventoryServiceNew.gI().addItemBag(player, mts);
-                    InventoryServiceNew.gI().sendItemBags(player);
-                    Service.gI().sendThongBao(player, "Bạn vừa nhận được x1" + mts.template.name);
-                }
-            }
+                Service.gI().sendThongBao(player, "Bạn vừa nhận được x" + quantity + " " + mts.template.name);
             if (Util.isTrue(50, 100)) {
                 if (player.setClothes.godClothes && MapService.gI().isMapCold(player.zone.map)) {
                     ArrietyDrop.DropItemReWard(player,
