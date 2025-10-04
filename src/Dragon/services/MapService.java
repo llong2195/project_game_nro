@@ -21,6 +21,15 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import com.girlkun.database.GirlkunDB;
+import Dragon.models.Template.MapTemplate;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
+import Dragon.server.Client;
+import Dragon.services.Service;
 
 public class MapService {
 
@@ -96,13 +105,6 @@ public class MapService {
     }
 
     public Zone getMapCanJoin(Player player, int mapId, int zoneId) {
-//        if (player.getSession() != null && player.isAdmin()) {
-//            if (zoneId == -1) {
-//                return getRandomZoneByMapID(mapId);
-//            } else {
-//                return getZoneByMapIDAndZoneID(mapId, zoneId);
-//            }
-//        }
         if (isMapOffline(mapId)) {
             return getMapById(mapId).zones.get(0);
         }
@@ -458,5 +460,133 @@ public class MapService {
 
     public boolean isMapTrainOff(Player pl, int mapId) {
         return mapId == 46 || mapId == 47 || mapId == 29 || mapId == 48 || mapId == 50 || mapId == 154;
+    }
+
+    /**
+     * Refresh map cache by reloading map templates from database
+     * Extracted from Manager.loadDatabase() for better separation of concerns
+     */
+    public void refreshMapCache() throws Exception {
+        Connection con = GirlkunDB.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            // Clear old cache first
+            Manager.MAP_TEMPLATES = null;
+            
+            loadMapTemplates(con);
+            Logger.log(Logger.GREEN, "[REFRESH] MAP TEMPLATES(" + Manager.MAP_TEMPLATES.length + ") cache refreshed successfully\n");
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        }
+    }
+
+    /**
+     * Load map templates from database
+     * Extracted from Manager.loadDatabase() for better separation of concerns
+     */
+    public static void loadMapTemplates(Connection con) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        JSONArray dataArray = null;
+        Object jv = JSONValue.parse("");
+        
+        try {
+            // load map template
+            ps = con.prepareStatement("select count(id) from map_template");
+            rs = ps.executeQuery();
+            if (rs.first()) {
+                int countRow = rs.getShort(1);
+                Manager.MAP_TEMPLATES = new MapTemplate[countRow];
+                ps = con.prepareStatement("select * from map_template");
+                rs = ps.executeQuery();
+                short i = 0;
+                while (rs.next()) {
+                    MapTemplate mapTemplate = new MapTemplate();
+                    int mapId = rs.getInt("id");
+                    String mapName = rs.getString("name");
+                    mapTemplate.id = mapId;
+                    mapTemplate.name = mapName;
+                    // load data
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("data"));
+                    mapTemplate.type = Byte.parseByte(String.valueOf(dataArray.get(0)));
+                    mapTemplate.planetId = Byte.parseByte(String.valueOf(dataArray.get(1)));
+                    mapTemplate.bgType = Byte.parseByte(String.valueOf(dataArray.get(2)));
+                    mapTemplate.tileId = Byte.parseByte(String.valueOf(dataArray.get(3)));
+                    mapTemplate.bgId = Byte.parseByte(String.valueOf(dataArray.get(4)));
+                    dataArray.clear();
+                    ///////////////////////////////////////////////////////////////////
+                    mapTemplate.type = rs.getByte("type");
+                    mapTemplate.planetId = rs.getByte("planet_id");
+                    mapTemplate.bgType = rs.getByte("bg_type");
+                    mapTemplate.tileId = rs.getByte("tile_id");
+                    mapTemplate.bgId = rs.getByte("bg_id");
+                    mapTemplate.zones = rs.getByte("zones");
+                    mapTemplate.maxPlayerPerZone = rs.getByte("max_player");
+                    // load waypoints
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("waypoints")
+                            .replaceAll("\\[\"\\[", "[[")
+                            .replaceAll("\\]\"\\]", "]]")
+                            .replaceAll("\",\"", ","));
+                    for (int j = 0; j < dataArray.size(); j++) {
+                        WayPoint wp = new WayPoint();
+                        JSONArray dtwp = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
+                        wp.name = String.valueOf(dtwp.get(0));
+                        wp.minX = Short.parseShort(String.valueOf(dtwp.get(1)));
+                        wp.minY = Short.parseShort(String.valueOf(dtwp.get(2)));
+                        wp.maxX = Short.parseShort(String.valueOf(dtwp.get(3)));
+                        wp.maxY = Short.parseShort(String.valueOf(dtwp.get(4)));
+                        wp.isEnter = Byte.parseByte(String.valueOf(dtwp.get(5))) == 1;
+                        wp.isOffline = Byte.parseByte(String.valueOf(dtwp.get(6))) == 1;
+                        wp.goMap = Short.parseShort(String.valueOf(dtwp.get(7)));
+                        wp.goX = Short.parseShort(String.valueOf(dtwp.get(8)));
+                        wp.goY = Short.parseShort(String.valueOf(dtwp.get(9)));
+                        mapTemplate.wayPoints.add(wp);
+                        dtwp.clear();
+                    }
+                    dataArray.clear();
+                    // load mobs
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("mobs").replaceAll("\\\"", ""));
+                    mapTemplate.mobTemp = new byte[dataArray.size()];
+                    mapTemplate.mobLevel = new byte[dataArray.size()];
+                    mapTemplate.mobHp = new double[dataArray.size()];
+                    mapTemplate.mobX = new short[dataArray.size()];
+                    mapTemplate.mobY = new short[dataArray.size()];
+                    for (int j = 0; j < dataArray.size(); j++) {
+                        JSONArray dtm = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
+                        mapTemplate.mobTemp[j] = Byte.parseByte(String.valueOf(dtm.get(0)));
+                        mapTemplate.mobLevel[j] = Byte.parseByte(String.valueOf(dtm.get(1)));
+                        // phước, chỉnh máu quái lên chục K tỷ
+                        mapTemplate.mobHp[j] = (long) Long.parseLong(String.valueOf(dtm.get(2)));
+                        mapTemplate.mobX[j] = Short.parseShort(String.valueOf(dtm.get(3)));
+                        mapTemplate.mobY[j] = Short.parseShort(String.valueOf(dtm.get(4)));
+                        dtm.clear();
+                    }
+                    dataArray.clear();
+                    // load npcs
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("npcs").replaceAll("\\\"", ""));
+                    mapTemplate.npcId = new byte[dataArray.size()];
+                    mapTemplate.npcX = new short[dataArray.size()];
+                    mapTemplate.npcY = new short[dataArray.size()];
+                    for (int j = 0; j < dataArray.size(); j++) {
+                        JSONArray dtn = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
+                        mapTemplate.npcId[j] = Byte.parseByte(String.valueOf(dtn.get(0)));
+                        mapTemplate.npcX[j] = Short.parseShort(String.valueOf(dtn.get(1)));
+                        mapTemplate.npcY[j] = Short.parseShort(String.valueOf(dtn.get(2)));
+                        dtn.clear();
+                    }
+                    dataArray.clear();
+                    Manager.MAP_TEMPLATES[i++] = mapTemplate;
+                }
+                Logger.log(Logger.GREEN, "[DONE] MAPTEMPLATE(" + Manager.MAP_TEMPLATES.length + ")\n");
+                Manager.RUBY_REWARDS.add(Util.sendDo(861, 0, new ArrayList<>()));
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+        }
     }
 }

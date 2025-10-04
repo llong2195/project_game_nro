@@ -718,6 +718,9 @@ public class ShopServiceNew {
     public void refreshShopCache() throws Exception {
         Connection con = GirlkunDB.getConnection();
         try {
+            // Clear old cache first
+            Manager.SHOPS.clear();
+            
             Manager.SHOPS = ShopDAO.getShops(con);
             Logger.log(Logger.GREEN, "[REFRESH] SHOP(" + Manager.SHOPS.size() + ") cache refreshed successfully\n");
         } finally {

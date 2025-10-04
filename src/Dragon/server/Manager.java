@@ -649,7 +649,6 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] MAPITEMOPTION(" + ITEM_OPTION_TEMPLATES.size() + ")\n");
 
-            // load shop using ShopServiceNew
             SHOPS = ShopDAO.getShops(con);
             Logger.log(Logger.GREEN, "[DONE] SHOP(" + SHOPS.size() + ")\n");
 
@@ -861,96 +860,8 @@ public class Manager {
                 Archivement_TEMPLATES.add(a);
             }
             Logger.log(Logger.GREEN, "[DONE] ARCHIVE(" + Archivement_TEMPLATES.size() + ")\n");
-            // load map template
-            ps = con.prepareStatement("select count(id) from map_template");
-            rs = ps.executeQuery();
-            if (rs.first()) {
-                int countRow = rs.getShort(1);
-                MAP_TEMPLATES = new MapTemplate[countRow];
-                ps = con.prepareStatement("select * from map_template");
-                rs = ps.executeQuery();
-                short i = 0;
-                while (rs.next()) {
-                    MapTemplate mapTemplate = new MapTemplate();
-                    int mapId = rs.getInt("id");
-                    String mapName = rs.getString("name");
-                    mapTemplate.id = mapId;
-                    mapTemplate.name = mapName;
-                    // load data
-
-                    dataArray = (JSONArray) jv.parse(rs.getString("data"));
-                    mapTemplate.type = Byte.parseByte(String.valueOf(dataArray.get(0)));
-                    mapTemplate.planetId = Byte.parseByte(String.valueOf(dataArray.get(1)));
-                    mapTemplate.bgType = Byte.parseByte(String.valueOf(dataArray.get(2)));
-                    mapTemplate.tileId = Byte.parseByte(String.valueOf(dataArray.get(3)));
-                    mapTemplate.bgId = Byte.parseByte(String.valueOf(dataArray.get(4)));
-                    dataArray.clear();
-                    ///////////////////////////////////////////////////////////////////
-                    mapTemplate.type = rs.getByte("type");
-                    mapTemplate.planetId = rs.getByte("planet_id");
-                    mapTemplate.bgType = rs.getByte("bg_type");
-                    mapTemplate.tileId = rs.getByte("tile_id");
-                    mapTemplate.bgId = rs.getByte("bg_id");
-                    mapTemplate.zones = rs.getByte("zones");
-                    mapTemplate.maxPlayerPerZone = rs.getByte("max_player");
-                    // load waypoints
-                    dataArray = (JSONArray) jv.parse(rs.getString("waypoints")
-                            .replaceAll("\\[\"\\[", "[[")
-                            .replaceAll("\\]\"\\]", "]]")
-                            .replaceAll("\",\"", ","));
-                    for (int j = 0; j < dataArray.size(); j++) {
-                        WayPoint wp = new WayPoint();
-                        JSONArray dtwp = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
-                        wp.name = String.valueOf(dtwp.get(0));
-                        wp.minX = Short.parseShort(String.valueOf(dtwp.get(1)));
-                        wp.minY = Short.parseShort(String.valueOf(dtwp.get(2)));
-                        wp.maxX = Short.parseShort(String.valueOf(dtwp.get(3)));
-                        wp.maxY = Short.parseShort(String.valueOf(dtwp.get(4)));
-                        wp.isEnter = Byte.parseByte(String.valueOf(dtwp.get(5))) == 1;
-                        wp.isOffline = Byte.parseByte(String.valueOf(dtwp.get(6))) == 1;
-                        wp.goMap = Short.parseShort(String.valueOf(dtwp.get(7)));
-                        wp.goX = Short.parseShort(String.valueOf(dtwp.get(8)));
-                        wp.goY = Short.parseShort(String.valueOf(dtwp.get(9)));
-                        mapTemplate.wayPoints.add(wp);
-                        dtwp.clear();
-                    }
-                    dataArray.clear();
-                    // load mobs
-                    dataArray = (JSONArray) jv.parse(rs.getString("mobs").replaceAll("\\\"", ""));
-                    mapTemplate.mobTemp = new byte[dataArray.size()];
-                    mapTemplate.mobLevel = new byte[dataArray.size()];
-                    mapTemplate.mobHp = new double[dataArray.size()];
-                    mapTemplate.mobX = new short[dataArray.size()];
-                    mapTemplate.mobY = new short[dataArray.size()];
-                    for (int j = 0; j < dataArray.size(); j++) {
-                        JSONArray dtm = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
-                        mapTemplate.mobTemp[j] = Byte.parseByte(String.valueOf(dtm.get(0)));
-                        mapTemplate.mobLevel[j] = Byte.parseByte(String.valueOf(dtm.get(1)));
-                        // phước, chỉnh máu quái lên chục K tỷ
-                        mapTemplate.mobHp[j] = (long) Long.parseLong(String.valueOf(dtm.get(2)));
-                        mapTemplate.mobX[j] = Short.parseShort(String.valueOf(dtm.get(3)));
-                        mapTemplate.mobY[j] = Short.parseShort(String.valueOf(dtm.get(4)));
-                        dtm.clear();
-                    }
-                    dataArray.clear();
-                    // load npcs
-                    dataArray = (JSONArray) jv.parse(rs.getString("npcs").replaceAll("\\\"", ""));
-                    mapTemplate.npcId = new byte[dataArray.size()];
-                    mapTemplate.npcX = new short[dataArray.size()];
-                    mapTemplate.npcY = new short[dataArray.size()];
-                    for (int j = 0; j < dataArray.size(); j++) {
-                        JSONArray dtn = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
-                        mapTemplate.npcId[j] = Byte.parseByte(String.valueOf(dtn.get(0)));
-                        mapTemplate.npcX[j] = Short.parseShort(String.valueOf(dtn.get(1)));
-                        mapTemplate.npcY[j] = Short.parseShort(String.valueOf(dtn.get(2)));
-                        dtn.clear();
-                    }
-                    dataArray.clear();
-                    MAP_TEMPLATES[i++] = mapTemplate;
-                }
-                Logger.log(Logger.GREEN, "[DONE] MAPTEMPLATE(" + MAP_TEMPLATES.length + ")\n");
-                RUBY_REWARDS.add(Util.sendDo(861, 0, new ArrayList<>()));
-            }
+            // Load map templates using MapService
+            MapService.loadMapTemplates(con);
             ps = con.prepareStatement("select * from radar");
             rs = ps.executeQuery();
             while (rs.next()) {

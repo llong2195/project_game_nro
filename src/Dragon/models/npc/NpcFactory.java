@@ -9339,7 +9339,18 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Lỗi khi cập nhật Mob Cache!");
                                 }
                                 break;
-                            case 5: // Reload All Cache
+                            case 5: // Update Map Cache
+                                try {
+                                    Dragon.utils.Logger.log("Player " + player.name + ": Refreshing Map Cache...");
+                                    Dragon.services.MapService.gI().refreshMapCache();
+                                    Dragon.utils.Logger.log("Map Cache refreshed successfully!");
+                                    Service.gI().sendThongBao(player, "Map Cache đã được cập nhật thành công!");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Service.gI().sendThongBao(player, "Lỗi khi cập nhật Map Cache!");
+                                }
+                                break;
+                            case 6: // Reload All Cache
                                 try {
                                     Dragon.utils.Logger.log("Player " + player.name + ": Reloading ALL caches...");
                                     // Boss Cache
@@ -9353,6 +9364,8 @@ public class NpcFactory {
                                     Dragon.services.TaskService.gI().refreshTaskCache();
                                     // Mob Cache
                                     Dragon.jdbc.daos.MobRewardService.getInstance().refreshCache();
+                                    // Map Cache
+                                    Dragon.services.MapService.gI().refreshMapCache();
                                     Dragon.utils.Logger.log("ALL caches reloaded successfully!");
                                     Service.gI().sendThongBao(player, "Tất cả Cache đã được reload thành công!");
                                 } catch (Exception e) {

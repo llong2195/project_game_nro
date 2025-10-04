@@ -404,7 +404,7 @@ public class AdminCommandHandler {
 
         NpcService.gI().createMenuConMeo(player, 21588, 21587,
                 menuText,
-                "Cập nhật Boss Cache", "Cập nhật Gift Cache", "Cập nhật Shop Cache", "Cập nhật Task Cache", "Cập nhật Mob Cache", "Tải lại tất cả Cache");
+                "Cập nhật Boss Cache", "Cập nhật Gift Cache", "Cập nhật Shop Cache", "Cập nhật Task Cache", "Cập nhật Mob Cache", "Cập nhật Map Cache", "Tải lại tất cả Cache");
     }
      
     public void showAdminMenu(Player player) {
