@@ -80,7 +80,6 @@ public class NpcFactory {
     private static boolean nhanVang = false;
     private static boolean nhanDeTu = false;
 
-    // playerid - object
     public static final java.util.Map<Long, Object> PLAYERID_OBJECT = new HashMap<Long, Object>();
 
     private NpcFactory() {
@@ -9278,7 +9277,88 @@ public class NpcFactory {
                                 }
                                 break;
                             case 4:
-                                Input.gI().createFormNapCoin(player);
+                                AdminCommandHandler.gI().showUpdateCache(player);
+                                break;
+                        }
+                        break;
+                    case 21588: // Cache Update Menu
+                        switch (select) {
+                            case 0: // Update Boss Cache
+                                try {
+                                    Dragon.utils.Logger.log("Player " + player.name + ": Refreshing Boss Reward Cache...");
+                                    Dragon.jdbc.daos.BossRewardService.getInstance().refreshCache();
+                                    Dragon.utils.Logger.log("Boss Reward Cache refreshed successfully!");
+                                    Service.gI().sendThongBao(player, "Boss Cache đã được cập nhật thành công!");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Service.gI().sendThongBao(player, "Lỗi khi cập nhật Boss Cache!");
+                                }
+                                break;
+                            case 1: // Update Gift Cache
+                                try {
+                                    Dragon.utils.Logger.log("Player " + player.name + ": Reloading Gift Codes from database...");
+                                    Dragon.jdbc.daos.GiftCodeCache.getInstance().clearCache();
+                                    Dragon.jdbc.daos.GiftCodeCache.getInstance().initializeCache();
+                                    Dragon.utils.Logger.log("Gift Codes reloaded successfully!");
+                                    Service.gI().sendThongBao(player, "Gift Code Cache đã được reload thành công!");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Service.gI().sendThongBao(player, "Lỗi khi reload Gift Code Cache!");
+                                }
+                                break;
+                            case 2: // Update Shop Cache
+                                try {
+                                    Dragon.utils.Logger.log("Player " + player.name + ": Refreshing Shop Cache...");
+                                    Dragon.models.shop.ShopServiceNew.gI().refreshShopCache();
+                                    Dragon.utils.Logger.log("Shop Cache refreshed successfully!");
+                                    Service.gI().sendThongBao(player, "Shop Cache đã được cập nhật thành công!");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Service.gI().sendThongBao(player, "Lỗi khi cập nhật Shop Cache!");
+                                }
+                                break;
+                            case 3: // Update Task Cache
+                                try {
+                                    Dragon.utils.Logger.log("Player " + player.name + ": Refreshing Task Cache...");
+                                    Dragon.services.TaskService.gI().refreshTaskCache();
+                                    Dragon.utils.Logger.log("Task Cache refreshed successfully!");
+                                    Service.gI().sendThongBao(player, "Task Cache đã được cập nhật thành công!");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Service.gI().sendThongBao(player, "Lỗi khi cập nhật Task Cache!");
+                                }
+                                break;
+                            case 4: // Update Mob Cache
+                                try {
+                                    Dragon.utils.Logger.log("Player " + player.name + ": Refreshing Mob Reward Cache...");
+                                    Dragon.jdbc.daos.MobRewardService.getInstance().refreshCache();
+                                    Dragon.utils.Logger.log("Mob Reward Cache refreshed successfully!");
+                                    Service.gI().sendThongBao(player, "Mob Cache đã được cập nhật thành công!");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Service.gI().sendThongBao(player, "Lỗi khi cập nhật Mob Cache!");
+                                }
+                                break;
+                            case 5: // Reload All Cache
+                                try {
+                                    Dragon.utils.Logger.log("Player " + player.name + ": Reloading ALL caches...");
+                                    // Boss Cache
+                                    Dragon.jdbc.daos.BossRewardService.getInstance().refreshCache();
+                                    // Gift Cache
+                                    Dragon.jdbc.daos.GiftCodeCache.getInstance().clearCache();
+                                    Dragon.jdbc.daos.GiftCodeCache.getInstance().initializeCache();
+                                    // Shop Cache
+                                    Dragon.models.shop.ShopServiceNew.gI().refreshShopCache();
+                                    // Task Cache
+                                    Dragon.services.TaskService.gI().refreshTaskCache();
+                                    // Mob Cache
+                                    Dragon.jdbc.daos.MobRewardService.getInstance().refreshCache();
+                                    Dragon.utils.Logger.log("ALL caches reloaded successfully!");
+                                    Service.gI().sendThongBao(player, "Tất cả Cache đã được reload thành công!");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Service.gI().sendThongBao(player, "Lỗi khi reload tất cả Cache!");
+                                }
                                 break;
                         }
                         break;

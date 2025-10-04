@@ -515,8 +515,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     @Override
     public void reward(Player plKill) {
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-
-        // Handle SQL-based boss drops
         handleSqlBossDrops(plKill);
     }
 

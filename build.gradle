@@ -75,6 +75,10 @@ application {
     ]
 }
 
+tasks.named('run') {
+    standardInput = System.in
+}
+
 // Create a fat jar to run without Gradle
 tasks.register('fatJar', Jar) {
     archiveClassifier = 'all'

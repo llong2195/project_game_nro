@@ -19,6 +19,10 @@ import Dragon.server.Manager;
 import com.girlkun.network.io.Message;
 import Dragon.utils.Logger;
 import Dragon.utils.Util;
+import com.girlkun.database.GirlkunDB;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class TaskService {
 
@@ -562,6 +566,79 @@ public class TaskService {
         } else {
             Service.gI().sendThongBao(player, "Chúc Mừng Bạn Đã Hoàn Thành Nhiệm Vụ, "
                     + "Bây Giờ Hãy Quay Về Bò Mộng Trả Nhiệm Vụ.");
+        }
+    }
+
+    /**
+     * Load task templates from database
+     * Extracted from Manager.loadDatabase() for better separation of concerns
+     */
+    public static void loadTaskTemplates(Connection con) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            // Load main task templates
+            ps = con.prepareStatement("SELECT id, NAME, detail FROM task_main_template ORDER BY id");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                TaskMain task = new TaskMain();
+                task.id = rs.getInt("id");
+                task.name = rs.getString("NAME");
+                task.detail = rs.getString("detail");
+                Manager.TASKS_TEMPLATE.add(task);
+            }
+            
+            // Load task requirements and build sub tasks
+            ps = con.prepareStatement(
+                    "SELECT task_main_id, task_sub_id, MAX(target_count) AS max_target "
+                    + "FROM task_requirements WHERE is_active = TRUE "
+                    + "GROUP BY task_main_id, task_sub_id ORDER BY task_main_id, task_sub_id");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int mainIdReq = rs.getInt("task_main_id");
+                int maxTarget = rs.getInt("max_target");
+                TaskMain tmFound = null;
+                for (TaskMain tm : Manager.TASKS_TEMPLATE) {
+                    if (tm.id == mainIdReq) {
+                        tmFound = tm;
+                        break;
+                    }
+                }
+                if (tmFound == null) {
+                    continue;
+                }
+
+                SubTaskMain subTask = new SubTaskMain();
+                subTask.name = "Nhiệm vụ";
+                subTask.notify = "";
+                subTask.npcId = (byte) -1;
+                subTask.mapId = (short) -1;
+                subTask.maxCount = (short) Math.max(0, maxTarget);
+                tmFound.subTasks.add(subTask);
+            }
+            Logger.log(Logger.GREEN,
+                    "[DONE] TASK(" + Manager.TASKS_TEMPLATE.size() + ") built from task_main_template + task_requirements\n");
+                    
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+        }
+    }
+
+    /**
+     * Refresh task cache by reloading task templates from database
+     */
+    public void refreshTaskCache() throws Exception {
+        Manager.TASKS_TEMPLATE.clear();
+        Manager.SIDE_TASKS_TEMPLATE.clear();
+        
+        Connection con = GirlkunDB.getConnection();
+        try {
+            loadTaskTemplates(con);
+            Logger.log(Logger.GREEN, "[REFRESH] Task cache refreshed successfully\n");
+        } finally {
+            if (con != null) con.close();
         }
     }
 }

@@ -59,8 +59,8 @@ public class DatabaseAutoMigration {
         DOTHANLINH("dothanlinh", "INT DEFAULT 0"),
         
         // New statistics columns
-        TOTAL_KILL_MOBS("total_kill_mobs", "INT DEFAULT 0"),
-        TOTAL_KILL_BOSS("total_kill_boss", "INT DEFAULT 0"),
+        TOTAL_KILL_MOBS("point_kill_mobs", "INT DEFAULT 0"),
+        TOTAL_KILL_BOSS("point_kill_boss", "INT DEFAULT 0"),
         PVP_WINS("pvp_wins", "INT DEFAULT 0"),
         PVP_LOSSES("pvp_losses", "INT DEFAULT 0"),
         

@@ -12,8 +12,11 @@ import Dragon.services.Service;
 import Dragon.services.func.TransactionService;
 import Dragon.utils.Logger;
 import Dragon.utils.Util;
+import Dragon.jdbc.daos.ShopDAO;
+import com.girlkun.database.GirlkunDB;
 
 import java.util.List;
+import java.sql.Connection;
 
 public class ShopServiceNew {
 
@@ -706,5 +709,19 @@ public class ShopServiceNew {
                 break;
         }
         openShopType5(player, player.iDMark.getTagNameShop(), items);
+    }
+
+    /**
+     * Refresh shop cache by reloading shops from database
+     * Extracted from Manager.loadDatabase() for better separation of concerns
+     */
+    public void refreshShopCache() throws Exception {
+        Connection con = GirlkunDB.getConnection();
+        try {
+            Manager.SHOPS = ShopDAO.getShops(con);
+            Logger.log(Logger.GREEN, "[REFRESH] SHOP(" + Manager.SHOPS.size() + ") cache refreshed successfully\n");
+        } finally {
+            if (con != null) con.close();
+        }
     }
 }

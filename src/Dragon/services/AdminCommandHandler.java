@@ -389,9 +389,26 @@ public class AdminCommandHandler {
     /**
      * Hiển thị menu admin với format thông tin chi tiết
      */
-    private void showAdminMenu(Player player) {
+    
+    public void showUpdateCache(Player player){
         SystemInfoService systemInfo = SystemInfoService.gI();
-        
+        int playerCount = Client.gI().getPlayers().size();
+        int threadCount = Thread.activeCount() - ServerManager.gI().threadMap;
+        int sessionCount = GirlkunSessionManager.gI().getSessions().size();
+
+        String menuText = "=== MENU CẬP NHẬT CACHE ===\n" +
+                "Players: " + playerCount + " | Thread: " + threadCount + " | Session: " + sessionCount + "\n" +
+                "CPU: " + systemInfo.getCpuUsageString() + "/100% | RAM: " + systemInfo.getUsedMemoryGB() + "/" + systemInfo.getTotalMemoryGB() + "GB\n" +
+                "Host: " + systemInfo.getHostname() + " (" + systemInfo.getHostIP() + ")\n" +
+                "Khởi động: " + ServerManager.timeStart;
+
+        NpcService.gI().createMenuConMeo(player, 21588, 21587,
+                menuText,
+                "Cập nhật Boss Cache", "Cập nhật Gift Cache", "Cập nhật Shop Cache", "Cập nhật Task Cache", "Cập nhật Mob Cache", "Tải lại tất cả Cache");
+    }
+     
+    public void showAdminMenu(Player player) {
+        SystemInfoService systemInfo = SystemInfoService.gI();
         // Lấy thông tin cơ bản
         int playerCount = Client.gI().getPlayers().size();
         int threadCount = Thread.activeCount() - ServerManager.gI().threadMap;
@@ -411,12 +428,10 @@ public class AdminCommandHandler {
         
         NpcService.gI().createMenuConMeo(player, Dragon.consts.ConstNpc.MENU_ADMIN, 21587,
                 menuText,
-                "Menu Admin", "Call Boss", "Buff Item", "GIFTCODE", "Nạp", "Đóng");
+                "Menu Admin", "Call Boss", "Buff Item", "GIFTCODE", "Update Cache", "Đóng");
     }
     
-    /**
-     * Hiển thị menu bot
-     */
+ 
     private void showBotMenu(Player player) {
         NpcService.gI().createMenuConMeo(player, 206783, 206783, "|7| Menu bot\n"
                 + "Player Online : " + Client.gI().getPlayers().size() + "\n"

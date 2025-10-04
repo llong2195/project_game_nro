@@ -1112,10 +1112,6 @@ public class PlayerDataLoader {
                     : (player.gender == ConstPlayer.NAMEC ? Skill.DEMON : Skill.GALICK));
         }
     }
-
-    /**
-     * Load point kill data
-     */
     private static void loadPointKillData(Player player, GirlkunResultSet rs) throws Exception {
         player.point_kill_mobs = rs.getInt("point_kill_mobs");
         player.point_kill_boss = rs.getInt("point_kill_boss");

@@ -566,44 +566,8 @@ public class Manager {
                 INTRINSICS.add(intrinsic);
             }
             Logger.log(Logger.GREEN, "[DONE] INTRINSIC(" + INTRINSICS.size() + ")\n");
-            ps = con.prepareStatement("SELECT id, NAME, detail FROM task_main_template ORDER BY id");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                TaskMain task = new TaskMain();
-                task.id = rs.getInt("id");
-                task.name = rs.getString("NAME");
-                task.detail = rs.getString("detail");
-                TASKS_TEMPLATE.add(task);
-            }
-            ps = con.prepareStatement(
-                    "SELECT task_main_id, task_sub_id, MAX(target_count) AS max_target "
-                    + "FROM task_requirements WHERE is_active = TRUE "
-                    + "GROUP BY task_main_id, task_sub_id ORDER BY task_main_id, task_sub_id");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int mainIdReq = rs.getInt("task_main_id");
-                int maxTarget = rs.getInt("max_target");
-                TaskMain tmFound = null;
-                for (TaskMain tm : TASKS_TEMPLATE) {
-                    if (tm.id == mainIdReq) {
-                        tmFound = tm;
-                        break;
-                    }
-                }
-                if (tmFound == null) {
-                    continue;
-                }
-
-                SubTaskMain subTask = new SubTaskMain();
-                subTask.name = "Nhiệm vụ";
-                subTask.notify = "";
-                subTask.npcId = (byte) -1;
-                subTask.mapId = (short) -1;
-                subTask.maxCount = (short) Math.max(0, maxTarget);
-                tmFound.subTasks.add(subTask);
-            }
-            Logger.log(Logger.GREEN,
-                    "[DONE] TASK(" + TASKS_TEMPLATE.size() + ") built from task_main_template + task_requirements\n");
+            // Load task templates using TaskService
+            TaskService.loadTaskTemplates(con);
 
             // load side task
             ps = con.prepareStatement("select * from side_task_template");
@@ -685,7 +649,7 @@ public class Manager {
             }
             Logger.log(Logger.GREEN, "[DONE] MAPITEMOPTION(" + ITEM_OPTION_TEMPLATES.size() + ")\n");
 
-            // load shop
+            // load shop using ShopServiceNew
             SHOPS = ShopDAO.getShops(con);
             Logger.log(Logger.GREEN, "[DONE] SHOP(" + SHOPS.size() + ")\n");
 
