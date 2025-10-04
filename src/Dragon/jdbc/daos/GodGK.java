@@ -113,7 +113,7 @@ public class GodGK {
             session.vip5d = false;
             session.vip6d = false;
             session.tongnap = 0;
-            session.vnd = 0;
+            session.vnd = rsAcc.getInt("vnd");
             session.mocnap = 0;
             session.gioithieu = 0;
             session.goldBar = 0;

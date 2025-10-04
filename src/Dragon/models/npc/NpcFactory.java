@@ -1345,8 +1345,6 @@ public class NpcFactory {
             }
         };
     }
-    // Input.gI().createFormChangePassword(player);
-
     public static Npc ongGohan_ongMoori_ongParagus(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             private static final int MAP_ID_FUTURE = 2;
@@ -1401,7 +1399,7 @@ public class NpcFactory {
                         .toString();
 
                 this.createOtherMenu(player, ConstNpc.BASE_MENU, menuMessage,
-                        "Đổi\nMật Khẩu", "Nhận Đệ Tử", "BXH\nSức Mạnh", "Đổi Tiền", "GiftCode", "Đóng");
+                        "Đổi\nMật Khẩu", "Nhận Đệ Tử", "Đổi Tiền", "GiftCode", "Đóng");
             }
 
             private void createStarterMenu(Player player, String activeStatus) {
@@ -1437,12 +1435,9 @@ public class NpcFactory {
                         handleDiscipleRequest(player);
                         break;
                     case 2:
-                        Util.showListTop(player, (byte) 0);
-                        break;
-                    case 3:
                         showMoneyExchangeMenu(player);
                         break;
-                    case 4:
+                    case 3:
                         Input.gI().createFormGiftCode(player);
                         break;
                 }
@@ -1466,13 +1461,13 @@ public class NpcFactory {
                 String exchangeRateInfo = new StringBuilder()
                         .append("|7|Số Tiền Của Bạn Còn: ").append(player.getSession().vnd).append(" VNĐ\n")
                         .append("Muốn Quy Đổi Không?\n")
-                        .append("1 Đồng Vàng = 10K Vàng")
+                        .append("Tỉ lệ: 10K VNĐ = 20K Hồng Ngọc")
                         .toString();
 
                 this.createOtherMenu(player, ConstNpc.QUY_DOI, exchangeRateInfo,
-                        "10K VNĐ\n10 Đồng", "50K VNĐ\n50 Đồng",
-                        "100K VNĐ\n100 Đồng", "200K VNĐ\n200 Đồng",
-                        "300K VNĐ\n350 Đồng", "500K VNĐ\n650 Đồng", "Đóng");
+                        "10K VNĐ\n20K Hồng Ngọc", "50K VNĐ\n100K Hồng Ngọc",
+                        "100K VNĐ\n200K Hồng Ngọc", "200K VNĐ\n400K Hồng Ngọc",
+                        "300K VNĐ\n600K Hồng Ngọc", "500K VNĐ\n1000K Hồng Ngọc", "Đóng");
                 player.iDMark.setIndexMenu(ConstNpc.QUY_DOI);
             }
 
@@ -1520,8 +1515,8 @@ public class NpcFactory {
 
             private void handleMoneyExchange(Player player, int select) {
                 final int[][] exchangeRates = {
-                    {10000, 10}, {50000, 50}, {100000, 100},
-                    {200000, 200}, {300000, 350}, {500000, 650}
+                    {10000, 20000}, {50000, 100000}, {100000, 200000},
+                    {200000, 400000}, {300000, 600000}, {500000, 1000000}
                 };
 
                 if (select < 0 || select >= exchangeRates.length) {
@@ -1543,7 +1538,7 @@ public class NpcFactory {
                 try (Connection con = GirlkunDB.getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE account SET vnd = ? WHERE id = ?")) {
 
                     player.getSession().vnd -= vndAmount;
-                    createAndSendDongVang(player, quantity);
+                    createAndSendHongNgoc(player, quantity);
 
                     ps.setInt(1, player.getSession().vnd);
                     ps.setInt(2, player.getSession().userId);
@@ -1552,6 +1547,12 @@ public class NpcFactory {
                 } catch (Exception e) {
                     Logger.logException(NpcFactory.class, e, "Lỗi Update VNĐ " + player.name);
                 }
+            }
+
+            private void createAndSendHongNgoc(Player player, int quantity) {
+                player.inventory.ruby = Math.min(player.inventory.ruby + quantity, 200000000);
+                Service.gI().sendMoney(player);
+                Service.gI().sendThongBao(player, "Bạn Nhận Được " + Dragon.utils.Util.numberToMoney(quantity) + " Hồng Ngọc");
             }
 
             private void createAndSendDongVang(Player player, int quantity) {
@@ -3834,12 +3835,6 @@ public class NpcFactory {
                     }
                 }
             }
-            // if (player.getSession().player.playerTask.taskMain.id >= 24) {
-            // ChangeMapService.gI().changeMapBySpaceShip(player, 109, -1, 295);
-            // } else {
-            // this.npcChat(player, "Hãy hoàn thành những nhiệm vụ trước đó");
-            // }
-
             @Override
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
@@ -3885,8 +3880,6 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 if (player.nPoint.power < 50000000000L) {
-                    // if (player.getSession().player.playerTask.taskMain.id >= 22) {
-                    // if (!player.getSession().actived) {
                     Service.gI().sendThongBao(player, "Yêu cầu sức mạnh là 50 tỉ !");
                 } else if (canOpenNpc(player)) {
                     if (this.mapId == 140) {
