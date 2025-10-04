@@ -73,7 +73,7 @@ public class ServerManager {
         NpcFactory.initializeNpcInstances();
         Manager.gI();
         try {
-            Dragon.jdbc.helpers.DatabaseAutoMigration.initializeOnServerStart();
+            // Dragon.jdbc.helpers.DatabaseAutoMigration.initializeOnServerStart();
         } catch (Exception ig) {}
         try {
             if (Manager.LOCAL) {

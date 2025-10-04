@@ -212,19 +212,11 @@ public class MySession extends Session {
             try {
                 this.uu = username;
                 this.pp = password;
-
                 player = GodGK.login(this, al);
                 if (player != null) {
-                    Logger.log("LOGIN: success user=" + username + ", playerId=" + player.id + ", ip=" + this.ipAddress
-                            + ", sessionId=" + this.id);
-                    
-                    // Check if player is already online BEFORE doing anything else
                     Player existingPlayer = Client.gI().getPlayerByUser(this.userId);
                     if (existingPlayer != null) {
-                        Logger.log("LOGIN: userId=" + this.userId + " đã online, tiến hành kick session cũ (playerName="
-                                + existingPlayer.name + ")");
                         Client.gI().kickSession(existingPlayer.getSession());
-                        // Wait a bit for cleanup
                         try {
                             Thread.sleep(200);
                         } catch (InterruptedException e) {
@@ -232,20 +224,15 @@ public class MySession extends Session {
                         }
                     }
 
-                    Logger.log("LOGIN: Setting up player data for user=" + username);
                     try {
-                        Logger.log("LOGIN: Sending smallVersion for user=" + username);
                         smallVersion.send(this);
-                        Logger.log("LOGIN: smallVersion sent successfully for user=" + username);
                     } catch (Exception e) {
                         Logger.error("LOGIN: Error sending smallVersion for user=" + username + ": " + e.getMessage());
                         throw e;
                     }
                     
                     try {
-                        Logger.log("LOGIN: Sending message -93 for user=" + username);
                         Service.gI().sendMessage(this, -93, "1630679752231_-93_r");
-                        Logger.log("LOGIN: Message -93 sent successfully for user=" + username);
                     } catch (Exception e) {
                         Logger.error("LOGIN: Error sending message -93 for user=" + username + ": " + e.getMessage());
                         throw e;
@@ -254,34 +241,27 @@ public class MySession extends Session {
                     this.timeWait = 1;
                     this.joinedGame = true;
                     
-                    Logger.log("LOGIN: Calculating points for user=" + username);
                     player.nPoint.calPoint();
                     player.nPoint.setHp((long) player.nPoint.hp);
                     player.nPoint.setMp((long) player.nPoint.mp);
                     
-                    Logger.log("LOGIN: Adding player to zone for user=" + username);
                     player.zone.addPlayer(player);
                     
                     if (player.pet != null) {
-                        Logger.log("LOGIN: Setting up pet for user=" + username);
                         player.pet.nPoint.calPoint();
                         player.pet.nPoint.setHp(player.pet.nPoint.hp);
                         player.pet.nPoint.setMp(player.pet.nPoint.mp);
                     }
 
-                    Logger.log("LOGIN: Setting session for user=" + username);
                     player.setSession(this);
 
-                    Logger.log("LOGIN: Adding player to Client for user=" + username);
                     Client.gI().put(player);
                     this.player = player;
                     
-                    Logger.log("LOGIN: Sending game data for user=" + username);
                     DataGame.sendVersionGame(this);
                     DataGame.sendDataItemBG(this);
                     Controller.getInstance().sendInfo(this);
-                    Service.gI().sendThongBao(player, "|30|Chào Bạn �?ến Với NROEvils");
-                    Logger.log("LOGIN: Login completed successfully for user=" + username);
+                    Service.gI().sendThongBao(player, "|30|Chào Bạn Đến Với Ngọc Rồng Đấu Phá");
                 }
             } catch (Exception e) {
                 Logger.logException(MySession.class, e,
