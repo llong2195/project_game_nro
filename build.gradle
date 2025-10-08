@@ -7,11 +7,11 @@ group = 'nrotuonglai'
 version = '1.0.0'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-    // Ensure builds use JDK 17 regardless of the JDK used to run Gradle
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    // Ensure builds use JDK 21 regardless of the JDK used to run Gradle
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
